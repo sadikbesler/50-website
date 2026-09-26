@@ -1,0 +1,7 @@
+# Promt dosyası yalnızca yerelde kalır
+claude-frontend-promt.md
+.DS_Store
+node_modules/
+*/_kaynak/indirilen/
+*/_kaynak/bin/
+diyetisyen-animasyon-v2/

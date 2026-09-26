@@ -1,0 +1,202 @@
+[
+  {
+    "name": "konsol 1440 /index.html",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "name": "taşma 1440 /index.html",
+    "ok": true,
+    "note": "scrollWidth 1440 / innerWidth 1440"
+  },
+  {
+    "name": "konsol 1440 /blog/index.html",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "name": "taşma 1440 /blog/index.html",
+    "ok": true,
+    "note": "scrollWidth 1440 / innerWidth 1440"
+  },
+  {
+    "name": "konsol 1440 /blog/akdeniz-tipi-beslenme.html",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "name": "taşma 1440 /blog/akdeniz-tipi-beslenme.html",
+    "ok": true,
+    "note": "scrollWidth 1440 / innerWidth 1440"
+  },
+  {
+    "name": "konsol 1440 /kvkk.html",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "name": "taşma 1440 /kvkk.html",
+    "ok": true,
+    "note": "scrollWidth 1440 / innerWidth 1440"
+  },
+  {
+    "name": "konsol 390 /index.html",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "name": "taşma 390 /index.html",
+    "ok": true,
+    "note": "scrollWidth 390 / innerWidth 390"
+  },
+  {
+    "name": "konsol 390 /blog/index.html",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "name": "taşma 390 /blog/index.html",
+    "ok": true,
+    "note": "scrollWidth 390 / innerWidth 390"
+  },
+  {
+    "name": "konsol 390 /blog/akdeniz-tipi-beslenme.html",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "name": "taşma 390 /blog/akdeniz-tipi-beslenme.html",
+    "ok": true,
+    "note": "scrollWidth 390 / innerWidth 390"
+  },
+  {
+    "name": "konsol 390 /kvkk.html",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "name": "taşma 390 /kvkk.html",
+    "ok": true,
+    "note": "scrollWidth 390 / innerWidth 390"
+  },
+  {
+    "name": "sözleşme seçicileri",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "name": "randevu: boş formda hata mesajları",
+    "ok": true,
+    "note": "4/4 hata mesajı"
+  },
+  {
+    "name": "randevu akışı (demo)",
+    "ok": true,
+    "note": "varsayılanlar first/weight/any, saat 09:00, özet: \"Görüşmeİlk görüşme · Kilo yönetimi · 60 dkDüzenleUzmanUzm. Dyt. Selin Karaca · ilk uygun uzmanDüzenleTarih ve saat28 Eyl…\", .ics mizan-randevu-MZ-GBXWU.ics, Google 1, .cal-day/.slot var: true"
+  },
+  {
+    "name": "iptal penceresi",
+    "ok": true,
+    "note": "açık: true, boş gönderimde hata: 2/2"
+  },
+  {
+    "name": "konsol (randevu akışı)",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "name": "VKİ 170/70",
+    "ok": true,
+    "note": "sonuç 24,2, gösterge 24,2"
+  },
+  {
+    "name": "kalori formu",
+    "ok": true,
+    "note": "hedef 1.730 kcal"
+  },
+  {
+    "name": "su bardağı yenilemede kalıyor",
+    "ok": true,
+    "note": "2 bardak dolu"
+  },
+  {
+    "name": "program: gün ve hedef",
+    "ok": true,
+    "note": "toplam 1.485 → 2.620"
+  },
+  {
+    "name": "tarif filtresi",
+    "ok": true,
+    "note": "9 → 2"
+  },
+  {
+    "name": "tarif penceresi + porsiyon 2→3",
+    "ok": true,
+    "note": "pencere açık: true; .servings 1; 2: \"80 gyulaf ezmesi240 mlsüt veya badem içeceği150 gs…\" 3: \"120 gyulaf ezmesi360 mlsüt veya badem içeceği225 g…\""
+  },
+  {
+    "name": "konsol (program/tarif)",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "name": "sohbet açılıyor",
+    "ok": true,
+    "note": "[data-intent] hızlı yanıt: 6"
+  },
+  {
+    "name": "sohbet: ücretler",
+    "ok": true,
+    "note": "Güncel ücretlerimiz:İlk görüşme · 60 dk1.800 TLKontrol görüşmesi · 30 dk900 TLOnline görüş"
+  },
+  {
+    "name": "sohbet: randevu",
+    "ok": true,
+    "note": "En yakın uygun ilk görüşme (60 dk, vücut analizi dahil): Yarın, saat 09:00 · Uzm. Dyt. Sel"
+  },
+  {
+    "name": "sohbet: beni arayın (demo)",
+    "ok": true,
+    "note": "Memnuniyetle. Diyetisyenimiz mesai saatleri içinde sizi aras ⇒ Teşekkürler Test. Size hangi numaradan ulaşalım? ⇒ Geri arama talebiniz alındı (demo). Bu bir demo olduğu için "
+  },
+  {
+    "name": "konsol (sohbet)",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "name": "dil/tema geçişi + yenilemede korunuyor",
+    "ok": true,
+    "note": "orta sayfada EN: en / Body mass index; tema: dark; yenileme: en,dark; geri: tr,light"
+  },
+  {
+    "name": "?lang=en Türkçe kalan metin (marka/kişi/adres hariç incele)",
+    "ok": true,
+    "note": "11 düğüm: Moda, Kadıköy · In person and online | Türkiye and abroad | Zeynep Tunalı, RD | Artichokes in olive oil, 100 g grilled köfte, cacık | Quinoa kısır | Now · Türkiye time | Zeynep Tunalı | Moda Cad. No: 48, Floor 3, Kadıköy, Istanbul | Kadıköy | Kadıköy pier 10 min · Moda tram stop 3 min on foot | A nutrition and dietetics clinic offering in-person consulta"
+  },
+  {
+    "name": "axe ana sayfa light",
+    "ok": true,
+    "note": "ciddi/kritik 0; kalan: aria-allowed-role(minor)"
+  },
+  {
+    "name": "axe ana sayfa dark",
+    "ok": true,
+    "note": "ciddi/kritik 0; kalan: aria-allowed-role(minor)"
+  },
+  {
+    "name": "axe makale",
+    "ok": true,
+    "note": "ciddi/kritik 0; kalan: yok"
+  },
+  {
+    "name": "hareket azaltma",
+    "ok": true,
+    "note": "sonsuz animasyon: 0; görünmeyen: 0; gösterge 200 ms'de 15,6"
+  },
+  {
+    "name": "JS kapalı",
+    "ok": true,
+    "note": "html.class=\"no-js\"; görünmeyen bölüm: 0"
+  }
+]
