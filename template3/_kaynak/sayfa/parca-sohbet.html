@@ -1,0 +1,36 @@
+  <!-- S19 · sohbet kabuğu (kart tokenları) · mesajlar daisyUI chat (chat.js) · yüzen düğmeler btn-circle -->
+  <aside class="floating-actions" data-i18n-attr="aria-label:a11y.floating" aria-label="Hızlı iletişim">
+    <a class="fab-btn fab-wa btn btn-circle btn-lg btn-success" href="https://wa.me/905555555555" target="_blank" rel="noopener noreferrer" data-wa data-i18n-attr="aria-label:a11y.wa" aria-label="WhatsApp üzerinden yazın">
+      {{wa-icon:size-6}}
+    </a>
+
+    <section class="chat-widget" id="chat" role="dialog" aria-labelledby="chat-title" inert>
+      <header class="chat-head">
+        <div class="flex items-center gap-3">
+          <div class="avatar avatar-online avatar-placeholder"><div class="w-10 rounded-full bg-primary text-primary-content"><span class="font-title text-lg" aria-hidden="true">m</span></div></div>
+          <div>
+            <h2 id="chat-title" class="font-bold" data-i18n="chat.title">Mizan Asistan</h2>
+            <p class="text-xs" data-i18n="chat.status">Genellikle hemen yanıtlar</p>
+          </div>
+        </div>
+        <button type="button" class="btn btn-sm btn-circle btn-ghost" data-chat-close data-i18n-attr="aria-label:chat.close" aria-label="Sohbeti kapat">✕</button>
+      </header>
+      <div class="chat-log" id="chat-log" role="log" aria-live="polite"></div>
+      <form class="chat-form" id="chat-form" autocomplete="off">
+        <input class="chat-input input join-item w-full" id="chat-input" type="text" maxlength="400" enterkeyhint="send" data-i18n-attr="placeholder:chat.placeholder;aria-label:chat.placeholder" placeholder="Bir soru yazın…" aria-label="Bir soru yazın…">
+        <button class="chat-send btn btn-primary join-item" type="submit" data-i18n-attr="aria-label:chat.send" aria-label="Gönder" disabled><svg data-icon="arrow-up" class="size-5"></svg></button>
+      </form>
+      <p class="chat-foot" data-i18n="chat.foot">Genel bilgilendirme amaçlıdır, tıbbi tavsiye yerine geçmez.</p>
+    </section>
+
+    <button type="button" class="fab-btn fab-chat btn btn-circle btn-lg btn-primary" id="chat-toggle" aria-expanded="false" aria-controls="chat" data-i18n-attr="aria-label:chat.open" aria-label="Asistanla sohbet et">
+      <svg data-icon="chat-bubble-oval-left-ellipsis" class="i-chat size-6"></svg>
+      <svg data-icon="x-mark" class="i-x size-6"></svg>
+      <span class="fab-badge status status-accent status-lg" data-chat-badge aria-hidden="true"></span>
+    </button>
+  </aside>
+
+  <!-- Bildirim: toast "toast with alert inside" (toast-top toast-end) -->
+  <div class="toast toast-top toast-end pointer-events-none z-[60]">
+    <div id="toast" class="alert alert-success" role="status" aria-live="polite"></div>
+  </div>

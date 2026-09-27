@@ -1,0 +1,111 @@
+    <!-- S12 · card ("Pricing Card" düzeni) + badge badge-primary -->
+    <section id="ucretler" class="{{c:sec}} bg-base-200" aria-labelledby="pricing-title">
+      <div class="{{c:wrap}}">
+        <header class="{{c:head}}">
+          <h2 id="pricing-title" class="{{c:h2}}" data-i18n="pricing.title">Görüşme ücretleri</h2>
+          <p class="{{c:lede}}" data-i18n="pricing.lede">Görüşme ücretlerini baştan paylaşıyoruz. Online görüşmeler, yüz yüze görüşmelerle aynı içeriktedir.</p>
+        </header>
+
+        <div class="grid items-start gap-6 md:grid-cols-3">
+          <article class="card bg-base-100 shadow-sm">
+            <div class="card-body">
+              <span class="badge badge-xs badge-ghost" data-i18n="plan1.badge">İlk adım</span>
+              <div class="flex flex-wrap items-baseline justify-between gap-x-3">
+                <h3 class="text-2xl font-bold" data-i18n="plan1.label">Tek görüşme</h3>
+                <span class="text-xl"><span data-i18n="price.p1">1.800</span> TL</span>
+              </div>
+              <p class="text-sm text-pretty opacity-80" data-i18n="plan1.sub">Nereden başlayacağını görmek isteyenler için.</p>
+              <ul class="mt-4 flex flex-col gap-2 text-sm">
+                <li>{{check}}<span data-i18n="plan1.f1">60 dakikalık ilk görüşme</span></li>
+                <li>{{check}}<span data-i18n="plan1.f2">Vücut analizi (yağ, kas, su oranı)</span></li>
+                <li>{{check}}<span data-i18n="plan1.f3">Tahlil sonuçlarının değerlendirilmesi</span></li>
+                <li>{{check}}<span data-i18n="plan1.f4">1 haftalık kişisel beslenme planı</span></li>
+              </ul>
+              <div class="mt-6">
+                <a class="btn btn-primary btn-block" href="#randevu" data-book-type="first" data-i18n="plan1.btn">İlk görüşmeyi planla</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card bg-base-100 shadow-sm outline-2 outline-primary">
+            <div class="card-body">
+              <span class="badge badge-xs badge-primary" data-i18n="plan2.badge">Haftalık takip</span>
+              <div class="flex flex-wrap items-baseline justify-between gap-x-3">
+                <h3 class="text-2xl font-bold" data-i18n="plan2.label">Aylık takip</h3>
+                <span class="text-xl"><span data-i18n="price.p2">5.400</span> <span data-i18n="plan2.per">TL / ay</span></span>
+              </div>
+              <p class="text-sm text-pretty opacity-80" data-i18n="plan2.sub">Düzenli takip ve her hafta güncellenen plan.</p>
+              <ul class="mt-4 flex flex-col gap-2 text-sm">
+                <li>{{check}}<span data-i18n="plan2.f1">İlk görüşme ve 3 kontrol görüşmesi</span></li>
+                <li>{{check}}<span data-i18n="plan2.f2">Her görüşmede vücut analizi</span></li>
+                <li>{{check}}<span data-i18n="plan2.f3">Haftalık güncellenen beslenme planı</span></li>
+                <li>{{check}}<span data-i18n="plan2.f4">Hafta içi WhatsApp desteği</span></li>
+                <li>{{check}}<span data-i18n="plan2.f5">Alışveriş listesi ve tarif önerileri</span></li>
+              </ul>
+              <div class="mt-6">
+                <a class="btn btn-primary btn-block" href="#randevu" data-book-type="first" data-i18n="plan2.btn">Takibe başla</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card bg-base-100 shadow-sm">
+            <div class="card-body">
+              <span class="badge badge-xs badge-ghost" data-i18n="plan3.badge">12 hafta</span>
+              <div class="flex flex-wrap items-baseline justify-between gap-x-3">
+                <h3 class="text-2xl font-bold" data-i18n="plan3.label">3 aylık program</h3>
+                <span class="text-xl"><span data-i18n="price.p3">14.900</span> TL</span>
+              </div>
+              <p class="text-sm text-pretty opacity-80" data-i18n="plan3.sub">Alışkanlıkların oturması için önerdiğimiz süre.</p>
+              <ul class="mt-4 flex flex-col gap-2 text-sm">
+                <li>{{check}}<span data-i18n="plan3.f1">12 hafta: ilk görüşme ve 11 kontrol</span></li>
+                <li>{{check}}<span data-i18n="plan3.f2">Aylık tahlil değerlendirmesi</span></li>
+                <li>{{check}}<span data-i18n="plan3.f3">Tatil, bayram ve özel gün planları</span></li>
+                <li>{{check}}<span data-i18n="plan3.f4">Program bitiminden 2 ay sonra ücretsiz kontrol</span></li>
+                <li>{{check}}<span data-i18n="plan3.f5">Kredi kartına 3 taksit</span></li>
+              </ul>
+              <div class="mt-6">
+                <a class="btn btn-primary btn-block" href="#randevu" data-book-type="first" data-i18n="plan3.btn">Programı başlat</a>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="card mt-6 bg-base-100 shadow-sm">
+          <div class="card-body gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <h3 class="card-title" data-i18n="pricing.corpTitle">Kurumsal beslenme programları</h3>
+              <p class="mt-1 text-sm text-pretty opacity-80" data-i18n="pricing.corpText">Şirket çalışanlarına yönelik seminer ve bireysel görüşme paketleri için ayrıca teklif hazırlıyoruz.</p>
+            </div>
+            <a class="btn shrink-0" href="#iletisim" data-contact-topic="corporate" data-i18n="pricing.corpBtn">Teklif isteyin</a>
+          </div>
+        </div>
+
+        <div class="card mt-6 bg-base-100 shadow-sm">
+          <div class="card-body">
+            <h3 class="card-title" data-i18n="incl.title">Neler dahil, neler değil?</h3>
+            <p class="text-sm opacity-80" data-i18n="incl.text">Sonradan ek ücret çıkmaması için baştan netleştiriyoruz.</p>
+            <div class="mt-2 grid gap-6 sm:grid-cols-2">
+              <div>
+                <p class="text-sm font-semibold" data-i18n="incl.yes">Dahil</p>
+                <ul class="mt-2 flex flex-col gap-2 text-sm">
+                  <li>{{check}}<span data-i18n="incl.y1">Kişisel beslenme planı ve güncellemeleri</span></li>
+                  <li>{{check}}<span data-i18n="incl.y2">Vücut analizi ölçümleri</span></li>
+                  <li>{{check}}<span data-i18n="incl.y3">Tahlil sonuçlarının değerlendirilmesi</span></li>
+                  <li>{{check}}<span data-i18n="incl.y4">Görüşme notları ve tarif önerileri</span></li>
+                  <li>{{check}}<span data-i18n="incl.y5">Paketlerde hafta içi mesaj desteği</span></li>
+                </ul>
+              </div>
+              <div>
+                <p class="text-sm font-semibold" data-i18n="incl.no">Dahil değil</p>
+                <ul class="mt-2 flex flex-col gap-2 text-sm">
+                  <li>{{cross}}<span data-i18n="incl.n1">Laboratuvar tahlil ücretleri</span></li>
+                  <li>{{cross}}<span data-i18n="incl.n2">Hekim muayenesi ve reçete</span></li>
+                  <li>{{cross}}<span data-i18n="incl.n3">Takviye veya ürün satışı (satış yapmıyoruz)</span></li>
+                  <li>{{cross}}<span data-i18n="incl.n4">“Detoks” ya da şok diyet programları</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>

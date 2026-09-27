@@ -1,0 +1,190 @@
+    <!-- S13 · steps + card ("Selectable cards") + btn radyolar + fieldset/input/select/checkbox · takvim btn btn-sm, saatler btn btn-outline (booking.js) · onay alert alert-success -->
+    <section id="randevu" class="booking-panel {{c:sec}}" aria-labelledby="booking-title">
+      <div class="{{c:wrap}}">
+        <div class="mb-10 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <div class="max-w-2xl">
+            <h2 id="booking-title" class="{{c:h2}}" data-i18n="booking.title">Online randevu</h2>
+            <p class="{{c:lede}}" data-i18n="booking.lede">Uzmanların boş saatlerini görüp randevunuzu buradan ayırabilirsiniz. Aynı gün için en erken bir saat sonrasına randevu verilebiliyor.</p>
+          </div>
+          <div class="clock-card stats shrink-0 shadow">
+            <div class="stat">
+              <div class="stat-figure text-primary"><svg data-icon="clock" class="inline-block h-8 w-8"></svg></div>
+              <div class="stat-title" data-i18n="booking.now">Şu an · Türkiye saati</div>
+              <div class="stat-value tabular-nums" data-clock aria-live="off">--:--</div>
+              <div class="stat-desc" data-clock-date>&nbsp;</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="booking" data-booking>
+          <h3 class="sr-only" data-i18n="booking.stepsTitle">Randevu adımları</h3>
+          <ol class="stepper steps w-full" data-stepper>
+            <li class="step step-primary is-current"><button type="button" class="step-btn px-1 text-sm disabled:cursor-default" data-goto="1" aria-current="step" data-i18n="booking.s1">Görüşme</button></li>
+            <li class="step"><button type="button" class="step-btn px-1 text-sm disabled:cursor-default" data-goto="2" disabled data-i18n="booking.s2">Tarih ve saat</button></li>
+            <li class="step"><button type="button" class="step-btn px-1 text-sm disabled:cursor-default" data-goto="3" disabled data-i18n="booking.s3">Bilgiler</button></li>
+            <li class="step"><button type="button" class="step-btn px-1 text-sm disabled:cursor-default" data-goto="4" disabled data-i18n="booking.s4">Onay</button></li>
+          </ol>
+
+          <div class="booking-grid mt-8 grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_20rem]">
+            <form class="booking-main card min-w-0 border border-base-300 bg-base-100" id="booking-form" novalidate data-i18n-attr="aria-label:booking.formAria" aria-label="Randevu formu">
+              <div class="card-body">
+                <!-- Adım 1 -->
+                <fieldset class="bstep" data-step="1">
+                  <legend class="bstep-title" tabindex="-1" data-i18n="booking.q1">Nasıl bir görüşme istiyorsunuz?</legend>
+                  <div class="grid gap-3 lg:grid-cols-3">
+                    <label class="card card-border border-base-300 bg-base-100">
+                      <input type="radio" name="type" value="first" class="radio radio-primary radio-sm absolute end-4 top-4" checked>
+                      <div class="card-body p-4 pe-10">
+                        <span class="font-semibold" data-i18n="type.first">İlk görüşme</span>
+                        <span class="text-sm"><span data-i18n="type.firstMeta">60 dk · Klinikte</span> · <b data-i18n="price.first">1.800 TL</b></span>
+                        <span class="text-sm text-pretty opacity-80" data-i18n="type.firstDesc">Sağlık geçmişi, vücut analizi ve kişisel planın hazırlanması.</span>
+                      </div>
+                    </label>
+                    <label class="card card-border border-base-300 bg-base-100">
+                      <input type="radio" name="type" value="control" class="radio radio-primary radio-sm absolute end-4 top-4">
+                      <div class="card-body p-4 pe-10">
+                        <span class="font-semibold" data-i18n="type.control">Kontrol görüşmesi</span>
+                        <span class="text-sm"><span data-i18n="type.controlMeta">30 dk · Klinikte</span> · <b data-i18n="price.control">900 TL</b></span>
+                        <span class="text-sm text-pretty opacity-80" data-i18n="type.controlDesc">Daha önce görüştüğümüz danışanlar için ölçüm ve plan güncellemesi.</span>
+                      </div>
+                    </label>
+                    <label class="card card-border border-base-300 bg-base-100">
+                      <input type="radio" name="type" value="online" class="radio radio-primary radio-sm absolute end-4 top-4">
+                      <div class="card-body p-4 pe-10">
+                        <span class="font-semibold" data-i18n="type.online">Online görüşme</span>
+                        <span class="text-sm"><span data-i18n="type.onlineMeta">45 dk · Online</span> · <b data-i18n="price.online">1.500 TL</b></span>
+                        <span class="text-sm text-pretty opacity-80" data-i18n="type.onlineDesc">Görüntülü görüşme; bağlantı randevudan önce e-postanıza gelir.</span>
+                      </div>
+                    </label>
+                  </div>
+
+                  <h3 class="bstep-sub" id="area-label"><span data-i18n="booking.area">Konu</span></h3>
+                  <div class="flex flex-wrap gap-2" role="radiogroup" aria-labelledby="area-label">
+                    <input class="btn btn-sm" type="radio" name="area" value="weight" aria-label="Kilo yönetimi" data-i18n-attr="aria-label:area.weight" checked>
+                    <input class="btn btn-sm" type="radio" name="area" value="clinical" aria-label="Klinik beslenme" data-i18n-attr="aria-label:area.clinical">
+                    <input class="btn btn-sm" type="radio" name="area" value="sports" aria-label="Sporcu beslenmesi" data-i18n-attr="aria-label:area.sports">
+                    <input class="btn btn-sm" type="radio" name="area" value="pregnancy" aria-label="Gebelik ve emzirme" data-i18n-attr="aria-label:area.pregnancy">
+                    <input class="btn btn-sm" type="radio" name="area" value="kids" aria-label="Çocuk ve ergen" data-i18n-attr="aria-label:area.kids">
+                    <input class="btn btn-sm" type="radio" name="area" value="other" aria-label="Diğer" data-i18n-attr="aria-label:area.other">
+                  </div>
+
+                  <h3 class="bstep-sub"><span data-i18n="booking.staff">Uzman</span><span class="hint" data-i18n="booking.staffHint">Konunuza göre uygun uzmanlar seçilebilir</span></h3>
+                  <div class="grid gap-3 sm:grid-cols-2" data-staff-choices>
+                    <label class="card card-border border-base-300 bg-base-100 has-disabled:cursor-not-allowed has-disabled:opacity-60">
+                      <input type="radio" name="staff" value="any" class="radio radio-primary radio-sm absolute end-4 top-4" checked>
+                      <div class="card-body flex-row items-center gap-3 p-4 pe-10">
+                        <div class="avatar avatar-placeholder"><div class="w-10 rounded-full bg-neutral text-neutral-content"><svg data-icon="users" class="size-5"></svg></div></div>
+                        <div class="grid"><span class="font-semibold" data-i18n="staff.any">Fark etmez</span><span class="text-sm opacity-80" data-i18n="staff.anyNote">İlk uygun uzman</span></div>
+                      </div>
+                    </label>
+                    <label class="card card-border border-base-300 bg-base-100 has-disabled:cursor-not-allowed has-disabled:opacity-60">
+                      <input type="radio" name="staff" value="selin" class="radio radio-primary radio-sm absolute end-4 top-4">
+                      <div class="card-body flex-row items-center gap-3 p-4 pe-10">
+                        <div class="avatar"><div class="w-10 rounded-full"><img src="assets/img/uzman-selin-560.webp" width="560" height="700" loading="lazy" decoding="async" alt=""></div></div>
+                        <div class="grid"><span class="font-semibold">Selin Karaca</span><span class="text-sm opacity-80" data-staff-note="selin" data-i18n="staff.selinDays">Pzt – Cum</span></div>
+                      </div>
+                    </label>
+                    <label class="card card-border border-base-300 bg-base-100 has-disabled:cursor-not-allowed has-disabled:opacity-60">
+                      <input type="radio" name="staff" value="emre" class="radio radio-primary radio-sm absolute end-4 top-4">
+                      <div class="card-body flex-row items-center gap-3 p-4 pe-10">
+                        <div class="avatar"><div class="w-10 rounded-full"><img src="assets/img/uzman-emre-560.webp" width="560" height="700" loading="lazy" decoding="async" alt=""></div></div>
+                        <div class="grid"><span class="font-semibold">Emre Aksoy</span><span class="text-sm opacity-80" data-staff-note="emre" data-i18n="staff.emreDays">Sal, Per, Cmt</span></div>
+                      </div>
+                    </label>
+                    <label class="card card-border border-base-300 bg-base-100 has-disabled:cursor-not-allowed has-disabled:opacity-60">
+                      <input type="radio" name="staff" value="zeynep" class="radio radio-primary radio-sm absolute end-4 top-4">
+                      <div class="card-body flex-row items-center gap-3 p-4 pe-10">
+                        <div class="avatar"><div class="w-10 rounded-full"><img src="assets/img/uzman-zeynep-560.webp" width="560" height="700" loading="lazy" decoding="async" alt=""></div></div>
+                        <div class="grid"><span class="font-semibold">Zeynep Tunalı</span><span class="text-sm opacity-80" data-staff-note="zeynep" data-i18n="staff.zeynepDays">Pzt, Çar, Cum, Cmt</span></div>
+                      </div>
+                    </label>
+                  </div>
+
+                  <div class="bstep-nav">
+                    <button type="button" class="btn btn-primary ms-auto" data-next="2"><span data-i18n="booking.next1">Devam: tarih seçin</span><svg data-icon="arrow-right" class="size-4"></svg></button>
+                  </div>
+                </fieldset>
+
+                <!-- Adım 2 -->
+                <fieldset class="bstep" data-step="2" hidden>
+                  <legend class="bstep-title" tabindex="-1" data-i18n="booking.q2">Gün ve saat seçin</legend>
+                  <div role="alert" class="tz-note alert alert-info mb-4" data-tz-note hidden></div>
+                  <div class="datetime">
+                    <div class="cal" data-calendar></div>
+                    <div class="slots" data-slots aria-live="polite"></div>
+                  </div>
+                  <div class="bstep-nav">
+                    <button type="button" class="btn" data-prev="1" data-i18n="booking.back">Geri</button>
+                    <p class="bstep-msg" data-msg="2" role="alert"></p>
+                    <button type="button" class="btn btn-primary" data-next="3"><span data-i18n="booking.next2">Devam: bilgileriniz</span><svg data-icon="arrow-right" class="size-4"></svg></button>
+                  </div>
+                </fieldset>
+
+                <!-- Adım 3 -->
+                <fieldset class="bstep" data-step="3" hidden>
+                  <legend class="bstep-title" tabindex="-1" data-i18n="booking.q3">Bilgileriniz</legend>
+                  <div class="fieldset grid gap-x-4 sm:grid-cols-2">
+                    <div class="sm:col-span-2">
+                      <label class="fieldset-legend" for="b-name" data-i18n="form.name">Ad soyad</label>
+                      <input class="input w-full aria-invalid:input-error" id="b-name" name="name" type="text" autocomplete="name" maxlength="80" required aria-describedby="b-name-err">
+                      <p class="field-err" id="b-name-err" aria-live="polite"></p>
+                    </div>
+                    <div>
+                      <label class="fieldset-legend" for="b-phone" data-i18n="form.phone">Telefon</label>
+                      <input class="input w-full aria-invalid:input-error" id="b-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="20" placeholder="0532 123 45 67" required aria-describedby="b-phone-err">
+                      <p class="field-err" id="b-phone-err" aria-live="polite"></p>
+                    </div>
+                    <div>
+                      <label class="fieldset-legend" for="b-email" data-i18n="form.email">E-posta</label>
+                      <input class="input w-full aria-invalid:input-error" id="b-email" name="email" type="email" autocomplete="email" inputmode="email" maxlength="120" placeholder="ornek@eposta.com" data-i18n-attr="placeholder:form.emailPh" required aria-describedby="b-email-err">
+                      <p class="field-err" id="b-email-err" aria-live="polite"></p>
+                    </div>
+                    <div class="sm:col-span-2">
+                      <label class="fieldset-legend" for="b-note"><span data-i18n="form.note">Görüşmeden önce bilmemizi istediğiniz bir şey var mı?</span> <span class="badge badge-ghost badge-sm" data-i18n="form.optional">İsteğe bağlı</span></label>
+                      <textarea class="textarea w-full" id="b-note" name="note" rows="3" maxlength="600" data-i18n-attr="placeholder:form.notePh" placeholder="Örneğin kullandığınız ilaçlar, alerjiler veya hedefiniz"></textarea>
+                    </div>
+                    <div class="mt-2 grid gap-3 sm:col-span-2">
+                      <div>
+                        <label class="label items-start gap-3 whitespace-normal text-base-content"><input type="checkbox" name="kvkk" class="checkbox checkbox-sm aria-invalid:checkbox-error" required aria-describedby="b-kvkk-err"><span><span data-i18n="form.kvkk1">Aydınlatma metnini okudum; sağlık bilgilerimin randevu ve danışmanlık amacıyla işlenmesine açık rıza veriyorum.</span> <a class="link" href="kvkk.html" target="_blank" rel="noopener" data-i18n="form.kvkkLink">Aydınlatma metni</a></span></label>
+                        <p class="field-err" id="b-kvkk-err" aria-live="polite"></p>
+                      </div>
+                      <label class="label items-start gap-3 whitespace-normal text-base-content"><input type="checkbox" name="reminder" class="checkbox checkbox-sm" checked><span data-i18n="form.reminder">Randevudan bir gün önce e-posta ile hatırlatma almak istiyorum.</span></label>
+                    </div>
+                  </div>
+                  <input class="honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+                  <div class="bstep-nav">
+                    <button type="button" class="btn" data-prev="2" data-i18n="booking.back">Geri</button>
+                    <button type="button" class="btn btn-primary" data-next="4"><span data-i18n="booking.next3">Devam: özeti görün</span><svg data-icon="arrow-right" class="size-4"></svg></button>
+                  </div>
+                </fieldset>
+
+                <!-- Adım 4 -->
+                <fieldset class="bstep" data-step="4" hidden>
+                  <legend class="bstep-title" tabindex="-1" data-i18n="booking.q4">Bilgileri kontrol edin</legend>
+                  <dl class="review" data-review></dl>
+                  <div class="prep" data-prep></div>
+                  <div class="bstep-nav">
+                    <button type="button" class="btn" data-prev="3" data-i18n="booking.back">Geri</button>
+                    <p class="bstep-msg" data-msg="4" role="alert"></p>
+                    <button type="submit" class="btn btn-primary" data-submit><span class="btn-spinner loading loading-spinner loading-sm" aria-hidden="true"></span><span data-i18n="booking.confirm">Randevuyu onayla</span></button>
+                  </div>
+                </fieldset>
+
+                <!-- Onay -->
+                <div class="bstep done" data-step="done" hidden tabindex="-1"></div>
+              </div>
+            </form>
+
+            <!-- Özet: collapse (details/summary) -->
+            <details class="booking-summary collapse collapse-arrow border border-base-300 bg-base-200" data-summary open>
+              <summary class="summary-toggle collapse-title font-semibold" data-i18n="summary.title">Randevu özeti</summary>
+              <div class="summary-body collapse-content">
+                <dl class="sum-list" data-sum></dl>
+                <div class="sum-total mt-3 flex items-baseline justify-between gap-4 border-t border-base-300 pt-3"><span class="text-sm" data-i18n="summary.fee">Ücret</span><b class="text-xl" data-sum-fee>—</b></div>
+                <p class="sum-policy mt-3 text-sm text-pretty"><span data-i18n="summary.policy">Randevunuzu 24 saat öncesine kadar ücretsiz iptal edebilirsiniz.</span> <button type="button" class="link" data-open-cancel data-i18n="summary.cancel">Randevu iptali</button></p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>

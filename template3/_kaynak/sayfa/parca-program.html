@@ -1,0 +1,46 @@
+    <!-- S10 · tab "tabs-lift" (günler, content.js) + list (öğünler) + badge (kcal) -->
+    <section id="program" class="{{c:sec}} bg-base-200" aria-labelledby="program-title">
+      <div class="print-scope {{c:wrap}}">
+        <header class="{{c:head}}">
+          <h2 id="program-title" class="{{c:h2}}" data-i18n="program.title">Bir haftalık örnek menü</h2>
+          <p class="{{c:lede}}" data-i18n="program.lede">Üç farklı hedef için hazırladığımız örnek haftalar. Porsiyonlar ortalama bir yetişkine göredir; size özel plan görüşmede hazırlanır.</p>
+        </header>
+
+        <div class="mb-6 flex justify-center">
+          <div class="join join-vertical sm:join-horizontal" role="radiogroup" data-i18n-attr="aria-label:program.aria" aria-label="Program hedefi" data-plans>
+            <button type="button" role="radio" aria-checked="true" data-plan="lose" class="btn join-item not-aria-checked:btn-outline aria-checked:btn-primary"><span data-i18n="program.lose">Kilo verme</span> <small class="font-normal" data-i18n="program.k1">~1.500 kcal</small></button>
+            <button type="button" role="radio" aria-checked="false" data-plan="balance" tabindex="-1" class="btn join-item not-aria-checked:btn-outline aria-checked:btn-primary"><span data-i18n="program.balance">Dengeli</span> <small class="font-normal" data-i18n="program.k2">~1.900 kcal</small></button>
+            <button type="button" role="radio" aria-checked="false" data-plan="sport" tabindex="-1" class="btn join-item not-aria-checked:btn-outline aria-checked:btn-primary"><span data-i18n="program.sport">Sporcu</span> <small class="font-normal" data-i18n="program.k3">~2.500 kcal</small></button>
+          </div>
+        </div>
+
+        <div class="program" id="program-print">
+          <div class="overflow-x-auto">
+            <div class="day-tabs tabs tabs-lift flex-nowrap" role="tablist" data-i18n-attr="aria-label:program.days" aria-label="Haftanın günleri" data-days></div>
+          </div>
+          <div class="-mt-px grid gap-6 rounded-box rounded-ss-none border border-base-300 bg-base-100 p-4 sm:p-6 lg:grid-cols-3">
+            <ol class="meals list rounded-box lg:col-span-2" data-meals aria-live="polite"></ol>
+            <aside class="program-side grid content-start gap-4">
+              <div class="stats stats-vertical w-full shadow-sm">
+                <div class="stat">
+                  <div class="stat-title" data-i18n="program.total">Günlük toplam</div>
+                  <div class="stat-value"><span data-total>0</span> kcal</div>
+                  <div class="macro-bars mt-3 grid gap-3" data-macros></div>
+                </div>
+              </div>
+              <div class="program-tip card bg-base-200">
+                <div class="card-body p-4">
+                  <p class="text-sm font-semibold" data-i18n="program.tip">Günün notu</p>
+                  <p class="text-sm text-pretty" data-tip></p>
+                </div>
+              </div>
+              <div class="program-actions flex flex-wrap gap-2">
+                <button type="button" class="btn btn-sm" data-print-program><svg data-icon="printer" class="size-4"></svg><span data-i18n="program.print">Yazdır</span></button>
+                <a class="btn btn-primary btn-sm" href="#randevu" data-book-area="weight" data-program-book data-i18n="program.book">Bu hedefle randevu al</a>
+              </div>
+            </aside>
+          </div>
+        </div>
+        <p class="disclaimer mt-6 text-xs opacity-80" data-i18n="program.disclaimer">Bu menüler genel bir örnektir; gebelik, kronik hastalık, ilaç kullanımı veya 18 yaş altı gibi durumlarda doğrudan uygulanmamalıdır. Değerler yaklaşıktır.</p>
+      </div>
+    </section>

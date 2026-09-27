@@ -1,0 +1,195 @@
+/* template3 — daisyUI 5 (https://daisyui.com, MIT) · Tailwind v4 girişi.
+   Derleme: node tema-uret.js && npx @tailwindcss/cli -i tw.css -o ../assets/css/tw.css --minify
+   Temalar: tema.css (tema-uret.js üretir) — "light" = daisyUI emerald, "dark" = daisyUI forest, birebir.
+   Tema seçimi daisyUI'nin kendi mekanizmasıyla: <html data-theme="light|dark"> (site.js/boot.js yazar).
+   Renk olarak yalnızca daisyUI anlamsal değişkenleri kullanılır; özel hex yok. */
+@import "tailwindcss";
+@import "./tema.css";
+@plugin "@tailwindcss/typography";
+@plugin "daisyui" {
+  themes: false;
+}
+
+@source "../index.html";
+@source "../blog";
+@source "../kvkk.html";
+@source "../assets/js";
+
+/* daisyui.com önizlemelerinde başlıklar Outfit ile (.prose h1–h6 { font-family: var(--font-title) }),
+   gövde metni Tailwind'in sistem yazı tipi yığınıyla görünür. Aynısı. */
+@theme {
+  --font-title: "Outfit", "Noto Sans", sans-serif;
+}
+
+@layer base {
+  h1, h2, h3, h4, h5, h6 { font-family: var(--font-title); }
+  .lang-pending body { visibility: hidden; animation: reveal-body 0s linear 1.2s forwards; }
+  @keyframes reveal-body { to { visibility: visible; } }
+  .theme-switching *, .theme-switching *::before, .theme-switching *::after { transition: none !important; }
+  [id] { scroll-margin-top: 5rem; }
+  html:not([lang="en"]) [data-lang-block="en"], html[lang="en"] [data-lang-block="tr"] { display: none !important; }
+}
+
+/* ---- Erişilebilirlik: daisyUI'nin %50–60 saydam yardımcı metinleri emerald'da 2,5–3,5:1 kalıyor (WCAG 4,5:1).
+   Yalnızca bu sınıfların tonu %75–80'e çekildi; :where() ile özgüllük 0, her yardımcı sınıf ezebilir. ---- */
+@layer utilities {
+  :where(.stat-title, .stat-desc, .fieldset-label) { color: color-mix(in oklab, var(--color-base-content) 75%, transparent); }
+  :where(.label) { color: color-mix(in oklab, currentcolor 80%, transparent); }
+  :where(.footer-title) { opacity: 0.8; }
+  :where(.tabs > .tab:not([aria-selected="true"], .tab-active)) { color: color-mix(in oklab, var(--color-base-content) 80%, transparent); }
+  :where(.stat-title, .stat-desc) { white-space: normal; }
+}
+
+/* İşlevsel kurallar (JS'in ürettiği öğeler). daisyUI 5 bileşenleri @layer utilities içindeki alt katmanlarda
+   durduğu için bu kurallar da @layer utilities'e yazıldı; aksi halde daisyUI'ye yenilirler. */
+@layer utilities {
+  /* ---- Genel ---- */
+  .honeypot { position: absolute !important; left: -9999px !important; width: 1px; height: 1px; overflow: hidden; }
+  .field-err, .bstep-msg { @apply mt-1 flex items-center gap-1.5 text-sm empty:hidden; }
+  .field-err::before, .bstep-msg::before { content: ""; @apply size-2 shrink-0 rounded-full bg-error; }
+  .form-status { @apply text-sm empty:hidden; }
+  .form-status.is-ok, .form-status.is-err { @apply alert; }
+  .form-status.is-ok { @apply alert-success; }
+  .form-status.is-err { @apply alert-error; }
+  .form-status a { @apply link; }
+  .btn:not(.is-loading) > .btn-spinner { @apply hidden; }
+
+  /* ---- Demo şeridi (site.js üretir) — alert ("Alert with buttons") ---- */
+  .demo-bar { @apply alert rounded-none border-x-0 border-t-0 px-4 py-2 text-sm; }
+  .demo-bar-inner { @apply mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-2 gap-y-1 text-center; }
+  .demo-bar-label { @apply font-semibold; }
+  .demo-bar-label::after { content: " ·"; }
+  .demo-bar-btn { @apply btn-sm; }
+
+  /* ---- Araçlar (tools.js) ---- */
+  .scale-ticks { @apply relative mt-1 h-4 text-xs; }
+  .scale-ticks span { @apply absolute -translate-x-1/2; }
+  .stat-rows { @apply w-full text-sm; }
+  .stat-row { @apply flex justify-between gap-4 border-b border-base-300 py-2 last:border-b-0; }
+  .stat-row dd { @apply text-end font-semibold; }
+  .macro-head { @apply flex justify-between gap-3 text-sm; }
+
+  /* ---- Örnek program (content.js) ---- */
+  .meal-time { @apply pt-0.5 text-sm tabular-nums; }
+  .meal-name { @apply font-semibold; }
+  .meal-items { @apply text-sm text-pretty; }
+
+  /* ---- Randevu (booking.js) ---- */
+  .bstep-title { @apply mb-4 text-xl font-bold sm:text-2xl; font-family: var(--font-title); }
+  .bstep-sub { @apply mt-6 mb-2 flex flex-wrap items-baseline gap-x-3 text-sm font-semibold; }
+  .bstep-sub .hint { @apply font-normal opacity-80; }
+  .bstep-nav { @apply mt-6 flex flex-wrap items-center justify-between gap-3; }
+  .bstep-msg { @apply order-last w-full sm:order-none sm:w-auto sm:flex-1; }
+  .datetime { @apply grid gap-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]; }
+  .cal-head { @apply mb-3 flex items-center justify-between gap-2; }
+  .cal-title { @apply text-lg font-semibold; }
+  .cal-dow { @apply mb-1 grid grid-cols-7 gap-1 text-center text-xs font-semibold; }
+  .cal-grid { @apply grid grid-cols-7 gap-1; }
+  .cal-day { @apply h-auto min-h-12 flex-col gap-0 px-0.5 py-1; }
+  .cal-day.is-today { @apply outline-2 outline-offset-1 outline-primary; }
+  .cal-meta { @apply text-[0.625rem] leading-tight font-normal; }
+  .cal-legend { @apply mt-3 flex flex-wrap gap-x-4 gap-y-1 text-xs; }
+  .cal-legend span { @apply inline-flex items-center gap-1.5; }
+  .cal-legend i { @apply inline-block size-3 rounded-sm border border-base-300 bg-base-200; }
+  .cal-legend .lg-full { @apply opacity-40; }
+  .cal-legend .lg-closed { @apply border-dashed bg-transparent; }
+  .cal-legend .lg-today { @apply bg-transparent outline-2 outline-primary; }
+  .slots-head { @apply mb-3; }
+  .slots-title { @apply text-lg font-semibold; }
+  .slots-note { @apply mt-1 text-sm opacity-80; }
+  .slot-group + .slot-group { @apply mt-4; }
+  .slot-group .label { @apply mb-2; }
+  .slot-list { @apply grid grid-cols-3 gap-2 sm:grid-cols-4; }
+  .slots-empty { @apply grid justify-items-start gap-3 rounded-box bg-base-200 p-4 text-sm; }
+  .sum-list, .review { @apply text-sm; }
+  .sum-row, .review-row { @apply flex items-baseline justify-between gap-4 border-b border-base-300 py-2 last:border-b-0; }
+  .sum-row dt, .review-row dt { @apply shrink-0 opacity-80; }
+  .sum-row dd, .review-row dd { @apply text-end font-semibold; }
+  .review-row dd { @apply flex-1; }
+  .sum-row dd.is-empty { @apply font-normal opacity-80; }
+  .review-row button { @apply link text-sm; }
+  .prep { @apply mt-4 rounded-box bg-base-200 p-4 text-sm empty:hidden; }
+  .prep ul { @apply mt-2 list-disc space-y-1 ps-5; }
+  .done { @apply grid justify-items-start gap-4; }
+  .done-ref .ref { @apply mt-1 flex items-center gap-2 text-2xl font-semibold tracking-wider; }
+  .done .review { @apply w-full; }
+  .done-actions { @apply flex flex-wrap gap-2; }
+
+  /* ---- Tarif penceresi içeriği (content.js) — modal-box içinde ---- */
+  .recipe-content h2 { @apply text-lg font-bold; }
+  .recipe-meta { @apply flex flex-wrap items-center gap-x-3 gap-y-1 text-xs; }
+  .recipe-meta span { @apply inline-flex items-center gap-1; }
+  .recipe-meta svg { @apply size-3.5; }
+  .tags { @apply flex flex-wrap gap-1.5; }
+  .tags li { @apply badge badge-outline badge-sm; }
+  .dialog-h3 { @apply font-semibold; }
+  .nutri { @apply grid grid-cols-2 gap-2 sm:grid-cols-4; }
+  .nutri div { @apply rounded-box bg-base-200 p-3; }
+  .nutri b { @apply block text-lg; }
+  .nutri span { @apply text-xs; }
+  .servings { @apply flex items-center justify-between gap-4; }
+  .servings-ctrl { @apply join; }
+  .servings-ctrl > * { @apply join-item; }
+  .servings-ctrl output { @apply grid w-12 place-content-center border border-base-300 text-sm; }
+  .ingredients label { @apply flex items-center gap-3 py-1.5; }
+  .ingredients input { @apply checkbox checkbox-sm; }
+  .ingredients .qty { @apply min-w-20 font-semibold; }
+  .ingredients input:checked ~ span { @apply line-through opacity-60; }
+  .steps-list { @apply list-decimal space-y-2 ps-5 text-pretty; }
+  .tip-box { @apply rounded-box bg-base-200 p-4 text-sm; }
+  .tip-box .label { @apply mb-1 font-semibold; }
+  .recipes-empty { @apply col-span-full text-center; }
+
+  /* ---- Sohbet kabuğu (#chat.chat-widget) — kart tokenları; balonlar daisyUI chat ---- */
+  .chat-widget { @apply invisible fixed end-4 bottom-24 z-50 flex h-[min(36rem,calc(100dvh-8rem))] w-[min(24rem,calc(100vw-2rem))] translate-y-2 flex-col overflow-hidden rounded-box border border-base-300 bg-base-100 opacity-0 shadow-xl transition duration-200; }
+  .chat-open .chat-widget { @apply visible translate-y-0 opacity-100; }
+  .chat-head { @apply flex items-start justify-between gap-4 border-b border-base-300 px-4 py-3; }
+  .chat-log { @apply flex-1 overflow-y-auto overscroll-contain px-3 py-3; }
+  .chat-log .chat-bubble { overflow-wrap: anywhere; }
+  .chat-log .chat-bubble p + p { @apply mt-1.5; }
+  .bubble-title { @apply font-semibold; }
+  .bubble-rows { @apply mt-2 text-sm; }
+  .bubble-row { @apply flex justify-between gap-3 border-t border-current/20 py-1; }
+  .bubble-row span:last-child { @apply text-end font-semibold whitespace-nowrap; }
+  .bubble-actions { @apply mt-2 flex flex-wrap gap-1.5; }
+  .quick { @apply mt-2 flex flex-wrap gap-1.5 ps-1; }
+  .quick button { @apply btn btn-xs btn-outline; }
+  .chat-day { @apply mb-2 text-center text-xs; }
+  .chat-form { @apply join w-full border-t border-base-300 p-3; }
+  .chat-foot { @apply px-4 pb-3 text-center text-xs; }
+  .fab-btn { @apply fixed end-4 z-40 shadow-lg; }
+  .fab-wa { @apply bottom-20; }
+  .fab-chat { @apply bottom-4; }
+  .fab-chat .i-x, .chat-open .fab-chat .i-chat { @apply hidden; }
+  .chat-open .fab-chat .i-x { @apply block; }
+  .chat-open .fab-wa, .menu-open .fab-btn, body.fabs-off .fab-wa, body.fabs-off:not(.chat-open) .fab-chat { @apply pointer-events-none invisible opacity-0; }
+  .fab-badge { @apply absolute end-1 top-1; }
+  .chat-open .fab-badge, .fab-badge.is-hidden { @apply hidden; }
+
+  /* ---- Bildirim: toast + alert ---- */
+  #toast:not(.is-on) { @apply invisible opacity-0; }
+  #toast { @apply transition-opacity duration-200; }
+
+  /* ---- Blog kartı üst bilgisi ---- */
+  .post-meta { @apply flex flex-wrap gap-x-1.5 text-xs; }
+  .post-meta > * + *::before { content: "\00B7"; @apply me-1.5; }
+
+  /* ---- Makale sayfaları ---- */
+  .article-head { @apply mx-auto max-w-3xl; }
+  .article-head h1 { @apply mt-2 text-4xl font-bold; }
+  .article-head .lede { @apply mt-4 text-lg; }
+  .byline { @apply mt-6 flex items-center gap-3; }
+  .byline b { @apply block font-semibold; }
+  .byline div > span { @apply block text-sm opacity-80; }
+  .article-cover { @apply mx-auto mt-8 max-w-5xl; }
+  .article-cover img { @apply aspect-video w-full rounded-box object-cover; }
+  .article-layout { @apply mx-auto mt-8 grid max-w-5xl gap-8 lg:grid-cols-[14rem_minmax(0,1fr)]; }
+  .toc { @apply self-start lg:sticky lg:top-20; }
+  .prose .callout { @apply alert alert-vertical my-6 items-start text-start sm:alert-horizontal; }
+  .prose .callout { @apply alert-info; }
+  .prose .callout--warn { @apply alert-warning; }
+  .prose .callout p { @apply my-0; }
+  .prose .callout .label { @apply font-semibold; }
+  .prose .table-wrap { @apply overflow-x-auto; }
+  .prose.sources li { @apply text-sm; }
+}

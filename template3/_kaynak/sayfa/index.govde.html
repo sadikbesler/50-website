@@ -1,0 +1,288 @@
+<body class="bg-base-100 text-base-content">
+<!-- @parca header -->
+
+  <main id="main">
+
+    <!-- S2 · hero "Hero with figure" · #next-slot bir card -->
+    <section id="top" class="hero min-h-[calc(100svh-4rem)] bg-base-200" aria-labelledby="hero-title">
+      <div class="hero-content flex-col gap-10 py-12 lg:flex-row lg:gap-12">
+        <img src="assets/img/hero-mutfak-1200.webp" srcset="assets/img/hero-mutfak-1200.webp 1200w, assets/img/hero-mutfak-2400.webp 2400w" sizes="(min-width: 1024px) 28rem, 100vw" width="1200" height="750" fetchpriority="high" decoding="async" class="w-full max-w-sm rounded-lg shadow-2xl lg:max-w-md" alt="Aydınlık bir mutfakta limonlar ve taze sebzelerle yemek hazırlayan kadın" data-i18n-attr="alt:hero.imgAlt">
+        <div class="hero-bottom max-w-2xl">
+          <p class="text-sm font-semibold opacity-80" data-i18n="hero.kicker">Moda, Kadıköy · Yüz yüze ve online</p>
+          <h1 id="hero-title" class="mt-2 text-4xl font-bold sm:text-5xl" data-i18n="hero.title">Sofranıza uyan bir beslenme planı.</h1>
+          <p class="py-6" data-i18n="hero.lede">İlk görüşmede tahlillerinize bakıyor ve vücut analizi yapıyoruz. Planınız iş saatlerinize ve sevdiğiniz yemeklere göre hazırlanıyor, kontrol görüşmelerinde birlikte güncelleniyor.</p>
+          <div class="flex flex-wrap gap-2">
+            <a class="btn btn-primary" href="#randevu" data-i18n="hero.cta1">Randevu al</a>
+            <a class="btn btn-outline" href="#araclar" data-i18n="hero.cta2">VKİ’nizi hesaplayın</a>
+          </div>
+
+          <aside id="next-slot" class="card mt-8 max-w-md bg-base-100 shadow-sm" aria-live="polite" data-i18n-attr="aria-label:next.aria" aria-label="En yakın uygun randevu">
+            <div class="card-body">
+              <p class="flex items-center gap-2 text-sm font-semibold"><span class="status status-success" aria-hidden="true"></span><span data-i18n="next.label">En yakın uygun randevu</span></p>
+              <p class="text-2xl font-bold" data-next-time><span data-i18n="next.loading">Takvim kontrol ediliyor…</span></p>
+              <p class="text-sm opacity-80" data-next-meta>&nbsp;</p>
+              <div class="card-actions justify-end">
+                <a class="btn btn-primary btn-sm" href="#randevu" data-next-book data-i18n="next.book">Bu saati ayır</a>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- S3 · stat "Stat with icons or image" — yatay stats grubu (küçük ekranda dikey) -->
+    <section class="facts {{c:sec}} pb-0 sm:pb-0" data-i18n-attr="aria-label:facts.aria" aria-label="Klinik hakkında kısa bilgiler">
+      <div class="{{c:wrap}}">
+        <div class="stats stats-vertical w-full shadow lg:stats-horizontal">
+          <div class="stat">
+            <div class="stat-figure text-primary"><svg data-icon="academic-cap" class="inline-block h-8 w-8"></svg></div>
+            <div class="stat-value">12 <span data-i18n="facts.1u">yıl</span></div>
+            <div class="stat-title" data-i18n="facts.1">klinik beslenme deneyimi</div>
+          </div>
+          <div class="stat">
+            <div class="stat-figure text-primary"><svg data-icon="user-group" class="inline-block h-8 w-8"></svg></div>
+            <div class="stat-value">3 <span data-i18n="facts.2u">uzman</span></div>
+            <div class="stat-title" data-i18n="facts.2">diyetisyen, tek çatı altında</div>
+          </div>
+          <div class="stat">
+            <div class="stat-figure text-primary"><svg data-icon="clock" class="inline-block h-8 w-8"></svg></div>
+            <div class="stat-value">60 <span data-i18n="facts.3u">dk</span></div>
+            <div class="stat-title" data-i18n="facts.3">ilk görüşme ve vücut analizi</div>
+          </div>
+          <div class="stat">
+            <div class="stat-figure text-primary"><svg data-icon="calendar-days" class="inline-block h-8 w-8"></svg></div>
+            <div class="stat-value">7 <span data-i18n="facts.4u">gün</span></div>
+            <div class="stat-title" data-i18n="facts.4">içinde ilk kontrol, sonra haftalık takip</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- S4 · card "Card" (image on top) · 6 hizmet -->
+    <section id="hizmetler" class="{{c:sec}}" aria-labelledby="services-title">
+      <div class="{{c:wrap}}">
+        <header class="{{c:head}}">
+          <h2 id="services-title" class="{{c:h2}}" data-i18n="services.title">Çalıştığımız alanlar</h2>
+          <p class="{{c:lede}}" data-i18n="services.lede">Hazır listeler dağıtmıyoruz. Yaşınızı, hareket düzeninizi, tahlil sonuçlarınızı ve mutfağınızda gerçekten ne olduğunu konuşarak başlıyoruz.</p>
+        </header>
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+{{hizmetler}}
+        </div>
+      </div>
+    </section>
+
+    <!-- S5 · carousel "Snap to start (default)" · 7 not kartı (sürükleme site.js'te) -->
+    <section class="notes-panel {{c:sec}} bg-base-200" aria-labelledby="notes-title">
+      <div class="{{c:wrap}}">
+        <header class="{{c:head}}">
+          <p class="text-sm font-semibold opacity-80" data-i18n="notes.eyebrow">Eylül ve ekim</p>
+          <h2 id="notes-title" class="{{c:h2}} mt-2" data-i18n="notes.title">Tezgâhlarda incir, nar ve ceviz zamanı.</h2>
+          <div class="mt-6 flex flex-wrap justify-center gap-2">
+            <a class="btn btn-sm btn-outline" href="#tarifler" data-i18n="notes.p1">Tarifler</a>
+            <a class="btn btn-sm btn-outline" href="#program" data-i18n="notes.p2">Örnek program</a>
+            <a class="btn btn-sm btn-outline" href="#blog" data-i18n="notes.p3">Yazılar</a>
+          </div>
+        </header>
+        <div class="notes carousel w-full rounded-box" tabindex="0" data-i18n-attr="aria-label:notes.rowAria" aria-label="Mevsim notları">
+          <figure class="note carousel-item relative select-none lg:cursor-grab [&.is-dragging]:cursor-grabbing" data-note>
+            <img src="assets/img/not-incir-720.webp" width="720" height="720" loading="lazy" decoding="async" draggable="false" alt="Yarısı kesilmiş mor incirler" data-i18n-attr="alt:notes.a1" class="h-72 w-64 object-cover sm:h-96 sm:w-80">
+            <figcaption class="badge badge-neutral absolute start-3 bottom-3" data-i18n="notes.c1">İncir · Eylül</figcaption>
+          </figure>
+          <figure class="note carousel-item relative select-none lg:cursor-grab [&.is-dragging]:cursor-grabbing" data-note>
+            <img src="assets/img/not-zeytin-720.webp" width="720" height="1080" loading="lazy" decoding="async" draggable="false" alt="Seramik kaselerde yeşil zeytinler" data-i18n-attr="alt:notes.a2" class="h-72 w-64 object-cover sm:h-96 sm:w-80">
+            <figcaption class="badge badge-neutral absolute start-3 bottom-3" data-i18n="notes.c2">Zeytin</figcaption>
+          </figure>
+          <figure class="note carousel-item relative select-none lg:cursor-grab [&.is-dragging]:cursor-grabbing" data-note>
+            <img src="assets/img/not-ekmek-720.webp" width="720" height="960" loading="lazy" decoding="async" draggable="false" alt="Kesilmiş ekşi mayalı ekmek" data-i18n-attr="alt:notes.a3" class="h-72 w-64 object-cover sm:h-96 sm:w-80">
+            <figcaption class="badge badge-neutral absolute start-3 bottom-3" data-i18n="notes.c3">Ekşi maya</figcaption>
+          </figure>
+          <figure class="note carousel-item relative select-none lg:cursor-grab [&.is-dragging]:cursor-grabbing" data-note>
+            <img src="assets/img/not-limon-720.webp" width="720" height="480" loading="lazy" decoding="async" draggable="false" alt="İkiye kesilmiş limon" data-i18n-attr="alt:notes.a4" class="h-72 w-64 object-cover sm:h-96 sm:w-80">
+            <figcaption class="badge badge-neutral absolute start-3 bottom-3" data-i18n="notes.c4">Limon</figcaption>
+          </figure>
+          <figure class="note carousel-item relative select-none lg:cursor-grab [&.is-dragging]:cursor-grabbing" data-note>
+            <img src="assets/img/not-ceviz-720.webp" width="720" height="480" loading="lazy" decoding="async" draggable="false" alt="Kırılmış cevizler" data-i18n-attr="alt:notes.a5" class="h-72 w-64 object-cover sm:h-96 sm:w-80">
+            <figcaption class="badge badge-neutral absolute start-3 bottom-3" data-i18n="notes.c5">Ceviz</figcaption>
+          </figure>
+          <figure class="note carousel-item relative select-none lg:cursor-grab [&.is-dragging]:cursor-grabbing" data-note>
+            <img src="assets/img/not-nar-720.webp" width="720" height="1008" loading="lazy" decoding="async" draggable="false" alt="Beyaz örtü üzerinde bütün bir nar" data-i18n-attr="alt:notes.a6" class="h-72 w-64 object-cover sm:h-96 sm:w-80">
+            <figcaption class="badge badge-neutral absolute start-3 bottom-3" data-i18n="notes.c6">Nar · Ekim</figcaption>
+          </figure>
+          <figure class="note carousel-item relative select-none lg:cursor-grab [&.is-dragging]:cursor-grabbing" data-note>
+            <img src="assets/img/not-nane-720.webp" width="720" height="1080" loading="lazy" decoding="async" draggable="false" alt="Taze nane yaprakları" data-i18n-attr="alt:notes.a7" class="h-72 w-64 object-cover sm:h-96 sm:w-80">
+            <figcaption class="badge badge-neutral absolute start-3 bottom-3" data-i18n="notes.c7">Taze nane</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- S6 · timeline "Vertical timeline with text on both sides and icon" -->
+    <section id="yaklasim" class="{{c:sec}}" aria-labelledby="process-title">
+      <div class="{{c:wrap}}">
+        <header class="{{c:head}}">
+          <h2 id="process-title" class="{{c:h2}}" data-i18n="process.title">Görüşmeler nasıl ilerliyor?</h2>
+          <p class="{{c:lede}}" data-i18n="process.lede">Plan ilk görüşmede bitmiyor. Bayram sofrası, tatil ya da yoğun bir iş haftası geldiğinde kontrol görüşmesinde birlikte güncelliyoruz.</p>
+        </header>
+        <div class="grid items-center gap-10 lg:grid-cols-2">
+          <div>
+            <h3 class="sr-only" data-i18n="process.stepsTitle">Adımlar</h3>
+            <ul class="timeline timeline-vertical max-sm:timeline-compact">
+              <li>
+                <div class="timeline-start text-sm font-semibold" data-i18n="step1.meta">60 dk</div>
+                <div class="timeline-middle">{{tl-icon}}</div>
+                <div class="timeline-end timeline-box"><h4 class="font-semibold" data-i18n="step1.title">Ön görüşme</h4><p class="mt-1 text-sm" data-i18n="step1.text">Sağlık geçmişiniz, kullandığınız ilaçlar, son tahlilleriniz ve üç günlük besin kaydınız üzerinden konuşuyoruz.</p></div>
+                <hr>
+              </li>
+              <li>
+                <hr>
+                <div class="timeline-start text-sm font-semibold" data-i18n="step2.meta">10 dk</div>
+                <div class="timeline-middle">{{tl-icon}}</div>
+                <div class="timeline-end timeline-box"><h4 class="font-semibold" data-i18n="step2.title">Vücut analizi</h4><p class="mt-1 text-sm" data-i18n="step2.text">Biyoempedans cihazıyla yağ, kas ve su oranınızı ölçüyoruz. Tartıdaki tek bir sayıya bakmıyoruz.</p></div>
+                <hr>
+              </li>
+              <li>
+                <hr>
+                <div class="timeline-start text-sm font-semibold" data-i18n="step3.meta">48 saat içinde</div>
+                <div class="timeline-middle">{{tl-icon}}</div>
+                <div class="timeline-end timeline-box"><h4 class="font-semibold" data-i18n="step3.title">Kişisel plan</h4><p class="mt-1 text-sm" data-i18n="step3.text">Sevdiğiniz yemekler, mesai saatleriniz ve bütçenizle uyumlu plan e-postanıza gelir.</p></div>
+                <hr>
+              </li>
+              <li>
+                <hr>
+                <div class="timeline-start text-sm font-semibold" data-i18n="step4.meta">Haftalık</div>
+                <div class="timeline-middle">{{tl-icon}}</div>
+                <div class="timeline-end timeline-box"><h4 class="font-semibold" data-i18n="step4.title">Takip</h4><p class="mt-1 text-sm" data-i18n="step4.text">Kısa kontrol görüşmeleri ve hafta içi mesaj desteğiyle planı gerektiğinde güncelliyoruz.</p></div>
+              </li>
+            </ul>
+          </div>
+          <div class="grid gap-6">
+            <img src="assets/img/surec-mutfak-700.webp" srcset="assets/img/surec-mutfak-700.webp 700w, assets/img/surec-mutfak-1200.webp 1200w" sizes="(min-width: 1024px) 34rem, 100vw" width="1200" height="900" loading="lazy" decoding="async" class="w-full rounded-box object-cover" alt="Kesme tahtasında taze maydanoz doğrayan eller" data-i18n-attr="alt:process.alt">
+            <figure class="card bg-base-200">
+              <div class="card-body">
+                <blockquote><p class="text-pretty" data-i18n="process.quote">“Danışanlarımın çoğu ne yemesi gerektiğini aşağı yukarı biliyor. Zorlandıkları an, akşam işten aç çıktıkları saat. Planı önce o saate göre kuruyoruz.”</p></blockquote>
+                <figcaption class="mt-2 flex items-center gap-3">
+                  <div class="avatar"><div class="w-12 rounded-full"><img src="assets/img/uzman-selin-560.webp" width="560" height="700" loading="lazy" decoding="async" alt=""></div></div>
+                  <span class="text-sm"><b class="font-semibold" data-i18n="team.selin.name">Uzm. Dyt. Selin Karaca</b> · <span data-i18n="process.quoteRole">kurucu</span></span>
+                </figcaption>
+              </div>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- S7 · hero "Centered hero" + bg-neutral -->
+    <section id="manifesto" class="hero bg-neutral py-20 text-neutral-content" aria-labelledby="manifesto-title">
+      <div class="hero-content text-center">
+        <div class="max-w-3xl">
+          <p class="text-sm font-semibold tracking-widest uppercase opacity-80" data-i18n="scene.label">Yöntem</p>
+          <h2 id="manifesto-title" class="mt-3 text-4xl font-bold sm:text-5xl">
+            <span class="block" data-i18n="scene.l1">Tek bir hafta için değil.</span>
+            <span class="block" data-i18n="scene.l2">Bayram sofrası için de,</span>
+            <span class="block" data-i18n="scene.l3">yorgun bir salı akşamı için de</span>
+            <span class="block" data-i18n="scene.l4">çalışan bir plan.</span>
+          </h2>
+          <p class="py-6">
+            <b data-i18n="scene.f1n">60 dk</b> <span data-i18n="scene.f1">ilk görüşme</span> ·
+            <b data-i18n="scene.f2n">48 saat</b> <span data-i18n="scene.f2">içinde kişisel plan</span> ·
+            <b data-i18n="scene.f3n">Haftalık</b> <span data-i18n="scene.f3">kontrol ve mesaj desteği</span>
+          </p>
+          <a class="btn btn-primary" href="#randevu" data-i18n="nav.book">Randevu al</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- S8 · card + avatar -->
+    <section id="uzmanlar" class="{{c:sec}} bg-base-200" aria-labelledby="team-title">
+      <div class="{{c:wrap}}">
+        <header class="{{c:head}}">
+          <h2 id="team-title" class="{{c:h2}}" data-i18n="team.title">Diyetisyenlerimiz</h2>
+          <p class="{{c:lede}}" data-i18n="team.lede">Her uzmanın ağırlıklı çalıştığı alan farklı. Randevu alırken konunuzu seçtiğinizde size uygun uzmanlar öne çıkar.</p>
+        </header>
+        <div class="grid gap-6 md:grid-cols-3">
+          <article class="card bg-base-100 shadow-sm" aria-labelledby="team-selin">
+            <div class="card-body items-center text-center">
+              <div class="avatar"><div class="w-24 rounded-full"><img src="assets/img/uzman-selin-560.webp" srcset="assets/img/uzman-selin-560.webp 560w, assets/img/uzman-selin-900.webp 900w" sizes="96px" width="560" height="700" loading="lazy" decoding="async" alt="Uzman Diyetisyen Selin Karaca, elinde brokoliyle çalışma masasında" data-i18n-attr="alt:team.selin.alt"></div></div>
+              <h3 id="team-selin" class="card-title mt-2" data-i18n="team.selin.name">Uzm. Dyt. Selin Karaca</h3>
+              <p class="text-sm opacity-80"><span data-i18n="team.selin.area">Klinik beslenme</span> · <span data-i18n="team.founder">Kurucu</span></p>
+              <p class="text-pretty" data-i18n="team.selin.bio">Klinik beslenme alanında yüksek lisans yaptı. On iki yıldır insülin direnci, diyabet ve kilo yönetimi üzerine çalışıyor.</p>
+              <dl class="mt-2 w-full space-y-1 text-start text-sm">
+                <div><dt class="inline font-semibold after:content-[':']" data-i18n="team.edu">Eğitim</dt> <dd class="inline" data-i18n="team.selin.edu">Beslenme ve Diyetetik; Klinik Beslenme (YL)</dd></div>
+                <div><dt class="inline font-semibold after:content-[':']" data-i18n="team.days">Günler</dt> <dd class="inline" data-i18n="team.selin.days">Pazartesi – Cuma</dd></div>
+                <div><dt class="inline font-semibold after:content-[':']" data-i18n="team.langs">Dil</dt> <dd class="inline" data-i18n="team.selin.langs">Türkçe, İngilizce</dd></div>
+              </dl>
+              <div class="card-actions mt-2"><a class="btn btn-primary" href="#randevu" data-book-staff="selin" data-i18n="team.selin.btn">Selin Hanım’dan randevu al</a></div>
+            </div>
+          </article>
+          <article class="card bg-base-100 shadow-sm" aria-labelledby="team-emre">
+            <div class="card-body items-center text-center">
+              <div class="avatar"><div class="w-24 rounded-full"><img src="assets/img/uzman-emre-560.webp" srcset="assets/img/uzman-emre-560.webp 560w, assets/img/uzman-emre-900.webp 900w" sizes="96px" width="560" height="700" loading="lazy" decoding="async" alt="Diyetisyen Emre Aksoy'un portresi" data-i18n-attr="alt:team.emre.alt"></div></div>
+              <h3 id="team-emre" class="card-title mt-2" data-i18n="team.emre.name">Dyt. Emre Aksoy</h3>
+              <p class="text-sm opacity-80" data-i18n="team.emre.area">Sporcu beslenmesi</p>
+              <p class="text-pretty" data-i18n="team.emre.bio">Amatör ve lisanslı sporcularla çalışıyor. Antrenman programına göre öğün zamanlaması ve vücut kompozisyonu takibi yapıyor.</p>
+              <dl class="mt-2 w-full space-y-1 text-start text-sm">
+                <div><dt class="inline font-semibold after:content-[':']" data-i18n="team.edu">Eğitim</dt> <dd class="inline" data-i18n="team.emre.edu">Beslenme ve Diyetetik; Spor Beslenmesi sertifikası</dd></div>
+                <div><dt class="inline font-semibold after:content-[':']" data-i18n="team.days">Günler</dt> <dd class="inline" data-i18n="team.emre.days">Salı, Perşembe, Cumartesi</dd></div>
+                <div><dt class="inline font-semibold after:content-[':']" data-i18n="team.langs">Dil</dt> <dd class="inline" data-i18n="team.emre.langs">Türkçe, İngilizce</dd></div>
+              </dl>
+              <div class="card-actions mt-2"><a class="btn btn-primary" href="#randevu" data-book-staff="emre" data-i18n="team.emre.btn">Emre Bey’den randevu al</a></div>
+            </div>
+          </article>
+          <article class="card bg-base-100 shadow-sm" aria-labelledby="team-zeynep">
+            <div class="card-body items-center text-center">
+              <div class="avatar"><div class="w-24 rounded-full"><img src="assets/img/uzman-zeynep-560.webp" srcset="assets/img/uzman-zeynep-560.webp 560w, assets/img/uzman-zeynep-900.webp 900w" sizes="96px" width="560" height="700" loading="lazy" decoding="async" alt="Diyetisyen Zeynep Tunalı'nın portresi" data-i18n-attr="alt:team.zeynep.alt"></div></div>
+              <h3 id="team-zeynep" class="card-title mt-2" data-i18n="team.zeynep.name">Dyt. Zeynep Tunalı</h3>
+              <p class="text-sm opacity-80" data-i18n="team.zeynep.area">Gebelik ve çocuk</p>
+              <p class="text-pretty" data-i18n="team.zeynep.bio">Gebelik, emzirme ve çocukluk dönemi beslenmesi üzerine çalışıyor. Seçici yeme sorunu yaşayan çocuklarla aile odaklı görüşmeler yapıyor.</p>
+              <dl class="mt-2 w-full space-y-1 text-start text-sm">
+                <div><dt class="inline font-semibold after:content-[':']" data-i18n="team.edu">Eğitim</dt> <dd class="inline" data-i18n="team.zeynep.edu">Beslenme ve Diyetetik; Anne-Çocuk Beslenmesi (YL)</dd></div>
+                <div><dt class="inline font-semibold after:content-[':']" data-i18n="team.days">Günler</dt> <dd class="inline" data-i18n="team.zeynep.days">Pazartesi, Çarşamba, Cuma, Cumartesi</dd></div>
+                <div><dt class="inline font-semibold after:content-[':']" data-i18n="team.langs">Dil</dt> <dd class="inline" data-i18n="team.zeynep.langs">Türkçe, Almanca</dd></div>
+              </dl>
+              <div class="card-actions mt-2"><a class="btn btn-primary" href="#randevu" data-book-staff="zeynep" data-i18n="team.zeynep.btn">Zeynep Hanım’dan randevu al</a></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+<!-- @parca araclar -->
+
+<!-- @parca program -->
+
+<!-- @parca tarifler -->
+
+<!-- @parca ucretler -->
+
+<!-- @parca randevu -->
+
+<!-- @parca blog -->
+
+<!-- @parca sss -->
+
+    <!-- S16 · hero "Hero with overlay image" · sofra-2000.webp -->
+    <section class="sky hero min-h-[32rem] bg-[url(../img/sofra-2000.webp)]" aria-labelledby="sky-title">
+      <div class="hero-overlay"></div>
+      <div class="hero-content text-center text-neutral-content">
+        <div class="max-w-md">
+          <h2 id="sky-title" class="mb-5 text-5xl font-bold" data-i18n="sky.word">afiyet olsun</h2>
+          <p class="mb-5" data-i18n="sky.title">Planınızla ilgili sorularınızı WhatsApp’tan yazabilirsiniz; mesai saatlerinde bir diyetisyen yanıtlıyor.</p>
+          <div class="flex flex-wrap justify-center gap-2">
+            <a class="btn btn-primary" href="https://wa.me/905555555555" target="_blank" rel="noopener noreferrer" data-wa>{{wa-icon:size-5}}WhatsApp</a>
+            <a class="btn" href="tel:+905555555555" data-tel><svg data-icon="phone" class="size-5"></svg><span data-i18n="sky.call">Bizi arayın</span></a>
+            <a class="btn" href="https://www.google.com/maps/search/?api=1&amp;query=Moda+Caddesi+Kad%C4%B1k%C3%B6y+%C4%B0stanbul" target="_blank" rel="noopener noreferrer" data-maps><svg data-icon="map-pin" class="size-5"></svg><span data-i18n="sky.map">Yol tarifi</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<!-- @parca iletisim -->
+
+  </main>
+
+<!-- @parca footer -->
+
+<!-- @parca dialoglar -->
+
+<!-- @parca sohbet -->
+</body>

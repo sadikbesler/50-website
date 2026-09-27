@@ -1,0 +1,20 @@
+    <!-- S11 · filter "Filter without HTML form" + card (image on top, content.js) + modal (#recipe-dialog) -->
+    <section id="tarifler" class="{{c:sec}}" aria-labelledby="recipes-title">
+      <div class="{{c:wrap}}">
+        <header class="{{c:head}}">
+          <h2 id="recipes-title" class="{{c:h2}}" data-i18n="recipes.title">Hafta içi akşamlarına sığan tarifler</h2>
+          <p class="{{c:lede}}" data-i18n="recipes.lede">Çoğu 30 dakikadan kısa sürüyor ve malzemeleri mahalle marketinde bulunuyor. Her tarifte porsiyon başına besin değerleri var.</p>
+        </header>
+
+        <div class="filter justify-center" role="radiogroup" data-i18n-attr="aria-label:recipes.filter" aria-label="Tarif kategorisi" data-recipe-filters>
+          <input class="btn filter-reset" type="radio" name="recipe-cat" value="all" data-cat="all" aria-label="Tümü" data-i18n-attr="aria-label:recipes.all" checked>
+          <input class="btn" type="radio" name="recipe-cat" value="breakfast" data-cat="breakfast" aria-label="Kahvaltı" data-i18n-attr="aria-label:recipes.breakfast">
+          <input class="btn" type="radio" name="recipe-cat" value="main" data-cat="main" aria-label="Ana yemek" data-i18n-attr="aria-label:recipes.main">
+          <input class="btn" type="radio" name="recipe-cat" value="soup" data-cat="soup" aria-label="Çorba ve salata" data-i18n-attr="aria-label:recipes.soup">
+          <input class="btn" type="radio" name="recipe-cat" value="snack" data-cat="snack" aria-label="Ara öğün" data-i18n-attr="aria-label:recipes.snack">
+          <input class="btn" type="radio" name="recipe-cat" value="dessert" data-cat="dessert" aria-label="Tatlı" data-i18n-attr="aria-label:recipes.dessert">
+        </div>
+
+        <div class="recipes mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" data-recipes></div>
+      </div>
+    </section>

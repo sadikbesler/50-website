@@ -1,0 +1,13 @@
+    <!-- S14 · card "card-side" (blog listesi) -->
+    <section id="blog" class="{{c:sec}} bg-base-200" aria-labelledby="blog-title">
+      <div class="{{c:wrap}}">
+        <header class="{{c:head}}">
+          <h2 id="blog-title" class="{{c:h2}}" data-i18n="blog.title">Son yazılar</h2>
+          <p class="{{c:lede}}" data-i18n="blog.lede">Danışanlarımızın en sık sorduğu konuları, güncel bilimsel kaynaklara dayanarak yazıyoruz.</p>
+        </header>
+        <div class="grid gap-6 lg:grid-cols-2">
+{{blogkartlari}}
+        </div>
+        <p class="mt-8 text-center"><a class="btn btn-outline" href="blog/"><span data-i18n="blog.all">Tüm yazılar</span><svg data-icon="arrow-right" class="size-4"></svg></a></p>
+      </div>
+    </section>

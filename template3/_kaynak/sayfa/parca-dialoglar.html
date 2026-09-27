@@ -1,0 +1,31 @@
+  <!-- #recipe-dialog · modal "Dialog modal with a close button at corner" -->
+  <dialog id="recipe-dialog" class="modal" aria-labelledby="recipe-title">
+    <div class="modal-box dialog-scroll max-w-2xl">
+      <button type="button" class="btn btn-sm btn-circle btn-ghost absolute end-2 top-2 z-10" data-close data-i18n-attr="aria-label:a11y.close" aria-label="Kapat">✕</button>
+      <img data-recipe-img src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" width="1000" height="800" alt="" class="mt-6 aspect-[5/3] w-full rounded-box object-cover">
+      <div class="recipe-content mt-4 grid gap-4" data-recipe-content></div>
+    </div>
+  </dialog>
+
+  <!-- #cancel-dialog · modal "Dialog modal with a close button at corner" + fieldset -->
+  <dialog id="cancel-dialog" class="modal" aria-labelledby="cancel-title">
+    <div class="modal-box dialog-scroll">
+      <button type="button" class="btn btn-sm btn-circle btn-ghost absolute end-2 top-2" data-close data-i18n-attr="aria-label:a11y.close" aria-label="Kapat">✕</button>
+      <form id="cancel-form" novalidate>
+        <h3 id="cancel-title" class="text-lg font-bold" data-i18n="cancel.title">Randevu iptali</h3>
+        <p class="py-4" data-i18n="cancel.text">Onay e-postanızdaki referans kodunu ve randevuda kullandığınız e-posta adresini yazın. 24 saatten az kalan randevular için lütfen bizi arayın.</p>
+        <fieldset class="fieldset">
+          <label class="fieldset-legend" for="x-ref" data-i18n="cancel.ref">Referans kodu</label>
+          <input class="input w-full uppercase aria-invalid:input-error" id="x-ref" name="ref" type="text" autocomplete="off" autocapitalize="characters" maxlength="12" placeholder="MZ-XXXXX" required aria-describedby="x-ref-err">
+          <p class="field-err" id="x-ref-err" aria-live="polite"></p>
+          <label class="fieldset-legend" for="x-email" data-i18n="form.email">E-posta</label>
+          <input class="input w-full aria-invalid:input-error" id="x-email" name="email" type="email" autocomplete="email" maxlength="120" required aria-describedby="x-email-err">
+          <p class="field-err" id="x-email-err" aria-live="polite"></p>
+        </fieldset>
+        <div class="modal-action">
+          <button type="submit" class="btn btn-primary"><span class="btn-spinner loading loading-spinner loading-sm" aria-hidden="true"></span><span data-i18n="cancel.btn">Randevuyu iptal et</span></button>
+        </div>
+        <p class="form-status mt-3" data-cancel-status role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </dialog>
