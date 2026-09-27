@@ -1,0 +1,1063 @@
+/* ==========================================================================
+   Mizan · template1 — Tailwind CSS v4 + Preline UI giriş dosyası
+   Derleme:  cd _kaynak && npx @tailwindcss/cli -i tw.css -o ../assets/css/tw.css --minify
+   ========================================================================== */
+
+@import "tailwindcss";
+@source "../index.html";
+@source "../blog";
+@source "../kvkk.html";
+@source "../assets/js";
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Preline UI — https://preline.co/docs/index.html ("Add the Preline UI CSS Variants") */
+@source "./node_modules/preline/dist/*.js";
+@import "./node_modules/preline/variants.css";
+/* Plugins */
+@plugin "@tailwindcss/forms";
+/* Preline Themes — paketteki varsayılan tema (v5'te paketin kökünde: preline/theme.css) */
+@import "./node_modules/preline/theme.css";
+
+/* Yazı tipi: blok önizlemelerinin hesaplanan font-family değeri (getComputedStyle, 26.09.2026).
+   Önizlemeler Inter'i <link> ile çağırıyor ama hiçbir öğe kullanmıyor; hesaplanan değer sistem yığını. */
+@theme {
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+/* Preline'ın "typing dots" örneği `animate-[typing…]` kullanıyor; kare tanımı preline.co'daki
+   `main-navbar-ai-prompts-typing` karesiyle aynı. */
+@keyframes typing {
+
+    0%,
+    60%,
+    100% {
+        opacity: 0.45;
+        transform: translateY(0) scale(0.9);
+    }
+
+    30% {
+        opacity: 1;
+        transform: translateY(-1px) scale(1);
+    }
+}
+
+@keyframes reveal-body {
+    to {
+        visibility: visible;
+    }
+}
+
+/* ---------- Sitenin JS'lerinin okuduğu renk değişkenleri (tools.js) → Preline tokenları ---------- */
+:root {
+    --ink: var(--foreground);
+    /* VKİ kategorileri: yargılayıcı renk yok, Preline'ın birincil renk ölçeğinde açıktan koyuya */
+    --bmi-1: var(--color-primary-300);
+    --bmi-2: var(--color-primary-400);
+    --bmi-3: var(--color-primary-500);
+    --bmi-4: var(--color-primary-600);
+    --bmi-5: var(--color-primary-800);
+}
+
+@layer base {
+
+    body {
+        @apply bg-background text-foreground antialiased;
+    }
+
+    .lang-pending body {
+        visibility: hidden;
+        animation: reveal-body 0s linear 1.2s forwards;
+    }
+
+    .theme-switching,
+    .theme-switching * {
+        transition: none !important;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+        html {
+            scroll-behavior: smooth;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+        *,
+        *::before,
+        *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+            scroll-behavior: auto !important;
+        }
+    }
+}
+
+/* ==========================================================================
+   Köprü katmanı: booking.js, tools.js, content.js, chat.js ve site.js'in ürettiği
+   öğeler. JS'ler kendi sınıf adlarını (cal-day, slot, bubble…) üretmeye devam eder;
+   burada her biri aynı görünümdeki Preline bileşeninin sınıflarına bağlanır.
+   Kaynak dosyalar: _kaynak/bloklar/*.html, _kaynak/bilesenler/*.html
+   ========================================================================== */
+@layer components {
+
+    /* --- Ortak: Preline Buttons (types / white variants / loading) --- */
+    .btn {
+        @apply py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border focus:outline-hidden disabled:opacity-50 disabled:pointer-events-none;
+    }
+
+    .btn--sm {
+        @apply py-2 px-3;
+    }
+
+    .btn--primary {
+        @apply bg-primary border-primary-line text-primary-foreground hover:bg-primary-hover focus:bg-primary-focus;
+    }
+
+    .btn--ghost {
+        @apply bg-layer border-layer-line text-layer-foreground shadow-2xs hover:bg-layer-hover focus:bg-layer-focus;
+    }
+
+    .btn-spinner {
+        @apply hidden animate-spin size-4 border-3 border-current border-t-transparent rounded-full;
+    }
+
+    .is-loading .btn-spinner {
+        @apply inline-block;
+    }
+
+    /* Datepicker gezinme düğmesi */
+    .icon-btn {
+        @apply size-8 inline-flex shrink-0 justify-center items-center text-foreground hover:bg-muted-hover rounded-full focus:outline-hidden focus:bg-muted-focus disabled:opacity-50 disabled:pointer-events-none;
+    }
+
+    .icon-btn svg {
+        @apply shrink-0 size-4;
+    }
+
+    /* Feature Steps bloğundaki "Steps" başlığı */
+    .label {
+        @apply text-primary text-xs font-medium uppercase;
+    }
+
+    .muted {
+        @apply text-muted-foreground-1;
+    }
+
+    .lede {
+        @apply text-muted-foreground-1;
+    }
+
+    /* Makale bloğundaki metin içi bağlantı */
+    .link-arrow {
+        @apply inline-flex items-center gap-x-1 text-sm text-primary decoration-2 hover:underline focus:outline-hidden focus:underline font-medium;
+    }
+
+    /* Article Card Grid etiketleri */
+    .tags {
+        @apply mt-3 flex flex-wrap gap-2;
+    }
+
+    .tags li {
+        @apply py-1.5 px-3 bg-layer border border-layer-line text-layer-foreground text-xs sm:text-sm rounded-xl;
+    }
+
+    .field-err {
+        @apply text-sm text-red-500 mt-2 empty:hidden;
+    }
+
+    .honeypot {
+        position: absolute !important;
+        left: -9999px !important;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+    }
+
+    /* --- S9 Araçlar: sonuç kutusu (Stat Card Group tipografisi) --- */
+    .tool-result .label {
+        @apply block text-sm sm:text-base font-normal normal-case text-muted-foreground-1;
+    }
+
+    .tool-result>.label~.label {
+        @apply mt-6;
+    }
+
+    .result-big {
+        @apply mt-1 flex flex-wrap items-baseline gap-x-3 gap-y-2;
+    }
+
+    .result-num {
+        @apply text-3xl sm:text-5xl font-semibold text-foreground;
+    }
+
+    .result-unit {
+        @apply text-sm sm:text-base text-muted-foreground-1;
+    }
+
+    .result-tag {
+        @apply inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-surface;
+    }
+
+    .result-tag i {
+        @apply size-1.5 inline-block rounded-full bg-current;
+    }
+
+    .result-text {
+        @apply mt-4 text-foreground;
+    }
+
+    .scale {
+        @apply mt-6;
+    }
+
+    .scale-wrap {
+        @apply relative;
+    }
+
+    .scale-bar {
+        @apply flex w-full h-2 gap-x-0.5 rounded-full overflow-hidden;
+    }
+
+    .scale-bar span {
+        @apply flex-1;
+    }
+
+    .scale-bar span:nth-child(1) {
+        background: var(--bmi-1);
+    }
+
+    .scale-bar span:nth-child(2) {
+        background: var(--bmi-2);
+    }
+
+    .scale-bar span:nth-child(3) {
+        background: var(--bmi-3);
+    }
+
+    .scale-bar span:nth-child(4) {
+        background: var(--bmi-4);
+    }
+
+    .scale-bar span:nth-child(5) {
+        background: var(--bmi-5);
+    }
+
+    /* Range Slider başparmağıyla aynı: bg-layer + birincil renkte 4px halka */
+    .scale-marker {
+        @apply absolute top-1/2 z-1 size-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-layer shadow-[0_0_0_4px_var(--color-primary)];
+    }
+
+    .scale-ticks {
+        @apply relative h-5 mt-2 text-xs text-muted-foreground-1;
+    }
+
+    .scale-ticks span {
+        @apply absolute top-0 -translate-x-1/2;
+    }
+
+    .stat-rows {
+        @apply mt-3 divide-y divide-line-2 border-y border-line-2;
+    }
+
+    .stat-row {
+        @apply flex justify-between gap-x-4 py-2 text-sm;
+    }
+
+    .stat-row dt {
+        @apply text-muted-foreground-1;
+    }
+
+    .stat-row dd {
+        @apply font-medium text-foreground text-end;
+    }
+
+    .tool-note {
+        @apply mt-4 text-xs text-muted-foreground-1;
+    }
+
+    .tool-result .link-arrow {
+        @apply mt-5;
+    }
+
+    /* Progress "with title" */
+    .macro-bars {
+        @apply mt-3 space-y-4;
+    }
+
+    .macro-head {
+        @apply mb-2 flex justify-between items-center gap-x-3;
+    }
+
+    .macro-head b {
+        @apply text-sm font-medium text-foreground;
+    }
+
+    .macro-head span {
+        @apply text-sm text-foreground;
+    }
+
+    .macro-track {
+        @apply flex w-full h-2 bg-surface-1 rounded-full overflow-hidden;
+    }
+
+    .macro-fill {
+        @apply flex flex-col justify-center rounded-full overflow-hidden bg-primary transition-[width] duration-500;
+    }
+
+    .macro--c .macro-fill {
+        @apply bg-primary-400;
+    }
+
+    .macro--f .macro-fill {
+        @apply bg-primary-300;
+    }
+
+    /* Su takibi: Buttons "icon only" (white) */
+    .glasses {
+        @apply mt-3 flex flex-wrap gap-2;
+    }
+
+    .glass {
+        @apply size-9 inline-flex justify-center items-center rounded-lg bg-layer border border-layer-line shadow-2xs hover:bg-layer-hover focus:outline-hidden focus:bg-layer-focus;
+    }
+
+    .glass.is-full {
+        @apply bg-primary border-primary-line hover:bg-primary-hover;
+    }
+
+    .tool-result .glasses+.muted {
+        @apply mt-2 text-sm;
+    }
+
+    /* --- S10 Program --- */
+    /* Tabs "Pills on stone surface" (aria-selected ile) */
+    .day-tab {
+        @apply py-2 px-3 sm:py-3 sm:px-4 inline-flex flex-col items-center bg-transparent text-sm font-medium text-center text-muted-foreground-1 rounded-lg hover:text-primary-hover focus:outline-hidden focus:text-primary-focus aria-selected:bg-surface-active aria-selected:text-surface-foreground aria-selected:hover:text-surface-foreground;
+    }
+
+    .day-tab small {
+        @apply text-xs font-normal;
+    }
+
+    /* Preline kartı */
+    .meal {
+        @apply grid grid-cols-[4.5rem_1fr] sm:grid-cols-[5rem_1fr_auto] gap-x-4 gap-y-1 items-baseline bg-card border border-card-line rounded-xl p-4 md:p-5;
+    }
+
+    .meal-time {
+        @apply text-primary text-xs font-medium uppercase;
+    }
+
+    .meal-name {
+        @apply font-medium text-foreground;
+    }
+
+    .meal-items {
+        @apply mt-1 text-sm text-muted-foreground-1;
+    }
+
+    .meal-kcal {
+        @apply col-start-2 sm:col-start-auto text-sm text-muted-foreground-2 whitespace-nowrap;
+    }
+
+    /* Makro satırları: Stat Card Group tipografisi */
+    #program .macro-head b {
+        @apply text-sm sm:text-base font-normal text-muted-foreground-1;
+    }
+
+    #program .macro-head span {
+        @apply text-lg font-semibold text-foreground;
+    }
+
+    /* --- S11 Tarifler: Article Card Grid with Hover Zoom Images --- */
+    .recipe-card {
+        @apply isolate flex flex-col text-start focus:outline-hidden;
+    }
+
+    .recipe-card figure {
+        @apply aspect-[16/12] overflow-hidden bg-surface rounded-2xl;
+    }
+
+    .recipe-card img {
+        @apply size-full transition-transform duration-500 ease-in-out object-cover rounded-2xl;
+    }
+
+    .recipe-card:hover img,
+    .recipe-card:focus-visible img {
+        @apply scale-105;
+    }
+
+    .recipe-card-body {
+        @apply pt-4;
+    }
+
+    .recipe-card h3 {
+        @apply order-first relative inline-block self-start font-medium text-lg text-foreground before:absolute before:bottom-0.5 before:inset-s-0 before:-z-1 before:w-full before:h-1 before:bg-primary before:transition before:origin-left before:scale-x-0;
+    }
+
+    .recipe-card:hover h3,
+    .recipe-card:focus-visible h3 {
+        @apply before:scale-x-100;
+    }
+
+    .recipe-card-body {
+        @apply flex flex-col;
+    }
+
+    .recipe-meta {
+        @apply mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-muted-foreground-2;
+    }
+
+    .recipe-meta span {
+        @apply inline-flex items-center gap-x-1.5;
+    }
+
+    .recipe-meta svg {
+        @apply shrink-0 size-4;
+    }
+
+    .recipes-empty {
+        @apply col-span-full py-10 text-center text-muted-foreground-1;
+    }
+
+    /* Tarif penceresinin içi (Modal gövdesi) */
+    .recipe-content h2 {
+        @apply mt-2 text-2xl font-bold md:text-3xl text-foreground;
+    }
+
+    .recipe-content .recipe-meta {
+        @apply mt-0 text-sm;
+    }
+
+    .dialog-h3 {
+        @apply block mt-6 mb-3 text-foreground font-semibold;
+    }
+
+    .nutri {
+        @apply grid grid-cols-4 border border-line-2 rounded-xl divide-x divide-line-2;
+    }
+
+    .nutri div {
+        @apply p-3 text-center;
+    }
+
+    .nutri b {
+        @apply block text-lg font-semibold text-foreground;
+    }
+
+    .nutri span {
+        @apply block text-xs sm:text-sm text-muted-foreground-1;
+    }
+
+    .servings {
+        @apply mt-6 flex items-center justify-between gap-x-3 py-3 border-y border-line-2;
+    }
+
+    .servings .dialog-h3 {
+        @apply m-0;
+    }
+
+    .servings-ctrl {
+        @apply inline-flex items-center gap-x-1 bg-layer border border-layer-line rounded-lg p-1;
+    }
+
+    .servings-ctrl output {
+        @apply min-w-8 text-center text-sm font-semibold text-foreground;
+    }
+
+    .ingredients {
+        @apply divide-y divide-line-2;
+    }
+
+    .ingredients label {
+        @apply flex items-center gap-x-3 py-2.5 text-sm text-foreground cursor-pointer;
+    }
+
+    .ingredients input {
+        @apply shrink-0 size-4 bg-transparent border-line-3 rounded-sm shadow-2xs text-primary focus:ring-0 focus:ring-offset-0 checked:bg-primary-checked checked:border-primary-checked;
+    }
+
+    .ingredients .qty {
+        @apply min-w-20 font-medium;
+    }
+
+    .ingredients input:checked~span {
+        @apply line-through text-muted-foreground-1;
+    }
+
+    .steps-list {
+        @apply list-decimal list-outside space-y-3 ps-5 text-foreground marker:text-muted-foreground-1;
+    }
+
+    .steps-list li {
+        @apply ps-2;
+    }
+
+    /* Alerts "soft" (primary) */
+    .tip-box {
+        @apply mt-6 bg-primary-100 border border-primary-200 text-sm text-primary-800 rounded-lg p-4 dark:bg-primary-500/20 dark:border-primary-900 dark:text-primary-400;
+    }
+
+    .tip-box .label {
+        @apply block mb-1 text-current font-semibold normal-case text-sm;
+    }
+
+    /* --- S13 Randevu: Datepicker görünümü (takvimi booking.js çizer) --- */
+    .cal {
+        @apply w-full max-w-80 mx-auto p-3 space-y-0.5 bg-dropdown border border-dropdown-line shadow-lg rounded-xl dark:border-line-2;
+    }
+
+    .cal-head {
+        @apply flex justify-between items-center gap-x-3 mx-1.5 pb-3;
+    }
+
+    .cal-title {
+        @apply font-medium text-foreground first-letter:uppercase;
+    }
+
+    .cal-dow,
+    .cal-grid {
+        @apply grid grid-cols-7;
+    }
+
+    .cal-dow {
+        @apply pb-1.5;
+    }
+
+    .cal-dow span {
+        @apply m-px block text-center text-sm text-muted-foreground-1;
+    }
+
+    .cal-day {
+        @apply relative m-px mx-auto size-10 flex justify-center items-center border-[1.5px] border-transparent text-sm text-foreground rounded-full hover:border-primary-hover hover:text-primary-hover disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden focus:border-primary-focus focus:text-primary-focus;
+    }
+
+    .cal-meta {
+        @apply sr-only;
+    }
+
+    /* Legend Indicator: boş günün altında küçük nokta */
+    .cal-day.is-available::after {
+        @apply content-[''] absolute bottom-1 start-1/2 -translate-x-1/2 size-1 rounded-full bg-primary;
+    }
+
+    .cal-day.is-full .cal-num {
+        @apply line-through;
+    }
+
+    .cal-day.is-today {
+        @apply border-line-3;
+    }
+
+    .cal-day[aria-pressed="true"] {
+        @apply bg-primary border-transparent font-medium text-primary-foreground hover:text-primary-foreground;
+    }
+
+    .cal-day[aria-pressed="true"]::after {
+        @apply bg-primary-foreground;
+    }
+
+    .cal-legend {
+        @apply pt-3 flex flex-wrap justify-center gap-x-4 gap-y-1 text-xs text-muted-foreground-1;
+    }
+
+    .cal-legend span {
+        @apply inline-flex items-center;
+    }
+
+    .cal-legend i {
+        @apply size-2 inline-block rounded-full me-2;
+    }
+
+    .lg-free {
+        @apply bg-primary;
+    }
+
+    .lg-full {
+        @apply bg-surface-4;
+    }
+
+    .lg-closed {
+        @apply bg-surface-1;
+    }
+
+    .lg-today {
+        @apply border border-line-4;
+    }
+
+    /* Saatler: Buttons (white) + seçili: solid primary */
+    .slots-head {
+        @apply mb-1;
+    }
+
+    .slots-title {
+        @apply font-medium text-foreground first-letter:uppercase;
+    }
+
+    .slots-note {
+        @apply mt-1 text-sm text-muted-foreground-1;
+    }
+
+    .slot-group {
+        @apply mt-4;
+    }
+
+    .slot-group .label {
+        @apply block mb-2 text-muted-foreground-1;
+    }
+
+    .slot-list {
+        @apply grid grid-cols-3 sm:grid-cols-4 gap-2;
+    }
+
+    .slot {
+        @apply py-2 px-3 inline-flex justify-center items-center text-sm font-medium rounded-lg bg-layer border border-layer-line text-layer-foreground shadow-2xs hover:bg-layer-hover focus:outline-hidden focus:bg-layer-focus disabled:opacity-50 disabled:pointer-events-none disabled:line-through disabled:shadow-none;
+    }
+
+    .slot[aria-pressed="true"] {
+        @apply bg-primary border-primary-line text-primary-foreground hover:bg-primary-hover focus:bg-primary-focus;
+    }
+
+    .slots-empty {
+        @apply mt-4 bg-surface border border-line-2 text-sm text-surface-foreground rounded-lg p-4;
+    }
+
+    .slots-empty .btn {
+        @apply mt-3;
+    }
+
+    /* Skeleton */
+    .skeleton {
+        @apply block bg-surface-1 rounded-lg animate-pulse;
+    }
+
+    .tz-note {
+        @apply mb-4 bg-primary-100 border border-primary-200 text-sm text-primary-800 rounded-lg p-4 dark:bg-primary-500/20 dark:border-primary-900 dark:text-primary-400;
+    }
+
+    /* Özet ve kontrol listeleri */
+    .sum-row {
+        @apply flex justify-between gap-x-4 py-2 text-sm;
+    }
+
+    .sum-row dt {
+        @apply text-muted-foreground-1 shrink-0;
+    }
+
+    .sum-row dd {
+        @apply font-medium text-foreground text-end;
+    }
+
+    .sum-row dd.is-empty {
+        @apply font-normal text-muted-foreground-1;
+    }
+
+    .review {
+        @apply divide-y divide-line-2 border-y border-line-2;
+    }
+
+    .review-row {
+        @apply grid grid-cols-[1fr_auto] gap-x-4 py-3;
+    }
+
+    .review-row dt {
+        @apply text-xs font-medium uppercase text-muted-foreground-1;
+    }
+
+    .review-row dd {
+        @apply col-start-1 mt-0.5 text-foreground;
+    }
+
+    .review-row button {
+        @apply col-start-2 row-start-1 row-span-2 self-center text-sm text-primary decoration-2 hover:underline focus:outline-hidden focus:underline font-medium;
+    }
+
+    .prep {
+        @apply mt-6 bg-surface border border-line-2 text-sm text-surface-foreground rounded-lg p-4;
+    }
+
+    .prep .label {
+        @apply block mb-2 text-foreground normal-case text-sm font-semibold;
+    }
+
+    .prep ul {
+        @apply list-disc list-outside space-y-1.5 ps-5;
+    }
+
+    .bstep-msg {
+        @apply text-sm text-red-500 empty:hidden;
+    }
+
+    .bstep-msg a {
+        @apply font-medium;
+    }
+
+    /* Onay ekranı */
+    .done-icon {
+        @apply size-12 flex justify-center items-center rounded-full bg-primary-100 text-primary-800 dark:bg-primary-500/20 dark:text-primary-400;
+    }
+
+    .done-icon svg {
+        @apply shrink-0 size-6;
+    }
+
+    .done .demo-tag {
+        @apply mt-4 inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-surface text-surface-foreground normal-case;
+    }
+
+    .done .bstep-title {
+        @apply mt-4 text-2xl font-bold md:text-3xl text-foreground;
+    }
+
+    .done .lede {
+        @apply mt-2;
+    }
+
+    .done-ref {
+        @apply mt-6;
+    }
+
+    .done-ref .label {
+        @apply block mb-2;
+    }
+
+    .ref {
+        @apply inline-flex items-center gap-x-3 py-2 ps-4 pe-2 bg-layer border border-layer-line rounded-lg font-mono text-lg font-semibold text-foreground;
+    }
+
+    .done .review {
+        @apply mt-6;
+    }
+
+    .done-actions {
+        @apply mt-6 flex flex-wrap gap-2;
+    }
+
+    /* --- S19 Sohbet: Chat Bubbles --- */
+    .msg {
+        @apply flex gap-x-2 sm:gap-x-4;
+    }
+
+    .msg--bot {
+        @apply me-11 max-w-lg;
+    }
+
+    .msg--user {
+        @apply ms-auto ps-11 justify-end;
+    }
+
+    .msg--bot .bubble {
+        @apply bg-layer border border-layer-line rounded-2xl p-4 space-y-3;
+    }
+
+    .msg--user .bubble {
+        @apply inline-block bg-primary rounded-2xl p-4 shadow-2xs text-sm text-primary-foreground;
+    }
+
+    .msg--bot .bubble p {
+        @apply text-sm text-foreground;
+    }
+
+    .bubble-title {
+        @apply font-medium text-foreground;
+    }
+
+    .bubble-rows {
+        @apply space-y-1.5;
+    }
+
+    .bubble-row {
+        @apply flex justify-between gap-x-3 text-sm text-foreground;
+    }
+
+    .bubble-row span:last-child {
+        @apply font-medium text-end;
+    }
+
+    .msg--bot .bubble .bubble-note {
+        @apply text-xs text-muted-foreground-1;
+    }
+
+    .bubble-actions {
+        @apply flex flex-wrap items-center gap-x-3 gap-y-2;
+    }
+
+    .bubble-action {
+        @apply text-sm text-primary decoration-2 hover:underline focus:outline-hidden focus:underline font-medium;
+    }
+
+    .bubble-action--primary {
+        @apply py-2 px-3 inline-flex items-center rounded-lg bg-primary border border-primary-line text-primary-foreground no-underline hover:bg-primary-hover hover:no-underline focus:bg-primary-focus;
+    }
+
+    .quick {
+        @apply flex flex-wrap gap-2 ps-0.5;
+    }
+
+    .quick button {
+        @apply py-1.5 px-3 inline-flex items-center rounded-full text-xs font-medium bg-surface border border-transparent text-surface-foreground hover:bg-surface-hover focus:outline-hidden focus:bg-surface-hover;
+    }
+
+    /* .msg--bot .bubble'dan daha özgül: yazıyor noktaları tek satırda */
+    .msg.typing .bubble {
+        @apply inline-flex items-center gap-x-1 space-y-0;
+    }
+
+    .typing i {
+        @apply size-1.5 bg-muted-foreground rounded-full animate-[typing_1s_ease-in-out_infinite];
+    }
+
+    .typing i:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    .typing i:nth-child(3) {
+        animation-delay: 0.4s;
+    }
+
+    .chat-day {
+        @apply text-center text-xs text-muted-foreground-1;
+    }
+
+    /* --- S17 İletişim ve genel form durumları --- */
+    .form-status {
+        @apply mt-3 text-sm empty:hidden;
+    }
+
+    .form-status.is-ok {
+        @apply text-teal-600 dark:text-teal-400;
+    }
+
+    .form-status.is-err {
+        @apply text-red-500;
+    }
+
+    .form-status a {
+        @apply underline font-medium;
+    }
+
+    /* Badge with status dot */
+    .open-status {
+        @apply inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-surface text-surface-foreground;
+    }
+
+    .open-status i {
+        @apply size-1.5 inline-block rounded-full bg-muted-foreground;
+    }
+
+    .open-status.is-open i {
+        @apply bg-teal-500;
+    }
+
+    .open-status.is-closed i {
+        @apply bg-red-500;
+    }
+
+    .hours tr.is-today th,
+    .hours tr.is-today td {
+        @apply font-semibold text-foreground;
+    }
+
+    /* --- Demo şeridi (site.js üretir): Toast kartı --- */
+    .demo-bar {
+        @apply fixed bottom-4 inset-x-4 z-50 mx-auto max-w-3xl p-4 bg-layer border border-layer-line rounded-xl shadow-lg;
+    }
+
+    .demo-bar-inner {
+        @apply flex flex-wrap sm:flex-nowrap items-center gap-x-3 gap-y-2;
+    }
+
+    .demo-bar-label {
+        @apply shrink-0 inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-primary-100 text-primary-800 dark:bg-primary-500/20 dark:text-primary-400;
+    }
+
+    .demo-bar p {
+        @apply order-3 sm:order-none basis-full sm:basis-auto grow text-sm text-layer-foreground;
+    }
+
+    .demo-bar-btn {
+        @apply ms-auto sm:ms-0 shrink-0 bg-layer border-layer-line text-layer-foreground shadow-2xs hover:bg-layer-hover focus:bg-layer-focus;
+    }
+
+    body.demo-open {
+        padding-bottom: var(--demo-h, 0px);
+    }
+
+    body.demo-open .fab {
+        @apply invisible opacity-0 pointer-events-none;
+    }
+
+    /* --- Toast (site.js) --- */
+    .toast {
+        @apply fixed bottom-6 start-1/2 z-80 -translate-x-1/2 max-w-xs w-max p-4 bg-layer border border-layer-line rounded-xl shadow-lg text-sm text-layer-foreground invisible opacity-0 transition-opacity duration-300;
+    }
+
+    .toast.is-on {
+        @apply visible opacity-100;
+    }
+
+    /* --- Yüzen düğmeler ve sohbet paneli (durumları chat.js / site.js body sınıflarıyla verir) --- */
+    .fab .i-x {
+        @apply hidden;
+    }
+
+    .chat-open .fab-chat .i-chat {
+        @apply hidden;
+    }
+
+    .chat-open .fab-chat .i-x {
+        @apply block;
+    }
+
+    .chat-open .fab-wa,
+    body.fabs-off .fab-wa {
+        @apply invisible opacity-0 pointer-events-none;
+    }
+
+    .fab-badge.is-hidden,
+    .chat-open .fab-badge {
+        @apply hidden;
+    }
+
+    /* --- Mevsim notları: sürükleme (site.js) --- */
+    .is-dragging {
+        @apply cursor-grabbing shadow-lg;
+    }
+
+    /* --- Makale gövdesi: "Centered Editorial Article Page" tipografisi --- */
+    .prose-preline {
+        @apply space-y-5 md:space-y-8;
+    }
+
+    .prose-preline>p,
+    .prose-preline li {
+        @apply text-lg text-foreground;
+    }
+
+    .prose-preline h2 {
+        @apply text-2xl font-semibold text-foreground;
+    }
+
+    .prose-preline h3 {
+        @apply text-xl font-semibold text-foreground;
+    }
+
+    /* Makale bloğundaki "space-y-3" başlık+paragraf grubu */
+    .prose-preline > h2,
+    .prose-preline > h3 {
+        @apply mb-3;
+    }
+
+    .prose-preline ul {
+        @apply list-disc list-outside space-y-5 ps-5;
+    }
+
+    .prose-preline ol {
+        @apply list-decimal list-outside space-y-5 ps-5;
+    }
+
+    .prose-preline li {
+        @apply ps-2;
+    }
+
+    .prose-preline strong {
+        @apply font-semibold;
+    }
+
+    .prose-preline a {
+        @apply text-primary decoration-2 hover:underline focus:outline-hidden focus:underline font-medium;
+    }
+
+    .prose-preline blockquote {
+        @apply text-center p-4 sm:px-7 text-xl font-medium text-foreground md:text-2xl md:leading-normal;
+    }
+
+    /* Tables "default" */
+    .prose-preline .table-scroll {
+        @apply overflow-x-auto;
+    }
+
+    .prose-preline table {
+        @apply min-w-full divide-y divide-table-line;
+    }
+
+    .prose-preline thead th {
+        @apply px-4 py-3 text-start text-xs font-medium text-muted-foreground-1 uppercase;
+    }
+
+    .prose-preline tbody {
+        @apply divide-y divide-table-line;
+    }
+
+    .prose-preline tbody td,
+    .prose-preline tbody th {
+        @apply px-4 py-3 text-sm text-foreground text-start align-top;
+    }
+
+    /* Alerts "soft" */
+    .prose-preline .callout {
+        @apply bg-surface border border-line-2 text-sm text-surface-foreground rounded-lg p-4;
+    }
+
+    .prose-preline .callout--warn {
+        @apply bg-yellow-100 border-yellow-200 text-yellow-800 dark:bg-yellow-500/20 dark:border-yellow-900 dark:text-yellow-400;
+    }
+
+    .prose-preline .callout .label {
+        @apply block mb-1 text-current text-sm font-semibold normal-case;
+    }
+
+    .prose-preline .callout p {
+        @apply text-sm text-current;
+    }
+
+    .prose-preline.sources ol {
+        @apply space-y-2;
+    }
+
+    .prose-preline.sources li {
+        @apply text-sm text-muted-foreground-1;
+    }
+}
+
+/* ---------- Yazdırma: yalnızca örnek program ---------- */
+@media print {
+    @page {
+        margin: 16mm;
+    }
+
+    html,
+    body {
+        background: #fff !important;
+        color: #000 !important;
+        padding: 0 !important;
+    }
+
+    body * {
+        visibility: hidden;
+    }
+
+    .print-target,
+    .print-target * {
+        visibility: visible;
+    }
+
+    .print-target {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+    }
+
+    .print-target .btn,
+    .print-target .program-actions,
+    .print-target .icon-btn {
+        display: none !important;
+    }
+
+    .meal {
+        border-color: #ccc !important;
+        background: #fff !important;
+    }
+}

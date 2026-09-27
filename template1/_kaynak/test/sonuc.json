@@ -1,0 +1,251 @@
+[
+  {
+    "name": "konsol 1440 /index.html",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "name": "taşma 1440 /index.html",
+    "ok": true,
+    "note": "scrollWidth 1440 / innerWidth 1440"
+  },
+  {
+    "name": "konsol 1440 /blog/index.html",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "name": "taşma 1440 /blog/index.html",
+    "ok": true,
+    "note": "scrollWidth 1440 / innerWidth 1440"
+  },
+  {
+    "name": "konsol 1440 /blog/akdeniz-tipi-beslenme.html",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "name": "taşma 1440 /blog/akdeniz-tipi-beslenme.html",
+    "ok": true,
+    "note": "scrollWidth 1440 / innerWidth 1440"
+  },
+  {
+    "name": "konsol 1440 /kvkk.html",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "name": "taşma 1440 /kvkk.html",
+    "ok": true,
+    "note": "scrollWidth 1440 / innerWidth 1440"
+  },
+  {
+    "name": "konsol 390 /index.html",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "name": "taşma 390 /index.html",
+    "ok": true,
+    "note": "scrollWidth 390 / innerWidth 390"
+  },
+  {
+    "name": "konsol 390 /blog/index.html",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "name": "taşma 390 /blog/index.html",
+    "ok": true,
+    "note": "scrollWidth 390 / innerWidth 390"
+  },
+  {
+    "name": "konsol 390 /blog/akdeniz-tipi-beslenme.html",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "name": "taşma 390 /blog/akdeniz-tipi-beslenme.html",
+    "ok": true,
+    "note": "scrollWidth 390 / innerWidth 390"
+  },
+  {
+    "name": "konsol 390 /kvkk.html",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "name": "taşma 390 /kvkk.html",
+    "ok": true,
+    "note": "scrollWidth 390 / innerWidth 390"
+  },
+  {
+    "name": "sözleşme seçicileri",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "name": "Preline JS yalnızca offcanvas/accordion/dropdown",
+    "ok": true,
+    "note": "örnekler: $hsAccordionCollection=10, $hsDropdownCollection=1, $hsOverlayCollection=1; data-hs-tab 0, data-hs-stepper 0, data-hs-datepicker 0"
+  },
+  {
+    "name": "randevu: boş formda hata mesajları",
+    "ok": true,
+    "note": "4/4 hata mesajı"
+  },
+  {
+    "name": "randevu akışı (demo)",
+    "ok": true,
+    "note": "varsayılanlar first/weight/any, stepper DC--, saat 09:00, özet: \"Görüşmeİlk görüşme · Kilo yönetimi · 60 dkDüzenleUzmanUzm. Dyt. Selin Karaca · ilk uygun uzmanDüzenl…\", .ics mizan-randevu-MZ-X3G25.ics, Google 1"
+  },
+  {
+    "name": "takvim/saat Preline görünümü",
+    "ok": true,
+    "note": "seçili gün bg oklch(0.546 0.245 262.881), 40 px, radius 3.35544e+07px; seçili saat bg oklch(0.546 0.245 262.881)"
+  },
+  {
+    "name": "iptal penceresi",
+    "ok": true,
+    "note": "açık: true, boş gönderimde hata: 2/2"
+  },
+  {
+    "name": "konsol (randevu akışı)",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "name": "VKİ 170/70",
+    "ok": true,
+    "note": "sonuç 24,2"
+  },
+  {
+    "name": "kalori formu + sekmeler (tools.js, klavye)",
+    "ok": true,
+    "note": "hedef 1.730 kcal; ok tuşuyla odak tab-kcal"
+  },
+  {
+    "name": "su bardağı yenilemede kalıyor",
+    "ok": true,
+    "note": "2 bardak dolu"
+  },
+  {
+    "name": "program: gün ve hedef",
+    "ok": true,
+    "note": "toplam 1.485 → 2.620"
+  },
+  {
+    "name": "tarif filtresi",
+    "ok": true,
+    "note": "9 → 2"
+  },
+  {
+    "name": "tarif penceresi + porsiyon 2→3",
+    "ok": true,
+    "note": "pencere açık: true; 2: \"80 gyulaf ezmesi240 mlsüt veya badem içeceği1…\" 3: \"120 gyulaf ezmesi360 mlsüt veya badem içeceği…\""
+  },
+  {
+    "name": "tarif penceresi Esc ile kapanıyor",
+    "ok": true
+  },
+  {
+    "name": "konsol (program/tarif)",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "name": "sohbet kapalıyken gizli, açılıyor",
+    "ok": true,
+    "note": "[data-intent] hızlı yanıt: 6"
+  },
+  {
+    "name": "sohbet: ücretler",
+    "ok": true,
+    "note": "Güncel ücretlerimiz:İlk görüşme · 60 dk1.800 TLKontrol görüşmesi · 30 dk900 TLOnline görüş"
+  },
+  {
+    "name": "sohbet: randevu",
+    "ok": true,
+    "note": "En yakın uygun ilk görüşme (60 dk, vücut analizi dahil): Yarın, saat 09:00 · Uzm. Dyt. Sel"
+  },
+  {
+    "name": "sohbet: beni arayın (demo)",
+    "ok": true,
+    "note": "Memnuniyetle. Diyetisyenimiz mesai saatleri içinde sizi aras ⇒ Teşekkürler Test. Size hangi numaradan ulaşalım? ⇒ Geri arama talebiniz alındı (demo). Bu bir demo olduğu için "
+  },
+  {
+    "name": "konsol (sohbet)",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "name": "dil/tema geçişi + yenilemede korunuyor (html.dark dahil)",
+    "ok": true,
+    "note": "orta sayfada EN: en / Body mass index; tema: dark/true; yenileme: en,dark,true; geri: tr,light,false"
+  },
+  {
+    "name": "footer dil menüsü TR/EN değiştiriyor",
+    "ok": true,
+    "note": "menü açık: true; seçimden sonra en (\"Legal\"); geri tr"
+  },
+  {
+    "name": "konsol (dil/tema)",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "name": "?lang=en Türkçe kalan metin (marka/kişi/adres hariç)",
+    "ok": true,
+    "note": "10 düğüm: Moda, Kadıköy · In person and online | Zeynep Tunalı, RD | Artichokes in olive oil, 100 g grilled köfte, cacık | Quinoa kısır | Now · Türkiye time | Zeynep Tunalı | Moda Cad. No: 48, Floor 3, Kadıköy, Istanbul | We are on Moda Avenue, about a 10-minute walk from Kadıköy f | Kadıköy pier 10 min · Moda tram stop 3 min on foot | A nutrition and dietetics clinic offering in-person consulta"
+  },
+  {
+    "name": "offcanvas menü: Enter ile açılıyor, Esc ile kapanıyor",
+    "ok": true,
+    "note": "açık: {\"cls\":true,\"vis\":true,\"exp\":\"true\",\"focusIn\":true}, Tab içeride: true; Esc sonrası: {\"cls\":false,\"exp\":\"false\"}; bağlantı sonrası açık: false"
+  },
+  {
+    "name": "konsol (offcanvas)",
+    "ok": true,
+    "note": ""
+  },
+  {
+    "name": "SSS accordion klavyeyle (Enter açar, Space kapatır)",
+    "ok": true,
+    "note": "Enter: {\"open\":true,\"exp\":\"true\",\"h\":72,\"other\":false}; Space: {\"open\":false,\"exp\":\"false\"}; FAQPage JSON-LD soru: 10"
+  },
+  {
+    "name": "axe ana sayfa light",
+    "ok": true,
+    "note": "ciddi/kritik 0; kalan: yok"
+  },
+  {
+    "name": "axe ana sayfa dark",
+    "ok": true,
+    "note": "ciddi/kritik 0; kalan: yok"
+  },
+  {
+    "name": "axe blog/akdeniz-tipi-beslenme.html",
+    "ok": true,
+    "note": "ciddi/kritik 0; kalan: yok"
+  },
+  {
+    "name": "axe blog/index.html",
+    "ok": true,
+    "note": "ciddi/kritik 0; kalan: yok"
+  },
+  {
+    "name": "axe kvkk.html",
+    "ok": true,
+    "note": "ciddi/kritik 0; kalan: yok"
+  },
+  {
+    "name": "hareket azaltma",
+    "ok": true,
+    "note": "sonsuz animasyon: 0; görünmeyen bölüm: 0"
+  },
+  {
+    "name": "JS kapalı",
+    "ok": true,
+    "note": "görünmeyen bölüm: 0; ilk SSS yanıtı görünür: true"
+  }
+]
