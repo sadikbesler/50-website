@@ -1,0 +1,41 @@
+    <!-- S10 · application/tabs/5 (Pills) + marketing/cards/2 tipografisi -->
+    <section id="program" aria-labelledby="program-title">
+      <div class="print-scope {{c:wrap}}">
+        <div class="mx-auto max-w-lg text-center">
+          <h2 id="program-title" class="{{c:h2}}" data-i18n="program.title">Bir haftalık örnek menü</h2>
+          <p class="{{c:lede}}" data-i18n="program.lede">Üç farklı hedef için hazırladığımız örnek haftalar. Porsiyonlar ortalama bir yetişkine göredir; size özel plan görüşmede hazırlanır.</p>
+        </div>
+
+        <div class="mt-8 flex flex-col items-center gap-4">
+          <div class="flex flex-wrap justify-center gap-2" role="radiogroup" data-i18n-attr="aria-label:program.aria" aria-label="Program hedefi" data-plans>
+            <button type="button" role="radio" aria-checked="true" data-plan="lose" class="{{c:pill}} {{c:pillChecked}}"><span data-i18n="program.lose">Kilo verme</span> <small data-i18n="program.k1">~1.500 kcal</small></button>
+            <button type="button" role="radio" aria-checked="false" data-plan="balance" tabindex="-1" class="{{c:pill}} {{c:pillChecked}}"><span data-i18n="program.balance">Dengeli</span> <small data-i18n="program.k2">~1.900 kcal</small></button>
+            <button type="button" role="radio" aria-checked="false" data-plan="sport" tabindex="-1" class="{{c:pill}} {{c:pillChecked}}"><span data-i18n="program.sport">Sporcu</span> <small data-i18n="program.k3">~2.500 kcal</small></button>
+          </div>
+          <div class="day-tabs flex flex-wrap justify-center gap-2" role="tablist" data-i18n-attr="aria-label:program.days" aria-label="Haftanın günleri" data-days></div>
+        </div>
+
+        <div class="program mt-8 grid gap-8 lg:grid-cols-3" id="program-print">
+          <ol class="meals divide-y divide-gray-200 lg:col-span-2 dark:divide-gray-700" data-meals aria-live="polite"></ol>
+          <aside class="program-side space-y-4">
+            <div class="{{c:statCard}}">
+              <p class="{{c:statLabel}}" data-i18n="program.total">Günlük toplam</p>
+              <p class="{{c:statValue}}"><b class="font-medium" data-total>0</b> kcal</p>
+              <div class="macro-bars mt-4" data-macros></div>
+            </div>
+            <div class="program-tip {{c:statCard}}">
+              <p class="{{c:statLabel}}" data-i18n="program.tip">Günün notu</p>
+              <p class="mt-1 text-pretty text-gray-700 dark:text-gray-200" data-tip></p>
+            </div>
+            <div class="program-actions flex flex-wrap gap-3">
+              <button type="button" class="btn btn--ghost btn--sm" data-print-program>
+                <svg data-icon="printer" class="i size-5"></svg>
+                <span data-i18n="program.print">Yazdır</span>
+              </button>
+              <a class="btn btn--primary btn--sm" href="#randevu" data-book-area="weight" data-program-book data-i18n="program.book">Bu hedefle randevu al</a>
+            </div>
+          </aside>
+        </div>
+        <p class="disclaimer mt-6 text-xs/relaxed text-gray-500 dark:text-gray-400" data-i18n="program.disclaimer">Bu menüler genel bir örnektir; gebelik, kronik hastalık, ilaç kullanımı veya 18 yaş altı gibi durumlarda doğrudan uygulanmamalıdır. Değerler yaklaşıktır.</p>
+      </div>
+    </section>

@@ -1,0 +1,45 @@
+  <!-- Sohbet: HyperUI'de sohbet bileşeni yok. Kabuk application/modals/2, balonlar marketing/cards/1 tokenları (tw.css) -->
+  <aside class="floating-actions" data-i18n-attr="aria-label:a11y.floating" aria-label="Hızlı iletişim">
+    <a class="fab fab-wa" href="https://wa.me/905555555555" target="_blank" rel="noopener noreferrer" data-wa data-i18n-attr="aria-label:a11y.wa" aria-label="WhatsApp üzerinden yazın">
+      {{wa-icon:size-6}}
+    </a>
+
+    <section class="chat" id="chat" role="dialog" aria-labelledby="chat-title" inert>
+      <header class="chat-head">
+        <div>
+          <h2 id="chat-title" class="text-xl font-bold text-gray-900 dark:text-white" data-i18n="chat.title">Mizan Asistan</h2>
+          <p class="mt-1 flex items-center gap-1.5 text-sm text-gray-700 dark:text-gray-200"><span class="size-2 rounded-full bg-green-500" aria-hidden="true"></span><span data-i18n="chat.status">Genellikle hemen yanıtlar</span></p>
+        </div>
+        <button type="button" data-chat-close data-i18n-attr="aria-label:chat.close" aria-label="Sohbeti kapat" class="-me-4 -mt-4 rounded-full p-2 text-gray-600 transition-colors hover:bg-gray-50 hover:text-gray-900 focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 focus:ring-offset-white focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white focus-visible:outline-none dark:text-gray-500 dark:hover:bg-gray-800 dark:hover:text-gray-300 dark:focus:ring-indigo-300 dark:focus:ring-offset-gray-900 dark:focus-visible:ring-indigo-300 dark:focus-visible:ring-offset-gray-900">
+          <svg data-icon="hui:application/modals/2:1" class="size-5"></svg>
+        </button>
+      </header>
+      <div class="chat-log" id="chat-log" role="log" aria-live="polite"></div>
+      <form class="chat-form" id="chat-form" autocomplete="off">
+        <input class="chat-input w-full rounded border-gray-300 shadow-sm sm:text-sm dark:border-gray-600 dark:bg-gray-900 dark:text-white" id="chat-input" type="text" maxlength="400" enterkeyhint="send" data-i18n-attr="placeholder:chat.placeholder;aria-label:chat.placeholder" placeholder="Bir soru yazın…" aria-label="Bir soru yazın…">
+        <button class="chat-send inline-grid shrink-0 place-content-center rounded border border-indigo-600 bg-indigo-600 px-3 text-white shadow-sm transition-colors hover:bg-indigo-700 disabled:opacity-50" type="submit" data-i18n-attr="aria-label:chat.send" aria-label="Gönder" disabled>
+          <svg data-icon="arrow-up" class="size-5" data-sw="2"></svg>
+        </button>
+      </form>
+      <p class="chat-foot" data-i18n="chat.foot">Genel bilgilendirme amaçlıdır, tıbbi tavsiye yerine geçmez.</p>
+    </section>
+
+    <button type="button" class="fab fab-chat" id="chat-toggle" aria-expanded="false" aria-controls="chat" data-i18n-attr="aria-label:chat.open" aria-label="Asistanla sohbet et">
+      <svg data-icon="chat-bubble-oval-left-ellipsis" class="i-chat size-6"></svg>
+      <svg data-icon="hui:application/modals/2:1" class="i-x size-6"></svg>
+      <span class="fab-badge" data-chat-badge aria-hidden="true"></span>
+    </button>
+  </aside>
+
+  <!-- application/toasts/1 — Success -->
+  <div id="toast" class="toast pointer-events-none fixed end-4 top-4 z-[60] w-[min(28rem,calc(100%-2rem))] -translate-y-2 opacity-0 transition duration-200 [&.is-on]:translate-y-0 [&.is-on]:opacity-100" role="status" aria-live="polite">
+    <div class="rounded-md border border-green-500 bg-green-50 p-4 shadow-sm dark:border-green-400 dark:bg-green-800">
+      <div class="flex items-start gap-4">
+        <svg data-icon="hui:application/toasts/1:1" class="-mt-0.5 size-6 text-green-700 dark:text-green-200"></svg>
+        <div class="flex-1">
+          <strong class="block leading-tight font-medium text-green-800 dark:text-green-100" data-i18n="toast.title">Bilgi</strong>
+          <p class="mt-0.5 text-sm text-green-700 dark:text-green-200" data-toast-text></p>
+        </div>
+      </div>
+    </div>
+  </div>

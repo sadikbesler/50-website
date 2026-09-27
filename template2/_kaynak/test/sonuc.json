@@ -1,0 +1,193 @@
+{
+  "1 konsol": {
+    "gecti": true,
+    "not": {
+      "index": [],
+      "blog/index.html": [],
+      "blog/insulin-direnci-beslenme.html": [],
+      "kvkk.html": []
+    }
+  },
+  "2 tasma": {
+    "gecti": true,
+    "not": {
+      "index@1440": [
+        1440,
+        1440
+      ],
+      "index@390": [
+        390,
+        390
+      ],
+      "blog/index.html@1440": [
+        1440,
+        1440
+      ],
+      "blog/index.html@390": [
+        390,
+        390
+      ],
+      "blog/insulin-direnci-beslenme.html@1440": [
+        1440,
+        1440
+      ],
+      "blog/insulin-direnci-beslenme.html@390": [
+        390,
+        390
+      ],
+      "kvkk.html@1440": [
+        1440,
+        1440
+      ],
+      "kvkk.html@390": [
+        390,
+        390
+      ]
+    }
+  },
+  "3 sozlesme": {
+    "gecti": true,
+    "not": {
+      "eksik": [],
+      "ilkYuklemedeOlmayan": [
+        ".servings",
+        "[data-intent]"
+      ]
+    }
+  },
+  "3 sozlesme (.cal-day/.slot)": {
+    "gecti": true
+  },
+  "4 randevu": {
+    "gecti": true,
+    "not": {
+      "bosFormHata": 4,
+      "ozetSatir": 8,
+      "done": {
+        "ref": "MZ-Z2ULP",
+        "ics": true,
+        "gcal": true
+      },
+      "ics": "mizan-randevu-MZ-Z2ULP.ics",
+      "iptalAcik": true,
+      "iptalHata": true
+    }
+  },
+  "5 araclar": {
+    "gecti": true,
+    "not": {
+      "vki": "24,2",
+      "kcal": "1.730",
+      "doluBardakYenilemeSonrasi": 3
+    }
+  },
+  "6 program-tarif": {
+    "gecti": true,
+    "not": {
+      "gunDegisti": true,
+      "toplam": [
+        "1.450",
+        "2.600"
+      ],
+      "tarif": [
+        9,
+        2
+      ],
+      "scaled": {
+        "q0": "80 g",
+        "q1": "120 g",
+        "porsiyon": "3"
+      }
+    }
+  },
+  "7 sohbet": {
+    "gecti": true,
+    "not": {
+      "acik": true,
+      "fiyat": "Güncel ücretlerimiz:İlk görüşme · 60 dk1.800 TLKontrol görüşmesi · 30 dk900 TLOn",
+      "randevu": "En yakın uygun ilk görüşme (60 dk, vücut analizi dahil): Yarın, saat 09:00 · Uzm",
+      "cb": [
+        "Memnuniyetle. Diyetisyenimiz mesai saatleri içinde",
+        "Teşekkürler Test. Size hangi numaradan ulaşalım?",
+        "Geri arama talebiniz alındı (demo). Bu bir demo olduğu için sizi kimse aramayaca"
+      ]
+    }
+  },
+  "8 dil-tema": {
+    "gecti": true,
+    "not": {
+      "trKalan": [],
+      "enUrl": "http://localhost:8801/50-website/template2/?lang=en",
+      "koyu": true,
+      "korundu": {
+        "dark": true,
+        "lang": "en"
+      },
+      "geri": {
+        "dark": false,
+        "lang": "tr"
+      },
+      "qEn": "en | A nutrition plan that fits your life."
+    }
+  },
+  "9 axe": {
+    "gecti": true,
+    "not": {
+      "ciddi": {
+        "index-acik": [],
+        "index-koyu": [],
+        "makale": [],
+        "makale-koyu": [],
+        "takvim-light": [],
+        "tarif-penceresi-light": [],
+        "sohbet-light": [],
+        "takvim-dark": [],
+        "tarif-penceresi-dark": [],
+        "sohbet-dark": []
+      },
+      "tum": {
+        "index-acik": [],
+        "index-koyu": [],
+        "makale": [],
+        "makale-koyu": [],
+        "takvim-light": [],
+        "tarif-penceresi-light": [],
+        "sohbet-light": [],
+        "takvim-dark": [],
+        "tarif-penceresi-dark": [],
+        "sohbet-dark": []
+      }
+    }
+  },
+  "10 hareket-azaltma": {
+    "gecti": true,
+    "not": {
+      "sonsuz": [],
+      "gizli": []
+    }
+  },
+  "11 js-kapali": {
+    "gecti": true,
+    "not": {
+      "gizliBolum": [],
+      "metin": 11250,
+      "bosSonuc": 5
+    }
+  },
+  "ek: mobil menu": {
+    "gecti": true,
+    "not": {
+      "menu": {
+        "acik": true,
+        "inert": false
+      },
+      "kapali": true
+    }
+  },
+  "ek: bos gun durumu": {
+    "gecti": true,
+    "not": {
+      "secili": "2026-09-28"
+    }
+  }
+}

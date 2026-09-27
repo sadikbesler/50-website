@@ -1,0 +1,20 @@
+{
+  "name": "_kaynak",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.3",
+    "@tailwindcss/forms": "^0.5.11",
+    "heroicons": "^2.2.0",
+    "playwright": "1.63",
+    "tailwindcss": "^4.3.3"
+  }
+}

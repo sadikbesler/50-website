@@ -1,0 +1,79 @@
+  <!-- application/skip-links/1 -->
+  <a href="#main" class="skip-link absolute top-0 left-1/2 z-50 -translate-x-1/2 -translate-y-full rounded-sm bg-blue-700 px-12 py-3 text-sm font-semibold text-white transition-transform hover:bg-blue-600 focus:translate-y-4 active:bg-blue-600" data-i18n="a11y.skip">İçeriğe geç</a>
+
+  <!-- marketing/headers/2 — Icon on the left, links in the middle and call to actions on the right -->
+  <header id="site-header" class="site-header bg-white dark:bg-gray-900">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex h-16 items-center justify-between">
+        <div class="md:flex md:items-center md:gap-12">
+          <a class="block text-teal-600 dark:text-teal-600" href="{{h}}#top" data-i18n-attr="aria-label:a11y.home" aria-label="Mizan Beslenme ana sayfa">
+            {{logo-mark}}
+          </a>
+        </div>
+
+        <div class="hidden lg:block">
+          <nav class="nav" data-i18n-attr="aria-label:a11y.mainNav" aria-label="Ana menü">
+            <ul class="flex items-center gap-6 text-sm">
+              <li><a class="text-gray-500 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75" href="{{h}}#hizmetler" data-i18n="nav.services">Hizmetler</a></li>
+              <li><a class="text-gray-500 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75" href="{{h}}#uzmanlar" data-i18n="nav.team">Uzmanlar</a></li>
+              <li><a class="text-gray-500 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75" href="{{h}}#araclar" data-i18n="nav.tools">Araçlar</a></li>
+              <li><a class="text-gray-500 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75" href="{{h}}#tarifler" data-i18n="nav.recipes">Tarifler</a></li>
+              <li><a class="text-gray-500 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75" href="{{h}}#ucretler" data-i18n="nav.pricing">Ücretler</a></li>
+              <li><a class="text-gray-500 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75" href="{{blog}}" data-i18n="nav.blog">Blog</a></li>
+              <li><a class="text-gray-500 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75" href="{{h}}#iletisim" data-i18n="nav.contact">İletişim</a></li>
+            </ul>
+          </nav>
+        </div>
+
+        <div class="flex items-center gap-4">
+          <div class="sm:flex sm:gap-4">
+            <a class="rounded-md bg-teal-700 px-5 py-2.5 text-sm font-medium text-white shadow-sm dark:hover:bg-teal-600" href="{{h}}#randevu" data-i18n="nav.book">Randevu al</a>
+
+            <div class="hidden sm:flex">
+              <div class="flex rounded-md bg-gray-100 dark:bg-gray-800" role="group" data-i18n-attr="aria-label:a11y.lang" aria-label="Dil seçimi">
+                <button type="button" data-lang="tr" aria-pressed="true" lang="tr" class="rounded-md px-3 py-2.5 text-sm font-medium text-gray-600 transition hover:text-gray-600/75 aria-pressed:text-teal-700 dark:text-gray-400 dark:hover:text-white/75 dark:aria-pressed:text-white">TR</button>
+                <button type="button" data-lang="en" aria-pressed="false" lang="en" class="rounded-md px-3 py-2.5 text-sm font-medium text-gray-600 transition hover:text-gray-600/75 aria-pressed:text-teal-700 dark:text-gray-400 dark:hover:text-white/75 dark:aria-pressed:text-white">EN</button>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" data-theme-toggle aria-label="Koyu temaya geç" class="rounded-sm bg-gray-100 p-2 text-gray-600 transition hover:text-gray-600/75 dark:bg-gray-800 dark:text-white dark:hover:text-white/75">
+            <svg data-icon="moon" class="size-5 dark:hidden" data-sw="2"></svg>
+            <svg data-icon="sun" class="hidden size-5 dark:block" data-sw="2"></svg>
+          </button>
+
+          <div class="block lg:hidden">
+            <button type="button" id="menu-btn" class="menu-btn rounded-sm bg-gray-100 p-2 text-gray-600 transition hover:text-gray-600/75 dark:bg-gray-800 dark:text-white dark:hover:text-white/75" aria-expanded="false" aria-controls="mobile-menu" aria-label="Menüyü aç">
+              <svg data-icon="hui:marketing/headers/2:2" class="size-5 in-[.menu-open]:hidden"></svg>
+              <svg data-icon="hui:application/modals/2:1" class="hidden size-5 in-[.menu-open]:block"></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- headers/2'nin mobil görünümü: aynı bağlantı ve düğme sınıfları, site.js menü mantığı -->
+  <div id="mobile-menu" class="mobile-menu hidden border-t border-gray-100 bg-white in-[.menu-open]:block lg:in-[.menu-open]:hidden dark:border-gray-800 dark:bg-gray-900" aria-hidden="true" inert>
+    <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6">
+      <nav data-i18n-attr="aria-label:a11y.mobileNav" aria-label="Mobil menü">
+        <ul class="flex flex-col gap-4 text-sm">
+          <li><a class="text-gray-500 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75" href="{{h}}#hizmetler" data-i18n="nav.services">Hizmetler</a></li>
+          <li><a class="text-gray-500 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75" href="{{h}}#uzmanlar" data-i18n="nav.team">Uzmanlar</a></li>
+          <li><a class="text-gray-500 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75" href="{{h}}#araclar" data-i18n="nav.tools">Araçlar</a></li>
+          <li><a class="text-gray-500 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75" href="{{h}}#program" data-i18n="nav.program">Örnek program</a></li>
+          <li><a class="text-gray-500 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75" href="{{h}}#tarifler" data-i18n="nav.recipes">Tarifler</a></li>
+          <li><a class="text-gray-500 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75" href="{{h}}#ucretler" data-i18n="nav.pricing">Ücretler</a></li>
+          <li><a class="text-gray-500 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75" href="{{blog}}" data-i18n="nav.blog">Blog</a></li>
+          <li><a class="text-gray-500 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75" href="{{h}}#sss" data-i18n="nav.faq">SSS</a></li>
+          <li><a class="text-gray-500 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75" href="{{h}}#iletisim" data-i18n="nav.contact">İletişim</a></li>
+        </ul>
+      </nav>
+      <div class="mt-6 flex sm:hidden">
+        <div class="flex rounded-md bg-gray-100 dark:bg-gray-800" role="group" data-i18n-attr="aria-label:a11y.lang" aria-label="Dil seçimi">
+          <button type="button" data-lang="tr" aria-pressed="true" lang="tr" class="rounded-md px-5 py-2.5 text-sm font-medium text-gray-600 transition hover:text-gray-600/75 aria-pressed:text-teal-700 dark:text-gray-400 dark:hover:text-white/75 dark:aria-pressed:text-white">Türkçe</button>
+          <button type="button" data-lang="en" aria-pressed="false" lang="en" class="rounded-md px-5 py-2.5 text-sm font-medium text-gray-600 transition hover:text-gray-600/75 aria-pressed:text-teal-700 dark:text-gray-400 dark:hover:text-white/75 dark:aria-pressed:text-white">English</button>
+        </div>
+      </div>
+    </div>
+  </div>

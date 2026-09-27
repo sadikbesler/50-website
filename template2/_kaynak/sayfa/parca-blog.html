@@ -1,0 +1,15 @@
+    <!-- S14 · marketing/blog-cards/3 — Bordered with image, title, excerpt and call to action -->
+    <section id="blog" aria-labelledby="blog-title">
+      <div class="{{c:wrap}}">
+        <div class="mx-auto max-w-lg text-center">
+          <h2 id="blog-title" class="{{c:h2}}" data-i18n="blog.title">Son yazılar</h2>
+          <p class="{{c:lede}}" data-i18n="blog.lede">Danışanlarımızın en sık sorduğu konuları, güncel bilimsel kaynaklara dayanarak yazıyoruz.</p>
+        </div>
+
+        <div class="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+{{blogkartlari}}
+        </div>
+
+        <p class="mt-8 text-center"><a class="{{c:cta}}" href="blog/"><span data-i18n="blog.all">Tüm yazılar</span>{{arrow}}</a></p>
+      </div>
+    </section>

@@ -1,0 +1,285 @@
+/* template2 — HyperUI (https://hyperui.dev, MIT) · Tailwind v4 girişi.
+   Derleme: npx @tailwindcss/cli -i tw.css -o ../assets/css/tw.css --minify
+   Statik HTML'de HyperUI sınıfları doğrudan kullanılıyor. Aşağıdaki bileşen kuralları,
+   JS'in (booking/tools/content/chat/site) ürettiği öğeler için; her @apply satırı
+   _kaynak/PARCALAR.md'de adı geçen HyperUI dosyasındaki sınıf dizisinden alındı. */
+@import "tailwindcss";
+@plugin "@tailwindcss/forms";
+
+@source "../index.html";
+@source "../blog";
+@source "../kvkk.html";
+@source "../assets/js";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* HyperUI önizleme CSS'i (src/styles/component.css) font-sans'ı böyle tanımlıyor */
+@theme {
+  --font-sans: 'Google Sans Flex', sans-serif;
+}
+
+@layer base {
+  :root {
+    /* VKİ ölçeği: tek tonlu, yargılamayan mavi dizi (HyperUI blue paleti) */
+    --bmi-1: var(--color-blue-200);
+    --bmi-2: var(--color-blue-300);
+    --bmi-3: var(--color-blue-400);
+    --bmi-4: var(--color-blue-500);
+    --bmi-5: var(--color-blue-600);
+    --ink: var(--color-gray-900);
+  }
+  .dark {
+    --bmi-1: var(--color-blue-300);
+    --bmi-2: var(--color-blue-400);
+    --bmi-3: var(--color-blue-500);
+    --bmi-4: var(--color-blue-600);
+    --bmi-5: var(--color-blue-700);
+    --ink: var(--color-white);
+  }
+  .lang-pending body { visibility: hidden; animation: reveal-body 0s linear 1.2s forwards; }
+  @keyframes reveal-body { to { visibility: visible; } }
+  .theme-switching *, .theme-switching *::before, .theme-switching *::after { transition: none !important; }
+  [id] { scroll-margin-top: 1rem; }
+  html:not([lang="en"]) [data-lang-block="en"], html[lang="en"] [data-lang-block="tr"] { display: none !important; }
+}
+
+@layer components {
+  /* ---- Düğmeler: marketing/banners/3 (Get Started / Learn More) ---- */
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded border px-5 py-3 font-medium shadow-sm transition-colors disabled:cursor-not-allowed disabled:opacity-50; }
+  .btn--primary { @apply border-indigo-600 bg-indigo-600 text-white hover:bg-indigo-700; }
+  .btn--ghost { @apply border-gray-200 text-gray-700 hover:bg-gray-50 hover:text-gray-900 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-800 dark:hover:text-white; }
+  /* marketing/headers/2 (Login) ölçüsü */
+  .btn--sm { @apply px-5 py-2.5 text-sm; }
+  .btn--block { @apply w-full; }
+  .btn .i { @apply size-5; }
+  .btn-spinner { @apply hidden size-4 animate-spin rounded-full border-2 border-current border-r-transparent; }
+  .is-loading .btn-spinner { @apply inline-block; }
+
+  /* ---- Simge düğmesi: application/button-groups/1 ---- */
+  .icon-btn { @apply inline-grid size-9 place-content-center rounded-sm border border-gray-200 text-gray-700 transition-colors hover:bg-gray-50 hover:text-gray-900 focus:z-10 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-white focus:outline-none disabled:pointer-events-auto disabled:opacity-50 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-800 dark:hover:text-white dark:focus:ring-offset-gray-900; }
+  .icon-btn svg { @apply size-5; }
+
+  /* ---- Küçük metinler: application/stats/4 etiketi ---- */
+  .label { @apply text-sm text-gray-500 dark:text-gray-400; }
+  .muted { @apply text-sm text-gray-500 dark:text-gray-400; }
+  .lede { @apply text-pretty text-gray-700 dark:text-gray-200; }
+  .tool-note { @apply text-xs/relaxed text-gray-500 dark:text-gray-400; }
+  /* marketing/blog-cards/3 "Find out more" bağlantısı */
+  .link-arrow { @apply inline-flex items-center gap-1 text-sm font-medium text-blue-600 dark:text-blue-400; }
+  .link-arrow::after { content: "\2192"; @apply block transition-all; }
+  .link-arrow:hover::after { @apply ms-0.5; }
+
+  /* ---- Form durumları (application/toasts/1 ve 2 renkleri) ---- */
+  .field-err { @apply mt-1 text-sm text-red-700 empty:hidden dark:text-red-400; }
+  .form-status { @apply text-sm empty:hidden; }
+  .form-status.is-ok { @apply text-green-700 dark:text-green-200; }
+  .form-status.is-err { @apply text-red-700 dark:text-red-400; }
+  .form-status a { @apply underline; }
+  .honeypot { position: absolute !important; left: -9999px !important; width: 1px; height: 1px; overflow: hidden; }
+
+  /* ---- Demo şeridi: marketing/announcements/1 ---- */
+  .demo-bar { @apply border-b border-gray-200 bg-gray-100 px-4 py-2 text-gray-900 dark:border-gray-700 dark:bg-gray-800 dark:text-white; }
+  .demo-bar-inner { @apply mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-2 text-center font-medium; }
+  .demo-bar-label::after { content: " ·"; }
+  .demo-bar .demo-bar-btn { @apply inline-block border-0 bg-transparent p-0 font-medium text-inherit underline shadow-none hover:bg-transparent; }
+
+  /* ---- Araçlar sonucu (application/stats/4 kartı içinde) ---- */
+  .result-big { @apply flex flex-wrap items-baseline gap-x-3 gap-y-1; }
+  .result-num { @apply text-2xl font-medium text-gray-900 dark:text-white; }
+  .result-unit { @apply text-sm text-gray-500 dark:text-gray-400; }
+  .result-tag { @apply inline-flex items-center gap-2 text-sm font-medium; }
+  .result-tag i { @apply size-2.5 rounded-full bg-current; }
+  .result-text { @apply text-sm/relaxed text-pretty text-gray-700 dark:text-gray-200; }
+  /* application/range-inputs/1: iz h-3.5 rounded-full, tutamaç size-7 border-[6px] */
+  .scale { @apply grid gap-1; }
+  .scale-wrap { @apply relative; }
+  .scale-bar { @apply grid h-3.5 grid-cols-[3.5fr_6.5fr_5fr_5fr_5fr] overflow-hidden rounded-full; }
+  .scale-bar span:nth-child(1) { background: var(--bmi-1); }
+  .scale-bar span:nth-child(2) { background: var(--bmi-2); }
+  .scale-bar span:nth-child(3) { background: var(--bmi-3); }
+  .scale-bar span:nth-child(4) { background: var(--bmi-4); }
+  .scale-bar span:nth-child(5) { background: var(--bmi-5); }
+  .scale-marker { @apply absolute top-1/2 z-10 size-7 -translate-x-1/2 -translate-y-1/2 rounded-full border-[6px] border-gray-500 bg-gray-200 transition-[left] duration-300; }
+  .scale-ticks { @apply relative h-4 text-xs text-gray-500 dark:text-gray-400; }
+  .scale-ticks span { @apply absolute -translate-x-1/2; }
+  .stat-rows { @apply divide-y divide-gray-100 border-y border-gray-100 text-sm dark:divide-gray-800 dark:border-gray-800; }
+  .stat-row { @apply flex justify-between gap-4 py-2; }
+  .stat-row dt { @apply text-gray-500 dark:text-gray-400; }
+  .stat-row dd { @apply text-end font-medium text-gray-900 dark:text-white; }
+  /* application/steps/1 ilerleme çubuğu */
+  .macro-bars { @apply grid gap-3; }
+  .macro { @apply grid gap-1.5; }
+  .macro-head { @apply flex justify-between gap-3 text-sm; }
+  .macro-head b { @apply font-medium text-gray-900 dark:text-white; }
+  .macro-head span { @apply text-gray-500 dark:text-gray-400; }
+  .macro-track { @apply overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700; }
+  .macro-fill { @apply h-2 w-0 rounded-full bg-blue-500 transition-[width] duration-500; }
+  /* application/radio-groups/1 kart + seçili durum */
+  .glasses { @apply flex flex-wrap gap-2; }
+  .glass { @apply size-9 rounded border border-gray-300 bg-white shadow-sm transition-colors hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-900 dark:hover:bg-gray-800; }
+  .glass.is-full { @apply border-blue-600 bg-blue-100 ring-1 ring-blue-600 dark:bg-blue-500/20; }
+
+  /* ---- Örnek program öğünleri: marketing/cards/2 tipografisi ---- */
+  .meal { @apply grid grid-cols-[4rem_1fr] gap-x-4 py-4 sm:grid-cols-[4rem_1fr_auto]; }
+  .meal-time { @apply pt-1 text-sm text-gray-500 tabular-nums dark:text-gray-400; }
+  .meal-name { @apply text-lg font-bold text-gray-900 sm:text-xl dark:text-white; }
+  .meal-items { @apply mt-2 max-w-prose text-gray-700 dark:text-gray-200; }
+  .meal-kcal { @apply col-start-2 mt-2 text-sm whitespace-nowrap text-gray-500 sm:col-start-3 sm:mt-1 dark:text-gray-400; }
+
+  /* ---- Randevu ---- */
+  .bstep-title { @apply text-xl font-bold text-gray-900 sm:text-2xl dark:text-white; }
+  .bstep-sub { @apply mt-8 mb-3 flex flex-wrap items-baseline gap-x-3 text-sm font-medium text-gray-700 dark:text-gray-200; }
+  .bstep-sub .hint { @apply font-normal text-gray-500 dark:text-gray-400; }
+  .bstep-nav { @apply mt-8 flex flex-wrap items-center justify-between gap-4; }
+  .bstep-msg { @apply order-last w-full text-sm text-red-700 empty:hidden sm:order-none sm:w-auto sm:flex-1 dark:text-red-400; }
+  .tz-note { @apply mt-4 rounded-md border border-blue-500 bg-blue-50 p-4 text-sm text-blue-700 dark:border-blue-400 dark:bg-blue-800 dark:text-blue-200; }
+  .datetime { @apply mt-6 grid gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]; }
+  .cal-head { @apply mb-4 flex items-center justify-between gap-2; }
+  .cal-title { @apply text-lg font-medium text-gray-900 dark:text-white; }
+  .cal-dow { @apply mb-1 grid grid-cols-7 gap-1 text-center text-xs font-medium text-gray-500 dark:text-gray-400; }
+  .cal-grid { @apply grid grid-cols-7 gap-1; }
+  .cal-num { @apply text-sm; }
+  .cal-meta { @apply text-[0.6875rem] leading-tight font-normal text-gray-500 dark:text-gray-400; }
+  .cal-legend { @apply mt-4 flex flex-wrap gap-x-4 gap-y-2 text-xs text-gray-500 dark:text-gray-400; }
+  .cal-legend span { @apply inline-flex items-center gap-1.5; }
+  .cal-legend i { @apply inline-block size-3 rounded-sm border border-gray-200 dark:border-gray-700; }
+  .cal-legend .lg-full { @apply opacity-50; }
+  .cal-legend .lg-closed { @apply bg-gray-100 dark:bg-gray-800; }
+  .cal-legend .lg-today { @apply border-blue-600; }
+  .slots-head { @apply mb-4; }
+  .slots-title { @apply text-lg font-medium text-gray-900 dark:text-white; }
+  .slots-note { @apply mt-1 text-sm text-gray-500 dark:text-gray-400; }
+  .slot-group + .slot-group { @apply mt-4; }
+  .slot-group .label { @apply mb-2; }
+  .slot-list { @apply grid grid-cols-3 gap-2 sm:grid-cols-4; }
+  .skeleton { @apply block animate-pulse rounded bg-gray-200 motion-reduce:animate-none dark:bg-gray-700; }
+  .sum-list, .review { @apply divide-y divide-gray-100 text-sm dark:divide-gray-800; }
+  .sum-row, .review-row { @apply flex items-baseline justify-between gap-4 py-2; }
+  .sum-row dt, .review-row dt { @apply shrink-0 text-gray-500 dark:text-gray-400; }
+  .sum-row dd, .review-row dd { @apply text-end font-medium text-gray-900 dark:text-white; }
+  .review-row dd { @apply flex-1; }
+  .sum-row dd.is-empty { @apply font-normal text-gray-500 dark:text-gray-400; }
+  .review-row button { @apply text-sm font-medium text-blue-600 underline dark:text-blue-400; }
+  .prep { @apply mt-6 rounded-lg bg-gray-50 p-4 text-sm text-gray-700 empty:hidden dark:bg-gray-800 dark:text-gray-200; }
+  .prep ul { @apply mt-2 list-disc space-y-1 ps-5; }
+  .done { @apply grid justify-items-start gap-4; }
+  .done-icon { @apply inline-flex rounded-full bg-blue-100 p-3 text-blue-600 dark:bg-blue-500/20 dark:text-blue-400; }
+  .done-icon svg { @apply size-8; }
+  .demo-tag { @apply rounded-full bg-purple-100 px-2.5 py-0.5 text-sm whitespace-nowrap text-purple-700 dark:bg-purple-700 dark:text-purple-100; }
+  .done-ref .ref { @apply mt-1 flex items-center gap-3 text-2xl font-medium tracking-wider text-gray-900 dark:text-white; }
+  .done .review { @apply w-full; }
+  .done-actions { @apply flex flex-wrap gap-3; }
+
+  /* ---- Tarif penceresi içeriği (application/modals/2 kabuğu içinde) ---- */
+  .recipe-meta { @apply flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-gray-500 dark:text-gray-400; }
+  .recipe-meta span { @apply inline-flex items-center gap-1; }
+  .recipe-meta svg { @apply size-3.5; }
+  /* application/badges/1 */
+  .tags { @apply flex flex-wrap gap-2; }
+  .tags li { @apply rounded-full bg-purple-100 px-2.5 py-0.5 text-sm whitespace-nowrap text-purple-700 dark:bg-purple-700 dark:text-purple-100; }
+  .dialog-h3 { @apply text-lg font-medium text-gray-900 dark:text-white; }
+  .nutri { @apply grid grid-cols-2 gap-2 sm:grid-cols-4; }
+  .nutri div { @apply rounded-lg border border-gray-100 p-3 dark:border-gray-800; }
+  .nutri b { @apply block text-lg font-medium text-gray-900 dark:text-white; }
+  .nutri span { @apply text-xs text-gray-500 dark:text-gray-400; }
+  .servings { @apply flex items-center justify-between gap-4; }
+  /* application/quantity-inputs/1 */
+  .servings-ctrl { @apply flex items-center gap-1; }
+  .servings-ctrl output { @apply grid h-10 w-16 place-content-center rounded-sm border border-gray-200 text-sm text-gray-900 dark:border-gray-700 dark:bg-gray-800 dark:text-white; }
+  .ingredients { @apply divide-y divide-gray-100 dark:divide-gray-800; }
+  .ingredients label { @apply flex items-center gap-3 py-2 text-gray-700 dark:text-gray-200; }
+  .ingredients input { @apply size-4 rounded border-gray-300 shadow-sm dark:border-gray-600 dark:bg-gray-900 dark:ring-offset-gray-900 dark:checked:bg-blue-600; }
+  .ingredients .qty { @apply min-w-20 font-medium text-gray-900 dark:text-white; }
+  .ingredients input:checked ~ span { @apply text-gray-400 line-through; }
+  .steps-list { @apply list-decimal space-y-2 ps-5 text-pretty text-gray-700 dark:text-gray-200; }
+  .tip-box { @apply rounded-md border border-blue-500 bg-blue-50 p-4 text-sm text-blue-700 dark:border-blue-400 dark:bg-blue-800 dark:text-blue-200; }
+  .tip-box .label { @apply block leading-tight font-medium text-blue-800 dark:text-blue-100; }
+  .recipes-empty { @apply col-span-full text-center text-gray-500 dark:text-gray-400; }
+
+  /* ---- Sohbet: kabuk application/modals/2, balonlar marketing/cards/1 ---- */
+  .chat { @apply invisible fixed end-4 bottom-24 z-50 flex h-[min(36rem,calc(100dvh-8rem))] w-[min(24rem,calc(100vw-2rem))] translate-y-2 flex-col overflow-hidden rounded-lg bg-white opacity-0 shadow-lg ring-1 ring-black/5 transition duration-200 dark:bg-gray-900 dark:ring-white/10; }
+  .chat-open .chat { @apply visible translate-y-0 opacity-100; }
+  .chat-head { @apply flex items-start justify-between gap-4 px-6 pt-6 pb-4; }
+  .chat-log { @apply flex-1 overflow-y-auto overscroll-contain px-6 pb-4; }
+  .msg { @apply mt-3 flex first:mt-0; }
+  .msg--user { @apply justify-end; }
+  .bubble { @apply max-w-[88%] rounded-md border border-gray-300 bg-white p-4 text-sm text-pretty text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200; overflow-wrap: anywhere; }
+  .msg--user .bubble { @apply max-w-[80%] border-indigo-600 bg-indigo-600 text-white; }
+  .bubble p + p { @apply mt-1.5; }
+  .bubble-title { @apply text-lg font-medium text-pretty text-gray-900 dark:text-white; }
+  .bubble-rows { @apply mt-2 divide-y divide-gray-100 border-t border-gray-100 dark:divide-gray-700 dark:border-gray-700; }
+  .bubble-row { @apply flex justify-between gap-3 py-1.5; }
+  .bubble-row span:last-child { @apply text-end whitespace-nowrap text-gray-900 dark:text-white; }
+  .bubble-note { @apply mt-2 text-xs text-gray-500 dark:text-gray-400; }
+  .bubble-actions { @apply mt-3 flex flex-wrap gap-2; }
+  .bubble-action { @apply inline-flex items-center rounded border border-gray-200 px-3 py-1.5 text-sm font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50 hover:text-gray-900 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white; }
+  .bubble-action--primary { @apply border-indigo-600 bg-indigo-600 text-white hover:bg-indigo-700 hover:text-white dark:border-indigo-600 dark:text-white dark:hover:bg-indigo-700; }
+  /* application/tabs/5 hap düğmeleri */
+  .quick { @apply mt-3 flex flex-wrap gap-2; }
+  .quick button { @apply rounded-full bg-gray-200 px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600; }
+  .typing .bubble { @apply inline-flex items-center gap-1 py-4; }
+  .typing i { @apply size-1.5 animate-pulse rounded-full bg-gray-400 motion-reduce:animate-none; }
+  .typing i:nth-child(2) { animation-delay: 0.15s; }
+  .typing i:nth-child(3) { animation-delay: 0.3s; }
+  .chat-day { @apply mb-3 text-center text-xs text-gray-500 dark:text-gray-400; }
+  .chat-form { @apply flex gap-2 border-t border-gray-100 px-6 py-4 dark:border-gray-800; }
+  .chat-foot { @apply px-6 pb-4 text-center text-xs text-gray-500 dark:text-gray-400; }
+  /* Yüzen düğmeler: ctas/1 (emerald) ve banners/3 (indigo) renkleri */
+  .fab { @apply fixed end-4 z-40 grid size-14 place-content-center rounded-full text-white shadow-lg transition; }
+  .fab svg { @apply size-6; }
+  .fab-wa { @apply bottom-20 bg-emerald-600 hover:bg-emerald-700; }
+  .fab-chat { @apply bottom-4 bg-indigo-600 hover:bg-indigo-700; }
+  .fab-chat .i-x, .chat-open .fab-chat .i-chat { @apply hidden; }
+  .chat-open .fab-chat .i-x { @apply block; }
+  .chat-open .fab-wa, .menu-open .fab, body.fabs-off .fab-wa, body.fabs-off:not(.chat-open) .fab-chat { @apply pointer-events-none invisible opacity-0; }
+  .fab-badge { @apply absolute end-1 top-1 size-3 rounded-full border-2 border-white bg-teal-500 dark:border-gray-900; }
+  .chat-open .fab-badge, .fab-badge.is-hidden { @apply hidden; }
+
+  /* ---- Yazı kartı üst bilgisi: marketing/blog-cards/1 tarih yuvası ---- */
+  .post-meta { @apply flex flex-wrap gap-x-1.5 text-xs text-gray-500 dark:text-gray-400; }
+  .post-meta > * + *::before { content: "\00B7"; @apply me-1.5; }
+
+  /* ---- Makale sayfaları: aynı tipografi ölçeği (sections/4, feature-grids/1, team-sections/2) ---- */
+  .article-head { @apply mx-auto mt-8 max-w-3xl; }
+  .article-head h1 { @apply mt-2 text-3xl/tight font-bold text-gray-900 sm:text-4xl dark:text-white; }
+  .article-head > .label { @apply text-xs text-gray-500 dark:text-gray-400; }
+  .article-head .lede { @apply mt-4 text-lg; }
+  .byline { @apply mt-6 flex items-center gap-3; }
+  .byline img { @apply size-12 rounded-full object-cover; }
+  .byline b { @apply block text-lg/tight font-semibold text-gray-900 dark:text-white; }
+  .byline div > span { @apply mt-0.5 block text-sm text-gray-700 dark:text-gray-200; }
+  .article-cover { @apply mx-auto mt-8 max-w-5xl; }
+  .article-cover img { @apply aspect-video w-full rounded object-cover; }
+  .article-layout { @apply mx-auto mt-8 grid max-w-5xl gap-8 lg:grid-cols-[14rem_minmax(0,1fr)]; }
+  .toc { @apply self-start rounded-lg border border-gray-200 p-6 lg:sticky lg:top-6 dark:border-gray-700; }
+  .toc ol { @apply mt-3 space-y-2 text-sm; }
+  .toc a { @apply text-gray-700 transition hover:text-gray-700/75 dark:text-white dark:hover:text-white/75; }
+  /* marketing/ctas/1 içerik bloğu */
+  .article-cta { @apply mt-10 bg-gray-50 p-8 text-center sm:text-left md:p-12 dark:bg-gray-800; }
+  .article-cta h2 { @apply text-2xl font-bold text-gray-900 md:text-3xl dark:text-white; }
+  .article-cta p { @apply mt-2 text-gray-500 md:mt-4 dark:text-gray-300; }
+  .article-cta a { @apply mt-4 inline-block rounded-sm bg-emerald-700 px-12 py-3 text-sm font-medium text-white transition hover:bg-emerald-800 focus:ring-2 focus:ring-yellow-400 focus:outline-hidden md:mt-8; }
+
+  .prose > * + * { @apply mt-4; }
+  .prose h2 { @apply mt-10 text-2xl font-semibold text-gray-900 sm:text-3xl dark:text-white; }
+  .prose h3 { @apply mt-8 text-lg font-semibold text-gray-900 dark:text-white; }
+  .prose p, .prose li { @apply text-pretty text-gray-700 dark:text-gray-200; }
+  .prose ul { @apply list-disc space-y-2 ps-5; }
+  .prose ol { @apply list-decimal space-y-2 ps-5; }
+  .prose a { @apply font-medium text-blue-600 underline; }
+  .prose strong { @apply font-semibold text-gray-900 dark:text-white; }
+  .prose table { @apply w-full divide-y-2 divide-gray-200 text-sm dark:divide-gray-700; }
+  .prose th { @apply px-3 py-2 text-start font-medium whitespace-nowrap text-gray-900 dark:text-white; }
+  .prose td { @apply px-3 py-2 text-gray-700 dark:text-gray-200; }
+  .prose tbody { @apply divide-y divide-gray-200 dark:divide-gray-700; }
+  .prose .table-wrap { @apply overflow-x-auto rounded border border-gray-300 dark:border-gray-600; }
+  /* application/toasts/4 (Info) ve /3 (Warning) */
+  .callout { @apply rounded-md border border-blue-500 bg-blue-50 p-4 shadow-sm dark:border-blue-400 dark:bg-blue-800; }
+  .prose .callout p { @apply mt-0.5 text-sm text-blue-700 dark:text-blue-200; }
+  .prose .callout .label { @apply mt-0 block leading-tight font-medium text-blue-800 dark:text-blue-100; }
+  .callout--warn { @apply border-amber-500 bg-amber-50 dark:border-amber-400 dark:bg-amber-800; }
+  .prose .callout--warn p { @apply text-amber-700 dark:text-amber-200; }
+  .prose .callout--warn .label { @apply text-amber-800 dark:text-amber-100; }
+  .prose.sources { @apply mt-10 border-t border-gray-100 pt-6 dark:border-gray-800; }
+  .prose.sources li { @apply text-sm text-gray-500 dark:text-gray-400; }
+}

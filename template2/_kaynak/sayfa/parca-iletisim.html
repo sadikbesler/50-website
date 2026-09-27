@@ -1,0 +1,108 @@
+    <!-- S17 · marketing/contact-forms/5 — Side-by-side form with description -->
+    <section id="iletisim" aria-labelledby="contact-title">
+      <div class="{{c:wrap}}">
+        <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
+          <div class="md:py-4">
+            <h2 id="contact-title" class="text-2xl font-bold text-gray-900 sm:text-3xl dark:text-white" data-i18n="contact.title">İletişim ve ulaşım</h2>
+
+            <p class="mt-4 text-pretty text-gray-700 dark:text-gray-200" data-i18n="contact.lede">Moda Caddesi üzerindeyiz; Kadıköy iskelesinden yaklaşık 10 dakika yürüme mesafesi. Binada asansör var, en yakın otopark 150 metre ileride.</p>
+
+            <dl class="mt-6 space-y-3">
+              <div>
+                <dt class="sr-only" data-i18n="form.phone">Telefon</dt>
+                <dd class="grid grid-cols-[24px_1fr] items-center gap-2 text-gray-700 dark:text-gray-200">
+                  <svg data-icon="hui:marketing/contact-forms/5:1" class="size-5"></svg>
+                  <a class="font-medium" href="tel:+905555555555" data-tel data-phone-text>0555 555 55 55</a>
+                </dd>
+              </div>
+              <div>
+                <dt class="sr-only" data-i18n="form.email">E-posta</dt>
+                <dd class="grid grid-cols-[24px_1fr] items-center gap-2 text-gray-700 dark:text-gray-200">
+                  <svg data-icon="hui:marketing/contact-forms/5:2" class="size-5"></svg>
+                  <a class="font-medium" href="mailto:randevu@mizanbeslenme.com" data-mail>randevu@mizanbeslenme.com</a>
+                </dd>
+              </div>
+              <div>
+                <dt class="sr-only">WhatsApp</dt>
+                <dd class="grid grid-cols-[24px_1fr] items-center gap-2 text-gray-700 dark:text-gray-200">
+                  {{wa-icon:size-5}}
+                  <a class="font-medium" href="https://wa.me/905555555555" target="_blank" rel="noopener noreferrer" data-wa>WhatsApp</a>
+                </dd>
+              </div>
+              <div>
+                <dt class="sr-only" data-i18n="contact.address">Adres</dt>
+                <dd class="grid grid-cols-[24px_1fr] items-center gap-2 text-gray-700 dark:text-gray-200">
+                  <svg data-icon="hui:marketing/contact-forms/5:3" class="size-5"></svg>
+                  <span class="font-medium" data-address>Moda Cad. No: 48, Kat 3, Kadıköy / İstanbul</span>
+                </dd>
+                <dd class="mt-1 ms-8 text-sm text-gray-500 dark:text-gray-400"><span data-i18n="contact.transit">Kadıköy iskelesi 10 dk · Moda tramvay durağı 3 dk yürüme</span> · <a class="font-medium text-blue-600 underline dark:text-blue-400" href="https://www.google.com/maps/search/?api=1&amp;query=Moda+Caddesi+Kad%C4%B1k%C3%B6y+%C4%B0stanbul" target="_blank" rel="noopener noreferrer" data-maps data-i18n="contact.directions">Google Haritalar’da yol tarifi al</a></dd>
+              </div>
+              <div>
+                <dt class="sr-only">Instagram</dt>
+                <dd class="grid grid-cols-[24px_1fr] items-center gap-2 text-gray-700 dark:text-gray-200">
+                  <svg data-icon="hui:marketing/footers/10:3" class="size-5"></svg>
+                  <a class="font-medium" href="https://instagram.com/mizanbeslenme" target="_blank" rel="noopener noreferrer">@mizanbeslenme</a>
+                </dd>
+              </div>
+            </dl>
+
+            <div class="mt-8">
+              <p class="text-lg font-medium text-gray-900 dark:text-white" data-i18n="contact.hours">Çalışma saatleri</p>
+              <p class="open-status mt-2 flex items-center gap-2 text-sm text-gray-700 dark:text-gray-200 [&.is-open_i]:bg-green-500" data-open-status><i class="size-2 shrink-0 rounded-full bg-gray-400" aria-hidden="true"></i><span>&nbsp;</span></p>
+              <table class="mt-3 w-full max-w-sm text-sm" data-hours>
+                <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
+                  <tr data-dow="1" class="{{c:hoursRow}}"><th scope="row" class="{{c:hoursTh}}" data-i18n="day.1">Pazartesi</th><td class="py-2 text-end">09:00 – 20:00</td></tr>
+                  <tr data-dow="2" class="{{c:hoursRow}}"><th scope="row" class="{{c:hoursTh}}" data-i18n="day.2">Salı</th><td class="py-2 text-end">09:00 – 20:00</td></tr>
+                  <tr data-dow="3" class="{{c:hoursRow}}"><th scope="row" class="{{c:hoursTh}}" data-i18n="day.3">Çarşamba</th><td class="py-2 text-end">09:00 – 20:00</td></tr>
+                  <tr data-dow="4" class="{{c:hoursRow}}"><th scope="row" class="{{c:hoursTh}}" data-i18n="day.4">Perşembe</th><td class="py-2 text-end">09:00 – 20:00</td></tr>
+                  <tr data-dow="5" class="{{c:hoursRow}}"><th scope="row" class="{{c:hoursTh}}" data-i18n="day.5">Cuma</th><td class="py-2 text-end">09:00 – 20:00</td></tr>
+                  <tr data-dow="6" class="{{c:hoursRow}}"><th scope="row" class="{{c:hoursTh}}" data-i18n="day.6">Cumartesi</th><td class="py-2 text-end">10:00 – 15:00</td></tr>
+                  <tr data-dow="0" class="{{c:hoursRow}}"><th scope="row" class="{{c:hoursTh}}" data-i18n="day.0">Pazar</th><td class="py-2 text-end" data-i18n="contact.closed">Kapalı</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <form id="contact-form" novalidate aria-labelledby="contact-form-title" class="space-y-4 self-start rounded-lg border border-gray-300 bg-gray-100 p-6 dark:border-gray-600 dark:bg-gray-800">
+            <h3 id="contact-form-title" class="text-lg font-medium text-gray-900 dark:text-white" data-i18n="cform.title">Bize yazın</h3>
+            <p class="text-sm text-pretty text-gray-700 dark:text-gray-200" data-i18n="cform.text">Genellikle aynı gün, en geç ertesi iş günü yanıt veriyoruz. Randevu için yukarıdaki takvimi kullanmanız daha hızlı olur.</p>
+            <div>
+              <label class="{{c:cfLabel}}" for="c-name" data-i18n="form.name">Ad soyad</label>
+              <input class="{{c:cfInput}} {{c:invalid}}" id="c-name" name="name" type="text" autocomplete="name" maxlength="80" required aria-describedby="c-name-err">
+              <p class="field-err" id="c-name-err" aria-live="polite"></p>
+            </div>
+            <div>
+              <label class="{{c:cfLabel}}" for="c-email" data-i18n="form.email">E-posta</label>
+              <input class="{{c:cfInput}} {{c:invalid}}" id="c-email" name="email" type="email" autocomplete="email" inputmode="email" maxlength="120" required aria-describedby="c-email-err">
+              <p class="field-err" id="c-email-err" aria-live="polite"></p>
+            </div>
+            <div>
+              <label class="{{c:cfLabel}}" for="c-phone"><span data-i18n="form.phone">Telefon</span> <span class="font-normal text-gray-600 dark:text-gray-400" data-i18n="form.optional">İsteğe bağlı</span></label>
+              <input class="{{c:cfInput}} {{c:invalid}}" id="c-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="20" aria-describedby="c-phone-err">
+              <p class="field-err" id="c-phone-err" aria-live="polite"></p>
+            </div>
+            <div>
+              <label class="{{c:cfLabel}}" for="c-topic" data-i18n="cform.topic">Konu</label>
+              <select class="{{c:cfInput}}" id="c-topic" name="topic">
+                <option value="booking" data-i18n="cform.t1">Randevu hakkında</option>
+                <option value="pricing" data-i18n="cform.t2">Ücretler ve paketler</option>
+                <option value="corporate" data-i18n="cform.t3">Kurumsal program</option>
+                <option value="other" data-i18n="cform.t4">Diğer</option>
+              </select>
+            </div>
+            <div>
+              <label class="{{c:cfLabel}}" for="c-message" data-i18n="cform.message">Mesajınız</label>
+              <textarea class="{{c:cfInput}} {{c:invalid}} resize-none" id="c-message" name="message" rows="4" maxlength="2000" required aria-describedby="c-message-err"></textarea>
+              <p class="field-err" id="c-message-err" aria-live="polite"></p>
+            </div>
+            <div>
+              <label class="flex items-start gap-3 text-sm text-gray-900 dark:text-white"><input type="checkbox" name="kvkk" required aria-describedby="c-kvkk-err" class="{{c:check}} {{c:invalid}}"><span><span data-i18n="cform.kvkk">Mesajımın yanıtlanması için bilgilerimin işlenmesini kabul ediyorum.</span> <a class="font-medium text-blue-600 underline dark:text-blue-400" href="kvkk.html" target="_blank" rel="noopener" data-i18n="form.kvkkLink">Aydınlatma metni</a></span></label>
+              <p class="field-err" id="c-kvkk-err" aria-live="polite"></p>
+            </div>
+            <input class="honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <button class="flex w-full items-center justify-center gap-2 rounded-lg border border-indigo-600 bg-indigo-600 px-12 py-3 text-sm font-medium text-white transition-colors hover:bg-transparent hover:text-indigo-600 disabled:opacity-50 dark:hover:bg-indigo-700 dark:hover:text-white" type="submit"><span class="btn-spinner" aria-hidden="true"></span><span data-i18n="cform.send">Mesajı gönder</span></button>
+            <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+    </section>

@@ -1,0 +1,104 @@
+  <!-- marketing/footers/10 — Company info and links -->
+  <footer class="site-footer bg-white dark:bg-gray-900">
+    <div class="mx-auto max-w-7xl px-4 pt-16 pb-6 sm:px-6 lg:px-8 lg:pt-24">
+      <div class="grid grid-cols-1 gap-8 lg:grid-cols-3">
+        <div>
+          <div class="flex justify-center text-teal-600 sm:justify-start dark:text-teal-300">
+            {{logo-full}}
+          </div>
+
+          <p class="mt-6 max-w-md text-center leading-relaxed text-gray-500 sm:max-w-xs sm:text-left dark:text-gray-400" data-i18n="footer.aboutText">2014’ten beri Kadıköy’de yüz yüze, 2020’den beri online beslenme danışmanlığı veren diyet kliniği.</p>
+
+          <ul class="mt-8 flex justify-center gap-6 sm:justify-start md:gap-8">
+            <li>
+              <a href="https://instagram.com/mizanbeslenme" rel="noreferrer" target="_blank" class="text-teal-700 transition hover:text-teal-700/75 dark:text-teal-500 dark:hover:text-teal-500/75">
+                <span class="sr-only">Instagram</span>
+                <svg data-icon="hui:marketing/footers/10:3" class="size-6"></svg>
+              </a>
+            </li>
+            <li>
+              <a href="https://wa.me/905555555555" rel="noreferrer" target="_blank" data-wa class="text-teal-700 transition hover:text-teal-700/75 dark:text-teal-500 dark:hover:text-teal-500/75">
+                <span class="sr-only">WhatsApp</span>
+                {{wa-icon:size-6}}
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4 lg:col-span-2">
+          <nav class="text-center sm:text-left" data-i18n-attr="aria-label:footer.clinic" aria-label="Klinik">
+            <p class="text-lg font-medium text-gray-900 dark:text-white" data-i18n="footer.clinic">Klinik</p>
+            <ul class="mt-8 space-y-4 text-sm">
+              <li><a class="text-gray-700 transition hover:text-gray-700/75 dark:text-white dark:hover:text-white/75" href="{{h}}#hizmetler" data-i18n="nav.services">Hizmetler</a></li>
+              <li><a class="text-gray-700 transition hover:text-gray-700/75 dark:text-white dark:hover:text-white/75" href="{{h}}#uzmanlar" data-i18n="nav.team">Uzmanlar</a></li>
+              <li><a class="text-gray-700 transition hover:text-gray-700/75 dark:text-white dark:hover:text-white/75" href="{{h}}#ucretler" data-i18n="nav.pricing">Ücretler</a></li>
+              <li><a class="text-gray-700 transition hover:text-gray-700/75 dark:text-white dark:hover:text-white/75" href="{{h}}#randevu" data-i18n="nav.book">Randevu al</a></li>
+            </ul>
+          </nav>
+
+          <nav class="text-center sm:text-left" data-i18n-attr="aria-label:footer.resources" aria-label="Kaynaklar">
+            <p class="text-lg font-medium text-gray-900 dark:text-white" data-i18n="footer.resources">Kaynaklar</p>
+            <ul class="mt-8 space-y-4 text-sm">
+              <li><a class="text-gray-700 transition hover:text-gray-700/75 dark:text-white dark:hover:text-white/75" href="{{h}}#araclar" data-i18n="footer.bmi">VKİ ve kalori hesaplama</a></li>
+              <li><a class="text-gray-700 transition hover:text-gray-700/75 dark:text-white dark:hover:text-white/75" href="{{h}}#program" data-i18n="nav.program">Örnek program</a></li>
+              <li><a class="text-gray-700 transition hover:text-gray-700/75 dark:text-white dark:hover:text-white/75" href="{{h}}#tarifler" data-i18n="nav.recipes">Tarifler</a></li>
+              <li><a class="text-gray-700 transition hover:text-gray-700/75 dark:text-white dark:hover:text-white/75" href="{{blog}}" data-i18n="nav.blog">Blog</a></li>
+            </ul>
+          </nav>
+
+          <nav class="text-center sm:text-left" data-i18n-attr="aria-label:footer.help" aria-label="Yardım">
+            <p class="text-lg font-medium text-gray-900 dark:text-white" data-i18n="footer.help">Yardım</p>
+            <ul class="mt-8 space-y-4 text-sm">
+              <li><a class="text-gray-700 transition hover:text-gray-700/75 dark:text-white dark:hover:text-white/75" href="{{h}}#sss" data-i18n="nav.faq">SSS</a></li>
+              <li><a class="text-gray-700 transition hover:text-gray-700/75 dark:text-white dark:hover:text-white/75" href="{{r}}kvkk.html" data-i18n="footer.kvkkShort">KVKK</a></li>
+              <li>
+                <button type="button" class="group flex w-full justify-center gap-1.5 sm:justify-start" data-open-chat>
+                  <span class="text-gray-700 transition group-hover:text-gray-700/75 dark:text-white dark:group-hover:text-white/75" data-i18n="footer.assistant">Canlı asistan</span>
+                  <span class="relative flex size-2" aria-hidden="true">
+                    <span class="absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75 motion-safe:animate-ping"></span>
+                    <span class="relative inline-flex size-2 rounded-full bg-teal-500"></span>
+                  </span>
+                </button>
+              </li>
+            </ul>
+          </nav>
+
+          <div class="text-center sm:text-left">
+            <p class="text-lg font-medium text-gray-900 dark:text-white" data-i18n="nav.contact">İletişim</p>
+            <ul class="mt-8 space-y-4 text-sm">
+              <li>
+                <a class="flex items-center justify-center gap-1.5 ltr:sm:justify-start rtl:sm:justify-end" href="mailto:randevu@mizanbeslenme.com">
+                  <svg data-icon="hui:marketing/footers/10:7" class="size-5 shrink-0 text-gray-900 dark:text-white"></svg>
+                  <span class="break-all text-gray-700 dark:text-gray-300" data-mail>randevu@mizanbeslenme.com</span>
+                </a>
+              </li>
+              <li>
+                <a class="flex items-center justify-center gap-1.5 ltr:sm:justify-start rtl:sm:justify-end" href="tel:+905555555555" data-tel>
+                  <svg data-icon="hui:marketing/footers/10:8" class="size-5 shrink-0 text-gray-900 dark:text-white"></svg>
+                  <span class="text-gray-700 dark:text-gray-300" data-phone-text>0555 555 55 55</span>
+                </a>
+              </li>
+              <li class="flex items-start justify-center gap-1.5 ltr:sm:justify-start rtl:sm:justify-end">
+                <svg data-icon="hui:marketing/footers/10:9" class="size-5 shrink-0 text-gray-900 dark:text-white"></svg>
+                <address class="-mt-0.5 text-gray-700 not-italic dark:text-gray-300" data-address>Moda Cad. No: 48, Kat 3, Kadıköy / İstanbul</address>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <p class="mt-12 text-center text-xs/relaxed text-gray-500 sm:text-left dark:text-gray-400" data-i18n="footer.disclaimer">Bu sitedeki içerikler genel bilgilendirme amaçlıdır; tanı ve tedavinin yerine geçmez. Sağlık sorunlarınız için hekiminize danışın, acil durumlarda 112’yi arayın.</p>
+
+      <div class="mt-6 border-t border-gray-100 pt-6 dark:border-gray-800">
+        <div class="text-center sm:flex sm:justify-between sm:text-left">
+          <p class="text-sm text-gray-500 dark:text-gray-400">
+            <a class="inline-block text-teal-700 underline transition hover:text-teal-700/75 dark:text-teal-500 dark:hover:text-teal-500/75" href="{{r}}kvkk.html" data-i18n="footer.kvkk">KVKK aydınlatma metni</a>
+            <span>&middot;</span>
+            <a class="inline-block text-teal-700 underline transition hover:text-teal-700/75 dark:text-teal-500 dark:hover:text-teal-500/75" href="https://www.asteriasoft.co/" target="_blank" rel="noopener"><span lang="en">Designed by</span> Asteria Soft</a>
+          </p>
+
+          <p class="mt-4 text-sm text-gray-500 sm:order-first sm:mt-0 dark:text-gray-400">&copy; <span data-year>2026</span> Mizan Beslenme</p>
+        </div>
+      </div>
+    </div>
+  </footer>

@@ -1,0 +1,44 @@
+  <!-- #recipe-dialog · application/modals/2 — Base with close -->
+  <dialog id="recipe-dialog" aria-labelledby="recipe-title" closedby="any" class="{{c:modal}}">
+    <div class="dialog-scroll max-h-[calc(100dvh-4rem)] overflow-y-auto p-6">
+      <div class="flex flex-col gap-4">
+        <div class="flex items-start justify-between gap-4">
+          <h2 id="recipe-title" class="text-xl font-bold text-gray-900 sm:text-2xl dark:text-white"></h2>
+          <button type="button" data-close data-i18n-attr="aria-label:a11y.close" aria-label="Kapat" class="{{c:modalClose}}">
+            <svg data-icon="hui:application/modals/2:1" class="size-5"></svg>
+          </button>
+        </div>
+        <img data-recipe-img src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" width="1000" height="800" alt="" class="h-56 w-full rounded-lg object-cover">
+        <div class="recipe-content flex flex-col gap-4" data-recipe-content></div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- #cancel-dialog · application/modals/2 — Base with close -->
+  <dialog id="cancel-dialog" aria-labelledby="cancel-title" closedby="any" class="{{c:modal}}">
+    <div class="dialog-scroll max-h-[calc(100dvh-4rem)] overflow-y-auto p-6">
+      <form id="cancel-form" novalidate class="flex flex-col gap-4">
+        <div class="flex items-start justify-between gap-4">
+          <h2 id="cancel-title" class="text-xl font-bold text-gray-900 sm:text-2xl dark:text-white" data-i18n="cancel.title">Randevu iptali</h2>
+          <button type="button" data-close data-i18n-attr="aria-label:a11y.close" aria-label="Kapat" class="{{c:modalClose}}">
+            <svg data-icon="hui:application/modals/2:1" class="size-5"></svg>
+          </button>
+        </div>
+        <p class="text-pretty text-gray-700 dark:text-gray-200" data-i18n="cancel.text">Onay e-postanızdaki referans kodunu ve randevuda kullandığınız e-posta adresini yazın. 24 saatten az kalan randevular için lütfen bizi arayın.</p>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div>
+            <label class="{{c:label}}" for="x-ref" data-i18n="cancel.ref">Referans kodu</label>
+            <input class="{{c:input}} {{c:invalid}} uppercase" id="x-ref" name="ref" type="text" autocomplete="off" autocapitalize="characters" maxlength="12" placeholder="MZ-XXXXX" required aria-describedby="x-ref-err">
+            <p class="field-err" id="x-ref-err" aria-live="polite"></p>
+          </div>
+          <div>
+            <label class="{{c:label}}" for="x-email" data-i18n="form.email">E-posta</label>
+            <input class="{{c:input}} {{c:invalid}}" id="x-email" name="email" type="email" autocomplete="email" maxlength="120" required aria-describedby="x-email-err">
+            <p class="field-err" id="x-email-err" aria-live="polite"></p>
+          </div>
+        </div>
+        <div><button type="submit" class="btn btn--primary"><span class="btn-spinner" aria-hidden="true"></span><span data-i18n="cancel.btn">Randevuyu iptal et</span></button></div>
+        <p class="form-status" data-cancel-status role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </dialog>

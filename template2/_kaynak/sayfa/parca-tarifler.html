@@ -1,0 +1,22 @@
+    <!-- S11 · marketing/blog-cards/1 (kartlar content.js'te) · filtreler application/button-groups/1 -->
+    <section id="tarifler" aria-labelledby="recipes-title">
+      <div class="{{c:wrap}}">
+        <div class="mx-auto max-w-lg text-center">
+          <h2 id="recipes-title" class="{{c:h2}}" data-i18n="recipes.title">Hafta içi akşamlarına sığan tarifler</h2>
+          <p class="{{c:lede}}" data-i18n="recipes.lede">Çoğu 30 dakikadan kısa sürüyor ve malzemeleri mahalle marketinde bulunuyor. Her tarifte porsiyon başına besin değerleri var.</p>
+        </div>
+
+        <div class="mt-8 overflow-x-auto p-1">
+          <div class="mx-auto flex w-max" role="group" data-i18n-attr="aria-label:recipes.filter" aria-label="Tarif kategorisi" data-recipe-filters>
+            <button type="button" aria-pressed="true" data-cat="all" data-i18n="recipes.all" class="rounded-s-sm {{c:btnGroup}} {{c:btnGroupOn}}">Tümü</button>
+            <button type="button" aria-pressed="false" data-cat="breakfast" data-i18n="recipes.breakfast" class="-ms-px {{c:btnGroup}} {{c:btnGroupOn}}">Kahvaltı</button>
+            <button type="button" aria-pressed="false" data-cat="main" data-i18n="recipes.main" class="-ms-px {{c:btnGroup}} {{c:btnGroupOn}}">Ana yemek</button>
+            <button type="button" aria-pressed="false" data-cat="soup" data-i18n="recipes.soup" class="-ms-px {{c:btnGroup}} {{c:btnGroupOn}}">Çorba ve salata</button>
+            <button type="button" aria-pressed="false" data-cat="snack" data-i18n="recipes.snack" class="-ms-px {{c:btnGroup}} {{c:btnGroupOn}}">Ara öğün</button>
+            <button type="button" aria-pressed="false" data-cat="dessert" data-i18n="recipes.dessert" class="-ms-px rounded-e-sm {{c:btnGroup}} {{c:btnGroupOn}}">Tatlı</button>
+          </div>
+        </div>
+
+        <div class="recipes mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3" data-recipes></div>
+      </div>
+    </section>
