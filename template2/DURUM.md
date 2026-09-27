@@ -108,6 +108,11 @@ Değişiklik **yok**. `Content-Security-Policy` meta etiketi 9 sayfanın hepsind
 
 **Karşılaştırma turları:** 1. tur (1440 ve 390, açık): fiyatlandırma başlığındaki çift boşluk ve footer'da taşan e-posta düzeltildi. 2. tur (koyu, `kaynak-*-dark` / `sonuc-*-dark` çiftleri): header, hero, stats, feature grid, steps, team, footer, FAQ ve iletişim formu HyperUI koyu dosyalarıyla aynı renklerde; farklar yalnız yukarıdaki 2. maddedeki erişilebilirlik tonları. Ara genişlik kontrolünde 768 px hero taşması bulundu ve düzeltildi.
 
+## Yayın
+
+- Commit `a18df19` → `origin/main` (27.09.2026). Canlı adres push'tan yaklaşık 30 sn sonra 200 döndü.
+- Canlı kontrol (Playwright): ana sayfa, `blog/`, bir makale ve `kvkk.html` → HTTP 200, konsol/CSP hatası 0, Google Sans Flex yüklü, "En yakın uygun randevu" kartı dolu.
+
 ## Bilinen sorunlar / notlar
 
 - Başlık yapışkan değil (HyperUI headers/2 gibi); sayfa aşağıdayken menüye yukarı çıkarak ulaşılıyor, yüzen WhatsApp/sohbet düğmeleri her yerde.
