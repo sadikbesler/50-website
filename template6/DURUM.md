@@ -94,7 +94,8 @@ Değişiklik **yok**. `Content-Security-Policy` meta etiketi 9 sayfanın hepsind
 
 ## Yayın
 
-(Push sonrası güncellendi — aşağıya bakın.)
+- Commit `71fbda4` → `origin/main` (27.09.2026). Canlı adres push'tan yaklaşık 40 sn sonra 200 döndü.
+- Canlı kontrol (Playwright): ana sayfa, `blog/`, bir makale ve `kvkk.html` → HTTP 200, konsol/CSP hatası 0, Source Sans Pro 700 yüklü, "En yakın uygun randevu" kartı dolu ("Yarın · 09:00"), kaydırınca menü zemini `rgb(255, 255, 255)`.
 
 ## Bilinen sorunlar / notlar
 
