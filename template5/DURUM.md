@@ -135,7 +135,8 @@ Değişiklik **yok**. `Content-Security-Policy` meta etiketi 9 sayfanın hepsind
 
 ## Yayın
 
-(Commit ve canlı kontrol sonucu aşağıya eklenir.)
+- Commit `cc330ed` → `origin/main` (27.09.2026). Canlı adres push'tan yaklaşık 30 sn sonra 200 döndü.
+- Canlı kontrol (Playwright): ana sayfa, `blog/`, bir makale ve `kvkk.html` → HTTP 200, konsol/CSP hatası 0, Flowbite 1.4.7 yüklü (`Accordion`, `Collapse`), derlenmiş CSS uygulanmış, "En yakın uygun randevu" kartı dolu ("Yarın · 09:00").
 
 ## Bilinen sorunlar / notlar
 
