@@ -1,0 +1,327 @@
+<body class="leading-normal tracking-normal text-white gradient">
+<!-- @parca header -->
+
+  <main id="main">
+
+    <!--Hero (kaynak: div.pt-24 — sol metin, sağ hero.png)-->
+    <section id="top" class="pt-24" aria-labelledby="hero-title">
+      <div class="container px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center">
+        <!--Left Col-->
+        <div class="flex flex-col w-full md:w-2/5 justify-center items-start text-center md:text-left">
+          <p class="uppercase tracking-loose w-full" data-i18n="hero.kicker">Moda, Kadıköy · Yüz yüze ve online</p>
+          <h1 id="hero-title" class="my-4 text-5xl font-bold leading-tight" data-i18n="hero.title">Sofranıza uyan bir beslenme planı.</h1>
+          <p class="leading-normal text-2xl mb-8" data-i18n="hero.sub">Tahlillerinize, iş saatlerinize ve sevdiğiniz yemeklere göre hazırlanan, kontrollerde birlikte güncellenen bir plan.</p>
+          <div class="hero-bottom w-full">
+            <div class="flex flex-wrap items-center justify-center md:justify-start gap-x-4">
+              <a href="#randevu" class="{{c:btnW}}" data-i18n="hero.cta1">Randevu al</a>
+              <a href="#araclar" class="{{c:btnW2}}" data-i18n="hero.cta2">VKİ’nizi hesaplayın</a>
+            </div>
+            <aside id="next-slot" class="w-full max-w-sm mx-auto md:mx-0 mb-6 bg-white text-gray-800 rounded shadow-lg p-6 text-left dark:bg-gray-900 dark:text-gray-100" aria-live="polite" data-i18n-attr="aria-label:next.aria" aria-label="En yakın uygun randevu">
+              <p class="text-gray-600 text-xs md:text-sm uppercase dark:text-gray-300"><span class="live-dot" aria-hidden="true"></span><span data-i18n="next.label">En yakın uygun randevu</span></p>
+              <p class="mt-2 text-3xl font-bold leading-tight" data-next-time><span data-i18n="next.loading">Takvim kontrol ediliyor…</span></p>
+              <p class="mt-1 mb-3 text-gray-600 dark:text-gray-300" data-next-meta>&nbsp;</p>
+              <a class="link-arrow" href="#randevu" data-next-book data-i18n="next.book">Bu saati ayır</a>
+            </aside>
+          </div>
+        </div>
+        <!--Right Col-->
+        <div class="w-full md:w-3/5 py-6 text-center">
+          <img class="w-full md:w-4/5 z-50 rounded shadow-lg" src="assets/img/hero-gezegen-son.jpg" width="1280" height="720" fetchpriority="high" decoding="async" alt="Sebzelerle dolu küçük bir gezegende dev bir elmayı sulayan diyetisyen" data-i18n-attr="alt:hero.canvas">
+        </div>
+      </div>
+    </section>
+{{wave:hero}}
+
+    <!--S3 Kısa bilgiler (kaynakta yok; bölüm kalıbıyla)-->
+    <section class="facts {{c:sec}}" data-i18n-attr="aria-label:facts.aria" aria-label="Klinik hakkında kısa bilgiler">
+      <div class="container max-w-5xl mx-auto m-8">
+        <ul class="flex flex-wrap">
+          <li class="w-1/2 md:w-1/4 p-6 text-center"><span class="block text-5xl font-bold leading-tight text-gray-800 dark:text-gray-100">12 <small class="text-2xl" data-i18n="facts.1u">yıl</small></span><span class="block h-1 mx-auto gradient w-16 opacity-25 my-2 rounded-t" aria-hidden="true"></span><span class="block text-gray-600 dark:text-gray-300" data-i18n="facts.1">klinik beslenme deneyimi</span></li>
+          <li class="w-1/2 md:w-1/4 p-6 text-center"><span class="block text-5xl font-bold leading-tight text-gray-800 dark:text-gray-100">3 <small class="text-2xl" data-i18n="facts.2u">uzman</small></span><span class="block h-1 mx-auto gradient w-16 opacity-25 my-2 rounded-t" aria-hidden="true"></span><span class="block text-gray-600 dark:text-gray-300" data-i18n="facts.2">diyetisyen, tek çatı altında</span></li>
+          <li class="w-1/2 md:w-1/4 p-6 text-center"><span class="block text-5xl font-bold leading-tight text-gray-800 dark:text-gray-100">60 <small class="text-2xl" data-i18n="facts.3u">dk</small></span><span class="block h-1 mx-auto gradient w-16 opacity-25 my-2 rounded-t" aria-hidden="true"></span><span class="block text-gray-600 dark:text-gray-300" data-i18n="facts.3">ilk görüşme ve vücut analizi</span></li>
+          <li class="w-1/2 md:w-1/4 p-6 text-center"><span class="block text-5xl font-bold leading-tight text-gray-800 dark:text-gray-100">7 <small class="text-2xl" data-i18n="facts.4u">gün</small></span><span class="block h-1 mx-auto gradient w-16 opacity-25 my-2 rounded-t" aria-hidden="true"></span><span class="block text-gray-600 dark:text-gray-300" data-i18n="facts.4">içinde ilk kontrol, sonra haftalık takip</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!--S6 Yaklaşım (kaynak: ilk "Title" bölümü — iki dönüşümlü satır + unDraw)-->
+    <section id="yaklasim" class="{{c:sec}}" aria-labelledby="process-title">
+      <div class="container max-w-5xl mx-auto m-8">
+        <h2 id="process-title" class="{{c:h2}}" data-i18n="process.title">Görüşmeler nasıl ilerliyor?</h2>
+{{bar}}
+        <p class="{{c:lede}}" data-i18n="process.lede">Plan ilk görüşmede bitmiyor. Bayram sofrası, tatil ya da yoğun bir iş haftası geldiğinde kontrol görüşmesinde birlikte güncelliyoruz.</p>
+        <div class="flex flex-wrap">
+          <div class="w-5/6 sm:w-1/2 p-6">
+            <h3 class="{{c:h3row}}" data-i18n="type.first">İlk görüşme</h3>
+            <ol class="{{c:prow}} space-y-4">
+              <li><b class="text-gray-800 dark:text-gray-100"><span data-i18n="step1.title">Ön görüşme</span> · <span data-i18n="step1.meta">60 dk</span></b><br><span data-i18n="step1.text">Sağlık geçmişiniz, kullandığınız ilaçlar, son tahlilleriniz ve üç günlük besin kaydınız üzerinden konuşuyoruz.</span></li>
+              <li><b class="text-gray-800 dark:text-gray-100"><span data-i18n="step2.title">Vücut analizi</span> · <span data-i18n="step2.meta">10 dk</span></b><br><span data-i18n="step2.text">Biyoempedans cihazıyla yağ, kas ve su oranınızı ölçüyoruz. Tartıdaki tek bir sayıya bakmıyoruz.</span></li>
+            </ol>
+            <p class="{{c:prow}}"><span data-i18n="undraw.credit">Çizimler:</span> <a class="text-pink-600 underline dark:text-pink-400" href="https://undraw.co/" target="_blank" rel="noopener">undraw.co</a></p>
+          </div>
+          <div class="w-full sm:w-1/2 p-6">
+{{undraw:1}}
+          </div>
+        </div>
+        <div class="flex flex-wrap flex-col-reverse sm:flex-row">
+          <div class="w-full sm:w-1/2 p-6 mt-6">
+{{undraw:2}}
+          </div>
+          <div class="w-full sm:w-1/2 p-6 mt-6">
+            <div class="align-middle">
+              <h3 class="{{c:h3row}}" data-i18n="step4.title">Takip</h3>
+              <ol class="{{c:prow}} space-y-4">
+                <li><b class="text-gray-800 dark:text-gray-100"><span data-i18n="step3.title">Kişisel plan</span> · <span data-i18n="step3.meta">48 saat içinde</span></b><br><span data-i18n="step3.text">Sevdiğiniz yemekler, mesai saatleriniz ve bütçenizle uyumlu plan e-postanıza gelir.</span></li>
+                <li><b class="text-gray-800 dark:text-gray-100"><span data-i18n="step4.title">Takip</span> · <span data-i18n="step4.meta">Haftalık</span></b><br><span data-i18n="step4.text">Kısa kontrol görüşmeleri ve hafta içi mesaj desteğiyle planı gerektiğinde güncelliyoruz.</span></li>
+              </ol>
+              <blockquote class="{{c:prow}}">
+                <p class="italic" data-i18n="process.quote">“Danışanlarımın çoğu ne yemesi gerektiğini aşağı yukarı biliyor. Zorlandıkları an, akşam işten aç çıktıkları saat. Planı önce o saate göre kuruyoruz.”</p>
+                <footer class="mt-3 flex items-center gap-3"><img class="w-10 h-10 rounded-full object-cover" src="assets/img/uzman-selin-560.webp" width="560" height="700" loading="lazy" decoding="async" alt=""><span><b class="text-gray-800 dark:text-gray-100" data-i18n="team.selin.name">Uzm. Dyt. Selin Karaca</b> · <span data-i18n="process.quoteRole">kurucu</span></span></footer>
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!--S7 Yöntem sahnesi (kaynakta yok; bölüm kalıbıyla)-->
+    <section id="manifesto" class="{{c:sec}}" aria-labelledby="manifesto-title">
+      <div class="container mx-auto px-2 pt-4 pb-12 text-center">
+        <p class="uppercase tracking-loose w-full text-gray-600 dark:text-gray-300" data-i18n="scene.label">Yöntem</p>
+        <h2 id="manifesto-title" class="{{c:h2}}">
+          <span class="block" data-i18n="scene.l1">Tek bir hafta için değil.</span>
+          <span class="block" data-i18n="scene.l2">Bayram sofrası için de,</span>
+          <span class="block" data-i18n="scene.l3">yorgun bir salı akşamı için de</span>
+          <span class="block" data-i18n="scene.l4">çalışan bir plan.</span>
+        </h2>
+{{bar}}
+        <div class="flex flex-wrap">
+          <p class="w-full md:w-1/3 p-6"><b class="block text-3xl font-bold text-gray-800 dark:text-gray-100" data-i18n="scene.f1n">60 dk</b> <span class="text-gray-600 dark:text-gray-300" data-i18n="scene.f1">ilk görüşme</span></p>
+          <p class="w-full md:w-1/3 p-6"><b class="block text-3xl font-bold text-gray-800 dark:text-gray-100" data-i18n="scene.f2n">48 saat</b> <span class="text-gray-600 dark:text-gray-300" data-i18n="scene.f2">içinde kişisel plan</span></p>
+          <p class="w-full md:w-1/3 p-6"><b class="block text-3xl font-bold text-gray-800 dark:text-gray-100" data-i18n="scene.f3n">Haftalık</b> <span class="text-gray-600 dark:text-gray-300" data-i18n="scene.f3">kontrol ve mesaj desteği</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!--S4 Hizmetler (kaynak: "Title" + üç kart bölümü; 2 satır × 3 kart)-->
+    <section id="hizmetler" class="{{c:sec}}" aria-labelledby="services-title">
+      <div class="container mx-auto flex flex-wrap pt-4 pb-12">
+        <h2 id="services-title" class="{{c:h2}}" data-i18n="services.title">Çalıştığımız alanlar</h2>
+{{bar}}
+        <div class="w-full"><p class="{{c:lede}}" data-i18n="services.lede">Hazır listeler dağıtmıyoruz. Yaşınızı, hareket düzeninizi, tahlil sonuçlarınızı ve mutfağınızda gerçekten ne olduğunu konuşarak başlıyoruz.</p></div>
+{{hizmetler}}
+      </div>
+    </section>
+
+    <!--S8 Uzmanlar (kaynak kartlarıyla)-->
+    <section id="uzmanlar" class="{{c:sec}}" aria-labelledby="team-title">
+      <div class="container mx-auto flex flex-wrap pt-4 pb-12">
+        <h2 id="team-title" class="{{c:h2}}" data-i18n="team.title">Diyetisyenlerimiz</h2>
+{{bar}}
+        <div class="w-full"><p class="{{c:lede}}" data-i18n="team.lede">Her uzmanın ağırlıklı çalıştığı alan farklı. Randevu alırken konunuzu seçtiğinizde size uygun uzmanlar öne çıkar.</p></div>
+{{uzmanlar}}
+      </div>
+    </section>
+
+    <!--S5 Mevsim notları (sürüklenebilir kartlar)-->
+    <section class="notes-panel {{c:sec}}" aria-labelledby="notes-title">
+      <div class="container mx-auto px-2 pt-4 pb-12">
+        <p class="uppercase tracking-loose w-full text-center text-gray-600 dark:text-gray-300" data-i18n="notes.eyebrow">Eylül ve ekim</p>
+        <h2 id="notes-title" class="{{c:h2}}" data-i18n="notes.title">Tezgâhlarda incir, nar ve ceviz zamanı.</h2>
+{{bar}}
+        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-6 p-6">
+{{notlar}}
+        </div>
+        <div class="flex flex-wrap items-center justify-center gap-x-4">
+          <a class="{{c:btnG}}" href="#tarifler" data-i18n="notes.p1">Tarifler</a>
+          <a class="{{c:btnG}}" href="#program" data-i18n="notes.p2">Örnek program</a>
+          <a class="{{c:btnG}}" href="#blog" data-i18n="notes.p3">Yazılar</a>
+        </div>
+      </div>
+    </section>
+
+    <!--S9 Araçlar-->
+    <section id="araclar" class="{{c:sec}}" aria-labelledby="tools-title">
+      <div class="container mx-auto px-2 pt-4 pb-12">
+        <h2 id="tools-title" class="{{c:h2}}" data-i18n="tools.title">Hesaplama araçları</h2>
+{{bar}}
+        <p class="{{c:lede}}" data-i18n="tools.lede">Bu hesaplamalar genel bir fikir verir. Görüşmede aynı değerleri vücut analizi ve tahlillerinizle birlikte yorumluyoruz.</p>
+        <div class="p-6">
+{{araclar}}
+        </div>
+      </div>
+    </section>
+
+    <!--S10 Örnek program-->
+    <section id="program" class="{{c:sec}}" aria-labelledby="program-title">
+      <div class="container mx-auto px-2 pt-4 pb-12 print-scope">
+        <h2 id="program-title" class="{{c:h2}}" data-i18n="program.title">Bir haftalık örnek menü</h2>
+{{bar}}
+        <p class="{{c:lede}}" data-i18n="program.lede">Üç farklı hedef için hazırladığımız örnek haftalar. Porsiyonlar ortalama bir yetişkine göredir; size özel plan görüşmede hazırlanır.</p>
+        <div class="p-6">
+{{program}}
+        </div>
+      </div>
+    </section>
+
+    <!--S11 Tarifler-->
+    <section id="tarifler" class="{{c:sec}}" aria-labelledby="recipes-title">
+      <div class="container mx-auto px-2 pt-4 pb-12">
+        <h2 id="recipes-title" class="{{c:h2}}" data-i18n="recipes.title">Hafta içi akşamlarına sığan tarifler</h2>
+{{bar}}
+        <p class="{{c:lede}}" data-i18n="recipes.lede">Çoğu 30 dakikadan kısa sürüyor ve malzemeleri mahalle marketinde bulunuyor. Her tarifte porsiyon başına besin değerleri var.</p>
+{{tarifler}}
+      </div>
+    </section>
+
+    <!--S12 Ücretler (kaynak: Pricing — gri zemin, üç kart; ortadaki büyük ve gölgeli)-->
+    <section id="ucretler" class="bg-gray-100 py-8 dark:bg-gray-800" aria-labelledby="pricing-title">
+      <div class="container mx-auto px-2 pt-4 pb-12 text-gray-800 dark:text-gray-100">
+        <h2 id="pricing-title" class="{{c:h2}}" data-i18n="pricing.title">Görüşme ücretleri</h2>
+{{bar}}
+        <p class="{{c:lede}}" data-i18n="pricing.lede">Görüşme ücretlerini baştan paylaşıyoruz. Online görüşmeler, yüz yüze görüşmelerle aynı içeriktedir.</p>
+        <div class="flex flex-col sm:flex-row justify-center pt-12 my-12 sm:my-4">
+          <article class="flex flex-col w-5/6 lg:w-1/4 mx-auto lg:mx-0 rounded-none lg:rounded-l-lg bg-white mt-4 dark:bg-gray-900">
+            <div class="flex-1 bg-white text-gray-600 rounded-t rounded-b-none overflow-hidden shadow dark:bg-gray-900 dark:text-gray-300">
+              <h3 class="p-8 text-3xl font-bold text-center border-b-4 dark:border-gray-700" data-i18n="type.control">Kontrol görüşmesi</h3>
+              <ul class="w-full text-center text-sm">
+                <li class="border-b py-4 dark:border-gray-700" data-i18n="pricing.c1">30 dakikalık kontrol görüşmesi</li>
+                <li class="border-b py-4 dark:border-gray-700" data-i18n="pricing.c2">Vücut analiziyle yeniden ölçüm</li>
+                <li class="border-b py-4 dark:border-gray-700" data-i18n="pricing.c3">Planınızın güncellenmesi</li>
+              </ul>
+            </div>
+            <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6 dark:bg-gray-900">
+              <p class="w-full pt-6 text-3xl text-gray-600 font-bold text-center dark:text-gray-300"><span data-i18n="price.control">900 TL</span> <span class="text-base" data-i18n="type.controlMeta">30 dk · Klinikte</span></p>
+              <div class="flex items-center justify-center">
+                <a href="#randevu" data-book-type="control" class="{{c:btnG}}" data-i18n="nav.book">Randevu al</a>
+              </div>
+            </div>
+          </article>
+          <article class="flex flex-col w-5/6 lg:w-1/3 mx-auto lg:mx-0 rounded-lg bg-white mt-4 sm:-mt-6 shadow-lg z-10 dark:bg-gray-900">
+            <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow dark:bg-gray-900">
+              <h3 class="w-full p-8 text-3xl font-bold text-center" data-i18n="type.first">İlk görüşme</h3>
+              <div class="h-1 w-full gradient my-0 py-0 rounded-t"></div>
+              <ul class="w-full text-center text-base font-bold">
+                <li class="border-b py-4 dark:border-gray-700" data-i18n="plan1.f1">60 dakikalık ilk görüşme</li>
+                <li class="border-b py-4 dark:border-gray-700" data-i18n="plan1.f2">Vücut analizi (yağ, kas, su oranı)</li>
+                <li class="border-b py-4 dark:border-gray-700" data-i18n="plan1.f3">Tahlil sonuçlarının değerlendirilmesi</li>
+                <li class="border-b py-4 dark:border-gray-700" data-i18n="plan1.f4">1 haftalık kişisel beslenme planı</li>
+              </ul>
+            </div>
+            <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6 dark:bg-gray-900">
+              <p class="w-full pt-6 text-4xl font-bold text-center"><span data-i18n="price.first">1.800 TL</span> <span class="text-base" data-i18n="type.firstMeta">60 dk · Klinikte</span></p>
+              <div class="flex items-center justify-center">
+                <a href="#randevu" data-book-type="first" class="{{c:btnG}}" data-i18n="plan1.btn">İlk görüşmeyi planla</a>
+              </div>
+            </div>
+          </article>
+          <article class="flex flex-col w-5/6 lg:w-1/4 mx-auto lg:mx-0 rounded-none lg:rounded-l-lg bg-white mt-4 dark:bg-gray-900">
+            <div class="flex-1 bg-white text-gray-600 rounded-t rounded-b-none overflow-hidden shadow dark:bg-gray-900 dark:text-gray-300">
+              <h3 class="p-8 text-3xl font-bold text-center border-b-4 dark:border-gray-700" data-i18n="type.online">Online görüşme</h3>
+              <ul class="w-full text-center text-sm">
+                <li class="border-b py-4 dark:border-gray-700" data-i18n="pricing.o1">45 dakikalık görüntülü görüşme</li>
+                <li class="border-b py-4 dark:border-gray-700" data-i18n="pricing.o2">Bağlantı randevudan önce e-postanıza gelir</li>
+                <li class="border-b py-4 dark:border-gray-700" data-i18n="pricing.o3">Evde ölçüm takibini birlikte kuruyoruz</li>
+              </ul>
+            </div>
+            <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6 dark:bg-gray-900">
+              <p class="w-full pt-6 text-3xl text-gray-600 font-bold text-center dark:text-gray-300"><span data-i18n="price.online">1.500 TL</span> <span class="text-base" data-i18n="type.onlineMeta">45 dk · Online</span></p>
+              <div class="flex items-center justify-center">
+                <a href="#randevu" data-book-type="online" class="{{c:btnG}}" data-i18n="nav.book">Randevu al</a>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <h3 class="w-full mt-16 mb-2 text-3xl font-bold leading-tight text-center" data-i18n="pricing.packages">Takip paketleri</h3>
+        <div class="flex flex-col md:flex-row justify-center gap-8 px-6 my-8">
+{{paketler}}
+        </div>
+{{ucretek}}
+      </div>
+    </section>
+
+    <!-- Change the colour #f8fafc to match the previous section colour -->
+{{wave:cta}}
+    <!--Call to Action (kaynak) → randevu çağrısı-->
+    <section class="container mx-auto text-center py-6 mb-12" aria-labelledby="cta-title">
+      <h2 id="cta-title" class="w-full my-2 text-5xl font-bold leading-tight text-center text-white" data-i18n="cta.title">Randevunuzu şimdi alın</h2>
+      <div class="w-full mb-4">
+        <div class="h-1 mx-auto bg-white w-1/6 opacity-25 my-0 py-0 rounded-t"></div>
+      </div>
+      <p class="my-4 text-3xl leading-tight px-3" data-i18n="cta.text">En yakın boş saati görün, randevunuzu dört adımda ayırın.</p>
+      <a href="#randevu" class="{{c:btnW}}" data-i18n="nav.book">Randevu al</a>
+    </section>
+
+    <!--S13 Randevu-->
+    <section id="randevu" class="booking-panel {{c:sec}}" aria-labelledby="booking-title">
+      <div class="container mx-auto px-2 pt-4 pb-12">
+        <h2 id="booking-title" class="{{c:h2}}" data-i18n="booking.title">Online randevu</h2>
+{{bar}}
+        <p class="{{c:lede}}" data-i18n="booking.lede">Uzmanların boş saatlerini görüp randevunuzu buradan ayırabilirsiniz. Aynı gün için en erken bir saat sonrasına randevu verilebiliyor.</p>
+        <div class="clock-card">
+          <span class="label"><span class="live-dot" aria-hidden="true"></span><span data-i18n="booking.now">Şu an · Türkiye saati</span></span>
+          <span class="clock" data-clock aria-live="off">--:--</span>
+          <span class="clock-date" data-clock-date>&nbsp;</span>
+        </div>
+        <div class="p-6">
+{{randevu}}
+        </div>
+      </div>
+    </section>
+
+    <!--S14 Blog (kaynak kartlarıyla)-->
+    <section id="blog" class="{{c:sec}}" aria-labelledby="blog-title">
+      <div class="container mx-auto flex flex-wrap pt-4 pb-12">
+        <h2 id="blog-title" class="{{c:h2}}" data-i18n="blog.title">Son yazılar</h2>
+{{bar}}
+        <div class="w-full"><p class="{{c:lede}}" data-i18n="blog.lede">Danışanlarımızın en sık sorduğu konuları, güncel bilimsel kaynaklara dayanarak yazıyoruz.</p></div>
+{{blogkartlari}}
+        <div class="w-full text-center">
+          <a class="{{c:btnG}}" href="blog/" data-i18n="blog.all">Tüm yazılar</a>
+        </div>
+      </div>
+    </section>
+
+    <!--S15 SSS-->
+    <section id="sss" class="{{c:sec}}" aria-labelledby="faq-title">
+      <div class="container mx-auto px-2 pt-4 pb-12">
+        <h2 id="faq-title" class="{{c:h2}}" data-i18n="faq.title">Sık sorulan sorular</h2>
+{{bar}}
+{{sss}}
+      </div>
+    </section>
+
+    <!--S16 "afiyet olsun"-->
+    <section class="sky {{c:sec}}" aria-labelledby="sky-title">
+      <div class="container mx-auto px-2 pt-4 pb-12">
+        <h2 id="sky-title" class="{{c:h2}}" data-i18n="sky.word">afiyet olsun</h2>
+{{bar}}
+        <div class="p-6">
+          <img class="w-full aspect-[16/9] md:aspect-[21/9] object-cover rounded shadow-lg" src="assets/img/sofra-1000.webp" srcset="assets/img/sofra-1000.webp 1000w, assets/img/sofra-2000.webp 2000w" sizes="(min-width: 1280px) 1232px, 100vw" width="2000" height="1333" loading="lazy" decoding="async" alt="Mermer masada yulaf lapası, meyveler ve waffle ile hazırlanmış kahvaltı" data-i18n-attr="alt:sky.alt">
+        </div>
+        <p class="max-w-3xl mx-auto px-6 text-center text-2xl leading-normal text-gray-800 dark:text-gray-100" data-i18n="sky.title">Planınızla ilgili sorularınızı WhatsApp’tan yazabilirsiniz; mesai saatlerinde bir diyetisyen yanıtlıyor.</p>
+        <div class="flex flex-wrap items-center justify-center gap-x-4">
+          <a class="{{c:btnG}} inline-flex items-center gap-2" href="https://wa.me/905555555555" target="_blank" rel="noopener noreferrer" data-wa>{{ikon:wa}}WhatsApp</a>
+          <a class="{{c:btnW}} inline-flex items-center gap-2" href="tel:+905555555555" data-tel>{{ikon:tel}}<span data-i18n="sky.call">Bizi arayın</span></a>
+          <a class="{{c:btnW}} inline-flex items-center gap-2" href="https://www.google.com/maps/search/?api=1&amp;query=Moda+Caddesi+Kad%C4%B1k%C3%B6y+%C4%B0stanbul" target="_blank" rel="noopener noreferrer" data-maps>{{ikon:map}}<span data-i18n="sky.map">Yol tarifi</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!--S17 İletişim-->
+    <section id="iletisim" class="{{c:sec}}" aria-labelledby="contact-title">
+      <div class="container mx-auto px-2 pt-4 pb-12">
+        <h2 id="contact-title" class="{{c:h2}}" data-i18n="contact.title">İletişim ve ulaşım</h2>
+{{bar}}
+        <p class="{{c:lede}}" data-i18n="contact.lede">Moda Caddesi üzerindeyiz; Kadıköy iskelesinden yaklaşık 10 dakika yürüme mesafesi. Binada asansör var, en yakın otopark 150 metre ileride.</p>
+{{iletisim}}
+      </div>
+    </section>
+
+  </main>
+
+<!-- @parca footer -->
+
+{{sonek}}
+</body>

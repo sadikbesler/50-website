@@ -1,0 +1,184 @@
+{
+  "390": {
+    "once": {
+      "bg": "rgba(0, 0, 0, 0)",
+      "shadow": "none",
+      "brand": "rgb(255, 255, 255)",
+      "action": [
+        "none",
+        "rgb(31, 41, 55)"
+      ]
+    },
+    "sonra": {
+      "bg": "rgb(255, 255, 255)",
+      "shadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px",
+      "brand": "rgb(31, 41, 55)",
+      "action": [
+        "linear-gradient(90deg, rgb(213, 51, 105) 0%, rgb(218, 174, 81) 100%)",
+        "rgb(255, 255, 255)"
+      ]
+    },
+    "bolum": [
+      [
+        "DIV.pt-24",
+        904
+      ],
+      [
+        "DIV.relative",
+        48
+      ],
+      [
+        "SECTION.bg-white",
+        1291
+      ],
+      [
+        "SECTION.bg-white",
+        1233
+      ],
+      [
+        "SECTION.bg-gray-100",
+        1898
+      ],
+      [
+        "svg.wave-top",
+        40
+      ],
+      [
+        "SECTION.container",
+        339
+      ],
+      [
+        "FOOTER.bg-white",
+        450
+      ]
+    ],
+    "tip": [
+      [
+        "h1",
+        "48px",
+        "60px",
+        "700",
+        "\"Source Sans Pro\""
+      ],
+      [
+        "h2",
+        "48px",
+        "60px",
+        "700",
+        "\"Source Sans Pro\""
+      ],
+      [
+        "h3",
+        "30px",
+        "30px",
+        "700",
+        "\"Source Sans Pro\""
+      ],
+      [
+        "p",
+        "16px",
+        "24px",
+        "400",
+        "\"Source Sans Pro\""
+      ],
+      [
+        "button",
+        "16px",
+        "24px",
+        "400",
+        "\"Source Sans Pro\""
+      ]
+    ]
+  },
+  "1440": {
+    "once": {
+      "bg": "rgba(0, 0, 0, 0)",
+      "shadow": "none",
+      "brand": "rgb(255, 255, 255)",
+      "action": [
+        "none",
+        "rgb(31, 41, 55)"
+      ]
+    },
+    "sonra": {
+      "bg": "rgb(255, 255, 255)",
+      "shadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px",
+      "brand": "rgb(31, 41, 55)",
+      "action": [
+        "linear-gradient(90deg, rgb(213, 51, 105) 0%, rgb(218, 174, 81) 100%)",
+        "rgb(255, 255, 255)"
+      ]
+    },
+    "bolum": [
+      [
+        "DIV.pt-24",
+        664
+      ],
+      [
+        "DIV.relative",
+        175
+      ],
+      [
+        "SECTION.bg-white",
+        849
+      ],
+      [
+        "SECTION.bg-white",
+        565
+      ],
+      [
+        "SECTION.bg-gray-100",
+        812
+      ],
+      [
+        "svg.wave-top",
+        147
+      ],
+      [
+        "SECTION.container",
+        302
+      ],
+      [
+        "FOOTER.bg-white",
+        232
+      ]
+    ],
+    "tip": [
+      [
+        "h1",
+        "48px",
+        "60px",
+        "700",
+        "\"Source Sans Pro\""
+      ],
+      [
+        "h2",
+        "48px",
+        "60px",
+        "700",
+        "\"Source Sans Pro\""
+      ],
+      [
+        "h3",
+        "30px",
+        "30px",
+        "700",
+        "\"Source Sans Pro\""
+      ],
+      [
+        "p",
+        "16px",
+        "24px",
+        "400",
+        "\"Source Sans Pro\""
+      ],
+      [
+        "button",
+        "16px",
+        "24px",
+        "400",
+        "\"Source Sans Pro\""
+      ]
+    ]
+  }
+}

@@ -1,0 +1,504 @@
+/* template6 — Tailwind Toolbox "Landing Page" (https://github.com/tailwindtoolbox/Landing-Page, MIT)
+   Derleme (Tailwind 3.4.17): npx tailwindcss -c tailwind.config.js -i tw.css -o ../assets/css/tw.css --minify
+
+   Kaynağın kendi CSS'i yalnızca iki şeydir: CDN'deki Tailwind 2.2.19 ve <style> içindeki .gradient sınıfı.
+   Sayfa işaretlemesi kaynağın yardımcı sınıflarını birebir kullanır. Aşağıdaki bileşen kuralları yalnızca
+   JS'in (booking/tools/content/chat/site) ürettiği ya da durumunu değiştirdiği öğeler içindir ve yalnızca
+   kaynakta geçen tokenlarla yazıldı:
+     renk   : .gradient (#d53369 → #daae51), white, gray-100/200/500/600/800, pink-500/600/800, black
+     köşe   : rounded (kart), rounded-t / rounded-b (kart parçaları), rounded-full (düğme), rounded-lg (fiyat kartı)
+     gölge  : shadow (kart), shadow-lg (düğme, öne çıkan kart)
+     yazı   : Source Sans Pro 400/700; text-5xl/3xl/2xl/xl/base/sm/xs; leading-tight/none/normal
+     hareket: transform transition hover:scale-105 duration-300 ease-in-out
+   Koyu tema kaynakta yok; promtun kuralıyla türetildi: beyaz zemin → gray-900, gri zemin → gray-800,
+   metin → gray-100 / gray-300; gradyan, dalga renkleri ve düğmeler aynı. */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Kaynak: <body style="font-family: 'Source Sans Pro', sans-serif;"> (CSP satır içi stile izin vermediği için buraya) */
+  body { font-family: 'Source Sans Pro', sans-serif; }
+  [hidden]:where(:not([hidden="until-found"])) { display: none !important; }
+  /* Sabit üst menünün (py-2 + h-8/lg:text-4xl + hr) altına insin */
+  [id] { scroll-margin-top: 5.5rem; }
+  :root {
+    /* VKİ ölçeği: gradyanın kendi dört eşit adımı — kategoriye yargı yüklemeyen tek renk dizisi */
+    --bmi-1: #d53369;
+    --bmi-2: #d65263;
+    --bmi-3: #d8705d;
+    --bmi-4: #d98f57;
+    --bmi-5: #daae51;
+    --ink: #1f2937; /* tools.js: VKİ rozet metni (gray-800) */
+  }
+  .dark { --ink: #f3f4f6; color-scheme: dark; }
+  .lang-pending body { visibility: hidden; animation: reveal-body 0s linear 1.2s forwards; }
+  @keyframes reveal-body { to { visibility: visible; } }
+  .theme-switching *, .theme-switching *::before, .theme-switching *::after { transition: none !important; }
+  html:not([lang="en"]) [data-lang-block="en"], html[lang="en"] [data-lang-block="tr"] { display: none !important; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
+  }
+}
+
+@layer components {
+  /* Kaynak index.html <style>: "Define your gradient here" — birebir */
+  .gradient { background: linear-gradient(90deg, #d53369 0%, #daae51 100%); }
+
+  .skip-link { @apply sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:bg-white focus:text-gray-800 focus:font-bold focus:rounded-full focus:py-2 focus:px-6 focus:shadow-lg; }
+
+  /* ---- Düğmeler: kaynağın iki düğmesi ----
+     beyaz: "hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg … hover:scale-105"
+     gradyan: "hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg … hover:scale-105"
+     (my-6 / mx-auto bağlama göre sayfada verilir) */
+  .btn { @apply inline-flex items-center justify-center gap-2 font-bold rounded-full py-4 px-8 shadow-lg hover:underline focus:outline-none focus-visible:ring-4 focus-visible:ring-pink-300 transform transition hover:scale-105 duration-300 ease-in-out disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100 disabled:hover:no-underline; }
+  .btn--primary { @apply text-white; background: linear-gradient(90deg, #d53369 0%, #daae51 100%); }
+  .btn--ghost { @apply bg-white text-gray-800; }
+  .btn--sm { @apply py-2 px-5 text-sm; }
+  .btn--block { @apply w-full; }
+  .btn .i { @apply w-5 h-5; }
+  .btn-spinner { @apply hidden w-4 h-4 animate-spin rounded-full border-2 border-current border-r-transparent motion-reduce:animate-none; }
+  .is-loading .btn-spinner { @apply inline-block; }
+
+  /* Simge düğmesi: kaynağın #nav-toggle'ı ("p-1 … hover:text-gray-900 … transform transition hover:scale-105") */
+  .icon-btn { @apply inline-grid place-content-center w-10 h-10 rounded-full text-gray-800 hover:text-gray-900 focus:outline-none focus-visible:ring-4 focus-visible:ring-pink-300 transform transition hover:scale-105 duration-300 ease-in-out disabled:opacity-40 disabled:hover:scale-100 dark:text-gray-100; }
+  .icon-btn svg { @apply w-5 h-5; }
+
+  /* ---- Seçim hapları: araç sekmeleri, hedef, gün, tarif filtresi, radio. Promt: "seçili durum .gradient + beyaz yazı" ---- */
+  .pill { @apply inline-flex items-center justify-center gap-2 font-bold rounded-full py-3 px-6 shadow bg-white text-gray-800 cursor-pointer hover:underline focus:outline-none focus-visible:ring-4 focus-visible:ring-pink-300 transform transition hover:scale-105 duration-300 ease-in-out dark:bg-gray-800 dark:text-gray-100; }
+  .pill small, .pill .mono { @apply font-normal text-sm opacity-90; }
+  .pill[aria-selected="true"], .pill[aria-checked="true"], .pill[aria-pressed="true"], .chip[aria-pressed="true"], .day-tab[aria-selected="true"],
+  .radio-pill input:checked + span { @apply text-white shadow-lg; background: linear-gradient(90deg, #d53369 0%, #daae51 100%); }
+  .chip { @apply pill py-2 px-5; }
+  .day-tab { @apply pill flex-col gap-0 py-2 px-4 leading-tight; }
+  .day-tab small { @apply text-xs; }
+  .radio-row { @apply flex flex-wrap gap-3; }
+  .radio-pill { @apply relative inline-flex; }
+  .radio-pill input { @apply sr-only; }
+  .radio-pill span { @apply pill py-2 px-5; }
+  .radio-pill input:focus-visible + span { @apply ring-4 ring-pink-300; }
+
+  /* ---- Metin parçaları (kart üst etiketi "text-gray-600 text-xs md:text-sm", sütun başlığı "uppercase text-gray-500") ---- */
+  .label { @apply text-gray-600 text-xs md:text-sm uppercase dark:text-gray-300; }
+  .muted, .lede, .tool-note { @apply text-gray-600 dark:text-gray-300; }
+  .tool-note { @apply text-sm; }
+  /* Kaynak bağlantısı: "text-pink-500 underline" (pink-600: beyaz zeminde 4,5:1 için; kaynaktaki logo rengi) */
+  .link-arrow { @apply inline-flex items-center font-bold text-pink-600 underline hover:no-underline dark:text-pink-400; }
+  .link-arrow::after { content: "\2192"; @apply ms-1.5 no-underline; }
+  .mono { @apply tabular-nums; }
+
+  /* ---- Form alanları (kaynakta form yok; kaynağın gri zemin + gri kenar + pembe vurgu tokenlarıyla) ---- */
+  .field-group { @apply grid gap-2 content-start; }
+  .field-label { @apply flex flex-wrap items-baseline justify-between gap-2 text-gray-600 text-xs md:text-sm uppercase font-bold dark:text-gray-300; }
+  .field-label .opt { @apply normal-case font-normal; }
+  .field { @apply block w-full appearance-none bg-gray-100 text-gray-800 border border-gray-200 rounded py-3 px-4 leading-tight placeholder-gray-500 focus:outline-none focus:bg-white focus:border-pink-500 focus:ring-2 focus:ring-pink-300 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:bg-gray-900; }
+  .field[aria-invalid="true"] { @apply border-pink-600 bg-white dark:bg-gray-900; }
+  textarea.field { @apply leading-normal; }
+  .field-unit { @apply flex items-center gap-2; }
+  .field-unit .field { @apply w-28 text-end; }
+  .field-unit span { @apply text-gray-600 dark:text-gray-300; }
+  .select-wrap { @apply relative; }
+  .select-wrap .field { @apply pe-10; }
+  .select-wrap svg { @apply pointer-events-none absolute end-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-600 dark:text-gray-300; }
+  .form-grid { @apply grid gap-5; }
+  .form-grid--2 { @apply sm:grid-cols-2; }
+  .span-2 { @apply sm:col-span-2; }
+  .check { @apply flex items-start gap-3 text-gray-800 dark:text-gray-100; }
+  .check input { @apply mt-1 w-4 h-4 shrink-0 accent-[#d53369]; }
+  .check a { @apply text-pink-600 underline dark:text-pink-400; }
+  .field-err { @apply text-sm font-bold text-pink-800 empty:hidden dark:text-pink-300; }
+  .form-status { @apply text-sm empty:hidden; }
+  .form-status.is-ok { @apply font-bold text-gray-800 dark:text-gray-100; }
+  .form-status.is-err { @apply font-bold text-pink-800 dark:text-pink-300; }
+  .form-status a { @apply underline; }
+  .honeypot { position: absolute !important; left: -9999px !important; width: 1px; height: 1px; overflow: hidden; }
+  input[type="range"] { @apply w-full accent-[#d53369] cursor-pointer; }
+  .range-field { @apply grid gap-3; }
+  .range-top { @apply flex items-center justify-between gap-4; }
+
+  /* ---- Kart: kaynağın "bg-white rounded-t rounded-b-none overflow-hidden shadow" + "rounded-b … shadow p-6" ---- */
+  .tool-card { @apply bg-white rounded overflow-hidden shadow p-6 text-gray-800 dark:bg-gray-800 dark:text-gray-100; }
+  .tool-form { @apply grid gap-6 content-start; }
+
+  /* ---- Araç sonuçları ---- */
+  .tool-result { @apply grid gap-5 content-start; }
+  .result-big { @apply flex flex-wrap items-baseline gap-x-3 gap-y-1; }
+  .result-num { @apply text-5xl font-bold leading-tight text-gray-800 dark:text-gray-100; }
+  .result-unit { @apply text-2xl text-gray-600 dark:text-gray-300; }
+  .result-tag { @apply inline-flex items-center gap-2 rounded-full bg-gray-100 py-1 px-4 text-sm font-bold dark:bg-gray-900; }
+  .result-tag i { @apply w-3 h-3 rounded-full bg-current; }
+  .result-text { @apply text-gray-600 dark:text-gray-300; }
+  .scale { @apply grid gap-2; }
+  .scale-wrap { @apply relative; }
+  .scale-bar { @apply grid h-2 grid-cols-[3.5fr_6.5fr_5fr_5fr_5fr] overflow-hidden rounded-full; }
+  .scale-bar span:nth-child(1) { background: var(--bmi-1); }
+  .scale-bar span:nth-child(2) { background: var(--bmi-2); }
+  .scale-bar span:nth-child(3) { background: var(--bmi-3); }
+  .scale-bar span:nth-child(4) { background: var(--bmi-4); }
+  .scale-bar span:nth-child(5) { background: var(--bmi-5); }
+  .scale-marker { @apply absolute top-1/2 z-10 w-5 h-5 -translate-x-1/2 -translate-y-1/2 rounded-full border-4 border-white bg-gray-800 shadow-lg transition-[left] duration-300 motion-reduce:transition-none dark:border-gray-800 dark:bg-gray-100; }
+  .scale-ticks { @apply relative h-4 text-xs text-gray-600 dark:text-gray-300; }
+  .scale-ticks span { @apply absolute -translate-x-1/2; }
+  .stat-rows { @apply w-full text-sm; }
+  .stat-row { @apply flex justify-between gap-4 border-b border-gray-200 py-3 last:border-b-0 dark:border-gray-700; }
+  .stat-row dt { @apply text-gray-600 dark:text-gray-300; }
+  .stat-row dd { @apply text-end font-bold; }
+  /* Makro çubukları: fiyat kartındaki "h-1 w-full gradient" çizgisi */
+  .macro-bars { @apply grid gap-3; }
+  .macro { @apply grid gap-1.5; }
+  .macro-head { @apply flex justify-between gap-3 text-sm; }
+  .macro-head b { @apply font-bold; }
+  .macro-head span { @apply text-gray-600 dark:text-gray-300; }
+  .macro-track { @apply w-full h-1 rounded-t bg-gray-200 overflow-hidden dark:bg-gray-700; }
+  .macro-fill { @apply h-1 w-0 transition-[width] duration-500 motion-reduce:transition-none; background: linear-gradient(90deg, #d53369 0%, #daae51 100%); }
+  .glasses { @apply flex flex-wrap gap-2; }
+  .glass { @apply w-10 h-10 rounded-full border-2 border-gray-200 bg-white shadow transform transition hover:scale-105 duration-300 ease-in-out focus:outline-none focus-visible:ring-4 focus-visible:ring-pink-300 dark:bg-gray-900 dark:border-gray-600; }
+  .glass.is-full { @apply border-transparent shadow-lg; background: linear-gradient(90deg, #d53369 0%, #daae51 100%); }
+
+  /* ---- Tarif kartı (content.js .recipe-card) — kaynak kartı ---- */
+  .recipe-card { @apply flex flex-col w-full h-full text-start bg-white rounded overflow-hidden shadow text-gray-800 transform transition hover:scale-105 duration-300 ease-in-out focus:outline-none focus-visible:ring-4 focus-visible:ring-pink-300 dark:bg-gray-800 dark:text-gray-100; }
+  .recipe-card figure img { @apply w-full aspect-[5/4] object-cover; }
+  .recipe-card-body { @apply flex flex-1 flex-col gap-2 p-6; }
+  .recipe-card-body h3 { @apply font-bold text-xl leading-tight; }
+  .recipe-card-body .tags { @apply mt-auto pt-2; }
+  .recipes-empty { @apply col-span-full text-center text-gray-600 dark:text-gray-300; }
+
+  /* ---- Örnek program öğünleri (content.js .meal) — fiyat kartının "border-b py-4" satırları ---- */
+  .meals { @apply bg-white rounded overflow-hidden shadow dark:bg-gray-800; }
+  .meal { @apply grid grid-cols-[4rem_1fr] gap-x-4 border-b border-gray-200 py-4 px-6 last:border-b-0 sm:grid-cols-[4rem_1fr_auto] dark:border-gray-700; }
+  .meal-time { @apply pt-0.5 text-sm font-bold text-gray-600 tabular-nums dark:text-gray-300; }
+  .meal-name { @apply text-xl font-bold text-gray-800 leading-tight dark:text-gray-100; }
+  .meal-items { @apply mt-1 text-gray-600 dark:text-gray-300; }
+  .meal-kcal { @apply col-start-2 mt-1 text-sm whitespace-nowrap text-gray-600 sm:col-start-3 sm:mt-0.5 dark:text-gray-300; }
+
+  /* ---- Randevu ---- */
+  .stepper { @apply flex flex-wrap justify-center gap-3; }
+  .stepper button { @apply pill py-2 px-4 gap-3 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:scale-100 disabled:hover:no-underline; }
+  .stepper button > span { @apply grid place-content-center w-7 h-7 rounded-full bg-gray-100 text-gray-800 text-sm dark:bg-gray-900 dark:text-gray-100; }
+  .stepper .is-current button, .stepper .is-done button { @apply text-white shadow-lg; background: linear-gradient(90deg, #d53369 0%, #daae51 100%); }
+  .stepper .is-current button > span, .stepper .is-done button > span { @apply bg-white text-gray-800; }
+  .booking-grid { @apply mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_20rem] items-start; }
+  .bstep { @apply min-w-0; }
+  .bstep-title { @apply mb-6 text-3xl font-bold leading-none text-gray-800 focus:outline-none dark:text-gray-100; }
+  .bstep-sub { @apply mt-8 mb-3 flex flex-wrap items-baseline gap-x-3 text-xl font-bold text-gray-800 dark:text-gray-100; }
+  .bstep-sub .hint { @apply text-sm font-normal text-gray-600 dark:text-gray-300; }
+  .bstep-nav { @apply mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-gray-200 pt-6 dark:border-gray-700; }
+  .bstep-msg { @apply order-last w-full text-sm font-bold text-pink-800 empty:hidden sm:order-none sm:w-auto sm:flex-1 dark:text-pink-300; }
+  .tz-note { @apply mb-4 rounded bg-gray-100 p-4 text-sm text-gray-800 dark:bg-gray-800 dark:text-gray-100; }
+  .choice-grid { @apply grid gap-4; }
+  .choice-grid--3 { @apply md:grid-cols-3; }
+  .choice-grid--4 { @apply grid-cols-1 sm:grid-cols-2; }
+  .choice { @apply relative flex cursor-pointer; }
+  .choice input { @apply sr-only; }
+  .choice-box { @apply flex w-full flex-col gap-2 rounded bg-white p-6 text-gray-800 shadow transform transition hover:scale-105 duration-300 ease-in-out dark:bg-gray-800 dark:text-gray-100; }
+  .choice input:checked + .choice-box { @apply text-white shadow-lg; background: linear-gradient(90deg, #d53369 0%, #daae51 100%); }
+  .choice input:focus-visible + .choice-box { @apply ring-4 ring-pink-300; }
+  .choice input:disabled + .choice-box { @apply cursor-not-allowed opacity-50 hover:scale-100; }
+  .choice-top { @apply flex items-start justify-between gap-3; }
+  .choice-title { @apply text-xl font-bold leading-tight; }
+  .choice-radio { @apply mt-1 w-4 h-4 shrink-0 rounded-full border-2 border-current; }
+  .choice input:checked + .choice-box .choice-radio { @apply bg-white border-white; }
+  .choice-desc { @apply text-sm opacity-90; }
+  .choice-meta { @apply mt-auto flex justify-between gap-3 pt-2 text-sm font-bold; }
+  .staff-choice .choice-box { @apply flex-row items-center gap-4 p-4; }
+  .staff-choice img, .staff-any { @apply w-12 h-12 shrink-0 rounded-full object-cover; }
+  .staff-any { @apply grid place-content-center bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-100; }
+  .staff-any svg { @apply w-6 h-6; }
+  .staff-note { @apply text-sm opacity-90; }
+  .datetime { @apply grid gap-8 lg:grid-cols-[auto_minmax(0,1fr)]; }
+  .cal { @apply w-full max-w-sm rounded bg-white p-4 shadow text-gray-800 sm:w-80 dark:bg-gray-800 dark:text-gray-100; }
+  .cal-head { @apply mb-3 flex items-center justify-between; }
+  .cal-title { @apply text-xl font-bold; }
+  .cal-dow { @apply mb-1 grid grid-cols-7 text-center text-xs uppercase text-gray-600 dark:text-gray-300; }
+  .cal-grid { @apply grid grid-cols-7 gap-1; }
+  .cal-day { @apply flex min-h-11 flex-col items-center justify-center rounded-full text-sm font-bold transition hover:bg-gray-100 focus:outline-none focus-visible:ring-4 focus-visible:ring-pink-300 dark:hover:bg-gray-700; }
+  .cal-day.is-today { @apply ring-2 ring-inset ring-gray-200 dark:ring-gray-600; }
+  .cal-day.is-disabled { @apply cursor-not-allowed font-normal text-gray-500 hover:bg-transparent dark:text-gray-400; }
+  .cal-day[aria-pressed="true"] { @apply text-white shadow-lg; background: linear-gradient(90deg, #d53369 0%, #daae51 100%); }
+  .cal-num { @apply leading-5; }
+  .cal-meta { @apply text-[0.625rem] leading-3 font-normal; }
+  .cal-legend { @apply mt-3 flex flex-wrap gap-x-4 gap-y-2 text-xs text-gray-600 dark:text-gray-300; }
+  .cal-legend span { @apply inline-flex items-center gap-1.5; }
+  .cal-legend i { @apply inline-block w-3 h-3 rounded-full border border-gray-200 dark:border-gray-600; }
+  .cal-legend .lg-full { @apply opacity-40; }
+  .cal-legend .lg-closed { @apply bg-gray-200 dark:bg-gray-600; }
+  .cal-legend .lg-today { @apply border-2; }
+  .slots-head { @apply mb-4; }
+  .slots-title { @apply text-xl font-bold text-gray-800 dark:text-gray-100; }
+  .slots-note { @apply mt-1 text-sm text-gray-600 dark:text-gray-300; }
+  .slot-group + .slot-group { @apply mt-5; }
+  .slot-group .label { @apply mb-2; }
+  .slot-list { @apply grid grid-cols-3 gap-3 sm:grid-cols-4; }
+  .slot { @apply pill py-2 px-3 disabled:cursor-not-allowed disabled:opacity-40 disabled:line-through disabled:hover:scale-100; }
+  .slot[aria-pressed="true"] { @apply text-white shadow-lg; background: linear-gradient(90deg, #d53369 0%, #daae51 100%); }
+  .skeleton { @apply block animate-pulse rounded-full bg-gray-200 motion-reduce:animate-none dark:bg-gray-700; }
+  .slots-empty { @apply grid justify-items-start gap-3 rounded bg-gray-100 p-6 text-gray-800 dark:bg-gray-800 dark:text-gray-100; }
+  .booking-summary { @apply bg-white rounded overflow-hidden shadow text-gray-800 lg:sticky lg:top-24 dark:bg-gray-800 dark:text-gray-100; }
+  .summary-toggle { @apply flex cursor-pointer list-none items-center justify-between gap-3 p-6 text-2xl font-bold [&::-webkit-details-marker]:hidden; }
+  .summary-toggle svg { @apply w-5 h-5 transition-transform; }
+  .booking-summary[open] .summary-toggle svg { @apply rotate-180; }
+  .summary-toggle + div::before { content: ""; @apply block h-1 w-full rounded-t; background: linear-gradient(90deg, #d53369 0%, #daae51 100%); }
+  .summary-body { @apply grid gap-4 pb-6; }
+  .summary-body > *:not(:first-child) { @apply mx-6; }
+  .sum-list, .review { @apply w-full text-sm; }
+  .sum-row, .review-row { @apply flex items-baseline justify-between gap-4 border-b border-gray-200 py-3 px-6 dark:border-gray-700; }
+  .review .review-row { @apply px-0; }
+  .sum-row dt, .review-row dt { @apply shrink-0 text-gray-600 dark:text-gray-300; }
+  .sum-row dd, .review-row dd { @apply text-end font-bold; }
+  .review-row dd { @apply flex-1; }
+  .sum-row dd.is-empty { @apply font-normal text-gray-600 dark:text-gray-300; }
+  .review-row button { @apply text-sm font-bold text-pink-600 underline hover:no-underline dark:text-pink-400; }
+  .sum-total { @apply flex items-baseline justify-between gap-3; }
+  .sum-total b { @apply text-3xl font-bold; }
+  .sum-policy { @apply text-sm text-gray-600 dark:text-gray-300; }
+  .sum-policy button { @apply font-bold text-pink-600 underline hover:no-underline dark:text-pink-400; }
+  .prep { @apply mt-6 rounded bg-gray-100 p-6 text-sm text-gray-800 empty:hidden dark:bg-gray-800 dark:text-gray-100; }
+  .prep ul { @apply mt-2 list-disc space-y-1 ps-5; }
+  .done { @apply grid justify-items-start gap-4 rounded bg-white p-6 text-gray-800 shadow-lg sm:p-8 dark:bg-gray-800 dark:text-gray-100; }
+  .done-icon { @apply grid place-content-center w-14 h-14 rounded-full text-white shadow-lg; background: linear-gradient(90deg, #d53369 0%, #daae51 100%); }
+  .done-icon svg { @apply w-7 h-7; }
+  .done .bstep-title { @apply mb-0; }
+  .demo-tag { @apply rounded-full bg-gray-100 py-1 px-3 text-xs font-bold dark:bg-gray-900; }
+  .done-ref .ref { @apply mt-1 flex items-center gap-3 text-3xl font-bold tracking-wider; }
+  .done .review { @apply w-full; }
+  .done-actions { @apply flex flex-wrap gap-3; }
+  .clock-card { @apply mx-auto mt-2 mb-4 grid w-fit justify-items-center gap-1 rounded bg-white py-4 px-8 text-center text-gray-800 shadow dark:bg-gray-800 dark:text-gray-100; }
+  .clock { @apply text-4xl font-bold tabular-nums; }
+  .clock-date { @apply text-sm text-gray-600 dark:text-gray-300; }
+  .live-dot { @apply inline-block w-2 h-2 me-2 rounded-full align-middle; background: linear-gradient(90deg, #d53369 0%, #daae51 100%); }
+
+  /* ---- Tarif penceresi ve iptal penceresi (<dialog>) ---- */
+  dialog { @apply m-auto w-[calc(100%-2rem)] max-w-4xl rounded bg-white p-0 text-gray-800 shadow-lg backdrop:bg-gray-800/70 dark:bg-gray-900 dark:text-gray-100; }
+  #cancel-dialog { @apply max-w-xl; }
+  .dialog-scroll { @apply relative max-h-[calc(100dvh-4rem)] overflow-y-auto; }
+  .dialog-close { @apply absolute end-3 top-3 z-10 bg-white shadow-lg dark:bg-gray-800; }
+  .recipe-dialog-grid { @apply grid md:grid-cols-[2fr_3fr]; }
+  .recipe-hero img { @apply h-56 w-full object-cover md:h-full; }
+  .recipe-content { @apply grid gap-5 p-6 md:p-8 content-start; }
+  .recipe-content > h2, #recipe-title, #cancel-title { @apply pe-10 text-3xl font-bold leading-none text-gray-800 dark:text-gray-100; }
+  .recipe-meta { @apply flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-gray-600 dark:text-gray-300; }
+  .recipe-meta span { @apply inline-flex items-center gap-1; }
+  .recipe-meta svg { @apply w-4 h-4; }
+  /* Kart üst etiketi gibi küçük etiketler */
+  .tags { @apply flex flex-wrap gap-x-3 gap-y-1; }
+  .tags li { @apply text-gray-600 text-xs md:text-sm uppercase dark:text-gray-300; }
+  .dialog-h3 { @apply text-xl font-bold text-gray-800 dark:text-gray-100; }
+  .nutri { @apply grid grid-cols-2 gap-3 sm:grid-cols-4; }
+  .nutri div { @apply rounded bg-gray-100 p-3 text-center dark:bg-gray-800; }
+  .nutri b { @apply block text-2xl font-bold; }
+  .nutri span { @apply text-xs uppercase text-gray-600 dark:text-gray-300; }
+  .servings { @apply flex items-center justify-between gap-4; }
+  .servings-ctrl { @apply flex items-center gap-2; }
+  .servings-ctrl .icon-btn { @apply bg-white shadow dark:bg-gray-800; }
+  .servings-ctrl output { @apply w-10 text-center text-2xl font-bold; }
+  .ingredients li { @apply border-b border-gray-200 last:border-b-0 dark:border-gray-700; }
+  .ingredients label { @apply flex items-center gap-3 py-3; }
+  .ingredients input { @apply w-4 h-4 accent-[#d53369]; }
+  .ingredients .qty { @apply min-w-20 font-bold; }
+  .ingredients input:checked ~ span { @apply text-gray-500 line-through dark:text-gray-400; }
+  .steps-list { @apply list-decimal space-y-2 ps-5 text-gray-600 dark:text-gray-300; }
+  .tip-box { @apply rounded bg-gray-100 p-4 text-sm dark:bg-gray-800; }
+  .tip-box .label { @apply mb-1 block font-bold; }
+
+  /* ---- Sohbet: kart kabuğu (shadow-lg rounded), başlık şeridi .gradient ---- */
+  .floating-actions { @apply contents; }
+  .chat { @apply invisible fixed bottom-24 end-4 z-50 flex max-h-[min(40rem,calc(100dvh-8rem))] w-[calc(100%-2rem)] max-w-sm translate-y-4 flex-col overflow-hidden rounded bg-white text-gray-800 opacity-0 shadow-lg transition duration-300 ease-in-out motion-reduce:transition-none sm:end-6 dark:bg-gray-900 dark:text-gray-100; }
+  .chat-open .chat { @apply visible translate-y-0 opacity-100; }
+  .chat-head { @apply flex items-center gap-3 p-4 text-white; background: linear-gradient(90deg, #d53369 0%, #daae51 100%); }
+  .chat-avatar { @apply grid place-content-center w-10 h-10 shrink-0 rounded-full bg-white text-xl font-bold text-pink-600; }
+  .chat-head-text { @apply grid flex-1 leading-tight; }
+  .chat-head-text b { @apply text-xl font-bold; }
+  .chat-head-text > span { @apply text-sm; }
+  .chat-head .live-dot { @apply bg-white; background-image: none; }
+  .chat-head .icon-btn { @apply text-white hover:text-white; }
+  .chat-log { @apply flex-1 overflow-y-auto overscroll-contain p-4; }
+  .msg { @apply mt-3 flex first:mt-0; }
+  .msg--user { @apply justify-end; }
+  .bubble { @apply max-w-[85%] rounded bg-gray-100 p-3 text-sm dark:bg-gray-800; overflow-wrap: anywhere; }
+  .msg--user .bubble { @apply text-white; background: linear-gradient(90deg, #d53369 0%, #daae51 100%); }
+  .bubble p + p { @apply mt-1.5; }
+  .bubble-title { @apply font-bold; }
+  .bubble-rows { @apply mt-2 rounded bg-white px-3 dark:bg-gray-900; }
+  .bubble-row { @apply flex justify-between gap-3 border-b border-gray-200 py-1.5 last:border-b-0 dark:border-gray-700; }
+  .bubble-row span:last-child { @apply text-end whitespace-nowrap font-bold; }
+  .bubble-note { @apply mt-2 text-xs text-gray-600 dark:text-gray-300; }
+  .bubble-actions { @apply mt-3 flex flex-wrap gap-2; }
+  .bubble-action { @apply pill py-1.5 px-4 text-sm; }
+  .bubble-action--primary { @apply text-white shadow-lg; background: linear-gradient(90deg, #d53369 0%, #daae51 100%); }
+  .quick { @apply mt-3 flex flex-wrap gap-2; }
+  .quick button { @apply pill py-1.5 px-4 text-sm; }
+  .typing .bubble { @apply flex items-center gap-1 py-4; }
+  .typing i { @apply w-1.5 h-1.5 animate-pulse rounded-full bg-gray-500 motion-reduce:animate-none; }
+  .typing i:nth-child(2) { animation-delay: 0.15s; }
+  .typing i:nth-child(3) { animation-delay: 0.3s; }
+  .chat-day { @apply mb-3 text-center text-xs text-gray-600 dark:text-gray-300; }
+  .chat-form { @apply flex items-center gap-2 border-t border-gray-200 p-3 dark:border-gray-700; }
+  .chat-input { @apply field rounded-full py-2; }
+  .chat-send { @apply grid place-content-center w-10 h-10 shrink-0 rounded-full text-white shadow-lg transform transition hover:scale-105 duration-300 ease-in-out focus:outline-none focus-visible:ring-4 focus-visible:ring-pink-300 disabled:opacity-50 disabled:hover:scale-100; background: linear-gradient(90deg, #d53369 0%, #daae51 100%); }
+  .chat-send svg { @apply w-5 h-5; }
+  .chat-foot { @apply px-4 pb-3 text-center text-xs text-gray-600 dark:text-gray-300; }
+  /* Yüzen düğmeler: kaynağın yuvarlak düğmeleri (rounded-full shadow-lg hover:scale-105) */
+  .fab { @apply fixed end-4 z-40 grid place-content-center w-14 h-14 rounded-full shadow-lg transform transition hover:scale-105 duration-300 ease-in-out focus:outline-none focus-visible:ring-4 focus-visible:ring-pink-300 sm:end-6; }
+  .fab svg { @apply w-6 h-6; }
+  .fab-wa { @apply bottom-24 bg-white text-gray-800; }
+  .fab-chat { @apply bottom-6 text-white; background: linear-gradient(90deg, #d53369 0%, #daae51 100%); }
+  .fab-chat .i-x, .chat-open .fab-chat .i-chat { @apply hidden; }
+  .chat-open .fab-chat .i-x { @apply block; }
+  .chat-open .fab-wa, .menu-open .fab, body.fabs-off .fab-wa, body.fabs-off:not(.chat-open) .fab-chat, body.demo-open .fab { @apply pointer-events-none invisible opacity-0; }
+  .fab-badge { @apply absolute end-0.5 top-0.5 w-3.5 h-3.5 rounded-full border-2 border-white bg-pink-800; }
+  .chat-open .fab-badge, .fab-badge.is-hidden { @apply hidden; }
+
+
+  /* ---- Özgün işaretlemesi korunan bloklar (araçlar, program, tarifler, SSS, iletişim, notlar) ---- */
+  .tabs { @apply flex flex-wrap justify-center gap-4 mb-8; }
+  .tool { @apply grid gap-6 md:grid-cols-2 items-start; }
+  .program-top { @apply grid justify-items-center gap-6 mb-8; }
+  .segmented { @apply flex flex-wrap justify-center gap-4; }
+  .segmented button { @apply pill flex-col gap-0 leading-tight; }
+  .day-tabs { @apply flex flex-wrap justify-center gap-2; }
+  .program { @apply grid gap-8 lg:grid-cols-[minmax(0,1fr)_22rem] items-start; }
+  .program-side { @apply grid gap-6; }
+  .program-media img { @apply w-full aspect-[4/3] rounded object-cover shadow; }
+  .program-total { @apply flex items-baseline gap-2 my-1; }
+  .program-total b { @apply text-5xl font-bold leading-tight; }
+  .program-total .mono { @apply text-gray-600 dark:text-gray-300; }
+  .program-side .tool-card { @apply grid gap-3; }
+  .program-tip { @apply rounded bg-gray-100 p-6 text-gray-800 dark:bg-gray-800 dark:text-gray-100; }
+  .program-tip .label { @apply mb-1 font-bold; }
+  .program-actions { @apply flex flex-wrap gap-3; }
+  .disclaimer { @apply mt-8 text-center text-sm text-gray-600 dark:text-gray-300; }
+  .filter-row { @apply flex flex-wrap justify-center gap-3 mb-4; }
+  .recipes { @apply grid gap-6 p-6 sm:grid-cols-2 lg:grid-cols-3; }
+  .note { @apply select-none bg-white rounded overflow-hidden shadow transition-shadow dark:bg-gray-800; }
+  .note img { @apply w-full aspect-[3/4] object-cover pointer-events-none; }
+  .note figcaption { @apply p-3 text-center text-sm font-bold text-gray-800 dark:text-gray-100; }
+  .note.is-dragging { @apply shadow-lg cursor-grabbing; }
+  @media (min-width: 1024px) and (hover: hover) and (pointer: fine) { .note { @apply cursor-grab; } }
+  .faq-grid { @apply grid gap-8 p-6 lg:grid-cols-[20rem_minmax(0,1fr)] items-start; }
+  .faq-help { @apply tool-card grid gap-4; }
+  .faq-help .row { @apply flex flex-wrap gap-3; }
+  .faq-list { @apply grid gap-4; }
+  .faq { @apply bg-white rounded overflow-hidden shadow text-gray-800 dark:bg-gray-800 dark:text-gray-100; }
+  .faq summary { @apply flex cursor-pointer list-none items-center justify-between gap-4 p-6 focus:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-pink-300 [&::-webkit-details-marker]:hidden; }
+  .faq summary h3 { @apply text-xl font-bold leading-tight; }
+  .faq-icon { @apply relative w-4 h-4 shrink-0; }
+  .faq-icon::before, .faq-icon::after { content: ""; @apply absolute left-0 top-1/2 h-0.5 w-4 -translate-y-1/2 rounded-full bg-current transition-transform; }
+  .faq-icon::after { @apply rotate-90; }
+  .faq[open] .faq-icon::after { @apply rotate-0; }
+  .faq[open] summary::after { content: none; }
+  .faq[open] > summary { @apply pb-4; }
+  .faq[open] > summary + .faq-a::before { content: ""; @apply mx-6 mb-4 block h-1 rounded-t opacity-25; background: linear-gradient(90deg, #d53369 0%, #daae51 100%); }
+  .faq-a p { @apply px-6 pb-6 text-gray-600 dark:text-gray-300; }
+  .contact-grid { @apply grid gap-8 p-6 lg:grid-cols-2 items-start; }
+  .contact-info { @apply grid gap-6; }
+  .info-card { @apply tool-card grid gap-2; }
+  .info-lines { @apply grid gap-1; }
+  .info-lines a, .form-card a { @apply text-pink-600 underline hover:no-underline dark:text-pink-400; }
+  .social-row { @apply mt-2 flex gap-2; }
+  .social-row .icon-btn { @apply bg-white shadow-lg dark:bg-gray-900; }
+  .open-status { @apply flex items-center gap-2 font-bold; }
+  .open-status i { @apply inline-block w-2.5 h-2.5 rounded-full bg-gray-500; }
+  .open-status.is-open i { background: linear-gradient(90deg, #d53369 0%, #daae51 100%); }
+  .hours { @apply w-full text-sm; }
+  .hours th, .hours td { @apply border-b border-gray-200 py-2 dark:border-gray-700; }
+  .hours th { @apply text-start font-normal text-gray-600 dark:text-gray-300; }
+  .hours td { @apply text-end; }
+  .hours tr.is-today th, .hours tr.is-today td { @apply font-bold text-gray-800 dark:text-gray-100; }
+  .form-card { @apply tool-card grid gap-5; }
+  .form-card > h3 { @apply text-3xl font-bold leading-none; }
+  .form-card > p:not(.form-status) { @apply text-gray-600 dark:text-gray-300; }
+
+  .strip { @apply tool-card mx-6 mt-8 flex flex-wrap items-center justify-between gap-4; }
+  .strip > div { @apply grid gap-1; }
+  .strip b { @apply text-xl font-bold; }
+  .strip span { @apply text-gray-600 dark:text-gray-300; }
+  .incl { @apply mt-12 px-6; }
+  .incl .sec-head { @apply text-center; }
+  .incl .h3 { @apply text-3xl font-bold leading-tight; }
+  .incl-cols { @apply mt-6 grid gap-6 md:grid-cols-2; }
+  .incl-cols > div { @apply tool-card; }
+  .incl-list { @apply mt-3; }
+  .incl-list li { @apply flex items-start gap-3 border-b border-gray-200 py-3 last:border-b-0 dark:border-gray-700; }
+  .incl-list svg { @apply mt-0.5 w-5 h-5 shrink-0 text-pink-600 dark:text-pink-400; }
+  .incl-list--no svg { @apply text-gray-500 dark:text-gray-400; }
+  .asteria-logo { @apply h-5 w-auto; }
+  .asteria-logo-mark { stroke: currentColor; }
+  .asteria-logo-word, .asteria-logo-dot { fill: currentColor; }
+
+  /* ---- Bildirim ---- */
+  .toast { @apply pointer-events-none fixed bottom-6 left-1/2 z-[60] -translate-x-1/2 translate-y-4 rounded-full bg-white py-3 px-6 font-bold text-gray-800 opacity-0 shadow-lg transition duration-300 dark:bg-gray-800 dark:text-gray-100; }
+  .toast.is-on { @apply translate-y-0 opacity-100; }
+
+  /* ---- Demo şeridi (özgünde de alta sabit): kaynağın CTA bölümü gibi gradyan + beyaz düğme ---- */
+  .demo-bar { @apply fixed inset-x-0 bottom-0 z-[55] text-white shadow-lg; background: linear-gradient(90deg, #d53369 0%, #daae51 100%); }
+  .demo-bar-inner { @apply container mx-auto flex flex-wrap items-center gap-x-5 gap-y-2 py-3 px-4; }
+  .demo-bar-label { @apply rounded-full border-2 border-white py-0.5 px-3 text-xs font-bold uppercase; }
+  .demo-bar p { @apply flex-[1_1_280px] text-sm font-bold; }
+  .demo-bar .demo-bar-btn { @apply bg-white text-gray-800 py-2 px-6; }
+  body.demo-open { padding-bottom: var(--demo-h, 0px); }
+
+  /* ---- Sayfa yolu (alt sayfaların gradyan bandında) ---- */
+  .crumbs a { @apply underline hover:no-underline; }
+  .crumbs li + li::before { content: "/"; @apply me-2 opacity-75; }
+
+  /* ---- Yazı meta satırı ---- */
+  .post-meta { @apply flex flex-wrap gap-x-1.5 text-gray-600 text-xs md:text-sm uppercase dark:text-gray-300; }
+  .post-meta > * + *::before { content: "\00B7"; @apply me-1.5; }
+
+  /* ---- Makale / KVKK sayfaları ---- */
+  .article-head { @apply mx-auto max-w-3xl text-center; }
+  .article-head .post-meta, .article-head > .label { @apply justify-center text-white opacity-90; }
+  .article-head h1 { @apply my-4 text-5xl font-bold leading-tight; }
+  .article-head .lede { @apply text-2xl leading-normal text-white; }
+  .byline { @apply mt-6 inline-flex items-center gap-4 text-start; }
+  .byline img { @apply w-12 h-12 rounded-full object-cover shadow-lg; }
+  .byline b { @apply block font-bold; }
+  .byline div > span { @apply block text-sm; }
+  .article-cover { @apply mx-auto max-w-5xl; }
+  .article-cover img { @apply aspect-video w-full rounded object-cover shadow-lg; }
+  .article-layout { @apply mx-auto mt-10 grid max-w-5xl gap-10 lg:grid-cols-[14rem_minmax(0,1fr)]; }
+  .toc { @apply self-start rounded bg-white p-6 text-sm shadow lg:sticky lg:top-24 dark:bg-gray-800; }
+  .toc .label { @apply font-bold; }
+  .toc ol { @apply mt-3 space-y-2; }
+  .toc a { @apply text-gray-800 hover:text-pink-500 hover:underline dark:text-gray-100; }
+  .prose { @apply max-w-none text-gray-600 leading-normal dark:text-gray-300; }
+  .prose > * + * { @apply mt-4; }
+  .prose h2 { @apply mt-10 mb-3 text-3xl font-bold leading-none text-gray-800 dark:text-gray-100; }
+  .prose h3 { @apply mt-8 text-xl font-bold text-gray-800 dark:text-gray-100; }
+  .prose strong { @apply text-gray-800 dark:text-gray-100; }
+  .prose a { @apply text-pink-600 underline dark:text-pink-400; }
+  .prose ul { @apply list-disc space-y-2 ps-6; }
+  .prose ol { @apply list-decimal space-y-2 ps-6; }
+  .prose blockquote { @apply border-s-4 border-gray-200 ps-4 italic dark:border-gray-700; }
+  .table-scroll { @apply overflow-x-auto; }
+  .prose table { @apply w-full text-sm text-start; }
+  .prose th { @apply border-b-4 border-gray-200 py-3 pe-4 text-start font-bold text-gray-800 dark:border-gray-700 dark:text-gray-100; }
+  .prose td { @apply border-b border-gray-200 py-3 pe-4 dark:border-gray-700; }
+  .callout { @apply rounded bg-gray-100 p-4 dark:bg-gray-800; }
+  .callout .label { @apply block font-bold; }
+  .callout--warn { @apply border-s-4 border-pink-600; }
+  .prose.sources { @apply mt-10 border-t border-gray-200 pt-6 text-sm dark:border-gray-700; }
+  .article-cta { @apply mt-12 rounded p-8 text-center text-white shadow-lg; background: linear-gradient(90deg, #d53369 0%, #daae51 100%); }
+  .article-cta h2 { @apply text-3xl font-bold leading-tight; }
+  .article-cta p { @apply my-4 text-xl; }
+}
+
+/* ---- Sabit üst menü: kaynağın kaydırma betiğinin eklediği sınıfların koyu tema karşılıkları (türetildi) ----
+   Betik kaynaktakiyle aynı sınıfları ekler/çıkarır (bg-white, shadow, text-gray-800, bg-gray-100, gradient). */
+.dark #site-header.bg-white { background-color: #111827; }
+.dark #site-header .toggleColour.text-gray-800 { color: #f3f4f6; }
+.dark #site-header.bg-white .nav-link, .dark #site-header.bg-white .nav-ctl { color: #f3f4f6; }
+.dark #site-header.bg-white #nav-toggle { color: #f9a8d4; }
+/* Açılır menü yalnızca xl altında zemin taşır (xl:bg-transparent) */
+@media (max-width: 1279.98px) {
+  .dark #nav-content.bg-white { background-color: #111827; }
+  .dark #nav-content.bg-gray-100 { background-color: #1f2937; }
+  .dark #nav-content .nav-link, .dark #nav-content .nav-ctl { color: #f3f4f6; }
+}
+/* Hero altındaki / CTA üstündeki dalganın dolu katmanı bir sonraki bölümün zeminidir (kaynak yorumu:
+   "Change the colour #f8fafc to match the previous section colour"); koyu temada o zemin gray-900 / gray-800. */
+.dark .wave-fill-white { fill: #111827; }
+.dark .wave-fill-prev { fill: #1f2937; }
+
+/* JS kapalıyken kaynak menüsü (hidden) açık kalsın */
+.no-js #nav-content { display: block; }
