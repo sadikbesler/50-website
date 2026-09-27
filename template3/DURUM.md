@@ -134,7 +134,8 @@ Test notu: modal, sohbet ve dropdown daisyUI'de 0,1–0,3 sn'lik geçişlerle ka
 
 ## Yayın
 
-(push sonrası güncellenir)
+- Commit `517efa4` → `origin/main` (27.09.2026). Canlı adres push'tan yaklaşık 30 sn sonra 200 döndü.
+- Canlı kontrol (Playwright, `_kaynak/test/canli.js`, koyu tema): ana sayfa, `blog/`, bir makale ve `kvkk.html` → HTTP 200, konsol/CSP hatası 0, Outfit yüklü, kart zemini forest `oklch(0.2084 0.008 17.911)`, "En yakın uygun randevu" kartı dolu ("Yarın · 09:00").
 
 ## Bilinen sorunlar / notlar
 
