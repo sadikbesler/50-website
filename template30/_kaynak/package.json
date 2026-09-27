@@ -1,0 +1,20 @@
+{
+  "name": "template30-kaynak",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Template 30 (AutoAnimate): vendor derlemesi ve testler",
+  "type": "commonjs",
+  "scripts": {
+    "build": "esbuild giris.js --bundle --format=iife --minify --outfile=../assets/vendor/auto-animate/auto-animate.iife.js && cp node_modules/@formkit/auto-animate/LICENSE ../assets/vendor/auto-animate/LICENSE",
+    "test:esdeger": "node test/snap.js http://localhost:8801/50-website/template30/ indirilen/snap-yeni.json",
+    "test:kareler": "node test/aa-frames.js",
+    "test:sohbet": "node test/chat-live.js && W=390 node test/chat-live.js",
+    "test:protokol": "node test/protokol.js",
+    "test:duman": "node test/smoke.js"
+  },
+  "devDependencies": {
+    "@formkit/auto-animate": "0.10.0",
+    "esbuild": "^0.28.2",
+    "playwright": "^1.63.0"
+  }
+}

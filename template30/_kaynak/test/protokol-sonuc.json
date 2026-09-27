@@ -1,0 +1,80 @@
+[
+ {
+  "no": "1",
+  "ad": "Konsol hatası 0 (4 sayfa, hareket açık ve azaltılmış)",
+  "gecti": true,
+  "not": "0 hata"
+ },
+ {
+  "no": "2",
+  "ad": "Yatay taşma yok (1440 ve 390)",
+  "gecti": true,
+  "not": "8/8 sayfa temiz"
+ },
+ {
+  "no": "3",
+  "ad": "Seçici sözleşmesi",
+  "gecti": true,
+  "not": "76 seçici tamam (.cal-day/.slot, .servings, [data-intent] çalışma anında)"
+ },
+ {
+  "no": "4",
+  "ad": "Randevu akışı (demo), .ics, iptal penceresi, boş form hataları",
+  "gecti": true,
+  "not": "boş form hata sayısı 4/4; özet var; onay ekranı; .ics var; Google Takvim var; iptal penceresi açıldı, boş iptal hataları 2/2"
+ },
+ {
+  "no": "5",
+  "ad": "Araçlar: VKİ 170/70 = 24,2; kalori; su bardağı yenilemede kalıyor",
+  "gecti": true,
+  "not": "VKİ 24,2; kalori 1.730; bardak 4 → yenileme sonrası 4"
+ },
+ {
+  "no": "6",
+  "ad": "Program gün/hedef; tarif filtresi, pencere, porsiyon 2→3",
+  "gecti": true,
+  "not": "gün değişti: true; hedef değişti: true; tarif 9 → 2; pencere açık (başlangıç 2 porsiyon); 2→3: \"80 g\" → \"120 g\""
+ },
+ {
+  "no": "7",
+  "ad": "Sohbet: ücretler, randevu, beni arayın (demo)",
+  "gecti": true,
+  "not": "ücret: true; saat: 10:00; geri arama: \"Geri arama talebiniz alındı (demo). Bu bir demo ol…\""
+ },
+ {
+  "no": "8",
+  "ad": "TR↔EN (sayfa ortasında), açık↔koyu, yenilemede korunuyor; ?lang=en Türkçe kalan 0",
+  "gecti": true,
+  "not": "EN başlık \"A sample week of meals\"; tema dark; yenileme sonrası en/dark; geri tr/light; ?lang=en Türkçe kalan 0 (İngilizce cümlede yemek adı köfte/kısır/cacık: 2 düğüm, özgün içerik)"
+ },
+ {
+  "no": "9",
+  "ad": "axe: ana sayfa açık/koyu + makale — ciddi/kritik 0",
+  "gecti": true,
+  "not": "ciddi/kritik 0; kalan ihlal yok"
+ },
+ {
+  "no": "10",
+  "ad": "Hareket azaltma: içerik görünür, sonsuz animasyon yok, AutoAnimate kapalı",
+  "gecti": true,
+  "not": "gizli kalan 0; sonsuz animasyon 0; liste değişiminde WAAPI animasyonu 0; data-aa 0"
+ },
+ {
+  "no": "11",
+  "ad": "JS kapalı: içerik okunabiliyor, gizli bölüm yok",
+  "gecti": true,
+  "not": "gizli/eksik bölüm yok; h1 görünür true; metin 10906 karakter"
+ },
+ {
+  "no": "12",
+  "ad": "Ekran görüntüleri (sonuc-1440, sonuc-390)",
+  "gecti": true,
+  "not": "tam sayfa, hareket azaltılmış (sabitleme boşlukları olmadan düzen)"
+ },
+ {
+  "no": "ek",
+  "ad": "Protokol boyunca ana sayfa konsol hatası",
+  "gecti": true,
+  "not": "0"
+ }
+]

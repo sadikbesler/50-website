@@ -1,0 +1,420 @@
+{
+ "deney_tarif_tileScroll": {
+  "gsapY": [
+   5.4,
+   -10.1,
+   14.7,
+   5.4,
+   -10.1,
+   14.7,
+   5.4,
+   -10.1,
+   14.7
+  ],
+  "kayan": 3,
+  "maxBaslangic": 5.4,
+  "maxBitis": 5.4
+ },
+ "program-gun": {
+  "dagilim": {
+   "yer değiştirme": 1,
+   "giriş": 5,
+   "çıkış": 5
+  },
+  "sicrama": {
+   "kayan": 1,
+   "maxBaslangic": 0,
+   "maxBitis": 0
+  },
+  "ornek": [
+   {
+    "kind": "yer değiştirme",
+    "cls": "meals",
+    "from": "translate(0px, 0px)"
+   },
+   {
+    "kind": "giriş",
+    "cls": "meal",
+    "from": "scale(0.98)"
+   },
+   {
+    "kind": "giriş",
+    "cls": "meal",
+    "from": "scale(0.98)"
+   },
+   {
+    "kind": "giriş",
+    "cls": "meal",
+    "from": "scale(0.98)"
+   },
+   {
+    "kind": "giriş",
+    "cls": "meal",
+    "from": "scale(0.98)"
+   },
+   {
+    "kind": "giriş",
+    "cls": "meal",
+    "from": "scale(0.98)"
+   }
+  ]
+ },
+ "gunler_tiklama": {
+  "ayniDugme": true,
+  "aaAnimasyon": 0
+ },
+ "program-hedef": {
+  "dagilim": {
+   "yer değiştirme": 1,
+   "giriş": 6,
+   "çıkış": 5
+  },
+  "sicrama": {
+   "kayan": 1,
+   "maxBaslangic": 0,
+   "maxBitis": 0
+  },
+  "ornek": [
+   {
+    "kind": "yer değiştirme",
+    "cls": "meals",
+    "from": "translate(0px, 0px)"
+   },
+   {
+    "kind": "giriş",
+    "cls": "meal",
+    "from": "scale(0.98)"
+   },
+   {
+    "kind": "giriş",
+    "cls": "meal",
+    "from": "scale(0.98)"
+   },
+   {
+    "kind": "giriş",
+    "cls": "meal",
+    "from": "scale(0.98)"
+   },
+   {
+    "kind": "giriş",
+    "cls": "meal",
+    "from": "scale(0.98)"
+   },
+   {
+    "kind": "giriş",
+    "cls": "meal",
+    "from": "scale(0.98)"
+   }
+  ]
+ },
+ "arac-vki": {
+  "dagilim": {
+   "yer değiştirme": 5,
+   "giriş": 1,
+   "çıkış": 1
+  },
+  "sicrama": {
+   "kayan": 5,
+   "maxBaslangic": 0,
+   "maxBitis": 0
+  },
+  "ornek": [
+   {
+    "kind": "yer değiştirme",
+    "cls": "tool-card tool-result",
+    "from": "translate(0px, 0px)"
+   },
+   {
+    "kind": "yer değiştirme",
+    "cls": "label",
+    "from": "translate(0px, 0px)"
+   },
+   {
+    "kind": "yer değiştirme",
+    "cls": "result-big",
+    "from": "translate(0px, 0px)"
+   },
+   {
+    "kind": "yer değiştirme",
+    "cls": "scale",
+    "from": "translate(0px, 0px)"
+   },
+   {
+    "kind": "giriş",
+    "cls": "result-text",
+    "from": "scale(0.98)"
+   },
+   {
+    "kind": "yer değiştirme",
+    "cls": "stat-rows",
+    "from": "translate(0px, 0px)"
+   }
+  ]
+ },
+ "arac-kalori": {
+  "dagilim": {
+   "yer değiştirme": 8,
+   "giriş": 1
+  },
+  "sicrama": {
+   "kayan": 8,
+   "maxBaslangic": 0,
+   "maxBitis": 0
+  },
+  "ornek": [
+   {
+    "kind": "yer değiştirme",
+    "cls": "tool-card tool-result",
+    "from": "translate(0px, 0px)"
+   },
+   {
+    "kind": "yer değiştirme",
+    "cls": "label",
+    "from": "translate(0px, 0px)"
+   },
+   {
+    "kind": "yer değiştirme",
+    "cls": "result-big",
+    "from": "translate(0px, 0px)"
+   },
+   {
+    "kind": "yer değiştirme",
+    "cls": "stat-rows",
+    "from": "translate(0px, 0px)"
+   },
+   {
+    "kind": "giriş",
+    "cls": "tool-note",
+    "from": "scale(0.98)"
+   },
+   {
+    "kind": "yer değiştirme",
+    "cls": "label",
+    "from": "translate(0px, -63.5938px)"
+   }
+  ]
+ },
+ "arac-su": {
+  "dagilim": {
+   "yer değiştirme": 7,
+   "giriş": 2,
+   "çıkış": 2
+  },
+  "sicrama": {
+   "kayan": 7,
+   "maxBaslangic": 0,
+   "maxBitis": 0.4
+  },
+  "ornek": [
+   {
+    "kind": "yer değiştirme",
+    "cls": "tool-card tool-result",
+    "from": "translate(0px, 0px)"
+   },
+   {
+    "kind": "yer değiştirme",
+    "cls": "label",
+    "from": "translate(0px, 0px)"
+   },
+   {
+    "kind": "yer değiştirme",
+    "cls": "result-big",
+    "from": "translate(0px, 0px)"
+   },
+   {
+    "kind": "yer değiştirme",
+    "cls": "label",
+    "from": "translate(0px, 0px)"
+   },
+   {
+    "kind": "giriş",
+    "cls": "glasses",
+    "from": "scale(0.98)"
+   },
+   {
+    "kind": "giriş",
+    "cls": "muted",
+    "from": "scale(0.98)"
+   }
+  ]
+ },
+ "kaydirici": {
+  "ayniCocuklar": true,
+  "girisAnimasyonu": 0,
+  "sonVki": "23,4"
+ },
+ "randevu_gecis_bulundu": true,
+ "randevu-saatler": {
+  "dagilim": {
+   "yer değiştirme": 16,
+   "giriş": 6
+  },
+  "sicrama": {
+   "kayan": 16,
+   "maxBaslangic": 0,
+   "maxBitis": 0.4
+  },
+  "ornek": [
+   {
+    "kind": "yer değiştirme",
+    "cls": "slots",
+    "from": "translate(0px, 0px)"
+   },
+   {
+    "kind": "yer değiştirme",
+    "cls": "slots-head",
+    "from": "translate(0px, 0px)"
+   },
+   {
+    "kind": "yer değiştirme",
+    "cls": "slot-group",
+    "from": "translate(0px, 0px)"
+   },
+   {
+    "kind": "yer değiştirme",
+    "cls": "slot-group",
+    "from": "translate(0px, 0px)"
+   },
+   {
+    "kind": "yer değiştirme",
+    "cls": "slot-group",
+    "from": "translate(0px, 0.4375px)"
+   },
+   {
+    "kind": "yer değiştirme",
+    "cls": "slot-list",
+    "from": "translate(0px, 0px)"
+   }
+  ]
+ },
+ "bstep_aa": 0,
+ "sohbet-soru": {
+  "dagilim": {
+   "yer değiştirme": 2,
+   "giriş": 2,
+   "çıkış": 1
+  },
+  "sicrama": {
+   "kayan": 2,
+   "maxBaslangic": 0,
+   "maxBitis": 0
+  },
+  "ornek": [
+   {
+    "kind": "yer değiştirme",
+    "cls": "chat-log",
+    "from": "translate(0px, 0px)"
+   },
+   {
+    "kind": "yer değiştirme",
+    "cls": "msg msg--bot",
+    "from": "translate(0px, 0px)"
+   },
+   {
+    "kind": "giriş",
+    "cls": "msg msg--user",
+    "from": "scale(0.98)"
+   },
+   {
+    "kind": "giriş",
+    "cls": "msg msg--bot typing",
+    "from": "scale(0.98)"
+   },
+   {
+    "kind": "çıkış",
+    "cls": "quick",
+    "from": "scale(1)"
+   }
+  ]
+ },
+ "sohbet-yanit": {
+  "dagilim": {
+   "yer değiştirme": 3,
+   "giriş": 2,
+   "çıkış": 1
+  },
+  "sicrama": {
+   "kayan": 3,
+   "maxBaslangic": 0,
+   "maxBitis": 0
+  },
+  "ornek": [
+   {
+    "kind": "yer değiştirme",
+    "cls": "chat-log",
+    "from": "translate(0px, 0px)"
+   },
+   {
+    "kind": "yer değiştirme",
+    "cls": "msg msg--bot",
+    "from": "translate(0px, 0px)"
+   },
+   {
+    "kind": "yer değiştirme",
+    "cls": "msg msg--user",
+    "from": "translate(0px, 0px)"
+   },
+   {
+    "kind": "giriş",
+    "cls": "msg msg--bot",
+    "from": "scale(0.98)"
+   },
+   {
+    "kind": "giriş",
+    "cls": "quick",
+    "from": "scale(0.98)"
+   },
+   {
+    "kind": "çıkış",
+    "cls": "msg msg--bot typing",
+    "from": "scale(1)"
+   }
+  ]
+ },
+ "sohbet-uzun": {
+  "dagilim": {
+   "yer değiştirme": 4,
+   "giriş": 2,
+   "çıkış": 1
+  },
+  "sicrama": {
+   "kayan": 3,
+   "maxBaslangic": 0,
+   "maxBitis": 0
+  },
+  "ornek": [
+   {
+    "kind": "yer değiştirme",
+    "cls": "chat-log",
+    "from": "translate(0px, 0px)"
+   },
+   {
+    "kind": "yer değiştirme",
+    "cls": "msg msg--bot",
+    "from": "translate(0px, 0px)"
+   },
+   {
+    "kind": "yer değiştirme",
+    "cls": "msg msg--user",
+    "from": "translate(0px, 0px)"
+   },
+   {
+    "kind": "yer değiştirme",
+    "cls": "msg msg--bot",
+    "from": "translate(0px, 0px)"
+   },
+   {
+    "kind": "giriş",
+    "cls": "msg msg--user",
+    "from": "scale(0.98)"
+   },
+   {
+    "kind": "giriş",
+    "cls": "msg msg--bot typing",
+    "from": "scale(0.98)"
+   }
+  ]
+ },
+ "sohbet_scrollTop": 220,
+ "hatalar": []
+}
