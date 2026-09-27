@@ -1,0 +1,72 @@
+# PARCALAR — template4 (Flowbite)
+
+Kaynak: Flowbite — https://flowbite.com · https://github.com/themesberg/flowbite (MIT) · npm `flowbite@4.0.2`, depo commit `232ebdb` (27.06.2026)
+Depo kopyası: `_kaynak/indirilen/flowbite` (git'e girmez). Belge örnekleri `content/<grup>/<ad>.md` içindeki `{{< example >}}` bloklarından alındı (`_kaynak/test/ornek.py`).
+Bloklar: `_kaynak/bloklar/blok-<ad>.html` — flowbite.com/blocks sayfasında **"Show code"** düğmesine basınca görünen kod (`_kaynak/test/bloklar-al.js`, 27.09.2026).
+
+## Ücretsiz / PRO denetimi (27.09.2026, `_kaynak/bloklar/durum.json`)
+
+Her blok bölümünde ücretsiz olanlarda **"Show code"** düğmesi, PRO olanlarda **"Unlock the code"** (→ /pro/#pricing) bağlantısı var. Betik her bloğu bu işarete göre sınıflandırdı; kod yalnızca "Show code" olanlardan alındı. **PRO blok kullanılmadı.**
+
+| Aile (`/blocks/marketing/<aile>/`) | Toplam blok | Ücretsiz olanlar | PRO |
+|---|---|---|---|
+| header | 8 | Default header navigation | 7 |
+| hero | 18 | Default hero section, Visual image with heading | 16 |
+| feature | 10 | Default feature list | 9 |
+| content | 9 | Heading with description, Images with heading and description | 7 |
+| team | 8 | Team member cards, Grid layout clean | 6 |
+| pricing | 7 | Default pricing cards | 6 |
+| blog | 5 | Default blog card | 4 |
+| faq | 5 | Default example | 4 |
+| cta | 10 | Default CTA section, Image with CTA button, Heading with CTA button | 7 |
+| contact | 6 | Default contact form | 5 |
+| footer | 7 | Default footer section, Sitemap with logo and social media | 5 |
+
+Bileşen belgeleri (`/docs/components/…`, `/docs/forms/…`, `/docs/typography/…`) Flowbite'ın MIT lisanslı açık kaynak kütüphanesidir; kilitli değildir.
+
+## Nasıl kuruldu
+
+- Sayfa şablonları `_kaynak/sayfa/*.html`. Kurucu: `node _kaynak/sayfalari-kur.js` → `index.html`, `blog/*.html`, `kvkk.html`. CSS: `npx @tailwindcss/cli -i tw.css -o ../assets/css/tw.css --minify`.
+- Uzun sınıf dizileri şablonda `{{c:ad}}`; kurucudaki `C` tablosunda her satırın yanında hangi blok/belge örneğinden alındığı yazılı.
+- `<svg data-icon="blok:<ad>:<n>">` → `bloklar/blok-<ad>.html` içindeki n'inci `<svg>` birebir. `<svg data-icon="<ad>" [data-v="solid"]>` → Flowbite Icons 1.5.0.
+- Hizmet kartları, notlar, SSS ve blog kartları özgün `index.html` / `blog/*.html`'den i18n anahtarlarıyla birlikte otomatik üretilir.
+- **İki sınıf lehçesi:** Belge bileşenleri Flowbite v4'ün anlamsal tokenlarını (`bg-brand`, `text-heading`, `rounded-base`, `bg-neutral-*`) kullanır → `flowbite/src/themes/default` teması. Bloklar hâlâ Tailwind v3 CDN ile çiziliyor (`primary-*` ölçeği, `rounded-lg` = 8px) → blok önizlemesindeki `tailwind.config` `primary` renkleri `@theme`'e birebir kondu ve v4'te aynı görünsün diye blok sınıfları çevrildi: `rounded-lg→rounded` (tema: 8px), `rounded→rounded-xs` (4px), `shadow-sm→shadow-xs`, `tracking-tight→tracking-[-0.025em]`, `flex-shrink-0→shrink-0`. Resmî v3→v4 uyumluluk tabanı (kenar rengi gray-200, düğmede `cursor:pointer`) `tw.css`'te.
+- JS'in ürettiği öğeler (takvim, saatler, araç sonuçları, öğünler, tarif kartları, sohbet balonları, onay ekranı) `tw.css` içinde `@apply` ile, aynı belge örneklerinin sınıf dizilerinden giydirildi.
+
+## Bölüm eşlemesi
+
+Satır biçimi: **Mizan bölümü → Flowbite parçası → URL / dosya → değiştirilenler** · "ücretsiz kodu görüldü" yalnızca bloklar için (belgeler zaten açık kaynak).
+
+| Mizan | Flowbite parçası | URL / dosya | Ücretsiz kodu görüldü | Değiştirilenler |
+|---|---|---|---|---|
+| S1 `#site-header` | Blok **Default header navigation** + Navbar belgesi (mobil collapse, Flowbite JS) | https://flowbite.com/blocks/marketing/header/ · `bloklar/blok-header.html` · https://flowbite.com/docs/components/navbar/ | evet | Flowbite logosu → Mizan "m" işareti (aynı `mr-3 h-6 sm:h-9` yuvası). "Log in" stili TR/EN düğmeleri (`aria-pressed` → `bg-gray-100`), hamburger stiliyle tema düğmesi, "Get started" → "Randevu al". "Home" etkin görünümü `aria-current` ile (site.js). Masaüstü menü `lg` yerine `xl`'de (9 Türkçe bağlantı + 4 eylem 1024 px'e sığmıyor); Örnek program ve SSS yalnız mobil menüde. Kapatma simgesi `group-aria-expanded` ile görünür (blokta hep gizli). Mobil menüde TR/EN. |
+| S2 `#top` | Blok **Default hero section** (duyuru hapı, h1, p, iki düğme) · ızgara: blok **Visual image with heading** | https://flowbite.com/blocks/marketing/hero/ · `bloklar/blok-hero.html`, `bloklar/blok-hero-gorsel.html` | evet (ikisi de) | Promt gereği görsel sağda: Default hero'nun öğeleri, aynı sayfadaki ücretsiz "Visual image with heading" bloğunun `lg:grid-cols-12` (7+5) ızgarasına kondu; metin sola yaslı (`sm:justify-center`, `text-center`, `xl:px-48` kaldırıldı). "New" rozeti → konum simgesi, hap metni = `hero.kicker`. "Watch video" → "VKİ'nizi hesaplayın" (cetvel simgesi). "Featured in" logoları yerine `#next-slot`. Görsel `hero-mutfak-1200/2400.webp`, blok gibi mobilde gizli. |
+| S2 `#next-slot` | Card belgesi **Default card** | https://flowbite.com/docs/components/card/ | — | h5 = en yakın saat; üstüne küçük etiket (yeşil nokta), altına uzman satırı ve "Bu saati ayır" bağlantısı. Kart bağlantı değil `aside`. |
+| S3 `.facts` | Blok **Default feature list** (başlık + metin ızgarası) | https://flowbite.com/blocks/marketing/feature/ · `bloklar/blok-feature.html` | evet | Bölüm başlığı yok (özgünde de yok); 4 öğe `lg:grid-cols-4`. h3 → `<p>` (başlık hiyerarşisi); rakam h3 ölçeğinde. Simgeler Flowbite Icons solid: award, users-group, clock, calendar-month. |
+| S4 `#hizmetler` | Card belgesi **Card with image** × 6 | https://flowbite.com/docs/components/card/#card-with-image | — | "Trending" rozeti → 2–3 etiket rozeti; h5 → h3; açıklama `p.text-body` (Default card'dan) ve alt satır eklendi; "Read more" → "Randevu al" (`data-book-area` / `data-book-type`). Görseller `hizmet-*-700/1200.webp` (4:3). Başlık: blok başlık tokenları (team/pricing). |
+| S5 `.notes-panel` | Carousel belgesi **Default slider** | https://flowbite.com/docs/components/carousel/ | — | `data-carousel="slide"` → `"static"` (otomatik geçiş yok); slaytlara `motion-reduce:transition-none`. 7 not görseli; alt yazı slaydın sol üstünde Badge tokenlarıyla (kaynakta yazı yuvası yok). Gösterge `aria-label`'ları = not adları; önceki/sonraki metinleri i18n. JS kapalıyken slaytlar alt alta görünür. Sürükleme (site.js) bu şablonda yok. |
+| S6 `#yaklasim` | Timeline belgesi **Vertical timeline** + Typography/Blockquote **User testimonial** düzeni | https://flowbite.com/docs/components/timeline/ · https://flowbite.com/docs/typography/blockquote/ | — | `<time>` rozeti → süre (`step*.meta`); ilk adımdaki "Latest" rozeti ve "Download ZIP" düğmesi yok. Alıntı diyetisyenin kendi cümlesi (danışan yorumu değil, 0.5). Simgeler Flowbite Icons. |
+| S7 `#manifesto` | Blok **Heading with description** | https://flowbite.com/blocks/marketing/content/ · `bloklar/blok-content.html` | evet | h2 = 4 manifesto satırı (son satır `font-extrabold`, blokta sayı gibi); `font-light` paragraf = 60 dk / 48 saat / haftalık; "Learn more" → "Randevu al". İkinci (`font-medium`) paragraf kullanılmadı. |
+| S8 `#uzmanlar` | Blok **Team member cards** | https://flowbite.com/blocks/marketing/team/ · `bloklar/blok-team.html` | evet | 4 yerine 3 kişi. Stok avatarlar → uzman fotoğrafları (`sm:w-48` sabit sütun, `object-cover`). Bağlantı sarmalayıcıları kaldırıldı; sosyal simge listesi → takvim simgeli "… randevu al" (`data-book-staff`). Eğitim/gün/dil `dl` olarak eklendi. |
+| S9 `#araclar` | Tabs **Tabs with underline** + Range **Range slider example** + Input **Input fields** + Radio **Bordered** · sonuç Card **Default card** | https://flowbite.com/docs/components/tabs/ · /docs/forms/range/ · /docs/forms/input-field/ · /docs/forms/radio/ | — | Sekme JS'i tools.js'te (role=tab); `.active` → `aria-selected:` varyantı; Flowbite tabs `data-*` yok. Bordered radio'da girdi etiketin içinde. VKİ ölçeği: range izi (h-2 rounded-full) + tek tonlu primary dizisi; kategori rozeti Badge. Özel satırlar List group. |
+| S10 `#program` | Tabs **Pills tabs** + List group **Default list group** | https://flowbite.com/docs/components/tabs/#pills-tabs · https://flowbite.com/docs/components/list-group/ | — | Hedefler `role=radio` → `aria-checked:`, günler (content.js `.day-tab`) → `aria-selected:`. Etkin/etkin olmayan haplar aynı `py-2.5` (belgede etkin olan 2 px kısa). Öğünler list group satırları; toplam ve not Default card; makrolar Progress. |
+| S11 `#tarifler` | Card **Card with image** (content.js `.recipe-card` → `tw.css`) + Buttons **Default button** (filtre) + Modal **Default modal** görünümü | https://flowbite.com/docs/components/card/ · /docs/components/buttons/ · /docs/components/modal/ | — | Filtre: "Secondary" düğme, seçili = "Default" (brand) (`aria-pressed:`). `#recipe-dialog` `<dialog>` olarak kaldı (Flowbite modal JS'i yok): başlık satırı + kapat, gövde kayar, alt satırda "Randevu al" / "Kapat". Başlık statik `#recipe-title` (content.js 2 satırlık yama). İçerik: Badge (etiketler), Checkbox list (malzemeler), Number input düzeni (porsiyon), Alert (diyetisyen notu). |
+| S12 `#ucretler` | Blok **Default pricing cards** | https://flowbite.com/blocks/marketing/pricing/ · `bloklar/blok-pricing.html` | evet | 3 seçenek aynen; "$29 /month" → "1.800 TL"; düğme `mt-auto` ile hizalı (listeler farklı uzunlukta), `data-book-type`. Kurumsal teklif Default card; "Neler dahil" listeleri pricing liste düzeninde (dahil değil: gri × simgesi). |
+| S13 `#randevu` | Stepper **Default stepper** + Radio **Advanced layout** / **Bordered** + Input + Checkbox + Datepicker **görünümü** + onay: Toast **Colors → success** görünümü | https://flowbite.com/docs/components/stepper/ · /docs/forms/radio/#advanced-layout · /docs/components/datepicker/ · /docs/components/toast/ | — | Adım durumları booking.js'in `is-current`/`is-done` sınıflarıyla (`[&.is-*]:text-fg-brand`, tamamlanınca check-circle). Advanced layout'ta `peer-checked` → `has-checked` (girdi etiketin içinde), gizli girdi `hidden` yerine `sr-only` (klavye erişimi) + `has-focus-visible` halkası. Takvim booking.js'te çizilir; hücre sınıfları flowbite-datepicker 2.0.0 `DaysView` / `pickerTemplate` dizileri (`.cal*`). Saatler Secondary/Default düğme. Onay ekranı (`.done`) Toast success kutusu + simgesi. Özet `details` + List group. |
+| S13 `#cancel-dialog` | Modal **Default modal** görünümü | https://flowbite.com/docs/components/modal/ | — | `<dialog>`; alt satır "Randevuyu iptal et" + "Vazgeç" (yeni i18n `cancel.keep`). |
+| S14 `#blog` | Blok **Default blog card** | https://flowbite.com/blocks/marketing/blog/ · `bloklar/blok-blog.html` | evet | 6 kart (blokta 2), `lg:grid-cols-2` aynı. Rozet = kategori, "14 days ago" = tarih · okuma süresi, yazar = makalenin byline'ı (foto + ad). Blokta görsel yok, kartlarda da yok. `dark:text-primary-500` → `400` ("Read more", kontrast). |
+| S14 `blog/index.html`, ilgili yazılar | Aynı blok | aynı | evet | Aynı kart; ilgili yazılar `bg-neutral-secondary` bantta. |
+| S14 makaleler, `kvkk.html` | **Flowbite Typography** (`format lg:format-lg dark:format-invert`) + Breadcrumb **Default** | https://flowbite.com/docs/components/typography/ · /docs/components/breadcrumb/ | — (belge ücretsiz, eklenti MIT) | Uyarı kutuları `not-format` + Alert (info / warning). İçindekiler List group gibi kutu. Makale sonu CTA: blok "Heading with CTA button" içeriği. |
+| S15 `#sss` | Blok **Default example** (FAQ) | https://flowbite.com/blocks/marketing/faq/ · `bloklar/blok-faq.html` | evet | 10 soru iki sütunda (5+5), soru simgesi bloktan. `#faq-schema` site.js ile (`.faq h3` / `.faq-a`). Accordion kullanılmadı (blok zaten açık liste). Alt satıra "Asistana sorun" + WhatsApp. |
+| S16 `.sky` | Blok **Heading with CTA button** · arka plan: Jumbotron **Background image** yöntemi | https://flowbite.com/blocks/marketing/cta/ · `bloklar/blok-cta.html` · https://flowbite.com/docs/components/jumbotron/#background-image | evet (blok) | Promt gereği `sofra-2000.webp` arka plan: jumbotron'daki `bg-[url] bg-dark bg-blend-multiply` + beyaz metin; düğme WhatsApp. |
+| S17 `#iletisim` | Blok **Default contact form** + Card/List group | https://flowbite.com/blocks/marketing/contact/ · `bloklar/blok-contact.html` | evet | Alan adları/kimlikleri özgünle aynı (`c-name`…); blok alanlarına ad, telefon, konu (select), KVKK onayı eklendi; hata durumu `aria-invalid:`. Adres, iletişim ve çalışma saatleri formun altında iki Default card'da (list group satırları, bugün vurgulu). |
+| S18 `.site-footer` | Blok **Sitemap with logo and social media** | https://flowbite.com/blocks/marketing/footer/ · `bloklar/blok-footer.html` | evet | 3 yerine 4 sütun (Klinik, Kaynaklar, Yardım, İletişim), logonun altına kısa tanım, uyarı satırı. Sosyal: Instagram (bloktaki simge) + WhatsApp (Flowbite Icons). Alt boşluk `pb-24` (yüzen düğmeler sosyal simgeleri örtmesin). |
+| S19 `#chat` | Chat bubble **Default chat bubble** + Drawer **Default drawer** görünümü | https://flowbite.com/docs/components/chat-bubble/ · /docs/components/drawer/ | — | Kabuk sağdan açılan drawer (başlık + kapat, arka plan `bg-dark-backdrop/70`); aç/kapat chat.js, arka plana tıklama flowbite-baglanti.js. Bot balonu `rounded-e-base rounded-es-base` + Avatar "Placeholder initials" (M); kullanıcı balonu brand. Hızlı yanıtlar Secondary düğme. Belgedeki `leading-1.5` (v4'te 6 px) `<p>`'lere `text-sm/5` verilerek dengelendi. |
+| S19 `.floating-actions` | Speed dial tetikleyicisi ölçüsü (`w-14 h-14 rounded-full`) + Indicators | https://flowbite.com/docs/components/speed-dial/ | — | WhatsApp: success, sohbet: brand; okunmadı noktası danger. |
+| S19 `M.toast` | Toast **Colors → success** | https://flowbite.com/docs/components/toast/ | — | Kapat düğmesi yok (kendiliğinden kapanır); metin `[data-toast-text]` (site.js 2 satırlık yama). |
+| S20 demo şeridi | Banner **Default sticky banner** görünümü | https://flowbite.com/docs/components/banner/ | — | site.js'in ürettiği `.demo-bar` sınıfları `tw.css`'te; yapışkan değil. |
+
+## Ekran görüntüleri
+
+- Kaynak: `_referans/kaynak-blok-<ad>(-dark).jpg` (blok önizleme iframe'i; flowbite.com'un yapışkan menüsü gizlenerek), `_referans/kaynak-<bileşen>(-dark).jpg` (her belgenin ilk örneği + promtta adı geçen varyant: `card-with-image`, `timeline-vertical`, `tabs-underline`, `tabs-pills`, `radio-advanced`, `toast-success`, `datepicker` = inline datepicker, `navbar-mobil`).
+- Sonuç: `_referans/sonuc-*.jpg` (aynı adlarla; `_kaynak/test/protokol.js`).

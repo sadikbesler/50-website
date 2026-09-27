@@ -1,0 +1,407 @@
+{
+ "header": [
+  {
+   "ad": "Default header navigation",
+   "durum": "ucretsiz",
+   "kodAlindi": true
+  },
+  {
+   "ad": "Header with mega-dropdown",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Header with user dropdown",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Header with centered logo",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Header with dropdown menu",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Header with sub navbar",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Header with search bar",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Header with mega menu",
+   "durum": "PRO"
+  }
+ ],
+ "hero": [
+  {
+   "ad": "Default hero section",
+   "durum": "ucretsiz",
+   "kodAlindi": true
+  },
+  {
+   "ad": "Visual image with heading",
+   "durum": "ucretsiz"
+  },
+  {
+   "ad": "Search bar with datepicker",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Email sign-up with video",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Illustration with email sign-up",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Cover image with CTAs",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Informational CTA with app screenshot",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Hero section with search bar",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Video embed with CTA",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Sign-up form with CTA",
+   "durum": "PRO"
+  },
+  {
+   "ad": "App screenshot with CTAs",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Background cover image with CTAs",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Financial exchange (crypto)",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Background image cards",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Hero section with carousel slider",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Hero section with book cover",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Blog posts with featured image",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Phone mockup with app download",
+   "durum": "PRO"
+  }
+ ],
+ "feature": [
+  {
+   "ad": "Default feature list",
+   "durum": "ucretsiz",
+   "kodAlindi": true
+  },
+  {
+   "ad": "Image with feature list and CTAs",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Feature list with CTAs",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Feature list with icons",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Feature icons and CTA",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Description with feature list icons",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Feature list cards",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Alternate image with feature list",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Comparison cards",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Feature section with rounded icons",
+   "durum": "PRO"
+  }
+ ],
+ "content": [
+  {
+   "ad": "Heading with description",
+   "durum": "ucretsiz",
+   "kodAlindi": true
+  },
+  {
+   "ad": "Images with heading and description",
+   "durum": "ucretsiz"
+  },
+  {
+   "ad": "Video embed content",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Image gallery",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Heading with description (two columns)",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Social proof content",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Content card images",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Table of contents card",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Content section with logo, CTA links, image, and feature list",
+   "durum": "PRO"
+  }
+ ],
+ "team": [
+  {
+   "ad": "Team member cards",
+   "durum": "ucretsiz",
+   "kodAlindi": true
+  },
+  {
+   "ad": "Grid layout clean",
+   "durum": "ucretsiz"
+  },
+  {
+   "ad": "General description with team members",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Carousel slider",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Grid layout cards",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Overlay cards with zoom effect",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Cards with grid layout and CTA",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Four column grid layout with social media and CTA",
+   "durum": "PRO"
+  }
+ ],
+ "pricing": [
+  {
+   "ad": "Default pricing cards",
+   "durum": "ucretsiz",
+   "kodAlindi": true
+  },
+  {
+   "ad": "Tabs selector pricing cards",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Horizontal pricing card",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Feature list description with pricing card",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Comparison table",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Highlighted pricing plan",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Pricing plan with toggle switch",
+   "durum": "PRO"
+  }
+ ],
+ "blog": [
+  {
+   "ad": "Default blog card",
+   "durum": "ucretsiz",
+   "kodAlindi": true
+  },
+  {
+   "ad": "Blog post list with heading",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Centered blog posts",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Blog card with image",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Featured blog post",
+   "durum": "PRO"
+  }
+ ],
+ "faq": [
+  {
+   "ad": "Default example",
+   "durum": "ucretsiz",
+   "kodAlindi": true
+  },
+  {
+   "ad": "Search bar with links",
+   "durum": "PRO"
+  },
+  {
+   "ad": "FAQ as accordion",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Example with three columns",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Help center",
+   "durum": "PRO"
+  }
+ ],
+ "cta": [
+  {
+   "ad": "Default CTA section",
+   "durum": "ucretsiz"
+  },
+  {
+   "ad": "Image with CTA button",
+   "durum": "ucretsiz"
+  },
+  {
+   "ad": "Heading with CTA button",
+   "durum": "ucretsiz",
+   "kodAlindi": true
+  },
+  {
+   "ad": "QR code CTA",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Card CTAs with icons",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Financial trading CTA",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Email sign-up CTA",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Mobile app download",
+   "durum": "PRO"
+  },
+  {
+   "ad": "CTA with two cards and images",
+   "durum": "PRO"
+  },
+  {
+   "ad": "CTA section with tabs and mobile app",
+   "durum": "PRO"
+  }
+ ],
+ "contact": [
+  {
+   "ad": "Default contact form",
+   "durum": "ucretsiz",
+   "kodAlindi": true
+  },
+  {
+   "ad": "Contact form with help center",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Contact section with address location",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Contact section with background image",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Contact form with links",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Contact form with company information",
+   "durum": "PRO"
+  }
+ ],
+ "footer": [
+  {
+   "ad": "Default footer section",
+   "durum": "ucretsiz"
+  },
+  {
+   "ad": "Sitemap with logo and social media",
+   "durum": "ucretsiz",
+   "kodAlindi": true
+  },
+  {
+   "ad": "Newsletter sign-up and address location",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Pre-footer CTA",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Sitemap links",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Original footer of Flowbite",
+   "durum": "PRO"
+  },
+  {
+   "ad": "Social media icons",
+   "durum": "PRO"
+  }
+ ]
+}

@@ -1,0 +1,341 @@
+/* template4 — Flowbite (https://flowbite.com, MIT) · Tailwind v4 girişi (Flowbite quickstart, "Tailwind CSS v4" yolu).
+   Derleme: npx @tailwindcss/cli -i tw.css -o ../assets/css/tw.css --minify
+
+   İki sınıf lehçesi bir arada:
+   - Flowbite belgelerindeki bileşenler (docs, v4): anlamsal tokenlar (bg-brand, text-heading, rounded-base…) —
+     aşağıdaki "flowbite/src/themes/default" temasından gelir.
+   - flowbite.com/blocks blokları (Tailwind v3 CDN ile çizilir): primary-* ölçeği + gray-*. Blok önizlemesindeki
+     tailwind.config'teki primary renkleri @theme'e birebir kondu. v3→v4 sınıf farkları sayfa şablonlarında
+     elle çevrildi (rounded-lg→rounded, rounded→rounded-xs, shadow-sm→shadow-xs, tracking-tight→tracking-[-0.025em]);
+     ayrıntı _kaynak/PARCALAR.md.
+   Aşağıdaki bileşen kuralları yalnızca JS'in (booking/tools/content/chat/site) ürettiği öğeler içindir; her @apply
+   dizisi yanında adı geçen Flowbite belge örneğinden alındı. */
+@import "tailwindcss";
+@import "flowbite/src/themes/default";
+@plugin "flowbite/plugin";
+@plugin "flowbite-typography";
+
+@source "../index.html";
+@source "../blog";
+@source "../kvkk.html";
+@source "../assets/js";
+@source "./node_modules/flowbite/dist/flowbite.js";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* flowbite.com/blocks önizlemesindeki tailwind.config → colors.primary (birebir) */
+@theme {
+  --color-primary-50: #eff6ff;
+  --color-primary-100: #dbeafe;
+  --color-primary-200: #bfdbfe;
+  --color-primary-300: #93c5fd;
+  --color-primary-400: #60a5fa;
+  --color-primary-500: #3b82f6;
+  --color-primary-600: #2563eb;
+  --color-primary-700: #1d4ed8;
+  --color-primary-800: #1e40af;
+  --color-primary-900: #1e3a8a;
+  --color-primary-950: #172554;
+}
+
+@layer base {
+  /* Tailwind v3→v4 uyumluluk tabanı (resmî yükseltme rehberindeki iki kural): bloklar v3 varsayılanıyla çizilir */
+  *, ::after, ::before, ::backdrop, ::file-selector-button { border-color: var(--color-gray-200, currentColor); }
+  button:not(:disabled), [role="button"]:not(:disabled) { cursor: pointer; }
+
+  :root {
+    /* VKİ ölçeği: tek tonlu, yargılamayan primary dizisi */
+    --bmi-1: var(--color-primary-200);
+    --bmi-2: var(--color-primary-300);
+    --bmi-3: var(--color-primary-400);
+    --bmi-4: var(--color-primary-500);
+    --bmi-5: var(--color-primary-700);
+    /* tools.js: rozet metni (components/badge metin rengi) */
+    --ink: var(--color-fg-brand-strong);
+  }
+  .lang-pending body { visibility: hidden; animation: reveal-body 0s linear 1.2s forwards; }
+  @keyframes reveal-body { to { visibility: visible; } }
+  .theme-switching *, .theme-switching *::before, .theme-switching *::after { transition: none !important; }
+  [id] { scroll-margin-top: 1rem; }
+  html:not([lang="en"]) [data-lang-block="en"], html[lang="en"] [data-lang-block="tr"] { display: none !important; }
+
+}
+
+/* JS kapalıyken Flowbite'ın gizlediği parçalar görünür kalsın (menü, carousel slaytları).
+   Katmansız: .hidden / absolute gibi yardımcı sınıfları ezmesi gerekiyor. */
+.no-js #mobile-menu-2 { display: block; }
+.no-js .notes-carousel { display: grid; gap: 1rem; height: auto; overflow: visible; }
+.no-js [data-carousel-item] { display: block; position: relative; }
+.no-js [data-carousel-item] img { position: static; transform: none; width: 100%; height: 24rem; object-fit: cover; border-radius: var(--radius-base); }
+.no-js [data-carousel-prev], .no-js [data-carousel-next], .no-js [data-carousel-slide-to] { display: none; }
+
+@layer components {
+  /* ---- Düğmeler: components/buttons "Default button" (Default / Secondary) ---- */
+  .btn { @apply inline-flex items-center justify-center gap-1.5 box-border border shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:ring-4 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50; }
+  .btn--primary { @apply text-white bg-brand border-transparent hover:bg-brand-strong focus:ring-brand-medium; }
+  .btn--ghost { @apply text-body bg-neutral-secondary-medium border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-neutral-tertiary; }
+  .btn--sm { @apply px-3 py-2; }
+  .btn--block { @apply w-full; }
+  .btn .i { @apply size-4; }
+  /* components/buttons "Loader" (spinner) */
+  .btn-spinner { @apply hidden size-4 animate-spin rounded-full border-2 border-current border-r-transparent motion-reduce:animate-none; }
+  .is-loading .btn-spinner { @apply inline-block; }
+
+  /* ---- Simge düğmesi: components/datepicker başlığı (prev-btn / next-btn) ---- */
+  .icon-btn { @apply inline-grid size-10 place-content-center bg-neutral-primary-medium rounded-base text-body hover:bg-neutral-tertiary-medium hover:text-heading focus:outline-none focus:ring-2 focus:ring-neutral-tertiary disabled:cursor-not-allowed disabled:opacity-40; }
+  .icon-btn svg { @apply size-5; }
+
+  /* ---- Küçük metinler ---- */
+  .label { @apply text-sm text-body; }
+  .muted { @apply text-sm text-body; }
+  .lede { @apply text-body; }
+  .tool-note { @apply text-sm text-body; }
+  .link-arrow { @apply inline-flex items-center font-medium text-fg-brand hover:underline; }
+  .link-arrow::after { content: "\2192"; @apply ms-1.5; }
+
+  /* ---- Form durumları: forms/input-field "Validation" (danger / success) ---- */
+  .field-err { @apply mt-2.5 text-sm text-fg-danger-strong empty:hidden; }
+  .form-status { @apply text-sm empty:hidden; }
+  .form-status.is-ok { @apply text-fg-success-strong; }
+  .form-status.is-err { @apply text-fg-danger-strong; }
+  .form-status a { @apply font-medium underline; }
+  .honeypot { position: absolute !important; left: -9999px !important; width: 1px; height: 1px; overflow: hidden; }
+
+  /* ---- Demo şeridi: components/banner "Default sticky banner" (akışta, yapışkan değil) ---- */
+  .demo-bar { @apply flex w-full justify-center p-4 border-b border-default bg-neutral-primary-soft text-sm text-body; }
+  .demo-bar-inner { @apply mx-auto flex flex-wrap items-center justify-center gap-x-1.5 text-center; }
+  .demo-bar-label { @apply font-medium text-heading; }
+  .demo-bar-label::after { content: " ·"; }
+  .demo-bar .demo-bar-btn { @apply inline font-medium text-fg-brand underline hover:no-underline; }
+
+  /* ---- Araç sonuçları: components/card "Default card" kabuğu içinde ---- */
+  .result-big { @apply flex flex-wrap items-baseline gap-x-3 gap-y-1; }
+  .result-num { @apply text-4xl font-extrabold text-heading; }
+  .result-unit { @apply text-body; }
+  /* components/badge "Default" (brand) */
+  .result-tag { @apply inline-flex items-center gap-1.5 bg-brand-softer border border-brand-subtle text-fg-brand-strong text-xs font-medium px-1.5 py-0.5 rounded-sm; }
+  .result-tag i { @apply size-2 rounded-full bg-current; }
+  .result-text { @apply text-body; }
+  .scale { @apply grid gap-1.5; }
+  .scale-wrap { @apply relative; }
+  /* forms/range: iz h-2 rounded-full */
+  .scale-bar { @apply grid h-2 grid-cols-[3.5fr_6.5fr_5fr_5fr_5fr] overflow-hidden rounded-full; }
+  .scale-bar span:nth-child(1) { background: var(--bmi-1); }
+  .scale-bar span:nth-child(2) { background: var(--bmi-2); }
+  .scale-bar span:nth-child(3) { background: var(--bmi-3); }
+  .scale-bar span:nth-child(4) { background: var(--bmi-4); }
+  .scale-bar span:nth-child(5) { background: var(--bmi-5); }
+  /* flowbite plugin'in range tutamacı: 20px, bg-brand, rounded-full */
+  .scale-marker { @apply absolute top-1/2 z-10 size-5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white bg-brand transition-[left] duration-300 motion-reduce:transition-none dark:border-gray-900; }
+  .scale-ticks { @apply relative h-4 text-xs text-body; }
+  .scale-ticks span { @apply absolute -translate-x-1/2; }
+  /* components/list-group "Default list group" satırları */
+  .stat-rows { @apply text-sm font-medium text-heading bg-neutral-primary-soft border border-default rounded-base; }
+  .stat-row { @apply flex justify-between gap-4 w-full px-4 py-2 border-b border-default last:border-b-0; }
+  .stat-row dt { @apply font-normal text-body; }
+  .stat-row dd { @apply text-end; }
+  /* components/progress "Default progress bar" */
+  .macro-bars { @apply grid gap-3; }
+  .macro { @apply grid gap-1.5; }
+  .macro-head { @apply flex justify-between gap-3 text-sm; }
+  .macro-head b { @apply font-medium text-heading; }
+  .macro-head span { @apply text-body; }
+  .macro-track { @apply w-full bg-neutral-quaternary rounded-full h-2; }
+  .macro-fill { @apply h-2 w-0 bg-brand rounded-full transition-[width] duration-500 motion-reduce:transition-none; }
+  /* forms/checkbox "Bordered" kutucuğu gibi bardaklar */
+  .glasses { @apply flex flex-wrap gap-2; }
+  .glass { @apply size-9 border border-default-medium rounded-base bg-neutral-secondary-medium hover:bg-neutral-tertiary-medium focus:ring-4 focus:ring-brand-medium focus:outline-none; }
+  .glass.is-full { @apply bg-brand border-brand; }
+
+  /* ---- Gün hapları (content.js .day-tab): components/tabs "Pills tabs" ---- */
+  .day-tab { @apply inline-flex flex-col items-center px-3 py-2 rounded-base hover:text-heading hover:bg-neutral-secondary-soft aria-selected:text-white aria-selected:bg-brand aria-selected:hover:bg-brand aria-selected:hover:text-white; }
+  .day-tab small { @apply text-xs font-normal; }
+
+  /* ---- Tarif kartı (content.js .recipe-card): components/card "Card with image" ---- */
+  .recipe-card { @apply flex flex-col w-full text-center bg-neutral-primary-soft border border-default rounded-base shadow-xs hover:bg-neutral-secondary-medium focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-medium; }
+  .recipe-card figure img { @apply rounded-t-base w-full aspect-[5/4] object-cover; }
+  .recipe-card-body { @apply flex flex-1 flex-col items-center p-6; }
+  .recipe-card-body .recipe-meta { @apply justify-center; }
+  .recipe-card-body h3 { @apply mt-3 mb-4 text-2xl font-semibold tracking-tight text-heading; }
+  .recipe-card-body .tags { @apply mt-auto justify-center; }
+
+  /* ---- Örnek program öğünleri: components/list-group satırı ---- */
+  .meal { @apply grid w-full grid-cols-[4rem_1fr] gap-x-4 px-4 py-3 border-b border-default last:border-b-0 sm:grid-cols-[4rem_1fr_auto]; }
+  .meal-time { @apply pt-0.5 text-sm text-body tabular-nums; }
+  .meal-name { @apply text-base font-semibold text-heading; }
+  .meal-items { @apply mt-1 text-sm font-normal text-body; }
+  .meal-kcal { @apply col-start-2 mt-1 text-sm whitespace-nowrap text-body sm:col-start-3 sm:mt-0.5; }
+
+  /* ---- Randevu ---- */
+  .bstep-title { @apply text-lg font-medium text-heading; }
+  .bstep-sub { @apply mt-8 mb-3 flex flex-wrap items-baseline gap-x-3 text-sm font-medium text-heading; }
+  .bstep-sub .hint { @apply font-normal text-body; }
+  .bstep-nav { @apply mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-default pt-5; }
+  .bstep-msg { @apply order-last w-full text-sm text-fg-danger-strong empty:hidden sm:order-none sm:w-auto sm:flex-1; }
+  /* components/alerts "Default alert" (info / brand) */
+  .tz-note { @apply mt-4 p-4 text-sm text-fg-brand-strong rounded-base bg-brand-softer border border-brand-subtle; }
+  .datetime { @apply mt-6 grid gap-8 lg:grid-cols-[auto_minmax(0,1fr)]; }
+  /* components/datepicker (flowbite-datepicker 2.0.0 pickerTemplate / daysTemplate / DaysView sınıfları) */
+  .cal { @apply inline-block w-full max-w-sm rounded-base bg-neutral-primary-medium border border-default-medium p-4 sm:w-auto; }
+  .cal-head { @apply flex items-center justify-between mb-2; }
+  .cal-title { @apply text-sm rounded-base text-heading font-medium py-2.5 px-5; }
+  .cal-dow { @apply grid grid-cols-7 mb-1; }
+  .cal-dow span { @apply block flex-1 leading-9 border-0 rounded-base cursor-default text-center text-body font-medium text-sm; }
+  .cal-grid { @apply grid grid-cols-7 sm:w-72; }
+  .cal-day { @apply relative flex flex-col items-center justify-center min-h-11 border-0 rounded-base cursor-pointer text-center text-body font-medium text-sm hover:bg-neutral-tertiary-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-brand; }
+  .cal-day.is-today { @apply bg-gray-100 text-heading dark:bg-gray-600; }
+  .cal-day.is-disabled { @apply cursor-not-allowed text-fg-disabled hover:bg-transparent; }
+  .cal-day.is-today.is-disabled { @apply text-body-subtle; }
+  .cal-day[aria-pressed="true"] { @apply bg-brand text-white hover:bg-brand; }
+  .cal-num { @apply leading-5; }
+  .cal-meta { @apply text-[0.625rem] leading-3 font-normal; }
+  .cal-legend { @apply mt-3 flex flex-wrap gap-x-4 gap-y-2 text-xs text-body; }
+  .cal-legend span { @apply inline-flex items-center gap-1.5; }
+  .cal-legend i { @apply inline-block size-3 rounded-xs border border-default-medium; }
+  .cal-legend .lg-full { @apply opacity-40; }
+  .cal-legend .lg-closed { @apply bg-neutral-tertiary; }
+  .cal-legend .lg-today { @apply bg-gray-100 dark:bg-gray-600; }
+  .slots-head { @apply mb-4; }
+  .slots-title { @apply text-lg font-medium text-heading; }
+  .slots-note { @apply mt-1 text-sm text-body; }
+  .slot-group + .slot-group { @apply mt-4; }
+  .slot-group .label { @apply mb-2; }
+  .slot-list { @apply grid grid-cols-3 gap-2 sm:grid-cols-4; }
+  /* components/buttons "Secondary" + seçili: "Default" (brand) */
+  .slot { @apply text-body bg-neutral-secondary-medium box-border border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-base text-sm px-3 py-2.5 focus:outline-none disabled:cursor-not-allowed disabled:opacity-40 disabled:line-through; }
+  .slot[aria-pressed="true"] { @apply text-white bg-brand border-transparent hover:bg-brand-strong hover:text-white focus:ring-brand-medium; }
+  /* components/skeleton */
+  .skeleton { @apply block animate-pulse rounded-base bg-neutral-quaternary motion-reduce:animate-none; }
+  .slots-empty { @apply grid justify-items-start gap-3 p-4 text-sm text-body bg-neutral-secondary-soft border border-default rounded-base; }
+  /* components/list-group satırları */
+  .sum-list, .review { @apply text-sm font-medium text-heading bg-neutral-primary-soft border border-default rounded-base; }
+  .sum-row, .review-row { @apply flex items-baseline justify-between gap-4 w-full px-4 py-2 border-b border-default last:border-b-0; }
+  .sum-row dt, .review-row dt { @apply shrink-0 font-normal text-body; }
+  .sum-row dd, .review-row dd { @apply text-end; }
+  .review-row dd { @apply flex-1; }
+  .sum-row dd.is-empty { @apply font-normal text-body; }
+  .review-row button { @apply text-sm font-medium text-fg-brand underline hover:no-underline; }
+  .prep { @apply mt-6 p-4 text-sm text-body rounded-base bg-neutral-secondary-soft border border-default empty:hidden; }
+  .prep ul { @apply mt-2 list-disc space-y-1 ps-5; }
+  /* Onay ekranı: components/toast "Colors" → success */
+  .done { @apply grid justify-items-start gap-4 w-full p-4 text-body bg-neutral-primary-soft rounded-base shadow-xs border border-default sm:p-6; }
+  .done-icon { @apply inline-flex items-center justify-center shrink-0 w-7 h-7 text-fg-success bg-success-soft rounded; }
+  .done-icon svg { @apply w-5 h-5; }
+  .done .bstep-title { @apply text-lg; }
+  .demo-tag { @apply bg-brand-softer border border-brand-subtle text-fg-brand-strong text-xs font-medium px-1.5 py-0.5 rounded-sm; }
+  .done-ref .ref { @apply mt-1 flex items-center gap-3 text-2xl font-semibold tracking-wider text-heading; }
+  .done .review { @apply w-full; }
+  .done-actions { @apply flex flex-wrap gap-3; }
+
+  /* ---- Tarif penceresi içeriği (components/modal "Default modal" gövdesi) ---- */
+  .recipe-meta { @apply flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-body; }
+  .recipe-meta span { @apply inline-flex items-center gap-1; }
+  .recipe-meta svg { @apply size-4; }
+  /* components/badge "Default" (gray / Secondary) */
+  .tags { @apply flex flex-wrap gap-2; }
+  .tags li { @apply bg-neutral-secondary-medium border border-default-medium text-heading text-xs font-medium px-1.5 py-0.5 rounded; }
+  .dialog-h3 { @apply text-base font-medium text-heading; }
+  .nutri { @apply grid grid-cols-2 gap-2 sm:grid-cols-4; }
+  .nutri div { @apply p-3 bg-neutral-secondary-soft border border-default rounded-base; }
+  .nutri b { @apply block text-lg font-semibold text-heading; }
+  .nutri span { @apply text-xs text-body; }
+  .servings { @apply flex items-center justify-between gap-4; }
+  /* forms/number-input "Quantity input" (bitişik düğmeler) */
+  .servings-ctrl { @apply flex items-center; }
+  .servings-ctrl .icon-btn { @apply rounded-none border border-default-medium bg-neutral-secondary-medium first:rounded-s-base last:rounded-e-base; }
+  .servings-ctrl output { @apply grid h-10 w-14 place-content-center border-y border-default-medium bg-neutral-secondary-medium text-sm font-medium text-heading; }
+  .ingredients { @apply text-sm font-medium text-heading bg-neutral-primary-soft border border-default rounded-base; }
+  .ingredients li { @apply border-b border-default last:border-b-0; }
+  /* forms/checkbox "Checkbox list group" */
+  .ingredients label { @apply flex items-center gap-2 w-full px-3 py-3 text-heading; }
+  .ingredients input { @apply w-4 h-4 border border-default-medium rounded-xs bg-neutral-secondary-medium focus:ring-2 focus:ring-brand-soft; }
+  .ingredients .qty { @apply min-w-20 font-semibold; }
+  .ingredients input:checked ~ span { @apply text-fg-disabled line-through; }
+  .steps-list { @apply list-decimal space-y-2 ps-5 text-body; }
+  /* components/alerts "Default alert" (info) */
+  .tip-box { @apply p-4 text-sm text-fg-brand-strong rounded-base bg-brand-softer border border-brand-subtle; }
+  .tip-box .label { @apply block font-medium text-fg-brand-strong; }
+  .recipes-empty { @apply col-span-full text-center text-body; }
+
+  /* ---- Sohbet: kabuk components/drawer "Default drawer", balonlar components/chat-bubble "Default chat bubble" ---- */
+  .chat { @apply invisible fixed end-0 top-0 z-50 flex h-dvh w-full max-w-96 translate-x-full flex-col overflow-hidden bg-neutral-primary-soft border-s border-default transition-transform motion-reduce:transition-none sm:w-96; }
+  .chat-open .chat { @apply visible translate-x-0; }
+  .chat-head { @apply relative flex items-start gap-3 border-b border-default p-4 pe-14; }
+  .chat-log { @apply flex-1 overflow-y-auto overscroll-contain p-4; }
+  .msg { @apply mt-4 flex items-start gap-2.5 first:mt-0; }
+  .msg--user { @apply justify-end; }
+  .bubble { @apply flex flex-col w-full max-w-[320px] p-4 bg-neutral-secondary-soft rounded-e-base rounded-es-base text-sm text-body; overflow-wrap: anywhere; }
+  .msg--user .bubble { @apply w-auto max-w-[80%] rounded-s-base rounded-ee-base rounded-e-none bg-brand text-white; }
+  /* belge örneğindeki leading-1.5 (v4'te 6px) çocuklar kendi text-sm satır yüksekliğini taşıdığı için çalışır; chat.js'in <p>'leri taşımaz */
+  .bubble p { @apply text-sm/5; }
+  .bubble p + p { @apply mt-1.5; }
+  .bubble-title { @apply text-sm font-semibold text-heading; }
+  .bubble-rows { @apply mt-2 border border-default rounded-base bg-neutral-primary-soft; }
+  .bubble-row { @apply flex justify-between gap-3 px-3 py-1.5 border-b border-default last:border-b-0; }
+  .bubble-row span:last-child { @apply text-end whitespace-nowrap font-medium text-heading; }
+  .bubble-note { @apply mt-2 text-xs text-body; }
+  .bubble-actions { @apply mt-3 flex flex-wrap gap-2; }
+  .bubble-action { @apply inline-flex items-center text-body bg-neutral-secondary-medium box-border border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-base text-xs px-3 py-2 focus:outline-none; }
+  .bubble-action--primary { @apply text-white bg-brand border-transparent hover:bg-brand-strong hover:text-white focus:ring-brand-medium; }
+  /* components/tabs "Pills tabs" */
+  .quick { @apply mt-3 flex flex-wrap gap-2 text-sm font-medium; }
+  .quick button { @apply inline-block px-3 py-2 rounded-base text-body bg-neutral-secondary-medium border border-default-medium hover:text-heading hover:bg-neutral-tertiary-medium; }
+  .typing .bubble { @apply w-auto flex-row items-center gap-1 py-4; }
+  .typing i { @apply size-1.5 animate-pulse rounded-full bg-gray-400 motion-reduce:animate-none; }
+  .typing i:nth-child(2) { animation-delay: 0.15s; }
+  .typing i:nth-child(3) { animation-delay: 0.3s; }
+  .chat-day { @apply mb-3 text-center text-xs text-body; }
+  .chat-form { @apply flex gap-2 border-t border-default p-4; }
+  .chat-foot { @apply px-4 pb-4 text-center text-xs text-body; }
+  /* Yüzen düğmeler: components/speed-dial tetikleyicisi (w-14 h-14 rounded-full bg-brand) */
+  .fab { @apply fixed end-6 z-40 flex items-center justify-center w-14 h-14 rounded-full text-white shadow-lg focus:ring-4 focus:outline-none; }
+  .fab svg { @apply w-6 h-6; }
+  .fab-wa { @apply bottom-24 bg-success hover:bg-success-strong focus:ring-success-medium; }
+  .fab-chat { @apply bottom-6 bg-brand hover:bg-brand-strong focus:ring-brand-medium; }
+  .fab-chat .i-x, .chat-open .fab-chat .i-chat { @apply hidden; }
+  .chat-open .fab-chat .i-x { @apply block; }
+  .chat-open .fab-wa, .menu-open .fab, body.fabs-off .fab-wa, body.fabs-off:not(.chat-open) .fab-chat { @apply pointer-events-none invisible opacity-0; }
+  /* components/indicators "Indicator dot" */
+  .fab-badge { @apply absolute end-0.5 top-0.5 size-3.5 rounded-full border-2 border-white bg-danger dark:border-gray-800; }
+  .chat-open .fab-badge, .fab-badge.is-hidden { @apply hidden; }
+  /* Drawer arka planı: Flowbite Drawer'ın eklediği öğe (drawer-backdrop: bg-dark-backdrop/70 fixed inset-0) */
+  .chat-backdrop { @apply hidden fixed inset-0 z-[45] bg-dark-backdrop/70; }
+  .chat-open .chat-backdrop { @apply block; }
+  /* Bot balonunun avatar yuvası: components/avatar "Placeholder initials" */
+  .msg--bot::before { content: "M"; @apply inline-flex items-center justify-center shrink-0 w-8 h-8 overflow-hidden rounded-full bg-neutral-tertiary text-sm font-medium text-body; }
+  /* ---- Yazı kartı üst bilgisi ---- */
+  .post-meta { @apply flex flex-wrap gap-x-1.5 text-sm text-gray-500 dark:text-gray-400; }
+  .post-meta > * + *::before { content: "\00B7"; @apply me-1.5; }
+
+  /* ---- Makale sayfaları: Flowbite Typography (format) + blok tokenları ---- */
+  .article-head { @apply mx-auto max-w-3xl; }
+  .article-head h1 { @apply mt-3 mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:text-4xl dark:text-white; }
+  .article-head > .label { @apply text-sm text-gray-500 dark:text-gray-400; }
+  .article-head .lede { @apply text-lg font-light text-gray-500 dark:text-gray-400; }
+  .byline { @apply mt-6 flex items-center gap-4; }
+  .byline img { @apply w-12 h-12 rounded-full object-cover; }
+  .byline b { @apply block text-base font-bold text-gray-900 dark:text-white; }
+  .byline div > span { @apply block text-sm text-gray-500 dark:text-gray-400; }
+  .article-cover { @apply mx-auto mt-8 max-w-5xl; }
+  .article-cover img { @apply aspect-video w-full rounded object-cover; }
+  .article-layout { @apply mx-auto mt-8 grid max-w-5xl gap-8 lg:grid-cols-[14rem_minmax(0,1fr)]; }
+  /* components/list-group gibi içindekiler kutusu */
+  .toc { @apply self-start p-4 text-sm bg-neutral-primary-soft border border-default rounded-base lg:sticky lg:top-6; }
+  .toc .label { @apply font-semibold text-heading; }
+  .toc ol { @apply mt-3 space-y-2; }
+  .toc a { @apply text-body hover:text-fg-brand hover:underline; }
+  /* blocks/cta "Heading with CTA button" içeriği */
+  .article-cta { @apply mt-10 p-8 text-center bg-gray-50 rounded dark:bg-gray-800; }
+  .article-cta h2 { @apply mb-4 text-3xl tracking-[-0.025em] font-extrabold leading-tight text-gray-900 dark:text-white; }
+  .article-cta p { @apply mb-6 font-light text-gray-500 dark:text-gray-400 md:text-lg; }
+  .article-cta a { @apply inline-block text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded text-sm px-5 py-2.5 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800; }
+  .format .table-wrap { @apply overflow-x-auto; }
+  /* components/alerts "Default alert" (info / warning) */
+  .callout { @apply p-4 text-sm text-fg-brand-strong rounded-base bg-brand-softer border border-brand-subtle; }
+  .format .callout p { @apply m-0 text-sm text-fg-brand-strong; }
+  .format .callout .label { @apply block font-medium text-fg-brand-strong; }
+  .callout--warn { @apply text-fg-warning bg-warning-soft border-warning-subtle; }
+  .format .callout--warn p, .format .callout--warn .label { @apply text-fg-warning; }
+  .format.sources { @apply mt-10 border-t border-default pt-6; }
+  .format.sources li { @apply text-sm; }
+}

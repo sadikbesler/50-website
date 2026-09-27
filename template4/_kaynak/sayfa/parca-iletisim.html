@@ -1,0 +1,85 @@
+    <!-- S17 · blocks/marketing/contact "Default contact form" · altında adres ve saatler: components/card + components/list-group -->
+    <section id="iletisim" class="bg-white dark:bg-gray-900" aria-labelledby="contact-title">
+      <div class="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
+        <h2 id="contact-title" class="mb-4 text-4xl tracking-[-0.025em] font-extrabold text-center text-gray-900 dark:text-white" data-i18n="contact.title">İletişim ve ulaşım</h2>
+        <p class="mb-8 lg:mb-16 font-light text-center text-gray-500 dark:text-gray-400 sm:text-xl" data-i18n="contact.lede">Moda Caddesi üzerindeyiz; Kadıköy iskelesinden yaklaşık 10 dakika yürüme mesafesi. Binada asansör var, en yakın otopark 150 metre ileride.</p>
+
+        <form id="contact-form" novalidate aria-labelledby="contact-form-title" class="space-y-8">
+          <div>
+            <h3 id="contact-form-title" class="mb-2 text-xl font-bold text-gray-900 dark:text-white" data-i18n="cform.title">Bize yazın</h3>
+            <p class="font-light text-gray-500 dark:text-gray-400" data-i18n="cform.text">Genellikle aynı gün, en geç ertesi iş günü yanıt veriyoruz. Randevu için yukarıdaki takvimi kullanmanız daha hızlı olur.</p>
+          </div>
+          <div class="grid gap-8 sm:grid-cols-2">
+            <div class="sm:col-span-2">
+              <label class="{{c:cfLabel}}" for="c-name" data-i18n="form.name">Ad soyad</label>
+              <input class="{{c:cfInput}} {{c:cfInvalid}}" id="c-name" name="name" type="text" autocomplete="name" maxlength="80" required aria-describedby="c-name-err">
+              <p class="field-err" id="c-name-err" aria-live="polite"></p>
+            </div>
+            <div>
+              <label class="{{c:cfLabel}}" for="c-email" data-i18n="form.email">E-posta</label>
+              <input class="{{c:cfInput}} {{c:cfInvalid}}" id="c-email" name="email" type="email" autocomplete="email" inputmode="email" maxlength="120" required aria-describedby="c-email-err">
+              <p class="field-err" id="c-email-err" aria-live="polite"></p>
+            </div>
+            <div>
+              <label class="{{c:cfLabel}}" for="c-phone"><span data-i18n="form.phone">Telefon</span> <span class="font-normal text-gray-500 dark:text-gray-400" data-i18n="form.optional">İsteğe bağlı</span></label>
+              <input class="{{c:cfInput}} {{c:cfInvalid}}" id="c-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="20" aria-describedby="c-phone-err">
+              <p class="field-err" id="c-phone-err" aria-live="polite"></p>
+            </div>
+            <div class="sm:col-span-2">
+              <label class="{{c:cfLabel}}" for="c-topic" data-i18n="cform.topic">Konu</label>
+              <select class="{{c:cfInput}}" id="c-topic" name="topic">
+                <option value="booking" data-i18n="cform.t1">Randevu hakkında</option>
+                <option value="pricing" data-i18n="cform.t2">Ücretler ve paketler</option>
+                <option value="corporate" data-i18n="cform.t3">Kurumsal program</option>
+                <option value="other" data-i18n="cform.t4">Diğer</option>
+              </select>
+            </div>
+            <div class="sm:col-span-2">
+              <label class="{{c:cfLabel}}" for="c-message" data-i18n="cform.message">Mesajınız</label>
+              <textarea class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded shadow-xs border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 {{c:cfInvalid}} resize-none" id="c-message" name="message" rows="6" maxlength="2000" required aria-describedby="c-message-err"></textarea>
+              <p class="field-err" id="c-message-err" aria-live="polite"></p>
+            </div>
+            <div class="sm:col-span-2">
+              <label class="flex items-start gap-2 text-sm font-medium text-gray-900 dark:text-gray-300"><input type="checkbox" name="kvkk" required aria-describedby="c-kvkk-err" class="{{c:check}} aria-invalid:border-danger"><span><span data-i18n="cform.kvkk">Mesajımın yanıtlanması için bilgilerimin işlenmesini kabul ediyorum.</span> <a class="text-primary-700 hover:underline dark:text-primary-500" href="kvkk.html" target="_blank" rel="noopener" data-i18n="form.kvkkLink">Aydınlatma metni</a></span></label>
+              <p class="field-err" id="c-kvkk-err" aria-live="polite"></p>
+            </div>
+          </div>
+          <input class="honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button type="submit" class="inline-flex items-center justify-center gap-2 py-3 px-5 text-sm font-medium text-center text-white rounded bg-primary-700 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 disabled:opacity-50 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"><span class="btn-spinner" aria-hidden="true"></span><span data-i18n="cform.send">Mesajı gönder</span></button>
+          <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+        </form>
+      </div>
+
+      <div class="px-4 pb-8 mx-auto max-w-screen-xl lg:pb-16 lg:px-6">
+        <div class="grid gap-8 md:grid-cols-2">
+          <!-- components/card "Default card" + list -->
+          <div class="{{c:cardPad}}">
+            <h3 class="{{c:cardH}}" data-i18n="contact.address">Adres</h3>
+            <p class="text-body" data-address>Moda Cad. No: 48, Kat 3, Kadıköy / İstanbul</p>
+            <p class="mt-2 text-sm text-body"><span data-i18n="contact.transit">Kadıköy iskelesi 10 dk · Moda tramvay durağı 3 dk yürüme</span></p>
+            <a class="mt-3 inline-flex items-center font-medium text-fg-brand hover:underline" href="https://www.google.com/maps/search/?api=1&amp;query=Moda+Caddesi+Kad%C4%B1k%C3%B6y+%C4%B0stanbul" target="_blank" rel="noopener noreferrer" data-maps><span data-i18n="contact.directions">Google Haritalar’da yol tarifi al</span><svg data-icon="arrow-up-right-from-square" class="w-4 h-4 ms-1.5"></svg></a>
+            <ul class="mt-6 {{c:list}}">
+              <li class="w-full px-4 py-2 border-b border-default"><a class="flex items-center gap-3 hover:text-fg-brand" href="tel:+905555555555" data-tel><svg data-icon="phone" class="w-5 h-5 shrink-0 text-body"></svg><span class="sr-only" data-i18n="form.phone">Telefon</span><span data-phone-text>0555 555 55 55</span></a></li>
+              <li class="w-full px-4 py-2 border-b border-default"><a class="flex items-center gap-3 break-all hover:text-fg-brand" href="mailto:randevu@mizanbeslenme.com"><svg data-icon="envelope" class="w-5 h-5 shrink-0 text-body"></svg><span class="sr-only" data-i18n="form.email">E-posta</span><span data-mail>randevu@mizanbeslenme.com</span></a></li>
+              <li class="w-full px-4 py-2 border-b border-default"><a class="flex items-center gap-3 hover:text-fg-brand" href="https://wa.me/905555555555" target="_blank" rel="noopener noreferrer" data-wa><svg data-icon="whatsapp" data-v="solid" class="w-5 h-5 shrink-0 text-body"></svg>WhatsApp</a></li>
+              <li class="w-full px-4 py-2"><a class="flex items-center gap-3 hover:text-fg-brand" href="https://instagram.com/mizanbeslenme" target="_blank" rel="noopener noreferrer"><svg data-icon="instagram" data-v="solid" class="w-5 h-5 shrink-0 text-body"></svg>@mizanbeslenme</a></li>
+            </ul>
+          </div>
+          <div class="{{c:cardPad}}">
+            <h3 class="{{c:cardH}}" data-i18n="contact.hours">Çalışma saatleri</h3>
+            <p class="open-status mb-4 flex items-center gap-2 text-body [&.is-open_i]:bg-success" data-open-status><i class="size-2.5 shrink-0 rounded-full bg-fg-disabled" aria-hidden="true"></i><span>&nbsp;</span></p>
+            <table class="w-full text-sm {{c:list}} border-separate border-spacing-0 overflow-hidden" data-hours>
+              <tbody>
+                <tr data-dow="1" class="{{c:hoursRow}}"><th scope="row" class="{{c:hoursTh}}" data-i18n="day.1">Pazartesi</th><td class="{{c:hoursTd}}">09:00 – 20:00</td></tr>
+                <tr data-dow="2" class="{{c:hoursRow}}"><th scope="row" class="{{c:hoursTh}}" data-i18n="day.2">Salı</th><td class="{{c:hoursTd}}">09:00 – 20:00</td></tr>
+                <tr data-dow="3" class="{{c:hoursRow}}"><th scope="row" class="{{c:hoursTh}}" data-i18n="day.3">Çarşamba</th><td class="{{c:hoursTd}}">09:00 – 20:00</td></tr>
+                <tr data-dow="4" class="{{c:hoursRow}}"><th scope="row" class="{{c:hoursTh}}" data-i18n="day.4">Perşembe</th><td class="{{c:hoursTd}}">09:00 – 20:00</td></tr>
+                <tr data-dow="5" class="{{c:hoursRow}}"><th scope="row" class="{{c:hoursTh}}" data-i18n="day.5">Cuma</th><td class="{{c:hoursTd}}">09:00 – 20:00</td></tr>
+                <tr data-dow="6" class="{{c:hoursRow}}"><th scope="row" class="{{c:hoursTh}}" data-i18n="day.6">Cumartesi</th><td class="{{c:hoursTd}}">10:00 – 15:00</td></tr>
+                <tr data-dow="0" class="{{c:hoursRow}}"><th scope="row" class="{{c:hoursTh}} border-b-0" data-i18n="day.0">Pazar</th><td class="{{c:hoursTd}} border-b-0" data-i18n="contact.closed">Kapalı</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>

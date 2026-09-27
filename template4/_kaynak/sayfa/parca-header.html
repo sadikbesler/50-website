@@ -1,0 +1,48 @@
+  <a href="#main" class="skip-link sr-only focus:not-sr-only focus:fixed focus:start-4 focus:top-4 focus:z-[60] focus:inline-block {{c:ctaBtn}}" data-i18n="a11y.skip">İçeriğe geç</a>
+
+  <!-- S1 · blocks/marketing/header "Default header navigation" + components/navbar (mobil collapse, Flowbite JS) -->
+  <header id="site-header" class="site-header">
+    <nav class="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800" data-i18n-attr="aria-label:a11y.mainNav" aria-label="Ana menü">
+      <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
+        <a href="{{h}}#top" class="flex items-center text-primary-700 dark:text-primary-500" data-i18n-attr="aria-label:a11y.home" aria-label="Mizan Beslenme ana sayfa">
+          {{logo:mr-3 h-6 w-6 sm:h-9 sm:w-9}}
+          <span class="self-center text-xl font-semibold whitespace-nowrap text-gray-900 dark:text-white">Mizan</span>
+        </a>
+        <div class="flex items-center lg:order-2">
+          <div class="hidden sm:flex mr-1" role="group" data-i18n-attr="aria-label:a11y.lang" aria-label="Dil seçimi">
+            <button type="button" data-lang="tr" aria-pressed="true" lang="tr" class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded text-sm px-3 py-2 lg:py-2.5 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800 aria-pressed:bg-gray-100 dark:aria-pressed:bg-gray-700">TR</button>
+            <button type="button" data-lang="en" aria-pressed="false" lang="en" class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded text-sm px-3 py-2 lg:py-2.5 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800 aria-pressed:bg-gray-100 dark:aria-pressed:bg-gray-700">EN</button>
+          </div>
+          <button type="button" data-theme-toggle aria-label="Koyu temaya geç" class="inline-flex items-center p-2 mr-2 text-sm text-gray-500 rounded hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+            <svg data-icon="moon" class="w-6 h-6 dark:hidden"></svg>
+            <svg data-icon="sun" class="hidden w-6 h-6 dark:block"></svg>
+          </button>
+          <a href="{{h}}#randevu" class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800 whitespace-nowrap" data-i18n="nav.book">Randevu al</a>
+          <button data-collapse-toggle="mobile-menu-2" type="button" class="group inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded xl:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="mobile-menu-2" aria-expanded="false">
+            <span class="sr-only" data-i18n="a11y.menuOpen">Menüyü aç</span>
+            <svg data-icon="blok:header:1" class="w-6 h-6 group-aria-expanded:hidden"></svg>
+            <svg data-icon="blok:header:2" class="hidden w-6 h-6 group-aria-expanded:block"></svg>
+          </button>
+        </div>
+        <div class="hidden justify-between items-center w-full xl:flex xl:w-auto xl:order-1" id="mobile-menu-2">
+          <ul class="nav flex flex-col mt-4 font-medium xl:flex-row xl:space-x-8 xl:mt-0">
+            <li><a href="{{h}}#hizmetler" class="{{c:navLink}}" data-i18n="nav.services">Hizmetler</a></li>
+            <li><a href="{{h}}#uzmanlar" class="{{c:navLink}}" data-i18n="nav.team">Uzmanlar</a></li>
+            <li><a href="{{h}}#araclar" class="{{c:navLink}}" data-i18n="nav.tools">Araçlar</a></li>
+            <li class="xl:hidden"><a href="{{h}}#program" class="{{c:navLink}}" data-i18n="nav.program">Örnek program</a></li>
+            <li><a href="{{h}}#tarifler" class="{{c:navLink}}" data-i18n="nav.recipes">Tarifler</a></li>
+            <li><a href="{{h}}#ucretler" class="{{c:navLink}}" data-i18n="nav.pricing">Ücretler</a></li>
+            <li><a href="{{blog}}" class="{{c:navLink}}" data-i18n="nav.blog">Blog</a></li>
+            <li class="xl:hidden"><a href="{{h}}#sss" class="{{c:navLink}}" data-i18n="nav.faq">SSS</a></li>
+            <li><a href="{{h}}#iletisim" class="{{c:navLink}}" data-i18n="nav.contact">İletişim</a></li>
+            <li class="sm:hidden">
+              <div class="flex gap-2 py-3 pl-3" role="group" data-i18n-attr="aria-label:a11y.lang" aria-label="Dil seçimi">
+                <button type="button" data-lang="tr" aria-pressed="true" lang="tr" class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded text-sm px-4 py-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800 aria-pressed:bg-gray-100 dark:aria-pressed:bg-gray-700">Türkçe</button>
+                <button type="button" data-lang="en" aria-pressed="false" lang="en" class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded text-sm px-4 py-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800 aria-pressed:bg-gray-100 dark:aria-pressed:bg-gray-700">English</button>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>

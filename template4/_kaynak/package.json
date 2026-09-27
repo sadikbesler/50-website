@@ -1,0 +1,23 @@
+{
+  "name": "_kaynak",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.3",
+    "@tailwindcss/typography": "^0.5.20",
+    "axe-core": "^4.13.0",
+    "flowbite": "^4.0.2",
+    "flowbite-icons": "^1.5.0",
+    "flowbite-typography": "^1.0.5",
+    "playwright": "1.63",
+    "tailwindcss": "^4.3.3"
+  }
+}
