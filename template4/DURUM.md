@@ -106,6 +106,11 @@ Değişiklik **yok**. `Content-Security-Policy` meta etiketi 9 sayfanın hepsind
 
 **Karşılaştırma turları:** 1. tur (açık, `kaynak-blok-*` / `sonuc-blok-*` yan yana): yerleşim, tipografi ölçeği, renk, köşe ve gölgeler bloklarla aynı; randevu adım göstergesinde "Tarih ve saat"in üç satıra kırılması ve footer'daki sosyal simgelerin yüzen düğmelerin altında kalması düzeltildi. 2. tur (koyu + bileşenler): sohbet balonunda satırların üst üste binmesi (v4 `leading-1.5`) ve koyu temada kapalı "bugün" hücresinin görünmemesi düzeltildi; kontrast düzeltmeleri yukarıdaki 11. maddede.
 
+## Yayın
+
+- Commit `88c1213` → `origin/main` (27.09.2026). Canlı adres push'tan yaklaşık 10 sn sonra 200 döndü.
+- Canlı kontrol (Playwright): ana sayfa, `blog/`, bir makale ve `kvkk.html` → HTTP 200, konsol/CSP hatası 0, Flowbite JS yüklü (`initFlowbite` var), Inter yüklü, "En yakın uygun randevu" kartı dolu ("Yarın · 09:00").
+
 ## Bilinen sorunlar / notlar
 
 - Başlık yapışkan değil (blok gibi); yüzen WhatsApp/sohbet düğmeleri her yerde.
