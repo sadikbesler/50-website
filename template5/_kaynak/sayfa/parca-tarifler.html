@@ -1,0 +1,20 @@
+    <!-- S11 · components/card "Card with image" (kartlar content.js'te, .recipe-card → tw.css) + components/buttons filtre (Secondary / seçili: Default) -->
+    <section id="tarifler" class="bg-white dark:bg-gray-900" aria-labelledby="recipes-title">
+      <div class="{{c:wrap}}">
+        <div class="{{c:head}}">
+          <h2 id="recipes-title" class="{{c:h2}}" data-i18n="recipes.title">Hafta içi akşamlarına sığan tarifler</h2>
+          <p class="{{c:lede}}" data-i18n="recipes.lede">Çoğu 30 dakikadan kısa sürüyor ve malzemeleri mahalle marketinde bulunuyor. Her tarifte porsiyon başına besin değerleri var.</p>
+        </div>
+
+        <div class="flex flex-wrap justify-center gap-2 mb-8" role="group" data-i18n-attr="aria-label:recipes.filter" aria-label="Tarif kategorisi" data-recipe-filters>
+          <button type="button" aria-pressed="true" data-cat="all" data-i18n="recipes.all" class="{{c:btn2}} {{c:btnOn}}">Tümü</button>
+          <button type="button" aria-pressed="false" data-cat="breakfast" data-i18n="recipes.breakfast" class="{{c:btn2}} {{c:btnOn}}">Kahvaltı</button>
+          <button type="button" aria-pressed="false" data-cat="main" data-i18n="recipes.main" class="{{c:btn2}} {{c:btnOn}}">Ana yemek</button>
+          <button type="button" aria-pressed="false" data-cat="soup" data-i18n="recipes.soup" class="{{c:btn2}} {{c:btnOn}}">Çorba ve salata</button>
+          <button type="button" aria-pressed="false" data-cat="snack" data-i18n="recipes.snack" class="{{c:btn2}} {{c:btnOn}}">Ara öğün</button>
+          <button type="button" aria-pressed="false" data-cat="dessert" data-i18n="recipes.dessert" class="{{c:btn2}} {{c:btnOn}}">Tatlı</button>
+        </div>
+
+        <div class="recipes grid gap-8 sm:grid-cols-2 lg:grid-cols-3" data-recipes></div>
+      </div>
+    </section>

@@ -1,0 +1,51 @@
+    <!-- ================= S12 · Landwind fiyat bloğu ("Designed for business teams like yours", Starter/Company/Enterprise)
+         Üç kart = İlk görüşme / Kontrol / Online. Fiyat ve süre config.js'ten (sayfalari-kur.js doğrular), özellikler diyetisyen-v2 ücret kartlarından.
+         Altında diyetisyen-v2'nin paketleri, kurumsal satır ve "neler dahil" listesi aynı kart ve liste tokenlarıyla. ================= -->
+    <section id="ucretler" class="bg-white dark:bg-gray-900" aria-labelledby="pricing-title">
+      <div class="max-w-screen-xl px-4 py-8 mx-auto lg:py-24 lg:px-6">
+        <div class="max-w-screen-md mx-auto mb-8 text-center lg:mb-12">
+          <h2 id="pricing-title" class="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white" data-i18n="pricing.title">Görüşme ücretleri</h2>
+          <p class="mb-5 font-light text-gray-500 sm:text-xl dark:text-gray-400" data-i18n="pricing.lede">Görüşme ücretlerini baştan paylaşıyoruz. Online görüşmeler, yüz yüze görüşmelerle aynı içeriktedir.</p>
+        </div>
+        <div class="space-y-8 lg:grid lg:grid-cols-3 sm:gap-6 xl:gap-10 lg:space-y-0">
+{{fiyatkartlari}}
+        </div>
+
+        <!-- Paketler: aynı "Pricing Card" tokenları, iki sütun -->
+        <div class="mt-12 lg:mt-16">
+          <h3 class="mb-6 text-2xl font-semibold text-center text-gray-900 dark:text-white" data-i18n="pricing.packages">Takip paketleri</h3>
+          <div class="grid gap-6 lg:grid-cols-2 xl:gap-10">
+{{paketler}}
+          </div>
+        </div>
+
+        <!-- Kurumsal: components/card "Default card" satırı -->
+        <div class="flex flex-col gap-4 p-6 mt-6 bg-white border border-gray-100 rounded-lg shadow sm:flex-row sm:items-center sm:justify-between xl:mt-10 dark:bg-gray-800 dark:border-gray-600">
+          <div>
+            <p class="text-lg font-semibold text-gray-900 dark:text-white" data-i18n="pricing.corpTitle">Kurumsal beslenme programları</p>
+            <p class="font-light text-gray-500 dark:text-gray-400" data-i18n="pricing.corpText">Şirket çalışanlarına yönelik seminer ve bireysel görüşme paketleri için ayrıca teklif hazırlıyoruz.</p>
+          </div>
+          <a href="#iletisim" data-contact-topic="corporate" class="{{c:btnAlt}} shrink-0 self-start sm:self-auto" data-i18n="pricing.corpBtn">Teklif isteyin</a>
+        </div>
+
+        <!-- Neler dahil: Landwind fiyat kartlarındaki onay listesi (yeşil onay) -->
+        <div class="grid gap-8 pt-8 mt-12 border-t border-gray-200 lg:grid-cols-3 dark:border-gray-700">
+          <div>
+            <h3 class="mb-2 text-2xl font-semibold text-gray-900 dark:text-white" data-i18n="incl.title">Neler dahil, neler değil?</h3>
+            <p class="font-light text-gray-500 dark:text-gray-400" data-i18n="incl.text">Sonradan ek ücret çıkmaması için baştan netleştiriyoruz.</p>
+          </div>
+          <div>
+            <p class="mb-4 text-sm font-semibold text-gray-900 uppercase dark:text-white" data-i18n="incl.yes">Dahil</p>
+            <ul role="list" class="space-y-4 text-left text-gray-900 dark:text-white">
+{{dahil}}
+            </ul>
+          </div>
+          <div>
+            <p class="mb-4 text-sm font-semibold text-gray-900 uppercase dark:text-white" data-i18n="incl.no">Dahil değil</p>
+            <ul role="list" class="space-y-4 text-left text-gray-900 dark:text-white">
+{{dahildegil}}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>

@@ -1,0 +1,71 @@
+  <!-- S18 · Landwind <footer> (5 sütun + hr + ortalanmış logo, telif satırı, sosyal simgeler) -->
+  <footer class="site-footer bg-white dark:bg-gray-800">
+    <div class="max-w-screen-xl p-4 py-6 mx-auto lg:py-16 md:p-8 lg:p-10">
+      <div class="grid grid-cols-2 gap-8 md:grid-cols-3 lg:grid-cols-5">
+        <nav data-i18n-attr="aria-label:footer.clinic" aria-label="Klinik">
+          <h2 class="{{c:fH}}" data-i18n="footer.clinic">Klinik</h2>
+          <ul class="{{c:fUl}}">
+            <li class="mb-4"><a href="{{h}}#hizmetler" class="hover:underline" data-i18n="nav.services">Hizmetler</a></li>
+            <li class="mb-4"><a href="{{h}}#uzmanlar" class="hover:underline" data-i18n="nav.team">Uzmanlar</a></li>
+            <li class="mb-4"><a href="{{h}}#ucretler" class="hover:underline" data-i18n="nav.pricing">Ücretler</a></li>
+            <li class="mb-4"><a href="{{h}}#randevu" class="hover:underline" data-i18n="nav.book">Randevu al</a></li>
+          </ul>
+        </nav>
+        <nav data-i18n-attr="aria-label:footer.resources" aria-label="Kaynaklar">
+          <h2 class="{{c:fH}}" data-i18n="footer.resources">Kaynaklar</h2>
+          <ul class="{{c:fUl}}">
+            <li class="mb-4"><a href="{{h}}#araclar" class="hover:underline" data-i18n="footer.bmi">VKİ ve kalori hesaplama</a></li>
+            <li class="mb-4"><a href="{{h}}#program" class="hover:underline" data-i18n="nav.program">Örnek program</a></li>
+            <li class="mb-4"><a href="{{h}}#tarifler" class="hover:underline" data-i18n="nav.recipes">Tarifler</a></li>
+            <li class="mb-4"><a href="{{blog}}" class="hover:underline" data-i18n="nav.blog">Blog</a></li>
+          </ul>
+        </nav>
+        <nav data-i18n-attr="aria-label:footer.help" aria-label="Yardım">
+          <h2 class="{{c:fH}}" data-i18n="footer.help">Yardım</h2>
+          <ul class="{{c:fUl}}">
+            <li class="mb-4"><button type="button" class="hover:underline" data-open-chat data-i18n="footer.assistant">Canlı asistan</button></li>
+            <li class="mb-4"><a href="https://wa.me/905555555555" target="_blank" rel="noopener noreferrer" class="hover:underline" data-wa>WhatsApp</a></li>
+            <li class="mb-4"><a href="{{h}}#sss" class="hover:underline" data-i18n="nav.faq">SSS</a></li>
+            <li class="mb-4"><a href="{{h}}#iletisim" class="hover:underline" data-i18n="nav.contact">İletişim</a></li>
+          </ul>
+        </nav>
+        <div>
+          <h2 class="{{c:fH}}" data-i18n="footer.contact">Adres ve iletişim</h2>
+          <ul class="{{c:fUl}}">
+            <li class="mb-4" data-address>Moda Cad. No: 48, Kat 3, Kadıköy / İstanbul</li>
+            <li class="mb-4"><a href="tel:+905555555555" class="hover:underline" data-tel data-phone-text>0555 555 55 55</a></li>
+            <li class="mb-4"><a href="https://instagram.com/mizanbeslenme" target="_blank" rel="noopener noreferrer" class="hover:underline">Instagram</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="{{c:fH}}" data-i18n="footer.lang">Dil</h2>
+          <ul class="{{c:fUl}}">
+            <li class="mb-4"><button type="button" class="hover:underline aria-pressed:font-semibold aria-pressed:text-gray-900 dark:aria-pressed:text-white" data-lang="tr" aria-pressed="true" lang="tr">Türkçe</button></li>
+            <li class="mb-4"><button type="button" class="hover:underline aria-pressed:font-semibold aria-pressed:text-gray-900 dark:aria-pressed:text-white" data-lang="en" aria-pressed="false" lang="en">English</button></li>
+          </ul>
+        </div>
+      </div>
+      <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8">
+      <div class="text-center">
+        <a href="{{h}}#top" class="flex items-center justify-center mb-5 text-2xl font-semibold text-gray-900 dark:text-white" data-i18n-attr="aria-label:a11y.home" aria-label="Mizan Beslenme ana sayfa">
+          <img src="{{r}}assets/icons/favicon.svg" class="h-6 mr-3 sm:h-9" width="36" height="36" alt="">
+          <span translate="no">Mizan</span>
+        </a>
+        <p class="block text-sm text-center text-gray-500 dark:text-gray-400">© <span data-year>2026</span> Mizan Beslenme · <a href="{{r}}kvkk.html" class="text-purple-600 underline hover:no-underline dark:text-purple-400" data-i18n="footer.kvkk">KVKK aydınlatma metni</a></p>
+        <p class="max-w-screen-md mx-auto mt-3 text-sm font-light text-gray-500 dark:text-gray-400" data-i18n="footer.disclaimer">Bu sitedeki içerikler genel bilgilendirme amaçlıdır; tanı ve tedavinin yerine geçmez. Sağlık sorunlarınız için hekiminize danışın, acil durumlarda 112’yi arayın.</p>
+        <ul class="flex items-center justify-center mt-5 space-x-5">
+          <li>
+            <a href="https://instagram.com/mizanbeslenme" target="_blank" rel="noopener noreferrer" class="{{c:fSocial}}" aria-label="Instagram">
+              <svg data-icon="lw:46" class="w-5 h-5"></svg>
+            </a>
+          </li>
+          <li>
+            <a href="{{h}}#top" class="{{c:fSocial}}" data-i18n-attr="aria-label:footer.top" aria-label="Başa dön">
+              <svg data-icon="arrow-up" class="w-5 h-5"></svg>
+            </a>
+          </li>
+        </ul>
+        <p class="mt-5 text-sm text-gray-500 dark:text-gray-400"><a class="inline-flex items-center gap-2 hover:text-gray-900 dark:hover:text-white" href="https://www.asteriasoft.co/" target="_blank" rel="noopener"><span lang="en">Designed by</span> {{asteria}}</a></p>
+      </div>
+    </div>
+  </footer>

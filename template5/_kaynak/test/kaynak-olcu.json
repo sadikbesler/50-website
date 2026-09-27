@@ -1,0 +1,166 @@
+{
+  "390": [
+    {
+      "ad": "header",
+      "h": 60,
+      "h1": null,
+      "h2": null,
+      "h3": null,
+      "p": null
+    },
+    {
+      "ad": "hero",
+      "h": 428,
+      "h1": 36,
+      "h2": null,
+      "h3": null,
+      "p": 16
+    },
+    {
+      "ad": "logolar",
+      "h": 204,
+      "h1": null,
+      "h2": null,
+      "h3": null,
+      "p": null
+    },
+    {
+      "ad": "ozellik",
+      "h": 1042,
+      "h1": null,
+      "h2": 30,
+      "h3": null,
+      "p": 16
+    },
+    {
+      "ad": "istatistik",
+      "h": 1037,
+      "h1": null,
+      "h2": 30,
+      "h3": 24,
+      "p": 18
+    },
+    {
+      "ad": "alinti",
+      "h": 312,
+      "h1": null,
+      "h2": null,
+      "h3": null,
+      "p": 20
+    },
+    {
+      "ad": "fiyat",
+      "h": 1862,
+      "h1": null,
+      "h2": 30,
+      "h3": 24,
+      "p": 16
+    },
+    {
+      "ad": "sss",
+      "h": 629,
+      "h1": null,
+      "h2": 30,
+      "h3": 16,
+      "p": 16
+    },
+    {
+      "ad": "cta",
+      "h": 214,
+      "h1": null,
+      "h2": 30,
+      "h3": null,
+      "p": 16
+    },
+    {
+      "ad": "footer",
+      "h": 905,
+      "h1": null,
+      "h2": null,
+      "h3": 14,
+      "p": null
+    }
+  ],
+  "1440": [
+    {
+      "ad": "header",
+      "h": 62,
+      "h1": null,
+      "h2": null,
+      "h3": null,
+      "p": null
+    },
+    {
+      "ad": "hero",
+      "h": 583,
+      "h1": 60,
+      "h2": null,
+      "h3": null,
+      "p": 20
+    },
+    {
+      "ad": "logolar",
+      "h": 100,
+      "h1": null,
+      "h2": null,
+      "h3": null,
+      "p": null
+    },
+    {
+      "ad": "ozellik",
+      "h": 1162,
+      "h1": null,
+      "h2": 30,
+      "h3": null,
+      "p": 20
+    },
+    {
+      "ad": "istatistik",
+      "h": 528,
+      "h1": null,
+      "h2": 30,
+      "h3": 24,
+      "p": 18
+    },
+    {
+      "ad": "alinti",
+      "h": 396,
+      "h1": null,
+      "h2": null,
+      "h3": null,
+      "p": 24
+    },
+    {
+      "ad": "fiyat",
+      "h": 886,
+      "h1": null,
+      "h2": 30,
+      "h3": 24,
+      "p": 20
+    },
+    {
+      "ad": "sss",
+      "h": 569,
+      "h1": null,
+      "h2": 30,
+      "h3": 16,
+      "p": 16
+    },
+    {
+      "ad": "cta",
+      "h": 258,
+      "h1": null,
+      "h2": 30,
+      "h3": null,
+      "p": 18
+    },
+    {
+      "ad": "footer",
+      "h": 513,
+      "h1": null,
+      "h2": null,
+      "h3": 14,
+      "p": null
+    }
+  ]
+}

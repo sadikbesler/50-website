@@ -1,0 +1,247 @@
+<body class="bg-white dark:bg-gray-900">
+<!-- @parca header -->
+
+  <main id="main">
+
+    <!-- ================= S2 · Landwind hero ("Building digital products & brands") =================
+         Sağdaki images/hero.png (1064×832) yerine hero-gezegen-son.jpg aynı kutu ve object-cover ile. "View on GitHub" / "Get Figma file"
+         düğmelerinin yerinde "Randevu al" / "VKİ'nizi hesaplayın" (aynı sınıflar). #next-slot: components/card "Card with CTA button". -->
+    <section id="top" class="bg-white dark:bg-gray-900" aria-labelledby="hero-title">
+      <div class="grid max-w-screen-xl px-4 pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-28">
+        <div class="mr-auto place-self-center lg:col-span-7">
+          <h1 id="hero-title" class="max-w-2xl mb-4 text-4xl font-extrabold leading-none tracking-tight md:text-5xl xl:text-6xl dark:text-white" data-i18n="hero.title">Sofranıza uyan bir beslenme planı.</h1>
+          <p class="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400" data-i18n="hero.lede">İlk görüşmede tahlillerinize bakıyor ve vücut analizi yapıyoruz. Planınız iş saatlerinize ve sevdiğiniz yemeklere göre hazırlanıyor, kontrol görüşmelerinde birlikte güncelleniyor.</p>
+          <div class="hero-bottom">
+            <div class="space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
+              <a href="#randevu" class="inline-flex items-center justify-center w-full px-5 py-3 text-sm font-medium text-center text-gray-900 border border-gray-200 rounded-lg sm:w-auto hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+                <svg data-icon="calendar-month" class="w-4 h-4 mr-2 text-gray-500 dark:text-gray-400"></svg><span data-i18n="hero.cta1">Randevu al</span>
+              </a>
+              <a href="#araclar" class="inline-flex items-center justify-center w-full px-5 py-3 mb-2 mr-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:w-auto focus:outline-none hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                <svg data-icon="chart-pie" class="w-4 h-4 mr-2"></svg><span data-i18n="hero.cta2">VKİ’nizi hesaplayın</span>
+              </a>
+            </div>
+            <aside id="next-slot" class="flex flex-col gap-4 max-w-xl p-5 mt-4 bg-white border border-gray-200 rounded-lg shadow sm:flex-row sm:items-center sm:justify-between dark:bg-gray-800 dark:border-gray-700" aria-live="polite" data-i18n-attr="aria-label:next.aria" aria-label="En yakın uygun randevu">
+              <div>
+                <p class="flex items-center text-sm font-medium text-gray-500 dark:text-gray-400"><span class="flex w-2.5 h-2.5 mr-2 bg-green-500 rounded-full" aria-hidden="true"></span><span data-i18n="next.label">En yakın uygun randevu</span></p>
+                <p class="mt-1 text-2xl font-bold tracking-tight text-gray-900 dark:text-white" data-next-time><span data-i18n="next.loading">Takvim kontrol ediliyor…</span></p>
+                <p class="text-sm font-normal text-gray-700 dark:text-gray-400" data-next-meta>&nbsp;</p>
+              </div>
+              <a href="#randevu" data-next-book class="inline-flex items-center self-start px-3 py-2 text-sm font-medium text-center text-white bg-purple-700 rounded-lg shrink-0 sm:self-auto hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800"><span data-i18n="next.book">Bu saati ayır</span><svg data-icon="fb:card-image-example:1" class="rtl:rotate-180 w-3.5 h-3.5 ml-2"></svg></a>
+            </aside>
+          </div>
+        </div>
+        <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
+          <img src="assets/img/hero-gezegen-son.jpg" width="1064" height="832" class="object-cover" fetchpriority="high" decoding="async" alt="Sebzelerle dolu küçük bir gezegende dev bir elmayı sulayan diyetisyen" data-i18n-attr="alt:hero.canvas">
+        </div>
+      </div>
+    </section>
+
+    <!-- Landwind'in logo bulutu bloğu (airbnb, Google, Microsoft…) sahte marka logosu olduğu için kaldırıldı (ortak kurallar 0.5). -->
+
+    <!-- ================= Landwind özellik bloğu: satır 1 → S4 hizmetler, satır 2 → S6 yaklaşım ================= -->
+    <div class="bg-gray-50 dark:bg-gray-800">
+      <div class="max-w-screen-xl px-4 py-8 mx-auto space-y-12 lg:space-y-20 lg:py-24 lg:px-6">
+        <!-- Row -->
+        <section id="hizmetler" class="items-center gap-8 lg:grid lg:grid-cols-2 xl:gap-16" aria-labelledby="services-title">
+          <div class="text-gray-500 sm:text-lg dark:text-gray-400">
+            <h2 id="services-title" class="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white" data-i18n="services.title">Çalıştığımız alanlar</h2>
+            <p class="mb-8 font-light lg:text-xl" data-i18n="services.lede">Hazır listeler dağıtmıyoruz. Yaşınızı, hareket düzeninizi, tahlil sonuçlarınızı ve mutfağınızda gerçekten ne olduğunu konuşarak başlıyoruz.</p>
+            <!-- List -->
+            <ul role="list" class="pt-8 space-y-5 border-t border-gray-200 my-7 dark:border-gray-700">
+{{hizmetler}}
+            </ul>
+          </div>
+          <img class="hidden w-full mb-4 rounded-lg lg:mb-0 lg:flex" src="assets/img/hizmet-kilo-1200.webp" srcset="assets/img/hizmet-kilo-700.webp 700w, assets/img/hizmet-kilo-1200.webp 1200w" sizes="(min-width: 1024px) 600px, 100vw" width="1200" height="900" loading="lazy" decoding="async" alt="Beyaz bir tartının üzerinde çıplak ayaklar" data-i18n-attr="alt:s1.alt">
+        </section>
+        <!-- Row -->
+        <section id="yaklasim" class="items-center gap-8 lg:grid lg:grid-cols-2 xl:gap-16" aria-labelledby="process-title">
+          <img class="hidden w-full mb-4 rounded-lg lg:mb-0 lg:flex" src="assets/img/surec-mutfak-1200.webp" srcset="assets/img/surec-mutfak-700.webp 700w, assets/img/surec-mutfak-1200.webp 1200w" sizes="(min-width: 1024px) 600px, 100vw" width="1200" height="900" loading="lazy" decoding="async" alt="Kesme tahtasında taze maydanoz doğrayan eller" data-i18n-attr="alt:process.alt">
+          <div class="text-gray-500 sm:text-lg dark:text-gray-400">
+            <h2 id="process-title" class="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white" data-i18n="process.title">Görüşmeler nasıl ilerliyor?</h2>
+            <p class="mb-8 font-light lg:text-xl" data-i18n="process.lede">Plan ilk görüşmede bitmiyor. Bayram sofrası, tatil ya da yoğun bir iş haftası geldiğinde kontrol görüşmesinde birlikte güncelliyoruz.</p>
+            <!-- List -->
+            <ol role="list" class="pt-8 space-y-5 border-t border-gray-200 my-7 dark:border-gray-700">
+{{adimlar}}
+            </ol>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- ================= S3 · Landwind istatistik bloğu ("Trusted by over 600 million users…") ================= -->
+    <section class="facts bg-white dark:bg-gray-900" aria-labelledby="facts-title">
+      <div class="items-center max-w-screen-xl px-4 py-8 mx-auto lg:grid lg:grid-cols-4 lg:gap-16 xl:gap-24 lg:py-24 lg:px-6">
+        <div class="col-span-2 mb-8">
+          <p class="text-lg font-medium text-purple-600 dark:text-purple-400" data-i18n="facts.place">Moda, Kadıköy</p>
+          <h2 id="facts-title" class="mt-3 mb-4 text-3xl font-extrabold tracking-tight text-gray-900 md:text-3xl dark:text-white" data-i18n="facts.title">Moda’da, tek çatı altında üç diyetisyen</h2>
+          <p class="font-light text-gray-500 sm:text-xl dark:text-gray-400" data-i18n="footer.aboutText">2014’ten beri Kadıköy’de yüz yüze, 2020’den beri online beslenme danışmanlığı veren diyet kliniği.</p>
+          <div class="pt-6 mt-6 space-y-4 border-t border-gray-200 dark:border-gray-700">
+            <div>
+              <a href="#uzmanlar" class="{{c:lwLink}}">
+                <span data-i18n="facts.link1">Diyetisyenlerimizi tanıyın</span>
+                <svg data-icon="lw:19" class="w-5 h-5 ml-1"></svg>
+              </a>
+            </div>
+            <div>
+              <a href="https://www.google.com/maps/search/?api=1&amp;query=Moda+Caddesi+Kad%C4%B1k%C3%B6y+%C4%B0stanbul" target="_blank" rel="noopener noreferrer" data-maps class="{{c:lwLink}}">
+                <span data-i18n="contact.directions">Google Haritalar’da yol tarifi al</span>
+                <svg data-icon="lw:20" class="w-5 h-5 ml-1"></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        <ul class="col-span-2 space-y-8 md:grid md:grid-cols-2 md:gap-12 md:space-y-0">
+          <li>
+            <svg data-icon="award" data-v="solid" class="{{c:statIcon}}"></svg>
+            <h3 class="mb-2 text-2xl font-bold dark:text-white">12 <span data-i18n="facts.1u">yıl</span></h3>
+            <p class="font-light text-gray-500 dark:text-gray-400" data-i18n="facts.1">klinik beslenme deneyimi</p>
+          </li>
+          <li>
+            <svg data-icon="lw:22" class="{{c:statIcon}}"></svg>
+            <h3 class="mb-2 text-2xl font-bold dark:text-white">3 <span data-i18n="facts.2u">uzman</span></h3>
+            <p class="font-light text-gray-500 dark:text-gray-400" data-i18n="facts.2">diyetisyen, tek çatı altında</p>
+          </li>
+          <li>
+            <svg data-icon="clock" data-v="solid" class="{{c:statIcon}}"></svg>
+            <h3 class="mb-2 text-2xl font-bold dark:text-white">60 <span data-i18n="facts.3u">dk</span></h3>
+            <p class="font-light text-gray-500 dark:text-gray-400" data-i18n="facts.3">ilk görüşme ve vücut analizi</p>
+          </li>
+          <li>
+            <svg data-icon="calendar-month" data-v="solid" class="{{c:statIcon}}"></svg>
+            <h3 class="mb-2 text-2xl font-bold dark:text-white">7 <span data-i18n="facts.4u">gün</span></h3>
+            <p class="font-light text-gray-500 dark:text-gray-400" data-i18n="facts.4">içinde ilk kontrol, sonra haftalık takip</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ================= Landwind alıntı bloğu (figure/blockquote) → Uzm. Dyt. Selin Karaca'nın yaklaşım alıntısı (danışan yorumu değil) ================= -->
+    <section class="bg-gray-50 dark:bg-gray-800" data-i18n-attr="aria-label:quote.aria" aria-label="Kurucumuzdan">
+      <div class="max-w-screen-xl px-4 py-8 mx-auto text-center lg:py-24 lg:px-6">
+        <figure class="max-w-screen-md mx-auto">
+          <svg data-icon="lw:25" class="h-12 mx-auto mb-3 text-gray-400 dark:text-gray-600"></svg>
+          <blockquote>
+            <p class="text-xl font-medium text-gray-900 md:text-2xl dark:text-white" data-i18n="process.quote">“Danışanlarımın çoğu ne yemesi gerektiğini aşağı yukarı biliyor. Zorlandıkları an, akşam işten aç çıktıkları saat. Planı önce o saate göre kuruyoruz.”</p>
+          </blockquote>
+          <figcaption class="flex items-center justify-center mt-6 space-x-3">
+            <img class="w-6 h-6 rounded-full object-cover" src="assets/img/uzman-selin-560.webp" width="24" height="24" loading="lazy" decoding="async" alt="">
+            <div class="flex items-center divide-x-2 divide-gray-500 dark:divide-gray-700">
+              <div class="pr-3 font-medium text-gray-900 dark:text-white" data-i18n="team.selin.name">Uzm. Dyt. Selin Karaca</div>
+              <div class="pl-3 text-sm font-light text-gray-500 dark:text-gray-400" data-i18n="process.quoteRole">kurucu</div>
+            </div>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ================= S7 · Yöntem (manifesto) — Landwind ortalanmış başlık kalıbı + istatistik bloğunun rakam tipografisi ================= -->
+    <section id="manifesto" class="bg-white dark:bg-gray-900" aria-labelledby="manifesto-title">
+      <div class="max-w-screen-xl px-4 py-8 mx-auto text-center lg:py-24 lg:px-6">
+        <p class="text-lg font-medium text-purple-600 dark:text-purple-400" data-i18n="scene.label">Yöntem</p>
+        <h2 id="manifesto-title" class="max-w-screen-md mx-auto mt-3 mb-8 text-3xl font-extrabold tracking-tight text-gray-900 md:text-4xl dark:text-white lg:mb-12">
+          <span class="block" data-i18n="scene.l1">Tek bir hafta için değil.</span>
+          <span class="block" data-i18n="scene.l2">Bayram sofrası için de,</span>
+          <span class="block" data-i18n="scene.l3">yorgun bir salı akşamı için de</span>
+          <span class="block"><em class="not-italic text-purple-600 dark:text-purple-400" data-i18n="scene.l4">çalışan bir plan.</em></span>
+        </h2>
+        <ul class="grid max-w-screen-md gap-8 pt-8 mx-auto border-t border-gray-200 sm:grid-cols-3 dark:border-gray-700">
+          <li><p class="mb-2 text-2xl font-bold text-gray-900 dark:text-white" data-i18n="scene.f1n">60 dk</p><p class="font-light text-gray-500 dark:text-gray-400" data-i18n="scene.f1">ilk görüşme</p></li>
+          <li><p class="mb-2 text-2xl font-bold text-gray-900 dark:text-white" data-i18n="scene.f2n">48 saat</p><p class="font-light text-gray-500 dark:text-gray-400" data-i18n="scene.f2">içinde kişisel plan</p></li>
+          <li><p class="mb-2 text-2xl font-bold text-gray-900 dark:text-white" data-i18n="scene.f3n">Haftalık</p><p class="font-light text-gray-500 dark:text-gray-400" data-i18n="scene.f3">kontrol ve mesaj desteği</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ================= S5 · Mevsim notları — components/gallery "Default gallery" + Landwind ortalanmış başlık ================= -->
+    <section class="notes-panel bg-gray-50 dark:bg-gray-800" aria-labelledby="notes-title">
+      <div class="{{c:wrap}}">
+        <div class="{{c:headC}}">
+          <p class="text-lg font-medium text-purple-600 dark:text-purple-400" data-i18n="notes.eyebrow">Eylül ve ekim</p>
+          <h2 id="notes-title" class="mt-3 {{c:h2}}" data-i18n="notes.title">Tezgâhlarda incir, nar ve ceviz zamanı.</h2>
+          <div class="flex flex-wrap justify-center gap-3">
+            <a href="#tarifler" class="{{c:btnAlt}}" data-i18n="notes.p1">Tarifler</a>
+            <a href="#program" class="{{c:btnAlt}}" data-i18n="notes.p2">Örnek program</a>
+            <a href="#blog" class="{{c:btnAlt}}" data-i18n="notes.p3">Yazılar</a>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-4 md:grid-cols-4 lg:grid-cols-7">
+{{notlar}}
+        </div>
+      </div>
+    </section>
+
+<!-- @parca uzmanlar -->
+<!-- @parca araclar -->
+<!-- @parca ucretler -->
+<!-- @parca randevu -->
+<!-- @parca tarifler -->
+<!-- @parca program -->
+
+    <!-- ================= S15 · Landwind SSS bloğu (Flowbite data-accordion, "accordion-flush") ================= -->
+    <section id="sss" class="bg-white dark:bg-gray-900" aria-labelledby="faq-title">
+      <div class="max-w-screen-xl px-4 pt-8 pb-8 mx-auto lg:pt-24 lg:pb-24 lg:px-6">
+        <h2 id="faq-title" class="mb-6 text-3xl font-extrabold tracking-tight text-center text-gray-900 lg:mb-8 lg:text-3xl dark:text-white" data-i18n="faq.title">Sık sorulan sorular</h2>
+        <div class="max-w-screen-md mx-auto">
+          <div id="accordion-flush" data-accordion="collapse" data-active-classes="bg-white dark:bg-gray-900 text-gray-900 dark:text-white" data-inactive-classes="text-gray-500 dark:text-gray-400" data-faq-list>
+{{sss}}
+          </div>
+          <div class="mt-8 text-center">
+            <p class="mb-4 font-light text-gray-500 dark:text-gray-400" data-i18n="faq.help">Cevabını bulamadığınız bir soru mu var? Asistanımıza yazın ya da WhatsApp’tan ulaşın; mesai saatlerinde bir diyetisyen yanıtlıyor.</p>
+            <div class="flex flex-wrap justify-center gap-3">
+              <button type="button" class="{{c:btn}}" data-open-chat data-i18n="faq.chat">Asistana sorun</button>
+              <a class="{{c:btnAlt}}" href="https://wa.me/905555555555" target="_blank" rel="noopener noreferrer" data-wa>WhatsApp</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= Landwind CTA bloğu ("Start your free trial today") → randevu çağrısı ================= -->
+    <section class="bg-gray-50 dark:bg-gray-800" aria-labelledby="cta-title">
+      <div class="max-w-screen-xl px-4 py-8 mx-auto lg:py-16 lg:px-6">
+        <div class="max-w-screen-sm mx-auto text-center">
+          <h2 id="cta-title" class="mb-4 text-3xl font-extrabold leading-tight tracking-tight text-gray-900 dark:text-white" data-i18n="cta.title">İlk görüşmenizi bugün planlayın</h2>
+          <p class="mb-6 font-light text-gray-500 dark:text-gray-400 md:text-lg" data-i18n="cta.text">İlk görüşme 60 dakika; vücut analizi dahil.</p>
+          <a href="#randevu" data-book-type="first" class="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 focus:outline-none dark:focus:ring-purple-800" data-i18n="plan1.btn">İlk görüşmeyi planla</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= S14 · Blog — components/card "Card with image" × 6 + Landwind ortalanmış başlık ================= -->
+    <section id="blog" class="bg-white dark:bg-gray-900" aria-labelledby="blog-title">
+      <div class="{{c:wrap}}">
+        <div class="{{c:headC}}">
+          <h2 id="blog-title" class="{{c:h2}}" data-i18n="blog.title">Son yazılar</h2>
+          <p class="{{c:lede}}" data-i18n="blog.lede">Danışanlarımızın en sık sorduğu konuları, güncel bilimsel kaynaklara dayanarak yazıyoruz.</p>
+          <a href="blog/" class="{{c:lwLink}}"><span data-i18n="article.back">Tüm yazılar</span><svg data-icon="lw:19" class="w-5 h-5 ml-1"></svg></a>
+        </div>
+        <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+{{blogkartlari}}
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= S16 · "afiyet olsun" — Landwind özellik satırı kalıbı (görsel + metin), sofra-1000/2000 ================= -->
+    <section class="sky bg-gray-50 dark:bg-gray-800" aria-labelledby="sky-title">
+      <div class="items-center max-w-screen-xl gap-8 px-4 py-8 mx-auto lg:grid lg:grid-cols-2 xl:gap-16 lg:py-24 lg:px-6">
+        <img class="w-full mb-8 rounded-lg lg:mb-0" src="assets/img/sofra-1000.webp" srcset="assets/img/sofra-1000.webp 1000w, assets/img/sofra-2000.webp 2000w" sizes="(min-width: 1024px) 600px, 100vw" width="2000" height="1333" loading="lazy" decoding="async" alt="Mermer masada yulaf lapası, meyveler ve waffle ile hazırlanmış kahvaltı" data-i18n-attr="alt:sky.alt">
+        <div class="text-gray-500 sm:text-lg dark:text-gray-400">
+          <p class="text-lg font-medium text-purple-600 dark:text-purple-400" data-i18n="sky.word">afiyet olsun</p>
+          <h2 id="sky-title" class="mt-3 mb-8 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white" data-i18n="sky.title">Planınızla ilgili sorularınızı WhatsApp’tan yazabilirsiniz; mesai saatlerinde bir diyetisyen yanıtlıyor.</h2>
+          <div class="flex flex-wrap gap-3 pt-8 border-t border-gray-200 dark:border-gray-700">
+            <a class="{{c:btn}}" href="https://wa.me/905555555555" target="_blank" rel="noopener noreferrer" data-wa><svg data-icon="whatsapp" data-v="solid" class="w-4 h-4"></svg>WhatsApp</a>
+            <a class="{{c:btnAlt}}" href="tel:+905555555555" data-tel><svg data-icon="phone" class="w-4 h-4"></svg><span data-i18n="sky.call">Bizi arayın</span></a>
+            <a class="{{c:btnAlt}}" href="https://www.google.com/maps/search/?api=1&amp;query=Moda+Caddesi+Kad%C4%B1k%C3%B6y+%C4%B0stanbul" target="_blank" rel="noopener noreferrer" data-maps><svg data-icon="map-pin" class="w-4 h-4"></svg><span data-i18n="sky.map">Yol tarifi</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<!-- @parca iletisim -->
+  </main>
+
+<!-- @parca footer -->
+
+<!-- @parca dialoglar -->
+<!-- @parca sohbet -->
+</body>

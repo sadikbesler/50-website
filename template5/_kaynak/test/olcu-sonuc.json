@@ -1,0 +1,336 @@
+{
+  "sonuc": {
+    "390": {
+      "header": {
+        "h": 60,
+        "h1": null,
+        "h2": null,
+        "h3": null,
+        "p": null
+      },
+      "hero": {
+        "h": 614,
+        "h1": 36,
+        "h2": null,
+        "h3": null,
+        "p": 16
+      },
+      "ozellik": {
+        "h": 1258,
+        "h1": null,
+        "h2": 30,
+        "h3": null,
+        "p": 16
+      },
+      "istatistik": {
+        "h": 929,
+        "h1": null,
+        "h2": 30,
+        "h3": 24,
+        "p": 18
+      },
+      "alinti": {
+        "h": 312,
+        "h1": null,
+        "h2": null,
+        "h3": null,
+        "p": 20
+      },
+      "fiyat": {
+        "h": 3631,
+        "h1": null,
+        "h2": 30,
+        "h3": 24,
+        "p": 16,
+        "hLandwind": 1706
+      },
+      "sss": {
+        "h": 1273,
+        "h1": null,
+        "h2": 30,
+        "h3": 16,
+        "p": 16
+      },
+      "cta": {
+        "h": 227,
+        "h1": null,
+        "h2": 30,
+        "h3": null,
+        "p": 16
+      },
+      "footer": {
+        "h": 949,
+        "h1": null,
+        "h2": 14,
+        "h3": 14,
+        "p": 14
+      }
+    },
+    "1440": {
+      "header": {
+        "h": 60,
+        "h1": null,
+        "h2": null,
+        "h3": null,
+        "p": null
+      },
+      "hero": {
+        "h": 608,
+        "h1": 60,
+        "h2": null,
+        "h3": null,
+        "p": 20
+      },
+      "ozellik": {
+        "h": 1342,
+        "h1": null,
+        "h2": 30,
+        "h3": null,
+        "p": 20
+      },
+      "istatistik": {
+        "h": 485,
+        "h1": null,
+        "h2": 30,
+        "h3": 24,
+        "p": 18
+      },
+      "alinti": {
+        "h": 396,
+        "h1": null,
+        "h2": null,
+        "h3": null,
+        "p": 24
+      },
+      "fiyat": {
+        "h": 1807,
+        "h1": null,
+        "h2": 30,
+        "h3": 24,
+        "p": 20,
+        "hLandwind": 846
+      },
+      "sss": {
+        "h": 1169,
+        "h1": null,
+        "h2": 30,
+        "h3": 16,
+        "p": 16
+      },
+      "cta": {
+        "h": 258,
+        "h1": null,
+        "h2": 30,
+        "h3": null,
+        "p": 18
+      },
+      "footer": {
+        "h": 605,
+        "h1": null,
+        "h2": 14,
+        "h3": 14,
+        "p": 14
+      }
+    }
+  },
+  "satirlar": [
+    {
+      "w": "1440",
+      "ad": "header",
+      "kaynak": 62,
+      "sonuc": 60,
+      "tumBolum": 60,
+      "fark": -3.2,
+      "yukseklikOk": true,
+      "tip": "",
+      "tipOk": true
+    },
+    {
+      "w": "1440",
+      "ad": "hero",
+      "kaynak": 583,
+      "sonuc": 608,
+      "tumBolum": 608,
+      "fark": 4.3,
+      "yukseklikOk": true,
+      "tip": "h1 60→60, p 20→20",
+      "tipOk": true
+    },
+    {
+      "w": "1440",
+      "ad": "ozellik",
+      "kaynak": 1162,
+      "sonuc": 1342,
+      "tumBolum": 1342,
+      "fark": 15.5,
+      "yukseklikOk": false,
+      "tip": "h2 30→30, p 20→20",
+      "tipOk": true
+    },
+    {
+      "w": "1440",
+      "ad": "istatistik",
+      "kaynak": 528,
+      "sonuc": 485,
+      "tumBolum": 485,
+      "fark": -8.1,
+      "yukseklikOk": false,
+      "tip": "h2 30→30, h3 24→24, p 18→18",
+      "tipOk": true
+    },
+    {
+      "w": "1440",
+      "ad": "alinti",
+      "kaynak": 396,
+      "sonuc": 396,
+      "tumBolum": 396,
+      "fark": 0,
+      "yukseklikOk": true,
+      "tip": "p 24→24",
+      "tipOk": true
+    },
+    {
+      "w": "1440",
+      "ad": "fiyat",
+      "kaynak": 886,
+      "sonuc": 846,
+      "tumBolum": 1807,
+      "fark": -4.5,
+      "yukseklikOk": true,
+      "tip": "h2 30→30, h3 24→24, p 20→20",
+      "tipOk": true
+    },
+    {
+      "w": "1440",
+      "ad": "sss",
+      "kaynak": 569,
+      "sonuc": 1169,
+      "tumBolum": 1169,
+      "fark": 105.4,
+      "yukseklikOk": false,
+      "tip": "h2 30→30, h3 16→16, p 16→16",
+      "tipOk": true
+    },
+    {
+      "w": "1440",
+      "ad": "cta",
+      "kaynak": 258,
+      "sonuc": 258,
+      "tumBolum": 258,
+      "fark": 0,
+      "yukseklikOk": true,
+      "tip": "h2 30→30, p 18→18",
+      "tipOk": true
+    },
+    {
+      "w": "1440",
+      "ad": "footer",
+      "kaynak": 513,
+      "sonuc": 605,
+      "tumBolum": 605,
+      "fark": 17.9,
+      "yukseklikOk": false,
+      "tip": "h3 14→14",
+      "tipOk": true
+    },
+    {
+      "w": "390",
+      "ad": "header",
+      "kaynak": 60,
+      "sonuc": 60,
+      "tumBolum": 60,
+      "fark": 0,
+      "yukseklikOk": true,
+      "tip": "",
+      "tipOk": true
+    },
+    {
+      "w": "390",
+      "ad": "hero",
+      "kaynak": 428,
+      "sonuc": 614,
+      "tumBolum": 614,
+      "fark": 43.5,
+      "yukseklikOk": false,
+      "tip": "h1 36→36, p 16→16",
+      "tipOk": true
+    },
+    {
+      "w": "390",
+      "ad": "ozellik",
+      "kaynak": 1042,
+      "sonuc": 1258,
+      "tumBolum": 1258,
+      "fark": 20.7,
+      "yukseklikOk": false,
+      "tip": "h2 30→30, p 16→16",
+      "tipOk": true
+    },
+    {
+      "w": "390",
+      "ad": "istatistik",
+      "kaynak": 1037,
+      "sonuc": 929,
+      "tumBolum": 929,
+      "fark": -10.4,
+      "yukseklikOk": false,
+      "tip": "h2 30→30, h3 24→24, p 18→18",
+      "tipOk": true
+    },
+    {
+      "w": "390",
+      "ad": "alinti",
+      "kaynak": 312,
+      "sonuc": 312,
+      "tumBolum": 312,
+      "fark": 0,
+      "yukseklikOk": true,
+      "tip": "p 20→20",
+      "tipOk": true
+    },
+    {
+      "w": "390",
+      "ad": "fiyat",
+      "kaynak": 1862,
+      "sonuc": 1706,
+      "tumBolum": 3631,
+      "fark": -8.4,
+      "yukseklikOk": false,
+      "tip": "h2 30→30, h3 24→24, p 16→16",
+      "tipOk": true
+    },
+    {
+      "w": "390",
+      "ad": "sss",
+      "kaynak": 629,
+      "sonuc": 1273,
+      "tumBolum": 1273,
+      "fark": 102.4,
+      "yukseklikOk": false,
+      "tip": "h2 30→30, h3 16→16, p 16→16",
+      "tipOk": true
+    },
+    {
+      "w": "390",
+      "ad": "cta",
+      "kaynak": 214,
+      "sonuc": 227,
+      "tumBolum": 227,
+      "fark": 6.1,
+      "yukseklikOk": false,
+      "tip": "h2 30→30, p 16→16",
+      "tipOk": true
+    },
+    {
+      "w": "390",
+      "ad": "footer",
+      "kaynak": 905,
+      "sonuc": 949,
+      "tumBolum": 949,
+      "fark": 4.9,
+      "yukseklikOk": true,
+      "tip": "h3 14→14",
+      "tipOk": true
+    }
+  ]
+}

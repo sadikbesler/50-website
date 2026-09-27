@@ -1,0 +1,45 @@
+  <!-- S19 · Sohbet kabuğu: components/drawer "Default drawer" görünümü (sağdan açılır) · balonlar: components/chat-bubble "Default chat bubble" (tw.css)
+       Aç/kapat chat.js'te; Flowbite drawer JS'i kullanılmaz. -->
+  <aside class="floating-actions" data-i18n-attr="aria-label:a11y.floating" aria-label="Hızlı iletişim">
+    <a class="fab fab-wa" href="https://wa.me/905555555555" target="_blank" rel="noopener noreferrer" data-wa data-i18n-attr="aria-label:a11y.wa" aria-label="WhatsApp üzerinden yazın">
+      <svg data-icon="whatsapp" data-v="solid" class="w-6 h-6"></svg>
+    </a>
+
+    <div class="chat-backdrop" data-chat-backdrop aria-hidden="true"></div>
+    <section class="chat" id="chat" role="dialog" aria-labelledby="chat-title" inert>
+      <header class="chat-head">
+        <span class="relative inline-flex items-center justify-center shrink-0 w-10 h-10 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-600 font-medium text-gray-500 dark:text-gray-400" aria-hidden="true">M<span class="absolute bottom-0 end-0 w-3 h-3 bg-green-500 border-2 border-white dark:border-gray-800 rounded-full"></span></span>
+        <div>
+          <h2 id="chat-title" class="inline-flex items-center text-lg font-medium text-gray-900 dark:text-white" data-i18n="chat.title">Mizan Asistan</h2>
+          <p class="text-sm text-gray-500 dark:text-gray-400" data-i18n="chat.status">Genellikle hemen yanıtlar</p>
+        </div>
+        <button type="button" data-chat-close data-i18n-attr="aria-label:chat.close" aria-label="Sohbeti kapat" class="text-gray-500 dark:text-gray-400 bg-transparent hover:text-gray-900 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-gray-600 rounded-lg w-9 h-9 absolute top-2.5 end-2.5 flex items-center justify-center">
+          <svg data-icon="close" class="w-5 h-5"></svg>
+        </button>
+      </header>
+      <div class="chat-log" id="chat-log" role="log" aria-live="polite"></div>
+      <form class="chat-form" id="chat-form" autocomplete="off">
+        <input class="chat-input {{c:input}}" id="chat-input" type="text" maxlength="400" enterkeyhint="send" data-i18n-attr="placeholder:chat.placeholder;aria-label:chat.placeholder" placeholder="Bir soru yazın…" aria-label="Bir soru yazın…">
+        <button class="chat-send {{c:btn}} shrink-0 px-3 disabled:opacity-50 disabled:cursor-not-allowed" type="submit" data-i18n-attr="aria-label:chat.send" aria-label="Gönder" disabled>
+          <svg data-icon="paper-plane" class="w-5 h-5 rotate-90 rtl:-rotate-90"></svg>
+        </button>
+      </form>
+      <p class="chat-foot" data-i18n="chat.foot">Genel bilgilendirme amaçlıdır, tıbbi tavsiye yerine geçmez.</p>
+    </section>
+
+    <button type="button" class="fab fab-chat" id="chat-toggle" aria-expanded="false" aria-controls="chat" data-i18n-attr="aria-label:chat.open" aria-label="Asistanla sohbet et">
+      <svg data-icon="message-dots" data-v="solid" class="i-chat w-6 h-6"></svg>
+      <svg data-icon="close" class="i-x w-6 h-6"></svg>
+      <span class="fab-badge" data-chat-badge aria-hidden="true"></span>
+    </button>
+  </aside>
+
+  <!-- M.toast · components/toast "Colors" → #toast-success (kapatma düğmesi yok: site.js kendisi kapatır) -->
+  <div id="toast" class="toast pointer-events-none fixed right-5 top-20 z-50 w-[min(20rem,calc(100%-2.5rem))] -translate-y-2 opacity-0 transition duration-200 motion-reduce:transition-none [&.is-on]:translate-y-0 [&.is-on]:opacity-100" role="status" aria-live="polite">
+    <div class="flex items-center w-full p-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800">
+      <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
+        <svg data-icon="fb:toast-colors-example:1" class="w-5 h-5"></svg>
+      </div>
+      <div class="ms-3 text-sm font-normal" data-toast-text></div>
+    </div>
+  </div>

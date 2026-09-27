@@ -1,0 +1,54 @@
+  <a class="skip-link sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[60] {{c:btn}}" href="#main" data-i18n="a11y.skip">İçeriğe geç</a>
+
+  <!-- S1 · Landwind <header> nav (index.html) · "fixed w-full" + z-40 · Logo = Mizan (favicon.svg + "Mizan"), "Download" → "Randevu al",
+       GitHub yıldız düğmesinin yerinde TR/EN + tema düğmesi (Flowbite customize/dark-mode "theme-toggle"). Menü: Flowbite 1.4.7 collapse. -->
+  <header class="fixed w-full z-40" id="site-header">
+    <nav class="bg-white border-gray-200 py-2.5 dark:bg-gray-900" data-i18n-attr="aria-label:a11y.mainNav" aria-label="Ana menü">
+      <div class="flex flex-wrap items-center justify-between max-w-screen-xl px-4 mx-auto">
+        <a href="{{h}}#top" class="flex items-center" data-i18n-attr="aria-label:a11y.home" aria-label="Mizan Beslenme ana sayfa">
+          <img src="{{r}}assets/icons/favicon.svg" class="h-6 mr-3 sm:h-9" width="36" height="36" alt="">
+          <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white" translate="no">Mizan</span>
+        </a>
+        <div class="flex items-center lg:order-2">
+          <div class="hidden mr-4 sm:flex sm:items-center sm:gap-1">
+            <div class="flex items-center" role="group" data-i18n-attr="aria-label:a11y.lang" aria-label="Dil seçimi">
+              <button type="button" data-lang="tr" aria-pressed="true" lang="tr" class="{{c:langBtn}}">TR</button>
+              <button type="button" data-lang="en" aria-pressed="false" lang="en" class="{{c:langBtn}}">EN</button>
+            </div>
+            <button type="button" data-theme-toggle aria-label="Koyu temaya geç" class="{{c:themeBtn}}">
+              <svg data-icon="fb:dark-mode-toggle:1" class="w-5 h-5 dark:hidden"></svg>
+              <svg data-icon="fb:dark-mode-toggle:2" class="hidden w-5 h-5 dark:block"></svg>
+            </button>
+          </div>
+          <a href="{{h}}#randevu" class="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 sm:mr-2 lg:mr-0 dark:bg-purple-600 dark:hover:bg-purple-700 focus:outline-none dark:focus:ring-purple-800" data-i18n="nav.book">Randevu al</a>
+          <button data-collapse-toggle="mobile-menu-2" type="button" class="group inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="mobile-menu-2" aria-expanded="false">
+            <span class="sr-only" data-i18n="a11y.menuOpen">Menüyü aç</span>
+            <svg data-icon="lw:1" class="w-6 h-6 group-aria-expanded:hidden"></svg>
+            <svg data-icon="lw:2" class="hidden w-6 h-6 group-aria-expanded:block"></svg>
+          </button>
+        </div>
+        <div class="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
+          <ul class="nav flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
+            <li><a href="{{h}}#hizmetler" class="{{c:navLink}}" data-i18n="nav.services">Hizmetler</a></li>
+            <li><a href="{{h}}#uzmanlar" class="{{c:navLink}}" data-i18n="nav.team">Uzmanlar</a></li>
+            <li><a href="{{h}}#araclar" class="{{c:navLink}}" data-i18n="nav.tools">Araçlar</a></li>
+            <li><a href="{{h}}#tarifler" class="{{c:navLink}}" data-i18n="nav.recipes">Tarifler</a></li>
+            <li><a href="{{h}}#ucretler" class="{{c:navLink}}" data-i18n="nav.pricing">Ücretler</a></li>
+            <li><a href="{{blog}}" class="{{c:navLink}}"{{blogCurrent}} data-i18n="nav.blog">Blog</a></li>
+            <li><a href="{{h}}#iletisim" class="{{c:navLink}}" data-i18n="nav.contact">İletişim</a></li>
+          </ul>
+          <!-- Mobilde TR/EN ve tema (Landwind bu yuvayı sm altında gizliyor) -->
+          <div class="flex items-center justify-between gap-2 py-3 pl-3 sm:hidden">
+            <div class="flex items-center" role="group" data-i18n-attr="aria-label:a11y.lang" aria-label="Dil seçimi">
+              <button type="button" data-lang="tr" aria-pressed="true" lang="tr" class="{{c:langBtn}}">Türkçe</button>
+              <button type="button" data-lang="en" aria-pressed="false" lang="en" class="{{c:langBtn}}">English</button>
+            </div>
+            <button type="button" data-theme-toggle aria-label="Koyu temaya geç" class="{{c:themeBtn}}">
+              <svg data-icon="fb:dark-mode-toggle:1" class="w-5 h-5 dark:hidden"></svg>
+              <svg data-icon="fb:dark-mode-toggle:2" class="hidden w-5 h-5 dark:block"></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>

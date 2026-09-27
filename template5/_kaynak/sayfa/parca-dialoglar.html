@@ -1,0 +1,57 @@
+  <!-- #recipe-dialog · components/modal "Default modal" görünümü (<dialog> kalır; Flowbite modal JS'i kullanılmaz) -->
+  <dialog id="recipe-dialog" aria-labelledby="recipe-title" closedby="any" class="{{c:modal}}">
+    <div class="{{c:modalBox}}">
+      <div class="{{c:modalHead}}">
+        <h2 id="recipe-title" class="{{c:modalTitle}}"></h2>
+        <button type="button" data-close class="{{c:modalClose}}">
+          <svg data-icon="close" class="w-5 h-5"></svg>
+          <span class="sr-only" data-i18n="a11y.close">Kapat</span>
+        </button>
+      </div>
+      <div class="dialog-scroll max-h-[calc(100dvh-12rem)] overflow-y-auto overscroll-contain py-4 md:py-6">
+        <div class="space-y-4 md:space-y-6">
+          <img data-recipe-img src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" width="1000" height="800" alt="" class="w-full h-56 rounded-lg object-cover sm:h-72">
+          <div class="recipe-content flex flex-col gap-4 leading-relaxed text-gray-500 dark:text-gray-400" data-recipe-content></div>
+        </div>
+      </div>
+      <div class="flex items-center border-t border-gray-200 dark:border-gray-700 space-x-4 pt-4 md:pt-5">
+        <a href="#randevu" data-close class="{{c:btn}}" data-i18n="hero.cta1">Randevu al</a>
+        <button type="button" data-close class="{{c:btn2}}" data-i18n="a11y.close">Kapat</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- #cancel-dialog · components/modal "Default modal" görünümü -->
+  <dialog id="cancel-dialog" aria-labelledby="cancel-title" closedby="any" class="{{c:modal}}">
+    <div class="{{c:modalBox}}">
+      <form id="cancel-form" novalidate>
+        <div class="{{c:modalHead}}">
+          <h2 id="cancel-title" class="{{c:modalTitle}}" data-i18n="cancel.title">Randevu iptali</h2>
+          <button type="button" data-close class="{{c:modalClose}}">
+            <svg data-icon="close" class="w-5 h-5"></svg>
+            <span class="sr-only" data-i18n="a11y.close">Kapat</span>
+          </button>
+        </div>
+        <div class="space-y-4 md:space-y-6 py-4 md:py-6">
+          <p class="leading-relaxed text-gray-500 dark:text-gray-400" data-i18n="cancel.text">Onay e-postanızdaki referans kodunu ve randevuda kullandığınız e-posta adresini yazın. 24 saatten az kalan randevular için lütfen bizi arayın.</p>
+          <div class="grid gap-6 sm:grid-cols-2">
+            <div>
+              <label class="{{c:label}}" for="x-ref" data-i18n="cancel.ref">Referans kodu</label>
+              <input class="{{c:input}} {{c:invalid}} uppercase" id="x-ref" name="ref" type="text" autocomplete="off" autocapitalize="characters" maxlength="12" placeholder="MZ-XXXXX" required aria-describedby="x-ref-err">
+              <p class="field-err" id="x-ref-err" aria-live="polite"></p>
+            </div>
+            <div>
+              <label class="{{c:label}}" for="x-email" data-i18n="form.email">E-posta</label>
+              <input class="{{c:input}} {{c:invalid}}" id="x-email" name="email" type="email" autocomplete="email" maxlength="120" required aria-describedby="x-email-err">
+              <p class="field-err" id="x-email-err" aria-live="polite"></p>
+            </div>
+          </div>
+          <p class="form-status" data-cancel-status role="status" aria-live="polite"></p>
+        </div>
+        <div class="flex items-center border-t border-gray-200 dark:border-gray-700 space-x-4 pt-4 md:pt-5">
+          <button type="submit" class="{{c:btn}} gap-2"><span class="btn-spinner" aria-hidden="true"></span><span data-i18n="cancel.btn">Randevuyu iptal et</span></button>
+          <button type="button" data-close class="{{c:btn2}}" data-i18n="cancel.keep">Vazgeç</button>
+        </div>
+      </form>
+    </div>
+  </dialog>
