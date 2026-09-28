@@ -19,7 +19,7 @@ const { metadata, page = 'legal', titleEn, descEn } = Astro.props;
 const isHome = page === 'home';
 
 // Mizan: AstroWind'in <Announcement /> çubuğu (Astro v7 duyurusu) kaldırıldı; yerine site.js
-// demo şeridini aynı çubuk görünümüyle üst kenara ekler (mizan.css → .demo-bar).
+// demo şeridini aynı çubuk görünümüyle ekler (mizan.css → .demo-bar; özgündeki gibi alta sabit).
 ---
 
 <Layout metadata={metadata} page={page} titleEn={titleEn} descEn={descEn} scripts={isHome ? 'home' : 'page'}>

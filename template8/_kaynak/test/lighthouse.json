@@ -1,0 +1,46 @@
+{
+ "canli:index": {
+  "performance": 92,
+  "accessibility": 100,
+  "best-practices": 100,
+  "seo": 100,
+  "first-contentful-paint": "1.4 s",
+  "largest-contentful-paint": "2.7 s",
+  "total-blocking-time": "0 ms",
+  "cumulative-layout-shift": "0.121",
+  "speed-index": "2.7 s"
+ },
+ "canli:blog/": {
+  "performance": 92,
+  "accessibility": 100,
+  "best-practices": 100,
+  "seo": 100,
+  "first-contentful-paint": "1.2 s",
+  "largest-contentful-paint": "3.3 s",
+  "total-blocking-time": "0 ms",
+  "cumulative-layout-shift": "0",
+  "speed-index": "3.0 s"
+ },
+ "canli:blog/insulin-direnci-beslenme.html": {
+  "performance": 85,
+  "accessibility": 100,
+  "best-practices": 100,
+  "seo": 100,
+  "first-contentful-paint": "1.9 s",
+  "largest-contentful-paint": "3.9 s",
+  "total-blocking-time": "0 ms",
+  "cumulative-layout-shift": "0",
+  "speed-index": "3.5 s"
+ },
+ "canli:kvkk.html": {
+  "performance": 94,
+  "accessibility": 100,
+  "best-practices": 100,
+  "seo": 100,
+  "first-contentful-paint": "1.3 s",
+  "largest-contentful-paint": "2.7 s",
+  "total-blocking-time": "0 ms",
+  "cumulative-layout-shift": "0",
+  "speed-index": "4.2 s"
+ }
+}

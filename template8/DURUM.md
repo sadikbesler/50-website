@@ -39,13 +39,13 @@
 | S17 iletişim | Contact (kart içinde diyetisyen-v2 formu) + Features2 (adres / ulaşın / saatler — /contact kalıbı) |
 | S18 footer | Footer (`.site-footer`) |
 | S19 sohbet | diyetisyen-v2 işaretlemesi, AstroWind tokenları |
-| S20 demo şeridi | site.js şeridi, Announcement çubuğunun görünümüyle |
+| S20 demo şeridi | site.js şeridi, Announcement çubuğunun tokenlarıyla; özgündeki gibi alta sabit |
 
 ## Kaynaktan farklar ve nedenleri
 
 1. **Widget'larda küçük uyarlamalar** (hepsi `PARCALAR.md`'de dosya dosya): metin yuvaları `set:html` (data-i18n span'leri için), Header kimliği `#site-header`, Note'a `id`, Team'e randevu bağlantısı, Gallery'de ışık kutusu kapalıyken `<div>`, Content'te görselsiz tam genişlik, Contact'ta özel form yuvası, Features2 açıklaması `<div>`. Görünüm sınıfları değişmedi.
 2. **CSP gereği:** AstroWind'in satır içi betikleri/stilleri dışarı alındı — tema betiği → `boot.js`; `<Font>`'un @font-face'i → `assets/css/fonts.css`; CustomStyles → paketlenmiş CSS; küçük bileşen betikleri artık satır içine gömülmüyor; `<Image>` ve tablo sarmalayıcısının `style` nitelikleri kaldırıldı. `<ClientRouter />` (görünüm geçişleri) kaldırıldı: Mizan betikleri her sayfada baştan çalışan klasik betikler ve AstroWind'in kendi notuna göre CSP ile uyumsuz.
-3. **Kaldırılanlar:** AstroWind'in "Astro v7" duyuru çubuğu (yerine demo şeridi aynı görünümle, ilk ziyarette), demo sayfaları, kategori/etiket sayfaları (makalelerde kategori düz metin), blog listesindeki Newsletter (sahte form), Analytics / SiteVerification. Testimonials ve Brands kullanılmadı (0.5).
+3. **Kaldırılanlar:** AstroWind'in "Astro v7" duyuru çubuğu (yerine demo şeridi aynı tokenlarla; üstte değil özgündeki gibi alta sabit — üstte ilk ziyarette sayfayı itip CLS 0,12'ye yol açıyordu), demo sayfaları, kategori/etiket sayfaları (makalelerde kategori düz metin), blog listesindeki Newsletter (sahte form), Analytics / SiteVerification. Testimonials ve Brands kullanılmadı (0.5).
 4. **Yuvası olmayan içerik gösterilmedi:** hizmet fotoğrafları/etiketleri/alt satırları (Features ikonlu), uzmanların eğitim-gün-dil listesi ve "Kurucu" rozeti, yaklaşım bölümündeki kurucu alıntısı, manifesto altındaki üç sayı, makalelerdeki içindekiler kutusu ve yazar fotoğrafı, footer'daki "hakkında" paragrafı, şeritler (ribbon).
 5. **Koyu tema erişilebilirlik:** AstroWind'in `text-primary` (#0161EF) yazısı koyu zeminde 3,75:1 kalıyor; Team rol satırı, not bağlantıları ve harita bağlantısında AstroWind'in koyu bağlantı tokenı `dark:text-blue-400` kullanıldı. Seçili sekmedeki küçük yazı `text-white/80` yerine `text-white`.
 6. **Hero başlığında vurgu rengi yok** (demoda "Astro v7" mor): başlık tek `data-i18n` metni olduğu için dil değişince iç span silinirdi.
@@ -121,11 +121,12 @@ Başlıklar ve girişler de iki dilde aynı; `strong` / `em` sayıları aynı.
 | Blog listesi (yerel) | 78 | 100 | 100 | 100 |
 | Makale (yerel) | 78 | 100 | 100 | 100 |
 
-Yerel sunucu (`python3 -m http.server`) sıkıştırma yapmıyor; performansı en çok 222 KB'lık CSS'in yavaş 4G benzetiminde sıkıştırılmadan inmesi düşürüyor (TBT 0 ms, CLS 0). Canlı (gzip) ölçüm "Yayın" bölümünde.
+Yerel sunucu (`python3 -m http.server`) sıkıştırma yapmıyor; performansı en çok 222 KB'lık CSS'in yavaş 4G benzetiminde sıkıştırılmadan inmesi düşürüyor (TBT 0 ms, CLS 0). Asıl ölçüm canlı adreste (GitHub Pages, gzip) — "Yayın" bölümü; ham değerler `_kaynak/test/lighthouse.json`.
 
 **Karşılaştırma turları** (`kaynak-*` ↔ `sonuc-*`):
 - **1. tur (1440 açık/koyu):** hero, özellikler, fiyat, SSS, CTA, footer ölçü ve tipografisi demo ile aynı. Düzeltilenler: Note bandı ile Uzmanlar'ın mavi zemini birleşiyordu (mavi zemin Mevsim notları'na alındı), başlık satır aralığı (`leading-tighter` geri getirildi), makale OG görsel ölçüsü.
 - **2. tur (390 açık/koyu, alt sayfalar):** mobil menü açıkken yüzen düğmeler "Randevu al"ı örtüyordu (gizlendi), hero kartı görünürken yüzen düğmeler özgündeki gibi gizleniyor; koyu temada 11 kontrast ihlali giderildi.
+- **3. tur (canlı Lighthouse):** ana sayfada CLS 0,121 — ilk ziyarette üst kenara eklenen demo şeridi içeriği itiyordu; şerit alta sabitlendi.
 
 ## Bilinen sorunlar / notlar
 

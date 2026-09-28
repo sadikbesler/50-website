@@ -1167,9 +1167,16 @@ html[lang='en'] [data-lang-block='tr'] {
     @apply px-3.5 pb-2.5 text-center text-[0.7rem] text-muted;
   }
 
-  /* ---------- Demo şeridi: Announcement.astro çubuğu (site.js üst kenara ekler) ---------- */
+  /* ---------- Demo şeridi: Announcement.astro çubuğunun tokenları ----------
+     diyetisyen-v2'deki gibi alta sabit (sayfayı itip düzen kaymasına yol açmasın) */
   .demo-bar {
-    @apply relative z-50 bg-slate-900 text-sm text-slate-300 dark:border-b dark:border-slate-800 dark:bg-transparent dark:text-slate-400;
+    @apply fixed inset-x-0 bottom-0 z-[80] border-t border-slate-800 bg-slate-900 text-sm text-slate-300 dark:bg-slate-950 dark:text-slate-400;
+  }
+  body.demo-open {
+    padding-bottom: var(--demo-h, 0px);
+  }
+  body.demo-open .fab {
+    @apply pointer-events-none invisible opacity-0;
   }
   .demo-bar-inner {
     @apply flex flex-wrap items-center gap-x-3 gap-y-1.5 px-3 py-2;

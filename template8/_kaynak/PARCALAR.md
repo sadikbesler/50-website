@@ -27,7 +27,7 @@ Satır biçimi: `Mizan bölümü → AstroWind bileşeni → dosya → değişti
 - S17 iletişim → Contact + Features2 (AstroWind /contact sayfasının kalıbı) → `widgets/Contact.astro`: `inputs` yerine varsayılan yuvadaki form aynı kartta; form `mizan/IletisimFormu.astro` (diyetisyen-v2 alanları, KVKK onayı, site.js işleyicisi). `widgets/Features2.astro`: açıklama `<p>` yerine `<div>` (saat tablosu), başlık `set:html`. Kartlar: Adres (harita bağlantısı, iframe yok), Ulaşın, Çalışma saatleri (`[data-open-status]`, bugünün satırı kalın).
 - S18 footer → Footer → `widgets/Footer.astro` → `.site-footer`, sütun başlığı `set:html`, bağlantılara ek nitelikler (`data-tel`, `data-mail`, `data-wa`, `data-maps`); alt not: sağlık uyarısı + © + Asteria Soft + "Tema: AstroWind (MIT)".
 - S19 sohbet + yüzen düğmeler → (AstroWind'de yok) → `mizan/Sohbet.astro` (diyetisyen-v2 işaretlemesi) → görünüm `mizan.css`'te Contact kartı + CallToAction banner rengi + Tags hapları tokenlarıyla.
-- S20 demo şeridi → (Announcement.astro görünümü) → site.js üst kenara ekler; `mizan.css` `.demo-bar` = Announcement sınıfları (`bg-slate-900 text-slate-300`, rozet `bg-white/20`). AstroWind'in kendi Announcement çubuğu (Astro v7 duyurusu) kaldırıldı.
+- S20 demo şeridi → (Announcement.astro tokenları) → site.js ekler; `mizan.css` `.demo-bar` = Announcement sınıfları (`bg-slate-900 text-slate-300`, rozet `bg-white/20`), diyetisyen-v2'deki gibi alta sabit (üstte düzen kaymasına yol açıyordu). AstroWind'in kendi Announcement çubuğu (Astro v7 duyurusu) kaldırıldı.
 - Pencereler (`#recipe-dialog`, `#cancel-dialog`) → Gallery ışık kutusu tokenları → `mizan/Pencereler.astro`.
 
 ## Blog, KVKK, diğer sayfalar

@@ -2,7 +2,7 @@ GEÇTİ  1 konsol {}
 GEÇTİ  2 tasma {}
 GEÇTİ  3 sozlesme {"eksik":[],"ilkYuklemedeOlmayan":[".servings","[data-intent]"]}
 GEÇTİ  3 sozlesme (.cal-day/.slot) 
-GEÇTİ  4 randevu {"bosFormHata":4,"ozetSatir":8,"done":{"ref":"MZ-RYZVV","gcal":true},"ics":"mizan-randevu-MZ-RYZVV.ics","iptalAcik":true,"iptalHata":true}
+GEÇTİ  4 randevu {"bosFormHata":4,"ozetSatir":8,"done":{"ref":"MZ-4TYP4","gcal":true},"ics":"mizan-randevu-MZ-4TYP4.ics","iptalAcik":true,"iptalHata":true}
 GEÇTİ  5 araclar {"vki":"24,2","kcal":"1.730","doluBardakYenilemeSonrasi":3}
 GEÇTİ  6 program-tarif {"gunDegisti":true,"toplam":["1.500","2.580"],"tarif":[9,2],"scaled":{"q0":"80 g","q1":"120 g","porsiyon":"3"}}
 GEÇTİ  7 sohbet {"acik":true,"fiyat":"Güncel ücretlerimiz:İlk görüşme · 60 dk1.800 TLKontrol görüşmesi · 30 dk900 TLOn","randevu":"En yakın uygun ilk görüşme (60 dk, vücut analizi dahil): Yarın, saat 09:00 · Uzm","cb":["Memnuniyetle. Diyetisyenimiz mesai saatleri içinde","Teşekkürler Test. Size hangi numaradan ulaşalım?","Geri arama talebiniz alındı (demo). Bu bir demo olduğu için sizi kimse aramayaca"],"blogCevap":"İnsülin direncinde amaç kan şekerindeki ani yükselişleri aza","blogLink":"http://localhost:8801/
