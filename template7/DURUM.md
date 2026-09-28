@@ -101,6 +101,11 @@ Değişiklik **yok** — 9 sayfanın `Content-Security-Policy` etiketi özgünle
 - **1. tur (açık, 1440):** yerleşim, tipografi ölçeği, radius ve boşluklar bloklarla aynı. Düzeltilenler: header düğmesindeki ok simgesi eksikti, footer sütun başlıkları kaynaktaki büyük harf değildi, footer uyarı metni ortalanmıştı.
 - **2. tur (koyu + 390 + alt sayfalar):** 390'da fiyat tablosu belgeyi taşırıyordu (tablo kutusuna `relative`), gri kutulardaki küçük etiketler ve koyu blog çipi kontrastı, sayfa yolunda ayraç yoktu — düzeltildi.
 
+## Yayın
+
+- Commit `7db48ee` → `origin/main` (28.09.2026). Canlı adres push'tan yaklaşık 40 sn sonra 200 döndü.
+- Canlı kontrol (Playwright): ana sayfa, `blog/`, bir makale ve `kvkk.html` → HTTP 200, konsol/CSP hatası 0, logo dairesi `rgb(16, 185, 129)` (green-500), "En yakın uygun randevu" kartı dolu ("Bugün · 15:30").
+
 ## Bilinen sorunlar / notlar
 
 - 390 px'te fiyat tablosu kaynaktaki gibi kendi kutusunda yatay kayar (`overflow-auto`).
