@@ -1,0 +1,153 @@
+---
+import { Font } from "astro:assets";
+import { getAssetPath } from "@/utils/withBase";
+import MizanChat from "@/components/MizanChat.astro";
+import config from "@/config";
+import "@/styles/global.css";
+
+// AstroPaper Layout.astro. Mizan farkları:
+// - CSP meta etiketi (diyetisyen-v2'deki kural; arama sayfası Pagefind'ın WebAssembly'si için
+//   yalnızca 'wasm-unsafe-eval' ekler).
+// - ClientRouter (sayfa geçişi) ve satır içi tema betiği kaldırıldı: tema ve dil ilk boyamadan önce
+//   assets/js/boot.js ile, sonra site.js ile yönetilir (tek kaynak site.js, localStorage "mizan-theme").
+// - Mizan JS'leri diyetisyen-v2'deki sırayla <script is:inline src> ile yüklenir.
+// - Mizan'ın SEO etiketleri: hreflang, og:locale, JSON-LD (slot "head").
+type Props = {
+  title?: string;
+  description?: string;
+  titleEn?: string;
+  descEn?: string;
+  ogTitle?: string;
+  ogDesc?: string;
+  ogImage?: string;
+  ogImageAlt?: string;
+  ogType?: string;
+  canonicalURL?: string;
+  page?: "home" | "blog" | "page";
+  search?: boolean;
+};
+
+const { site } = config;
+const base = getAssetPath("");
+const abs = (p: string) => new URL(p, Astro.site).href;
+
+const {
+  title = site.title,
+  description = site.description,
+  titleEn,
+  descEn,
+  ogTitle = title,
+  ogDesc = description,
+  // AstroPaper'ın dinamik og görseli (og.png.ts); Türkçe karakterleri doğru bastığı için kullanıldı
+  ogImage = getAssetPath("og.png"),
+  ogImageAlt = "Mizan Beslenme",
+  ogType = "website",
+  canonicalURL = abs(Astro.url.pathname.replace(/index\.html$/, "")),
+  page = "page",
+  search = false,
+} = Astro.props;
+
+const socialImageURL = abs(ogImage);
+const csp = [
+  "default-src 'self'",
+  search ? "script-src 'self' 'wasm-unsafe-eval'" : "script-src 'self'",
+  "style-src 'self' https://fonts.googleapis.com",
+  "font-src 'self' https://fonts.gstatic.com",
+  "img-src 'self' data:",
+  "connect-src 'self' https://script.google.com https://script.googleusercontent.com",
+  "manifest-src 'self'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "object-src 'none'",
+  "frame-src 'none'",
+].join("; ");
+const js = (f: string) => getAssetPath(`assets/js/${f}`);
+---
+
+<!doctype html>
+<html
+  dir={site.dir ?? "ltr"}
+  lang="tr"
+  class="no-js overflow-y-scroll scroll-smooth"
+  data-theme="light"
+  data-root={base}
+  data-page={page}
+  data-title-en={titleEn}
+  data-desc-en={descEn}
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta http-equiv="Content-Security-Policy" content={csp} />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="author" content={site.author} />
+    <meta name="theme-color" content="#fdfdfd" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="alternate" hreflang="tr" href={canonicalURL} />
+    <link rel="alternate" hreflang="en" href={`${canonicalURL}?lang=en`} />
+    <link rel="alternate" hreflang="x-default" href={canonicalURL} />
+    <link rel="sitemap" type="application/xml" href={getAssetPath("sitemap.xml")} />
+    <link rel="alternate" type="application/rss+xml" title={site.title} href={abs(getAssetPath("rss.xml"))} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={site.title} />
+    <meta property="og:title" content={ogTitle} />
+    <meta property="og:description" content={ogDesc} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={socialImageURL} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={ogImageAlt} />
+    <meta property="og:locale" content="tr_TR" />
+    <meta property="og:locale:alternate" content="en_US" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={ogTitle} />
+    <meta name="twitter:description" content={ogDesc} />
+    <meta name="twitter:image" content={socialImageURL} />
+
+    <link rel="icon" href={getAssetPath("assets/icons/favicon.svg")} type="image/svg+xml" />
+    <link rel="apple-touch-icon" href={getAssetPath("assets/icons/apple-touch-icon.png")} />
+    <link rel="manifest" href={getAssetPath("site.webmanifest")} />
+
+    <!-- Font (AstroPaper: Google Sans Code, derlemede indirilir, siteden sunulur) -->
+    <Font
+      cssVariable="--font-google-sans-code"
+      preload={[{ subset: "latin", weight: 400, style: "normal" }]}
+    />
+
+    <script is:inline src={js("boot.js")}></script>
+    <script is:inline src={js("config.js")} defer></script>
+    <script is:inline src={js("i18n.js")} defer></script>
+    <script is:inline src={js("site.js")} defer></script>
+    {page === "home" && <script is:inline src={js("booking.js")} defer></script>}
+    {page === "home" && <script is:inline src={js("tools.js")} defer></script>}
+    {page === "home" && <script is:inline src={js("content.js")} defer></script>}
+    <script is:inline src={js("chat.js")} defer></script>
+
+    <slot name="head" />
+
+    {
+      site.googleVerification && (
+        <meta
+          name="google-site-verification"
+          content={site.googleVerification}
+        />
+      )
+    }
+  </head>
+  <body
+    class="bg-background font-app text-foreground selection:bg-accent/75 selection:text-accent-foreground flex min-h-svh flex-col"
+  >
+    <slot />
+    <MizanChat />
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>

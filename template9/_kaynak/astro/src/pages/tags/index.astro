@@ -1,0 +1,37 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
+import Footer from "@/components/Footer.astro";
+import Tag from "@/components/Tag.astro";
+import { getUniqueTags } from "@/utils/getUniqueTags";
+import { useTranslations } from "@/i18n";
+import config from "@/config";
+
+// AstroPaper src/pages/tags/index.astro (metinler TR/EN).
+const posts = await getCollection("posts", ({ data }) => !data.draft);
+const tags = getUniqueTags(posts);
+
+const t = useTranslations(config.site.lang);
+---
+
+<Layout
+  title={`${t.pages.tagsTitle} | ${config.site.title}`}
+  description="Mizan Beslenme blogundaki bütün etiketler: beslenme, insülin direnci, su, protein, Akdeniz tipi beslenme ve etiket okuma."
+  titleEn="Tags | Mizan Nutrition"
+  descEn="All tags on the Mizan Nutrition blog: nutrition, insulin resistance, water, protein, the Mediterranean diet and label reading."
+>
+  <Header />
+
+  <Breadcrumb />
+
+  <Main pageTitle={t.pages.tagsTitle} titleKey="ap.pages.tagsTitle" pageDesc={t.pages.tagsDesc} descKey="ap.pages.tagsDesc">
+    <ul class="flex flex-wrap gap-6">
+      {tags.map(({ tag, tagName }) => <Tag {tag} {tagName} />)}
+    </ul>
+  </Main>
+
+  <Footer />
+</Layout>

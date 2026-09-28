@@ -1,0 +1,49 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
+import Card from "@/components/Card.astro";
+import Footer from "@/components/Footer.astro";
+import Pagination from "@/components/Pagination.astro";
+import { getSortedPosts } from "@/utils/getSortedPosts";
+import config from "@/config";
+
+// AstroPaper src/pages/posts/[...page].astro → Mizan blog/ (blog/index.html, blog/2/index.html).
+// Başlık ve açıklama diyetisyen-v2'nin blog sayfasından (blogpage.*).
+export const getStaticPaths = (async ({ paginate }) => {
+  const posts = await getCollection("posts", ({ data }) => !data.draft);
+  return paginate(getSortedPosts(posts), { pageSize: config.posts.perPage });
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+---
+
+<Layout
+  title={page.currentPage === 1 ? "Blog: Beslenme ve Diyet Yazıları | Mizan Beslenme" : `Blog (sayfa ${page.currentPage}) | Mizan Beslenme`}
+  description="İnsülin direnci, aralıklı oruç, su ve protein ihtiyacı, Akdeniz tipi beslenme ve etiket okuma üzerine uzman diyetisyenlerin kanıta dayalı yazıları."
+  titleEn={page.currentPage === 1 ? "Blog: Nutrition Articles | Mizan Nutrition" : `Blog (page ${page.currentPage}) | Mizan Nutrition`}
+  descEn="Evidence-based articles by our dietitians on insulin resistance, intermittent fasting, water and protein needs, the Mediterranean diet and reading food labels."
+  page={page.currentPage === 1 ? "blog" : "page"}
+>
+  <Header />
+
+  <Breadcrumb />
+
+  <Main
+    pageTitle="Beslenme yazıları"
+    titleKey="blogpage.title"
+    pageDesc="Danışanlarımızın en sık sorduğu konuları, güncel bilimsel kaynaklara dayanarak diyetisyenlerimiz yazıyor ve kontrol ediyor."
+    descKey="blogpage.lede"
+  >
+    <ul>
+      {page.data.map(data => <Card {...data} />)}
+    </ul>
+  </Main>
+
+  <Pagination {page} />
+
+  <Footer noMarginTop={page.lastPage > 1} />
+</Layout>

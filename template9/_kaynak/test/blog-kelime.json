@@ -1,0 +1,44 @@
+[
+ {
+  "slug": "akdeniz-tipi-beslenme",
+  "tr": 274,
+  "en": 321,
+  "kaynak": 58,
+  "lede": 47
+ },
+ {
+  "slug": "aralikli-oruc-16-8",
+  "tr": 301,
+  "en": 379,
+  "kaynak": 68,
+  "lede": 59
+ },
+ {
+  "slug": "etiket-okuma-rehberi",
+  "tr": 337,
+  "en": 396,
+  "kaynak": 70,
+  "lede": 45
+ },
+ {
+  "slug": "gunluk-su-ihtiyaci",
+  "tr": 274,
+  "en": 320,
+  "kaynak": 52,
+  "lede": 48
+ },
+ {
+  "slug": "insulin-direnci-beslenme",
+  "tr": 433,
+  "en": 515,
+  "kaynak": 84,
+  "lede": 51
+ },
+ {
+  "slug": "protein-ihtiyaci",
+  "tr": 290,
+  "en": 322,
+  "kaynak": 94,
+  "lede": 37
+ }
+]

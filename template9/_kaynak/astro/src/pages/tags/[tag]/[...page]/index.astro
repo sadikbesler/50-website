@@ -1,0 +1,62 @@
+---
+import { getCollection } from "astro:content";
+import type { GetStaticPathsOptions } from "astro";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Main from "@/components/Main.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Card from "@/components/Card.astro";
+import Footer from "@/components/Footer.astro";
+import Pagination from "@/components/Pagination.astro";
+import { getUniqueTags } from "@/utils/getUniqueTags";
+import { getSortedPosts } from "@/utils/getSortedPosts";
+import { slugifyAll } from "@/utils/slugify";
+import { useTranslations } from "@/i18n";
+import config from "@/config";
+
+// AstroPaper src/pages/tags/[tag]/[...page].astro. Klasör + index.astro: tags/<etiket>/index.html
+// (build.format "preserve" ile yerel sunucuda ve Pages'te yönlendirmesiz açılır).
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  const posts = await getCollection("posts", ({ data }) => !data.draft);
+  const tags = getUniqueTags(posts);
+
+  return tags.flatMap(({ tag, tagName }) => {
+    const tagPosts = getSortedPosts(
+      posts.filter(({ data }) => slugifyAll(data.tags).includes(tag))
+    );
+
+    return paginate(tagPosts, {
+      params: { tag },
+      props: { tagName },
+      pageSize: config.posts.perPage,
+    });
+  });
+}
+
+const { page, tagName } = Astro.props;
+
+const t = useTranslations(config.site.lang);
+---
+
+<Layout
+  title={`${t.pages.tagTitle}: ${tagName} | ${config.site.title}`}
+  description={`${t.pages.tagDesc} "${tagName}".`}
+  titleEn={`Tag: ${tagName} | Mizan Nutrition`}
+  descEn={`All the articles with the tag "${tagName}".`}
+>
+  <Header />
+
+  <Breadcrumb />
+
+  <Main>
+    <Fragment slot="title"><span data-i18n="ap.pages.tagTitle">{t.pages.tagTitle}</span>: {tagName}</Fragment>
+    <Fragment slot="desc"><span data-i18n="ap.pages.tagDesc">{t.pages.tagDesc}</span> "{tagName}".</Fragment>
+    <ul>
+      {page.data.map(data => <Card {...data} />)}
+    </ul>
+  </Main>
+
+  <Pagination {page} />
+
+  <Footer noMarginTop={page.lastPage > 1} />
+</Layout>

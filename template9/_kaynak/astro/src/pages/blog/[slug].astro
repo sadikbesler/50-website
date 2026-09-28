@@ -1,0 +1,164 @@
+---
+import { type CollectionEntry, getCollection, render } from "astro:content";
+import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
+import PostLayout from "@/layouts/PostLayout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import Datetime from "@/components/Datetime.astro";
+import Tag from "@/components/Tag.astro";
+import LinkButton from "@/components/LinkButton.astro";
+import ShareLinks from "@/components/post/ShareLinks.astro";
+import BackButton from "@/components/post/BackButton.astro";
+import BackToTopButton from "@/components/post/BackToTopButton.astro";
+import AdjacentPostNav from "@/components/post/AdjacentPostNav.astro";
+import { getPostSlug } from "@/utils/getPostPaths";
+import { getSortedPosts } from "@/utils/getSortedPosts";
+import { slugifyStr } from "@/utils/slugify";
+import { getAssetPath } from "@/utils/withBase";
+
+// AstroPaper src/pages/posts/[...slug]/index.astro → Mizan blog/<slug>.html
+// Farklar: başlık/açıklama TR+EN, tarih satırında yazar·kategori·okuma süresi ("Edit page" yerine),
+// makale sonunda diyetisyen-v2'nin randevu çağrısı, satır içi betik public/assets/js/astro-paper-post.js'te.
+export async function getStaticPaths() {
+  const posts = await getCollection("posts");
+  const sortedPosts = getSortedPosts(posts);
+  const adj = (p?: CollectionEntry<"posts">) =>
+    p ? { id: p.id, title: p.data.title, titleEn: p.data.titleEn, filePath: p.filePath } : null;
+
+  return sortedPosts.map((post, index) => ({
+    params: { slug: getPostSlug(post.id, post.filePath) },
+    props: {
+      post,
+      prevPost: adj(sortedPosts[index + 1]),
+      nextPost: adj(index > 0 ? sortedPosts[index - 1] : undefined),
+    },
+  }));
+}
+
+type AdjacentPost = { id: string; title: string; titleEn: string; filePath: string | undefined } | null;
+type Props = {
+  post: CollectionEntry<"posts">;
+  prevPost: AdjacentPost;
+  nextPost: AdjacentPost;
+};
+
+const { post, prevPost, nextPost } = Astro.props;
+const d = post.data;
+const { Content } = await render(post);
+
+const slug = getPostSlug(post.id, post.filePath);
+const SITE = "https://sadikbesler.github.io/50-website/template9/";
+const url = `${SITE}blog/${slug}.html`;
+const image = `${SITE}assets/img/${d.cover}-1800.webp`;
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      headline: d.title,
+      description: d.description,
+      image,
+      datePublished: d.pubDatetime.toISOString().slice(0, 10),
+      ...(d.dateModifiedLd && { dateModified: d.dateModifiedLd }),
+      inLanguage: "tr-TR",
+      mainEntityOfPage: url,
+      author: {
+        "@type": "Person",
+        name: d.author.replace(/^(Uzm\. )?Dyt\. /, ""),
+        jobTitle: "Diyetisyen",
+        worksFor: { "@id": `${SITE}#clinic` },
+      },
+      publisher: {
+        "@type": "Organization",
+        "@id": `${SITE}#clinic`,
+        name: "Mizan Beslenme ve Diyet Kliniği",
+        logo: { "@type": "ImageObject", url: `${SITE}assets/icons/icon-512.png` },
+      },
+      keywords: d.tags.join(", "),
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Ana sayfa", item: SITE },
+        { "@type": "ListItem", position: 2, name: "Blog", item: `${SITE}blog/` },
+        { "@type": "ListItem", position: 3, name: d.title, item: url },
+      ],
+    },
+  ],
+};
+const LINK = "hover:text-accent underline decoration-dashed underline-offset-4";
+---
+
+<PostLayout
+  title={`${d.title} | Mizan Beslenme`}
+  description={d.description}
+  titleEn={`${d.titleEn} | Mizan Nutrition`}
+  descEn={d.descriptionEn}
+  ogImage={getAssetPath(`blog/${slug}.png`)}
+  ogImageAlt={d.title}
+  canonicalURL={url}
+  pubDatetime={d.pubDatetime}
+  modDatetime={d.modDatetime}
+  {ld}
+>
+  <Header />
+
+  <BackButton />
+
+  <main
+    id="main-content"
+    class="app-layout"
+    data-pagefind-body
+    data-pagefind-meta={`title:${d.title}`}
+  >
+    <h1 class="text-accent inline-block text-2xl font-bold sm:text-3xl" data-pagefind-ignore>
+      <span data-lang-block="tr">{d.title}</span><span data-lang-block="en" lang="en" data-pagefind-meta="titleEn">{d.titleEn}</span>
+    </h1>
+
+    <div class="my-2 flex flex-wrap items-center gap-2">
+      <Datetime pubDatetime={d.pubDatetime} modDatetime={d.modDatetime} timezone={d.timezone} size="lg" />
+      <span aria-hidden="true" class="text-muted-foreground max-sm:hidden">|</span>
+      <span class="text-muted-foreground text-sm sm:text-base">
+        <span data-lang-block="tr">{d.author} · {d.category} · {d.readingTime}</span><span data-lang-block="en">{d.authorEn} · {d.categoryEn} · {d.readingTimeEn}</span>
+      </span>
+    </div>
+
+    <article
+      id="article"
+      class:list={[
+        "mt-8 w-full",
+        "app-prose max-w-app",
+        "prose-pre:bg-(--shiki-light-bg) dark:prose-pre:bg-(--shiki-dark-bg)",
+      ]}
+    >
+      <Content />
+    </article>
+
+    <aside class="article-cta mt-8" data-pagefind-ignore>
+      <h2 class="text-2xl font-semibold tracking-wide" data-i18n="article.ctaTitle">Size özel bir plan ister misiniz?</h2>
+      <p class="mt-2 italic" data-i18n="article.ctaText">Bu yazıdaki öneriler geneldir. Kendi tahlillerinize ve günlük düzeninize göre bir plan için randevu alabilirsiniz.</p>
+      <p class="mt-2">
+        <LinkButton class={LINK} href={getAssetPath("#randevu")}>
+          <span data-i18n="article.ctaBtn">Randevu al</span>
+          <IconArrowRight class="inline-block size-5 rtl:-rotate-180" />
+        </LinkButton>
+      </p>
+    </aside>
+
+    <hr class="my-8 border-dashed" />
+
+    <BackToTopButton />
+
+    <ul class="mt-4 mb-8 flex flex-wrap gap-4 sm:my-8" data-pagefind-ignore>
+      {d.tags.map(tag => <Tag tag={slugifyStr(tag)} tagName={tag} size="sm" />)}
+    </ul>
+
+    <ShareLinks />
+
+    <hr class="my-8 border-dashed" />
+
+    <AdjacentPostNav {prevPost} {nextPost} />
+  </main>
+  <Footer />
+  <script is:inline src={getAssetPath("assets/js/astro-paper-post.js")} defer></script>
+</PostLayout>

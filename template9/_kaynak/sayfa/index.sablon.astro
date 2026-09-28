@@ -1,0 +1,480 @@
+---
+// Ana sayfa. Kaynak şablon: _kaynak/sayfa/index.sablon.astro → `python3 _kaynak/anasayfa-kur.py` ile
+// astro/src/pages/index.astro üretilir (parca yer tutucularının yerine diyetisyen-v2'nin işaretlemesi girer).
+//
+// AstroPaper ana sayfa kalıbı korunur: giriş (#hero → #top) + "Featured" başlık stiliyle bölümler +
+// "Recent posts" (6 Mizan makalesi, Card) + "All posts" bağlantısı.
+import { getCollection } from "astro:content";
+import IconRss from "@/assets/icons/IconRss.svg";
+import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
+import IconCalendar from "@/assets/icons/IconCalendar.svg";
+import IconHash from "@/assets/icons/IconHash.svg";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import Socials from "@/components/Socials.astro";
+import Card from "@/components/Card.astro";
+import LinkButton from "@/components/LinkButton.astro";
+import { getSortedPosts } from "@/utils/getSortedPosts";
+import { getAssetPath } from "@/utils/withBase";
+import { useTranslations } from "@/i18n";
+import config from "@/config";
+import TR from "@/data/tr.json";
+
+const { posts: postsConfig } = config;
+const t = useTranslations(config.site.lang);
+// Türkçe metin diyetisyen-v2'den (anasayfa-kur.py → src/data/tr.json); eksik anahtar derlemeyi durdurur.
+const T = (k: string): string => {
+  const v = (TR as Record<string, string>)[k];
+  if (v == null) throw new Error("tr.json'da yok: " + k);
+  return v;
+};
+
+const posts = await getCollection("posts");
+const recentPosts = getSortedPosts(posts);
+
+const SITE = "https://sadikbesler.github.io/50-website/template9/";
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${SITE}#website`,
+      url: SITE,
+      name: "Mizan Beslenme",
+      inLanguage: ["tr-TR", "en-US"],
+    },
+    {
+      "@type": "MedicalClinic",
+      "@id": `${SITE}#clinic`,
+      name: "Mizan Beslenme ve Diyet Kliniği",
+      url: SITE,
+      image: `${SITE}assets/img/og-image.jpg`,
+      logo: `${SITE}assets/icons/apple-touch-icon.png`,
+      description:
+        "Kadıköy’de uzman diyetisyenlerle kilo yönetimi, klinik beslenme, sporcu beslenmesi, gebelik ve çocuk beslenmesi danışmanlığı. Yüz yüze ve online görüşme.",
+      medicalSpecialty: "https://schema.org/DietNutrition",
+      telephone: "+905555555555",
+      email: "randevu@mizanbeslenme.com",
+      priceRange: "₺₺",
+      currenciesAccepted: "TRY",
+      paymentAccepted: "Nakit, Kredi kartı, Havale",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "Moda Cad. No: 48, Kat 3",
+        addressLocality: "Kadıköy",
+        addressRegion: "İstanbul",
+        postalCode: "34710",
+        addressCountry: "TR",
+      },
+      openingHoursSpecification: [
+        { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "09:00", closes: "20:00" },
+        { "@type": "OpeningHoursSpecification", dayOfWeek: "Saturday", opens: "10:00", closes: "15:00" },
+      ],
+      availableService: [
+        { "@type": "MedicalTherapy", name: "Kilo yönetimi danışmanlığı" },
+        { "@type": "MedicalTherapy", name: "Klinik beslenme (insülin direnci, diyabet, PCOS, tiroit)" },
+        { "@type": "MedicalTherapy", name: "Sporcu beslenmesi" },
+        { "@type": "MedicalTherapy", name: "Gebelik ve emzirme döneminde beslenme" },
+        { "@type": "MedicalTherapy", name: "Çocuk ve ergen beslenmesi" },
+        { "@type": "MedicalTherapy", name: "Online diyet danışmanlığı" },
+      ],
+      employee: [
+        { "@type": "Person", name: "Selin Karaca", jobTitle: "Uzman Diyetisyen" },
+        { "@type": "Person", name: "Emre Aksoy", jobTitle: "Diyetisyen" },
+        { "@type": "Person", name: "Zeynep Tunalı", jobTitle: "Diyetisyen" },
+      ],
+      sameAs: ["https://instagram.com/mizanbeslenme"],
+    },
+  ],
+};
+const faqLd = { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: [] };
+
+// Bölüm başlığı: AstroPaper ana sayfasındaki "Featured"/"Recent Posts" başlığı
+const H2 = "text-2xl font-semibold tracking-wide";
+const SECTION = "border-border border-b pt-12 pb-6";
+const LEDE = "mt-2 mb-2 italic";
+// AstroPaper giriş bölümündeki "README" bağlantısı (LinkButton + kesikli alt çizgi)
+const LINK = "hover:text-accent underline decoration-dashed underline-offset-4";
+// AstroPaper Card başlığı
+const CARD_TITLE = "text-accent inline-block text-lg font-medium decoration-dashed underline-offset-4 hover:underline focus-visible:no-underline focus-visible:underline-offset-0";
+const META = "text-muted-foreground flex flex-wrap items-center gap-x-2 text-sm";
+
+const services = [
+  { n: 1, img: "hizmet-kilo", area: "weight", tags: ["s1.tag1", "s1.tag2", "s1.tag3"] },
+  { n: 2, img: "hizmet-klinik", area: "clinical", tags: ["s2.tag1", null, "s2.tag3", "s2.tag4"] },
+  { n: 3, img: "hizmet-sporcu", area: "sports", tags: ["s3.tag1", "s3.tag2"] },
+  { n: 4, img: "hizmet-gebelik", area: "pregnancy", tags: ["s4.tag1", "s4.tag2"] },
+  { n: 5, img: "hizmet-cocuk", area: "kids", tags: ["s5.tag1", "s5.tag2"] },
+  { n: 6, img: "hizmet-online", type: "online", tags: ["s6.tag1", "s6.tag2"] },
+];
+---
+
+<Layout
+  title="Diyetisyen Kadıköy | Mizan Beslenme ve Diyet Kliniği · Online Randevu"
+  description="Kadıköy Moda’da uzman diyetisyenlerle kilo yönetimi, insülin direnci, sporcu, gebelik ve çocuk beslenmesi. Yüz yüze veya online görüşme için hemen randevu alın."
+  ogTitle="Diyetisyen web sitesi · Template 9 (AstroPaper)"
+  ogDesc="AstroPaper'ın sade, monospace blog tasarımıyla diyetisyen sitesi: online randevu, hesaplama araçları, tarifler, aranabilir blog."
+  page="home"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(ld)} />
+    <script type="application/ld+json" id="faq-schema" is:inline set:html={JSON.stringify(faqLd)} />
+  </Fragment>
+
+  <Header />
+  <main id="main-content" data-layout="index" class="app-layout my-1">
+    <!-- S2 · Giriş (AstroPaper #hero) -->
+    <section id="top" class="border-border border-b pt-8 pb-6" aria-labelledby="hero-title">
+      <h1 id="hero-title" class="my-4 inline-block text-4xl font-bold sm:my-8 sm:text-5xl" data-i18n="hero.title">
+        Sofranıza uyan bir beslenme planı.
+      </h1>
+      <a
+        target="_blank"
+        href={getAssetPath("rss.xml")}
+        class="inline-block"
+        aria-label="RSS Feed"
+        title="RSS Feed"
+      >
+        <IconRss
+          width={20}
+          height={20}
+          class="stroke-accent scale-125 stroke-3 rtl:-rotate-90"
+        />
+        <span class="sr-only">RSS Feed</span>
+      </a>
+      <p class="mb-2 italic" data-i18n="hero.kicker">Moda, Kadıköy · Yüz yüze ve online</p>
+      <p data-i18n="hero.lede">İlk görüşmede tahlillerinize bakıyor ve vücut analizi yapıyoruz. Planınız iş saatlerinize ve sevdiğiniz yemeklere göre hazırlanıyor, kontrol görüşmelerinde birlikte güncelleniyor.</p>
+      <p class="hero-cta mt-2">
+        <LinkButton class={LINK} href="#randevu"><span data-i18n="hero.cta1">Randevu al</span></LinkButton>
+        <span aria-hidden="true">&nbsp;·&nbsp;</span>
+        <LinkButton class={LINK} href="#araclar"><span data-i18n="hero.cta2">VKİ’nizi hesaplayın</span></LinkButton>
+      </p>
+      <div class="mt-4 flex max-sm:flex-col sm:items-center">
+        <div class="me-2 mb-1 whitespace-nowrap sm:mb-0"><span data-i18n="ap.home.socialLinks">{t.home.socialLinks}</span>:</div>
+        <Socials />
+      </div>
+
+      <!-- #next-slot: AstroPaper Card düzeni (başlık = saat, tarih satırı = etiket, açıklama = uzman) -->
+      <aside class="next-slot my-6" id="next-slot" aria-live="polite" data-i18n-attr="aria-label:next.aria" aria-label="En yakın uygun randevu">
+        <p class="text-accent inline-block text-lg font-medium" data-next-time><span data-i18n="next.loading">Takvim kontrol ediliyor…</span></p>
+        <div class={META}>
+          <IconCalendar class="inline-block size-6 min-w-5.5 scale-90" />
+          <span data-i18n="next.label">En yakın uygun randevu</span>
+        </div>
+        <p data-next-meta>&nbsp;</p>
+        <LinkButton class={LINK} href="#randevu" data-next-book>
+          <span data-i18n="next.book">Bu saati ayır</span>
+          <IconArrowRight class="inline-block size-5 rtl:-rotate-180" />
+        </LinkButton>
+      </aside>
+
+      <!-- AstroPaper'ın katlanır içindekiler kalıbı (remark-collapse çıktısı) -->
+      <div class="home-toc app-prose max-w-app">
+      <details>
+        <summary data-i18n="ap.home.toc">Bu sayfada</summary>
+        <ul>
+          <li><a href="#hizmetler" data-i18n="nav.services">Hizmetler</a></li>
+          <li><a href="#yaklasim" data-i18n="tag.process">Yöntem</a></li>
+          <li><a href="#uzmanlar" data-i18n="nav.team">Uzmanlar</a></li>
+          <li><a href="#araclar" data-i18n="nav.tools">Araçlar</a></li>
+          <li><a href="#program" data-i18n="nav.program">Örnek program</a></li>
+          <li><a href="#tarifler" data-i18n="nav.recipes">Tarifler</a></li>
+          <li><a href="#ucretler" data-i18n="nav.pricing">Ücretler</a></li>
+          <li><a href="#randevu" data-i18n="nav.book">Randevu al</a></li>
+          <li><a href="#blog" data-i18n="nav.blog">Blog</a></li>
+          <li><a href="#sss" data-i18n="nav.faq">SSS</a></li>
+          <li><a href="#iletisim" data-i18n="nav.contact">İletişim</a></li>
+        </ul>
+      </details>
+      </div>
+    </section>
+
+    <!-- S3 · Kısa bilgiler -->
+    <section class:list={["facts", SECTION]} aria-labelledby="facts-title">
+      <h2 id="facts-title" class={H2} data-i18n="facts.aria">Klinik hakkında kısa bilgiler</h2>
+      <ul class="facts-list grid sm:grid-cols-2 sm:gap-x-8">
+        <li class="my-6"><p class="text-accent text-lg font-medium">12 <span data-i18n="facts.1u">yıl</span></p><p data-i18n="facts.1">klinik beslenme deneyimi</p></li>
+        <li class="my-6"><p class="text-accent text-lg font-medium">3 <span data-i18n="facts.2u">uzman</span></p><p data-i18n="facts.2">diyetisyen, tek çatı altında</p></li>
+        <li class="my-6"><p class="text-accent text-lg font-medium">60 <span data-i18n="facts.3u">dk</span></p><p data-i18n="facts.3">ilk görüşme ve vücut analizi</p></li>
+        <li class="my-6"><p class="text-accent text-lg font-medium">7 <span data-i18n="facts.4u">gün</span></p><p data-i18n="facts.4">içinde ilk kontrol, sonra haftalık takip</p></li>
+      </ul>
+    </section>
+
+    <!-- S4 · Hizmetler (Card + küçük görsel) -->
+    <section id="hizmetler" class={SECTION} aria-labelledby="services-title">
+      <h2 id="services-title" class={H2} data-i18n="services.title">Çalıştığımız alanlar</h2>
+      <p class={LEDE} data-i18n="services.lede">Hazır listeler dağıtmıyoruz. Yaşınızı, hareket düzeninizi, tahlil sonuçlarınızı ve mutfağınızda gerçekten ne olduğunu konuşarak başlıyoruz.</p>
+      <ul>
+        {services.map((s) => (
+          <li class="my-6 flex gap-4">
+            <img
+              src={getAssetPath(`assets/img/${s.img}-700.webp`)}
+              width="700"
+              height="525"
+              loading="lazy"
+              decoding="async"
+              class="thumb border-border mt-1 border object-cover"
+              alt={T(`s${s.n}.alt`)}
+              data-i18n-attr={`alt:s${s.n}.alt`}
+            />
+            <div class="min-w-0">
+              <a href="#randevu" class={CARD_TITLE} data-book-area={s.area} data-book-type={s.type}>
+                <h3 data-i18n={`s${s.n}.title`}>{T(`s${s.n}.title`)}</h3>
+              </a>
+              <div class={META}>
+                <span data-i18n={`s${s.n}.foot`}>{T(`s${s.n}.foot`)}</span>
+                <span aria-hidden="true">|</span>
+                <ul class="tags flex flex-wrap gap-x-2">
+                  {s.tags.map((k) => (
+                    <li class="flex items-center gap-0.5"><IconHash class="size-4 opacity-80" />{k ? <span data-i18n={k}>{T(k)}</span> : <span>PCOS</span>}</li>
+                  ))}
+                </ul>
+              </div>
+              <p data-i18n={`s${s.n}.text`}>{T(`s${s.n}.text`)}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- S5 · Mevsim notları (AstroPaper sadeliği: görselsiz, etiket listesi düzeni) -->
+    <section class:list={["notes-panel", SECTION]} aria-labelledby="notes-title">
+      <h2 id="notes-title" class={H2} data-i18n="notes.title">Tezgâhlarda incir, nar ve ceviz zamanı.</h2>
+      <p class={LEDE} data-i18n="notes.eyebrow">Eylül ve ekim</p>
+      <ul class="my-6 flex flex-wrap gap-x-6 gap-y-3 text-lg">
+        {[1, 2, 3, 4, 5, 6, 7].map((n) => (
+          <li class="flex items-center gap-0.5"><IconHash class="size-5 opacity-80" /><span data-i18n={`notes.c${n}`}>{T(`notes.c${n}`)}</span></li>
+        ))}
+      </ul>
+      <p class="mt-2">
+        <LinkButton class={LINK} href="#tarifler"><span data-i18n="notes.p1">Tarifler</span></LinkButton>
+        <span aria-hidden="true">&nbsp;·&nbsp;</span>
+        <LinkButton class={LINK} href="#program"><span data-i18n="notes.p2">Örnek program</span></LinkButton>
+        <span aria-hidden="true">&nbsp;·&nbsp;</span>
+        <LinkButton class={LINK} href="#blog"><span data-i18n="notes.p3">Yazılar</span></LinkButton>
+      </p>
+    </section>
+
+    <!-- S6 · Yaklaşım -->
+    <section id="yaklasim" class={SECTION} aria-labelledby="process-title">
+      <h2 id="process-title" class={H2} data-i18n="process.title">Görüşmeler nasıl ilerliyor?</h2>
+      <p class={LEDE} data-i18n="process.lede">Plan ilk görüşmede bitmiyor. Bayram sofrası, tatil ya da yoğun bir iş haftası geldiğinde kontrol görüşmesinde birlikte güncelliyoruz.</p>
+      <div class="app-prose max-w-app">
+        <blockquote class="quote">
+          <p data-i18n="process.quote">“Danışanlarımın çoğu ne yemesi gerektiğini aşağı yukarı biliyor. Zorlandıkları an, akşam işten aç çıktıkları saat. Planı önce o saate göre kuruyoruz.”</p>
+          <footer class="text-foreground">— <span data-i18n="team.selin.name">Uzm. Dyt. Selin Karaca</span> · <span data-i18n="process.quoteRole">kurucu</span></footer>
+        </blockquote>
+      </div>
+      <ol class="road my-6 list-decimal ps-8 marker:text-accent">
+        {[1, 2, 3, 4].map((n) => (
+          <li class="step my-6">
+            <h3 class="text-lg font-medium" data-i18n={`step${n}.title`}>{T(`step${n}.title`)}</h3>
+            <div class={META}><span data-i18n={`step${n}.meta`}>{T(`step${n}.meta`)}</span></div>
+            <p data-i18n={`step${n}.text`}>{T(`step${n}.text`)}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <!-- S7 · Yöntem sahnesi (manifesto): yalnızca metin -->
+    <section id="manifesto" class={SECTION} aria-labelledby="manifesto-title">
+      <h2 id="manifesto-title" class={H2} data-i18n="scene.label">Yöntem</h2>
+      <div class="app-prose max-w-app">
+        <blockquote>
+          <p>
+            <span data-scene-line data-i18n="scene.l1">Tek bir hafta için değil.</span>
+            <span data-scene-line data-i18n="scene.l2">Bayram sofrası için de,</span>
+            <span data-scene-line data-i18n="scene.l3">yorgun bir salı akşamı için de</span>
+            <span data-scene-line><em data-i18n="scene.l4">çalışan bir plan.</em></span>
+          </p>
+        </blockquote>
+      </div>
+      <ul class="scene-foot my-6">
+        <li class="my-2"><b class="text-accent font-medium" data-i18n="scene.f1n">60 dk</b> <span data-i18n="scene.f1">ilk görüşme</span></li>
+        <li class="my-2"><b class="text-accent font-medium" data-i18n="scene.f2n">48 saat</b> <span data-i18n="scene.f2">içinde kişisel plan</span></li>
+        <li class="my-2"><b class="text-accent font-medium" data-i18n="scene.f3n">Haftalık</b> <span data-i18n="scene.f3">kontrol ve mesaj desteği</span></li>
+      </ul>
+    </section>
+
+    <!-- S8 · Uzmanlar (Card + küçük portre) -->
+    <section id="uzmanlar" class={SECTION} aria-labelledby="team-title">
+      <h2 id="team-title" class={H2} data-i18n="team.title">Diyetisyenlerimiz</h2>
+      <p class={LEDE} data-i18n="team.lede">Her uzmanın ağırlıklı çalıştığı alan farklı. Randevu alırken konunuzu seçtiğinizde size uygun uzmanlar öne çıkar.</p>
+      <ul>
+        {["selin", "emre", "zeynep"].map((p) => (
+          <li class="person my-6 flex gap-4">
+            <img
+              src={getAssetPath(`assets/img/uzman-${p}-560.webp`)}
+              width="560"
+              height="700"
+              loading="lazy"
+              decoding="async"
+              class="portrait border-border mt-1 border object-cover"
+              alt={T(`team.${p}.alt`)}
+              data-i18n-attr={`alt:team.${p}.alt`}
+            />
+            <div class="min-w-0">
+              <h3 class="text-lg font-medium" data-i18n={`team.${p}.name`}>{T(`team.${p}.name`)}</h3>
+              <div class={META}>
+                <span data-i18n={`team.${p}.area`}>{T(`team.${p}.area`)}</span>
+                {p === "selin" && (<><span aria-hidden="true">|</span><span data-i18n="team.founder">Kurucu</span></>)}
+              </div>
+              <p data-i18n={`team.${p}.bio`}>{T(`team.${p}.bio`)}</p>
+              <dl class="person-facts my-2 text-sm">
+                <div><dt data-i18n="team.edu">Eğitim</dt><dd data-i18n={`team.${p}.edu`}>{T(`team.${p}.edu`)}</dd></div>
+                <div><dt data-i18n="team.days">Günler</dt><dd data-i18n={`team.${p}.days`}>{T(`team.${p}.days`)}</dd></div>
+                <div><dt data-i18n="team.langs">Dil</dt><dd data-i18n={`team.${p}.langs`}>{T(`team.${p}.langs`)}</dd></div>
+              </dl>
+              <LinkButton class={LINK} href="#randevu" data-book-staff={p}>
+                <span data-i18n={`team.${p}.btn`}>{T(`team.${p}.btn`)}</span>
+                <IconArrowRight class="inline-block size-5 rtl:-rotate-180" />
+              </LinkButton>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- S9 · Araçlar (diyetisyen-v2 işaretlemesi, AstroPaper tokenlarıyla giydirildi) -->
+    <section id="araclar" class={SECTION} aria-labelledby="tools-title">
+      <h2 id="tools-title" class={H2} data-i18n="tools.title">Hesaplama araçları</h2>
+      <p class={LEDE} data-i18n="tools.lede">Bu hesaplamalar genel bir fikir verir. Görüşmede aynı değerleri vücut analizi ve tahlillerinizle birlikte yorumluyoruz.</p>
+      {{parca:araclar}}
+    </section>
+
+    <!-- S10 · Örnek program -->
+    <section id="program" class={SECTION} aria-labelledby="program-title">
+      <div class="print-scope">
+        <h2 id="program-title" class={H2} data-i18n="program.title">Bir haftalık örnek menü</h2>
+        <p class={LEDE} data-i18n="program.lede">Üç farklı hedef için hazırladığımız örnek haftalar. Porsiyonlar ortalama bir yetişkine göredir; size özel plan görüşmede hazırlanır.</p>
+        {{parca:program}}
+      </div>
+    </section>
+
+    <!-- S11 · Tarifler -->
+    <section id="tarifler" class={SECTION} aria-labelledby="recipes-title">
+      <h2 id="recipes-title" class={H2} data-i18n="recipes.title">Hafta içi akşamlarına sığan tarifler</h2>
+      <p class={LEDE} data-i18n="recipes.lede">Çoğu 30 dakikadan kısa sürüyor ve malzemeleri mahalle marketinde bulunuyor. Her tarifte porsiyon başına besin değerleri var.</p>
+      {{parca:tarifler}}
+    </section>
+
+    <!-- S12 · Ücretler (Card + düz liste) -->
+    <section id="ucretler" class={SECTION} aria-labelledby="pricing-title">
+      <h2 id="pricing-title" class={H2} data-i18n="pricing.title">Görüşme ücretleri</h2>
+      <p class={LEDE} data-i18n="pricing.lede">Görüşme ücretlerini baştan paylaşıyoruz. Online görüşmeler, yüz yüze görüşmelerle aynı içeriktedir.</p>
+      <ul class="plans">
+        {[
+          { n: 1, price: "1.800", per: null, feats: 4, btn: "plan1.btn" },
+          { n: 2, price: "5.400", per: "plan2.per", feats: 5, btn: "plan2.btn" },
+          { n: 3, price: "14.900", per: null, feats: 5, btn: "plan3.btn" },
+        ].map((p) => (
+          <li class="plan my-6">
+            <h3 class="text-lg font-medium" data-i18n={`plan${p.n}.label`}>{T(`plan${p.n}.label`)}</h3>
+            <p class="price text-accent text-xl font-semibold">
+              <span data-i18n={`price.p${p.n}`}>{p.price}</span>
+              {p.per ? <small class="text-sm font-medium" data-i18n={p.per}>TL / ay</small> : <small class="text-sm font-medium">TL</small>}
+            </p>
+            <div class={META}><span data-i18n={`plan${p.n}.sub`}>{T(`plan${p.n}.sub`)}</span></div>
+            <ul class="feats my-2 list-disc ps-6 marker:text-accent">
+              {Array.from({ length: p.feats }, (_, i) => <li data-i18n={`plan${p.n}.f${i + 1}`}>{T(`plan${p.n}.f${i + 1}`)}</li>)}
+            </ul>
+            <LinkButton class={LINK} href="#randevu" data-book-type="first">
+              <span data-i18n={p.btn}>{T(p.btn)}</span>
+              <IconArrowRight class="inline-block size-5 rtl:-rotate-180" />
+            </LinkButton>
+          </li>
+        ))}
+      </ul>
+      <div class="strip my-6">
+        <h3 class="text-lg font-medium" data-i18n="pricing.corpTitle">Kurumsal beslenme programları</h3>
+        <p data-i18n="pricing.corpText">Şirket çalışanlarına yönelik seminer ve bireysel görüşme paketleri için ayrıca teklif hazırlıyoruz.</p>
+        <LinkButton class={LINK} href="#iletisim" data-contact-topic="corporate">
+          <span data-i18n="pricing.corpBtn">Teklif isteyin</span>
+          <IconArrowRight class="inline-block size-5 rtl:-rotate-180" />
+        </LinkButton>
+      </div>
+      <div class="incl my-6">
+        <h3 class="text-lg font-medium" data-i18n="incl.title">Neler dahil, neler değil?</h3>
+        <p class="italic" data-i18n="incl.text">Sonradan ek ücret çıkmaması için baştan netleştiriyoruz.</p>
+        <div class="mt-4 grid gap-4 sm:grid-cols-2">
+          <div>
+            <p class="font-medium" data-i18n="incl.yes">Dahil</p>
+            <ul class="incl-list my-2 list-disc ps-6 marker:text-accent">
+              {[1, 2, 3, 4, 5].map((i) => <li data-i18n={`incl.y${i}`}>{T(`incl.y${i}`)}</li>)}
+            </ul>
+          </div>
+          <div>
+            <p class="font-medium" data-i18n="incl.no">Dahil değil</p>
+            <ul class="incl-list incl-list--no my-2 list-[circle] ps-6 marker:text-muted-foreground">
+              {[1, 2, 3, 4].map((i) => <li data-i18n={`incl.n${i}`}>{T(`incl.n${i}`)}</li>)}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- S13 · Randevu -->
+    <section id="randevu" class:list={["booking-panel", SECTION]} aria-labelledby="booking-title">
+      <h2 id="booking-title" class={H2} data-i18n="booking.title">Online randevu</h2>
+      <p class={LEDE} data-i18n="booking.lede">Uzmanların boş saatlerini görüp randevunuzu buradan ayırabilirsiniz. Aynı gün için en erken bir saat sonrasına randevu verilebiliyor.</p>
+      {{parca:clock}}
+      {{parca:randevu}}
+    </section>
+
+    <!-- S14 · Blog = AstroPaper "Recent posts" (Card) -->
+    <section id="blog" class={SECTION} aria-labelledby="blog-title">
+      <h2 id="blog-title" class={H2} data-i18n="blog.title">Son yazılar</h2>
+      <p class={LEDE} data-i18n="blog.lede">Danışanlarımızın en sık sorduğu konuları, güncel bilimsel kaynaklara dayanarak yazıyoruz.</p>
+      <ul>
+        {recentPosts.slice(0, postsConfig.perIndex).map(data => (
+          <Card variant="h3" {...data} />
+        ))}
+      </ul>
+      <div class="my-8 text-center">
+        <LinkButton href={getAssetPath("blog/")}>
+          <span data-i18n="blog.all">Tüm yazılar</span>
+          <IconArrowRight class="inline-block rtl:-rotate-180" />
+        </LinkButton>
+      </div>
+    </section>
+
+    <!-- S15 · SSS -->
+    <section id="sss" class={SECTION} aria-labelledby="faq-title">
+      <h2 id="faq-title" class={H2} data-i18n="faq.title">Sık sorulan sorular</h2>
+      {{parca:faq}}
+      <div class="faq-help my-6">
+        <p data-i18n="faq.help">Cevabını bulamadığınız bir soru mu var? Asistanımıza yazın ya da WhatsApp’tan ulaşın; mesai saatlerinde bir diyetisyen yanıtlıyor.</p>
+        <p class="mt-2">
+          <button type="button" class:list={["group inline-flex items-center gap-1", LINK]} data-open-chat data-i18n="faq.chat">Asistana sorun</button>
+          <span aria-hidden="true">&nbsp;·&nbsp;</span>
+          <LinkButton class={LINK} href="https://wa.me/905555555555" target="_blank" rel="noopener noreferrer" data-wa>WhatsApp</LinkButton>
+        </p>
+      </div>
+    </section>
+
+    <!-- S16 · "afiyet olsun" (görselsiz; AstroPaper giriş başlığı ölçeği) -->
+    <section class:list={["sky", SECTION]} aria-labelledby="sky-title">
+      <p class="my-4 text-4xl font-bold sm:text-5xl" aria-hidden="true"><span data-i18n="sky.word">afiyet olsun</span></p>
+      <h2 id="sky-title" class={H2} data-i18n="sky.title">Planınızla ilgili sorularınızı WhatsApp’tan yazabilirsiniz; mesai saatlerinde bir diyetisyen yanıtlıyor.</h2>
+      <p class="mt-4">
+        <LinkButton class={LINK} href="https://wa.me/905555555555" target="_blank" rel="noopener noreferrer" data-wa>WhatsApp</LinkButton>
+        <span aria-hidden="true">&nbsp;·&nbsp;</span>
+        <LinkButton class={LINK} href="tel:+905555555555" data-tel><span data-i18n="sky.call">Bizi arayın</span></LinkButton>
+        <span aria-hidden="true">&nbsp;·&nbsp;</span>
+        <LinkButton class={LINK} href="https://www.google.com/maps/search/?api=1&query=Moda+Caddesi+Kad%C4%B1k%C3%B6y+%C4%B0stanbul" target="_blank" rel="noopener noreferrer" data-maps><span data-i18n="sky.map">Yol tarifi</span></LinkButton>
+      </p>
+    </section>
+
+    <!-- S17 · İletişim -->
+    <section id="iletisim" class="pt-12 pb-6" aria-labelledby="contact-title">
+      <h2 id="contact-title" class={H2} data-i18n="contact.title">İletişim ve ulaşım</h2>
+      <p class={LEDE} data-i18n="contact.lede">Moda Caddesi üzerindeyiz; Kadıköy iskelesinden yaklaşık 10 dakika yürüme mesafesi. Binada asansör var, en yakın otopark 150 metre ileride.</p>
+      {{parca:iletisim}}
+    </section>
+  </main>
+
+  <Footer />
+
+  {{parca:dialogs}}
+</Layout>

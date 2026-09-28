@@ -1,0 +1,66 @@
+---
+import dayjs from "dayjs";
+import "dayjs/locale/tr";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+import IconCalendar from "@/assets/icons/IconCalendar.svg";
+import config from "@/config";
+import { useTranslations } from "@/i18n";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+
+// AstroPaper Datetime.astro. Tarih iki dilde basılır (data-lang-block); site.js dile göre birini gizler.
+// Biçim: EN'de AstroPaper'ın "D MMM, YYYY"si, TR'de aynı sıra virgülsüz ("8 Eyl 2026").
+type Props = {
+  class?: string;
+  size?: "sm" | "lg";
+  pubDatetime: string | Date;
+  timezone?: string;
+  modDatetime?: string | Date | null;
+};
+
+const {
+  pubDatetime,
+  modDatetime,
+  size = "sm",
+  class: className = "",
+  timezone: postTimezone,
+} = Astro.props;
+
+const t = useTranslations(config.site.lang);
+
+const isModified = modDatetime && modDatetime > pubDatetime;
+
+const datetime = dayjs(isModified ? modDatetime : pubDatetime).tz(
+  postTimezone ?? config.site.timezone
+);
+
+const dateTr = datetime.locale("tr").format("D MMM YYYY");
+const dateEn = datetime.locale("en").format("D MMM, YYYY");
+---
+
+<div
+  class:list={["text-muted-foreground flex items-center gap-x-2", className]}
+>
+  <IconCalendar
+    class:list={[
+      "inline-block size-6 min-w-5.5",
+      { "scale-90": size === "sm" },
+    ]}
+  />
+  {
+    isModified && (
+      <span class:list={["text-sm", { "sm:text-base": size === "lg" }]}>
+        <span data-i18n="ap.post.updatedAt">{t.post.updatedAt}</span>:
+      </span>
+    )
+  }
+  <time
+    class:list={["text-sm", { "sm:text-base": size === "lg" }]}
+    datetime={datetime.toISOString()}
+  >
+    <span data-lang-block="tr">{dateTr}</span><span data-lang-block="en">{dateEn}</span>
+  </time>
+  <slot />
+</div>

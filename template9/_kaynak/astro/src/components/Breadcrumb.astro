@@ -1,0 +1,91 @@
+---
+import { getAssetPath, stripBase } from "@/utils/withBase";
+import { useTranslations } from "@/i18n";
+import config from "@/config";
+
+// AstroPaper Breadcrumb.astro. Mizan adresleri (blog/, tags/<etiket>/, kvkk.html) ve TR/EN etiketleri.
+const t = useTranslations(config.site.lang);
+
+const path = stripBase(Astro.url.pathname)
+  .replace(/\/index\.html$/, "")
+  .replace(/\.html$/, "")
+  .replace(/\/+$/, "");
+const segments = path.split("/").filter(Boolean);
+
+const decodeSegment = (value: string) => {
+  try {
+    return decodeURIComponent(value);
+  } catch {
+    return value;
+  }
+};
+
+type Crumb = { href?: string; key?: string; text: string; pageNo?: number; lower?: boolean };
+
+const navLabels: Record<string, { key?: string; text: string }> = {
+  blog: { key: "nav.blog", text: "Blog" },
+  tags: { key: "ap.nav.tags", text: t.nav.tags },
+  about: { key: "ap.nav.about", text: t.nav.about },
+  archives: { key: "ap.nav.archives", text: t.nav.archives },
+  search: { key: "ap.nav.search", text: t.nav.search },
+  kvkk: { text: "KVKK" },
+};
+
+const crumbs: Crumb[] = [];
+if (segments[0] === "blog") {
+  // AstroPaper: Home » Posts (page 1)
+  crumbs.push({ ...navLabels.blog, pageNo: Number(segments[1] ?? 1) });
+} else if (segments[0] === "tags" && segments[1]) {
+  crumbs.push({ ...navLabels.tags, href: getAssetPath("tags/") });
+  const n = Number(segments[2] ?? 1);
+  crumbs.push({ text: decodeSegment(segments[1]), pageNo: n > 1 ? n : undefined, lower: true });
+} else {
+  segments.forEach((s, i) =>
+    crumbs.push({
+      ...(navLabels[s] ?? { text: decodeSegment(s) }),
+      href: i + 1 < segments.length ? getAssetPath(`${segments.slice(0, i + 1).join("/")}/`) : undefined,
+    })
+  );
+}
+---
+
+<nav class="app-layout mt-8 mb-1" aria-label="Sayfa yolu" data-i18n-attr="aria-label:crumbs.aria">
+  <ul
+    class="flex flex-wrap items-center gap-x-1 font-light [&>li:not(:last-child)>a]:hover:opacity-100"
+  >
+    <li class="flex items-center gap-x-1">
+      <a href={getAssetPath("")} class="opacity-80" data-i18n="crumbs.home">
+        {t.nav.home}
+      </a>
+      <span aria-hidden="true" class="opacity-80">&raquo;</span>
+    </li>
+    {
+      crumbs.map((c, index) =>
+        index + 1 === crumbs.length ? (
+          <li>
+            <span
+              class:list={["capitalize opacity-75", { lowercase: c.lower }]}
+              aria-current="page"
+            >
+              <span data-i18n={c.key}>{c.text}</span>{c.pageNo && " "}
+              {c.pageNo && (
+                <>
+                  (<span class="lowercase" data-i18n="ap.pagination.page">{t.pagination.page}</span> {c.pageNo})
+                </>
+              )}
+            </span>
+          </li>
+        ) : (
+          <li class="flex items-center gap-x-1">
+            <a href={c.href} class="capitalize opacity-70" data-i18n={c.key}>
+              {c.text}
+            </a>
+            <span aria-hidden="true" class="opacity-70">
+              &raquo;
+            </span>
+          </li>
+        )
+      )
+    }
+  </ul>
+</nav>

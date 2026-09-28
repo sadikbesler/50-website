@@ -1,0 +1,415 @@
+{
+  "1 konsol": {
+    "gecti": true,
+    "not": {
+      "index": [],
+      "blog": [],
+      "blog-2": [],
+      "makale": [],
+      "kvkk": [],
+      "tags": [],
+      "etiket": [],
+      "archives": [],
+      "search": [],
+      "about": []
+    }
+  },
+  "2 tasma": {
+    "gecti": true,
+    "not": {
+      "index@1440": [
+        1440,
+        1440
+      ],
+      "index@390": [
+        390,
+        390
+      ],
+      "blog@1440": [
+        1440,
+        1440
+      ],
+      "blog@390": [
+        390,
+        390
+      ],
+      "blog-2@1440": [
+        1440,
+        1440
+      ],
+      "blog-2@390": [
+        390,
+        390
+      ],
+      "makale@1440": [
+        1440,
+        1440
+      ],
+      "makale@390": [
+        390,
+        390
+      ],
+      "kvkk@1440": [
+        1440,
+        1440
+      ],
+      "kvkk@390": [
+        390,
+        390
+      ],
+      "tags@1440": [
+        1440,
+        1440
+      ],
+      "tags@390": [
+        390,
+        390
+      ],
+      "etiket@1440": [
+        1440,
+        1440
+      ],
+      "etiket@390": [
+        390,
+        390
+      ],
+      "archives@1440": [
+        1440,
+        1440
+      ],
+      "archives@390": [
+        390,
+        390
+      ],
+      "search@1440": [
+        1440,
+        1440
+      ],
+      "search@390": [
+        390,
+        390
+      ],
+      "about@1440": [
+        1440,
+        1440
+      ],
+      "about@390": [
+        390,
+        390
+      ]
+    }
+  },
+  "3 sozlesme": {
+    "gecti": true,
+    "not": {
+      "eksik": [],
+      "ilkYuklemedeOlmayan": [
+        ".servings",
+        "[data-intent]"
+      ]
+    }
+  },
+  "3 sozlesme (.cal-day/.slot)": {
+    "gecti": true
+  },
+  "4 randevu": {
+    "gecti": true,
+    "not": {
+      "bosFormHata": 4,
+      "ozetSatir": 8,
+      "done": {
+        "ref": "MZ-L9UYM",
+        "gcal": true
+      },
+      "ics": "mizan-randevu-MZ-L9UYM.ics",
+      "iptalAcik": true,
+      "iptalHata": true
+    }
+  },
+  "5 araclar": {
+    "gecti": true,
+    "not": {
+      "vki": "24,2",
+      "kcal": "1.730",
+      "doluBardakYenilemeSonrasi": 3
+    }
+  },
+  "6 program-tarif": {
+    "gecti": true,
+    "not": {
+      "gunDegisti": true,
+      "toplam": [
+        "1.500",
+        "2.580"
+      ],
+      "tarif": [
+        9,
+        2
+      ],
+      "scaled": {
+        "q0": "80 g",
+        "q1": "120 g",
+        "porsiyon": "3"
+      }
+    }
+  },
+  "7 sohbet": {
+    "gecti": true,
+    "not": {
+      "acik": true,
+      "fiyat": "Güncel ücretlerimiz:İlk görüşme · 60 dk1.800 TLKontrol görüşmesi · 30 dk900 TLOn",
+      "randevu": "En yakın uygun ilk görüşme (60 dk, vücut analizi dahil): Yarın, saat 09:00 · Uzm",
+      "cb": [
+        "Memnuniyetle. Diyetisyenimiz mesai saatleri içinde",
+        "Teşekkürler Test. Size hangi numaradan ulaşalım?",
+        "Geri arama talebiniz alındı (demo). Bu bir demo olduğu için sizi kimse aramayaca"
+      ]
+    }
+  },
+  "8 dil-tema": {
+    "gecti": true,
+    "not": {
+      "trKalan": {
+        "index": [],
+        "blog": [],
+        "blog-2": [],
+        "makale": [],
+        "kvkk": [],
+        "tags": [],
+        "etiket": [],
+        "archives": [],
+        "search": [],
+        "about": []
+      },
+      "enUrl": "http://localhost:8801/50-website/template9/?lang=en",
+      "koyu": true,
+      "korundu": {
+        "dark": true,
+        "lang": "en"
+      },
+      "geri": {
+        "dark": false,
+        "lang": "tr"
+      },
+      "qEn": "en | A nutrition plan that fits your life."
+    }
+  },
+  "9 axe": {
+    "gecti": true,
+    "not": {
+      "ciddi": {
+        "index-acik": [],
+        "index-koyu": [],
+        "makale": [],
+        "makale-koyu": [],
+        "blog": [],
+        "etiket-koyu": [],
+        "arsiv": [],
+        "hakkimizda-koyu": [],
+        "kvkk": [],
+        "arama-light": [],
+        "arama-dark": [],
+        "takvim-light": [],
+        "tarif-penceresi-light": [],
+        "sohbet-light": [],
+        "takvim-dark": [],
+        "tarif-penceresi-dark": [],
+        "sohbet-dark": []
+      },
+      "tum": {
+        "index-acik": [],
+        "index-koyu": [],
+        "makale": [
+          {
+            "id": "region",
+            "impact": "moderate",
+            "n": 1,
+            "ornek": [
+              "span[data-i18n=\"ap.post.goBack\"]"
+            ]
+          }
+        ],
+        "makale-koyu": [
+          {
+            "id": "region",
+            "impact": "moderate",
+            "n": 1,
+            "ornek": [
+              "span[data-i18n=\"ap.post.goBack\"]"
+            ]
+          }
+        ],
+        "blog": [],
+        "etiket-koyu": [],
+        "arsiv": [],
+        "hakkimizda-koyu": [],
+        "kvkk": [],
+        "arama-light": [],
+        "arama-dark": [],
+        "takvim-light": [],
+        "tarif-penceresi-light": [],
+        "sohbet-light": [],
+        "takvim-dark": [],
+        "tarif-penceresi-dark": [],
+        "sohbet-dark": []
+      }
+    }
+  },
+  "10 hareket-azaltma": {
+    "gecti": true,
+    "not": {
+      "sonsuz": [],
+      "gizli": []
+    }
+  },
+  "11 js-kapali": {
+    "gecti": true,
+    "not": {
+      "gizliBolum": [],
+      "metin": 11652,
+      "notlar": 7,
+      "yazilar": 6,
+      "enGizli": true
+    }
+  },
+  "kabul: arama \"insülin\"": {
+    "gecti": true,
+    "not": {
+      "linkler": [
+        "/50-website/template9/blog/insulin-direnci-beslenme.html",
+        "/50-website/template9/blog/insulin-direnci-beslenme.html#tr-bu-yaz%C4%B1da",
+        "/50-website/template9/blog/insulin-direnci-beslenme.html#tr-i%CC%87ns%C3%BClin-direnci-nedir",
+        "/50-website/template9/blog/insulin-direnci-beslenme.html#tr-yasak-listeleri-i%C5%9Fe-yarar-m%C4%B1",
+        "/50-website/template9/blog/aralikli-oruc-16-8.html",
+        "/50-website/template9/blog/aralikli-oruc-16-8.html#tr-kimler-uygulamamal%C4%B1"
+      ],
+      "mesaj": "insülin için 2 sonuç bulundu",
+      "url": "?q=ins%C3%BClin",
+      "ilkSonucDurum": 200
+    }
+  },
+  "kabul: etiket sayfalari": {
+    "gecti": true,
+    "not": {
+      "r": {
+        "beslenme": [
+          true,
+          200
+        ],
+        "insulin-direnci": [
+          true,
+          200
+        ],
+        "su": [
+          true,
+          200
+        ],
+        "protein": [
+          true,
+          200
+        ],
+        "akdeniz": [
+          true,
+          200
+        ],
+        "etiket-okuma": [
+          true,
+          200
+        ]
+      },
+      "liste": [
+        "akdeniz",
+        "beslenme",
+        "etiket-okuma",
+        "insulin-direnci",
+        "protein",
+        "su"
+      ],
+      "insulinEtiketi": [
+        "/50-website/template9/blog/insulin-direnci-beslenme.html"
+      ]
+    }
+  },
+  "kabul: ic baglantilar 200": {
+    "gecti": true,
+    "not": {
+      "sayfa": 22,
+      "baglanti": 900,
+      "benzersiz": 59,
+      "kotu": [],
+      "parcaHata": []
+    }
+  },
+  "kabul: makale kelime sayisi": {
+    "gecti": true,
+    "not": {
+      "akdeniz-tipi-beslenme": {
+        "ozgun": {
+          "govde": 694,
+          "kaynak": 62
+        },
+        "sonuc": {
+          "govde": 694,
+          "kaynak": 62
+        }
+      },
+      "aralikli-oruc-16-8": {
+        "ozgun": {
+          "govde": 759,
+          "kaynak": 73
+        },
+        "sonuc": {
+          "govde": 759,
+          "kaynak": 73
+        }
+      },
+      "etiket-okuma-rehberi": {
+        "ozgun": {
+          "govde": 832,
+          "kaynak": 75
+        },
+        "sonuc": {
+          "govde": 832,
+          "kaynak": 75
+        }
+      },
+      "gunluk-su-ihtiyaci": {
+        "ozgun": {
+          "govde": 670,
+          "kaynak": 57
+        },
+        "sonuc": {
+          "govde": 670,
+          "kaynak": 57
+        }
+      },
+      "insulin-direnci-beslenme": {
+        "ozgun": {
+          "govde": 1003,
+          "kaynak": 92
+        },
+        "sonuc": {
+          "govde": 1003,
+          "kaynak": 92
+        }
+      },
+      "protein-ihtiyaci": {
+        "ozgun": {
+          "govde": 729,
+          "kaynak": 101
+        },
+        "sonuc": {
+          "govde": 729,
+          "kaynak": 101
+        }
+      }
+    }
+  },
+  "ek: mobil menu": {
+    "gecti": true,
+    "not": {
+      "acik": true,
+      "aria": "true"
+    }
+  }
+}

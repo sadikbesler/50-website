@@ -1,0 +1,1395 @@
+/* ==========================================================================
+   Mizan işlevsel katmanı — AstroPaper tokenlarıyla (theme.css: --background, --foreground,
+   --accent, --accent-foreground, --muted, --muted-foreground, --border; font-app; rounded
+   0.25/0.375rem; shadow-xl; kesikli odak çerçevesi).
+   diyetisyen-v2'nin site.css'inden yalnızca JS'in beklediği işlevsel kurallar (randevu takvimi,
+   saatler, araç formları, program, tarif penceresi, sohbet, demo şeridi, erişilebilirlik) yeniden
+   yazıldı; renk/biçim kararları AstroPaper öğelerinden:
+   - Seçili sekme/filtre/seçenek = AstroPaper'ın etkin menü bağlantısı (.active-nav, dalgalı alt çizgi)
+   - Düğme = LinkButton (kesikli alt çizgili metin bağlantısı, hover:text-accent)
+   - Giriş kutusu = Pagefind arama kutusu (1px --border, 0.375rem, odakta 1px --accent)
+   - Bilgi kutusu = arama sayfasındaki uyarı kutusu (bg-muted/75 rounded p-4)
+   - Yüzen düğme = BackToTopButton'ın mobil hâli (bg-background size-14 rounded-full shadow-xl)
+   - Karartma = makale görsel büyütme katmanı (bg-black/70 backdrop-blur-sm)
+   ========================================================================== */
+
+:root,
+[data-theme="light"] {
+  /* JS'in doğrudan kullandığı adlar (tools.js: --ink, --bmi-*) */
+  --ink: var(--foreground);
+  --err: #b91c1c;
+}
+[data-theme="dark"] {
+  --err: #fca5a5;
+}
+:root {
+  /* rehype-callouts (obsidian) açık tema başlık renkleri tint zeminde 4,5:1 altında kalıyor (axe "ciddi"):
+     not = AstroPaper vurgu rengi, uyarı = obsidian turuncusunun koyu tonu. Koyu tema özgün. */
+  --callout-note-color-light: #006cac;
+  --callout-warning-color-light: rgb(160, 80, 0);
+  --callout-note-color-dark: rgb(96, 165, 250);
+  /* VKİ ölçeği: yargılayıcı renk dili yok; tek vurgu renginin açık→koyu tonları */
+  --bmi-1: color-mix(in srgb, var(--accent) 35%, var(--background));
+  --bmi-2: color-mix(in srgb, var(--accent) 55%, var(--background));
+  --bmi-3: color-mix(in srgb, var(--accent) 70%, var(--background));
+  --bmi-4: color-mix(in srgb, var(--accent) 85%, var(--background));
+  --bmi-5: var(--accent);
+}
+
+/* bg-muted/75 kutularda --muted-foreground açık temada 3,9:1 kalıyor (axe "ciddi"). Kutu içinde
+   ön plan renginden türetilen bir ton kullanılır; koyu temada özgün değer zaten 5,8:1. */
+/* Koyu temada AstroPaper'ın --accent (#ff6b01) + --accent-foreground (#fff) çifti 2,9:1; vurgu zeminli
+   Mizan öğelerinde yazı rengi sayfa zemini (#212737, 6,3:1) olur. Açık temada özgün çift (5,6:1) kalır. */
+[data-theme="dark"] :is(.cal-day[aria-pressed="true"], .cal-day[aria-pressed="true"] .cal-meta, .slot[aria-pressed="true"], .stepper .is-current button > span, .msg--user .bubble, .chat-send, .done-icon, .chat-avatar) {
+  color: var(--background);
+}
+
+[data-theme="light"] :is(.tool-result, .program-side .tool-card, .slots-empty, .prep, .servings, .ref, .tz-note, .msg--bot .bubble, .demo-bar, .cal-day.is-full) {
+  --muted-foreground: color-mix(in srgb, var(--foreground) 78%, var(--muted));
+}
+
+@layer base {
+  [hidden] {
+    display: none !important;
+  }
+  html:not([lang="en"]) [data-lang-block="en"],
+  html[lang="en"] [data-lang-block="tr"] {
+    display: none !important;
+  }
+  .lang-pending body {
+    visibility: hidden;
+    animation: reveal-body 0s linear 1.2s forwards;
+  }
+  @keyframes reveal-body {
+    to {
+      visibility: visible;
+    }
+  }
+  .theme-switching *,
+  .theme-switching *::before,
+  .theme-switching *::after {
+    transition: none !important;
+  }
+  :target,
+  section[id] {
+    scroll-margin-block: 1rem;
+  }
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+    color: inherit;
+  }
+  input,
+  select,
+  textarea,
+  summary,
+  label {
+    @apply outline-accent outline-offset-1 focus-visible:outline-2 focus-visible:outline-dashed;
+  }
+}
+
+@layer components {
+  /* ---------- Genel ---------- */
+  .label {
+    @apply text-muted-foreground text-sm font-medium;
+  }
+  .muted {
+    @apply text-muted-foreground;
+  }
+  .mono {
+    font-variant-numeric: tabular-nums;
+  }
+  .honeypot {
+    position: absolute !important;
+    left: -9999px !important;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+  .icon-btn {
+    @apply hover:text-accent inline-grid size-10 place-items-center rounded-md;
+  }
+  .icon-btn svg {
+    @apply size-5;
+  }
+  /* LinkButton görünümü */
+  .btn,
+  .link-arrow {
+    @apply hover:text-accent inline-flex items-center gap-1 font-medium underline decoration-dashed underline-offset-4 disabled:cursor-default disabled:opacity-50;
+  }
+  .btn--primary {
+    @apply text-accent;
+  }
+  .btn svg,
+  .btn .i {
+    @apply size-5 shrink-0;
+  }
+  .btn-spinner {
+    display: none;
+  }
+  .is-loading .btn-spinner {
+    @apply inline-block size-4 rounded-full border-2 border-current border-e-transparent;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .is-loading .btn-spinner {
+      animation: spin 0.8s linear infinite;
+    }
+  }
+  .lang-btn {
+    @apply hover:text-accent px-1 py-1 font-medium;
+  }
+  .lang-btn[aria-pressed="true"] {
+    @apply active-nav;
+  }
+
+  /* ---------- Ana sayfa küçük görselleri (AstroPaper sadeliği) ---------- */
+  .thumb {
+    @apply h-18 w-24 shrink-0 sm:h-24 sm:w-32;
+  }
+  .portrait {
+    @apply h-25 w-20 shrink-0 sm:h-30 sm:w-24;
+  }
+  .person-facts div {
+    @apply flex flex-wrap gap-x-2;
+  }
+  .person-facts dt {
+    @apply text-muted-foreground;
+  }
+  .person-facts dt::after {
+    content: ":";
+  }
+  .about-portrait {
+    max-width: 10rem;
+  }
+  .quote p::before,
+  .quote p::after {
+    content: none;
+  }
+  .quote footer {
+    @apply mt-2 text-sm not-italic;
+  }
+
+  /* ---------- Sekmeler, segmentler, filtreler: etkin menü bağlantısı ---------- */
+  .tools-head {
+    @apply my-4;
+  }
+  .tabs,
+  .segmented,
+  .filter-row {
+    @apply flex flex-wrap gap-x-5 gap-y-2;
+  }
+  .tab,
+  .segmented button,
+  .chip,
+  .day-tab {
+    @apply hover:text-accent py-1 text-start font-medium;
+  }
+  .tab .mono {
+    @apply text-muted-foreground ms-2 text-xs font-normal;
+  }
+  .tab[aria-selected="true"] > span:first-child,
+  .segmented button[aria-checked="true"] > span,
+  .chip[aria-pressed="true"] {
+    @apply active-nav;
+  }
+  /* Gün sekmesinde ad ve tarih aynı düğmede: seçili gün AstroPaper Tag görünümüyle (kesikli alt kenar) */
+  .day-tab[aria-selected="true"] {
+    @apply text-accent border-accent border-b-2 border-dashed;
+  }
+  .segmented button {
+    @apply grid gap-0;
+  }
+  .segmented button small,
+  .day-tab small {
+    @apply text-muted-foreground mt-2 text-xs font-normal;
+  }
+  .day-tabs {
+    @apply flex gap-x-3 overflow-x-auto pb-2;
+    scrollbar-width: thin;
+  }
+  .day-tab {
+    @apply grid shrink-0 justify-items-center px-1;
+  }
+
+  /* ---------- Form alanları: Pagefind arama kutusu tokenları ---------- */
+  .form-grid {
+    @apply grid gap-4;
+  }
+  @media (min-width: 640px) {
+    .form-grid--2 {
+      @apply grid-cols-2;
+    }
+    .span-2 {
+      grid-column: 1 / -1;
+    }
+  }
+  .field-group {
+    @apply grid content-start gap-1.5;
+  }
+  .field-label {
+    @apply flex items-baseline justify-between gap-2 text-sm font-medium;
+  }
+  .field-label .opt {
+    @apply text-muted-foreground text-xs font-normal;
+  }
+  .field {
+    @apply border-border bg-background text-foreground w-full rounded-md border px-3 py-2;
+    min-height: 2.75rem;
+  }
+  .field::placeholder {
+    @apply text-muted-foreground;
+  }
+  .field:focus-visible {
+    outline: 1px solid var(--accent);
+    outline-offset: 0;
+  }
+  .field[aria-invalid="true"] {
+    border-color: var(--err);
+  }
+  textarea.field {
+    @apply min-h-28 resize-y;
+  }
+  select.field {
+    @apply cursor-pointer appearance-none pe-10;
+  }
+  .select-wrap {
+    @apply relative;
+  }
+  .select-wrap svg {
+    @apply text-muted-foreground pointer-events-none absolute end-3 top-1/2 size-4 -translate-y-1/2;
+  }
+  .field-err {
+    min-height: 1.25em;
+    @apply text-sm;
+    color: var(--err);
+  }
+  .field-unit {
+    @apply relative;
+  }
+  .field-unit .field {
+    @apply pe-12;
+  }
+  .field-unit span {
+    @apply text-muted-foreground pointer-events-none absolute end-3 top-1/2 -translate-y-1/2 text-sm;
+  }
+  .check {
+    @apply grid cursor-pointer grid-cols-[1.25rem_minmax(0,1fr)] items-start gap-2 text-sm;
+  }
+  .check input {
+    @apply mt-0.5 size-4;
+    accent-color: var(--accent);
+  }
+  .check a {
+    @apply hover:text-accent underline decoration-dashed underline-offset-4;
+  }
+  input[type="range"] {
+    @apply w-full cursor-pointer;
+    accent-color: var(--accent);
+  }
+  .radio-row {
+    @apply flex flex-wrap gap-x-5 gap-y-1;
+  }
+  .radio-pill {
+    @apply relative;
+  }
+  .radio-pill input {
+    @apply pointer-events-none absolute opacity-0;
+  }
+  .radio-pill span {
+    @apply hover:text-accent inline-block cursor-pointer py-1 font-medium;
+  }
+  .radio-pill input:checked + span {
+    @apply active-nav;
+  }
+  .radio-pill input:focus-visible + span {
+    @apply outline-accent outline-2 outline-offset-1 outline-dashed;
+  }
+  .radio-pill input:disabled + span {
+    @apply cursor-not-allowed line-through opacity-50;
+  }
+
+  /* ---------- Araçlar ---------- */
+  .tool {
+    @apply grid gap-6;
+  }
+  .tool-form {
+    @apply grid content-start gap-5;
+  }
+  .tool-result,
+  .program-side .tool-card {
+    @apply bg-muted/75 grid content-start gap-4 rounded p-4;
+  }
+  .range-field {
+    @apply grid gap-1;
+  }
+  .range-top {
+    @apply flex items-center justify-between gap-3;
+  }
+  .range-top .field-unit {
+    @apply w-32;
+  }
+  .result-big {
+    @apply flex flex-wrap items-baseline gap-x-4 gap-y-2;
+  }
+  .result-num {
+    @apply text-accent text-4xl font-bold sm:text-5xl;
+  }
+  .result-unit {
+    @apply text-muted-foreground text-sm;
+  }
+  .result-tag {
+    @apply inline-flex items-center gap-2 text-sm font-medium;
+  }
+  .result-tag i {
+    @apply size-2.5 rounded-full bg-current;
+  }
+  .scale {
+    @apply grid gap-2;
+  }
+  .scale-wrap {
+    @apply relative pt-4;
+  }
+  .scale-bar {
+    @apply grid h-3 gap-0.5 overflow-hidden rounded;
+    grid-template-columns: 3.5fr 6.5fr 5fr 5fr 5fr;
+  }
+  .scale-bar span:nth-child(1) { background: var(--bmi-1); }
+  .scale-bar span:nth-child(2) { background: var(--bmi-2); }
+  .scale-bar span:nth-child(3) { background: var(--bmi-3); }
+  .scale-bar span:nth-child(4) { background: var(--bmi-4); }
+  .scale-bar span:nth-child(5) { background: var(--bmi-5); }
+  .scale-marker {
+    @apply bg-foreground absolute top-0 left-0 h-7 w-0.5 -translate-x-px transition-[left] duration-500;
+  }
+  .scale-marker::before {
+    content: "";
+    @apply bg-foreground absolute -top-0.5 -left-[5px] size-3 rounded-full;
+  }
+  .scale-ticks {
+    @apply text-muted-foreground relative h-4 text-xs;
+  }
+  .scale-ticks span {
+    @apply absolute -translate-x-1/2;
+  }
+  .result-text {
+    @apply max-w-prose;
+  }
+  .stat-rows {
+    @apply border-border grid border-t border-dashed;
+  }
+  .stat-row {
+    @apply border-border flex items-baseline justify-between gap-4 border-b border-dashed py-2;
+  }
+  .stat-row dt {
+    @apply text-sm;
+  }
+  .stat-row dd {
+    @apply text-end text-sm font-medium;
+  }
+  .macro-bars {
+    @apply grid gap-3;
+  }
+  .macro {
+    @apply grid gap-1;
+  }
+  .macro-head {
+    @apply flex justify-between gap-3 text-sm;
+  }
+  .macro-head b {
+    @apply font-semibold;
+  }
+  .macro-track {
+    @apply bg-background h-2 overflow-hidden rounded;
+  }
+  .macro-fill {
+    @apply bg-accent h-full w-0 rounded transition-[width] duration-500;
+  }
+  .macro--c .macro-fill {
+    background: color-mix(in srgb, var(--accent) 65%, var(--background));
+  }
+  .macro--f .macro-fill {
+    @apply bg-muted-foreground;
+  }
+  .glasses {
+    @apply flex flex-wrap gap-1.5;
+  }
+  .glass {
+    @apply border-foreground/40 hover:border-accent relative h-11 w-8 overflow-hidden rounded-b-lg border-2 border-t-0;
+  }
+  .glass::after {
+    content: "";
+    @apply bg-accent/60 absolute inset-x-0 bottom-0 h-0 transition-[height] duration-300;
+  }
+  .glass.is-full::after {
+    height: 78%;
+  }
+  .tool-note {
+    @apply text-muted-foreground border-border border-s-2 ps-3 text-sm;
+  }
+
+  /* ---------- Örnek program ---------- */
+  .program-top {
+    @apply my-4 grid gap-4;
+  }
+  .program {
+    @apply grid gap-6;
+  }
+  .meal {
+    @apply border-border grid grid-cols-[4rem_minmax(0,1fr)] gap-x-4 border-b border-dashed py-4 sm:grid-cols-[5rem_minmax(0,1fr)_6rem];
+  }
+  .meal-time {
+    @apply text-muted-foreground pt-0.5 text-sm;
+  }
+  .meal-name {
+    @apply text-lg font-medium;
+  }
+  .meal-items {
+    @apply mt-1;
+  }
+  .meal-kcal {
+    @apply text-muted-foreground col-start-2 text-sm sm:col-start-auto sm:pt-0.5 sm:text-end;
+  }
+  .program-side {
+    @apply grid content-start gap-4;
+  }
+  .program-total {
+    @apply flex items-baseline gap-2;
+  }
+  .program-total b {
+    @apply text-accent text-3xl font-bold;
+  }
+  .program-tip {
+    @apply border-accent/80 border-s-4 ps-4 italic;
+  }
+  .program-tip .label {
+    @apply not-italic;
+  }
+  .program-actions {
+    @apply flex flex-wrap gap-x-5 gap-y-2;
+  }
+  .disclaimer {
+    @apply text-muted-foreground mt-4 text-sm italic;
+  }
+
+  /* ---------- Tarifler: AstroPaper Card + küçük görsel ---------- */
+  .filter-row {
+    @apply my-4;
+  }
+  .recipe-card {
+    @apply my-6 flex w-full gap-4 text-start;
+  }
+  .recipe-card figure {
+    @apply border-border h-18 w-24 shrink-0 overflow-hidden border sm:h-24 sm:w-32;
+  }
+  .recipe-card img {
+    @apply size-full object-cover;
+  }
+  .recipe-card-body {
+    @apply grid min-w-0 content-start gap-0.5;
+  }
+  .recipe-card h3 {
+    @apply text-accent order-first text-lg font-medium decoration-dashed underline-offset-4;
+  }
+  .recipe-card:hover h3 {
+    @apply underline;
+  }
+  .recipe-meta {
+    @apply text-muted-foreground flex flex-wrap items-center gap-x-3 text-sm;
+  }
+  .recipe-meta span {
+    @apply inline-flex items-center gap-1;
+  }
+  .recipe-meta svg {
+    @apply size-4;
+  }
+  .tags {
+    @apply text-muted-foreground flex flex-wrap gap-x-2 text-sm;
+  }
+  .recipe-card .tags li::before,
+  .recipe-content .tags li::before {
+    content: "#";
+    @apply opacity-80;
+  }
+  .recipes-empty {
+    @apply text-muted-foreground my-6 italic;
+  }
+
+  /* ---------- Pencereler (tarif, iptal) ---------- */
+  dialog {
+    @apply bg-background text-foreground border-border m-auto rounded-md border p-0 shadow-xl;
+    width: min(720px, calc(100vw - 1rem));
+    max-width: calc(100vw - 1rem);
+    max-height: calc(100dvh - 1rem);
+    overflow: hidden;
+  }
+  dialog::backdrop {
+    @apply bg-black/70 backdrop-blur-sm;
+  }
+  .dialog-scroll {
+    max-height: calc(100dvh - 1rem);
+    @apply overflow-y-auto overscroll-contain;
+  }
+  .dialog-close {
+    @apply bg-background absolute end-2 top-2 z-10;
+  }
+  .recipe-hero {
+    @apply border-border relative aspect-[16/9] border-b;
+  }
+  .recipe-hero img {
+    @apply absolute inset-0 size-full object-cover;
+  }
+  .recipe-content {
+    @apply grid gap-5 p-5 sm:p-8;
+  }
+  .recipe-content h2 {
+    @apply text-accent pe-10 text-2xl font-bold sm:text-3xl;
+  }
+  .nutri {
+    @apply border-border grid grid-cols-4 rounded border;
+  }
+  .nutri div {
+    @apply border-border grid gap-0.5 border-s p-2 first:border-s-0;
+  }
+  .nutri b {
+    @apply text-xl font-bold;
+  }
+  .nutri span {
+    @apply text-muted-foreground text-xs;
+  }
+  .servings {
+    @apply bg-muted/75 flex items-center justify-between gap-3 rounded p-2 ps-4;
+  }
+  .servings-ctrl {
+    @apply flex items-center gap-1;
+  }
+  .servings-ctrl output {
+    @apply min-w-8 text-center font-semibold;
+  }
+  .servings .icon-btn {
+    @apply bg-background size-9;
+  }
+  .ingredients li {
+    @apply border-border border-b border-dashed;
+  }
+  .ingredients label {
+    @apply grid cursor-pointer grid-cols-[1.25rem_7rem_minmax(0,1fr)] items-baseline gap-3 py-2;
+  }
+  .ingredients input {
+    @apply size-4;
+    accent-color: var(--accent);
+  }
+  .ingredients input:checked ~ span {
+    @apply text-muted-foreground line-through;
+  }
+  .ingredients .qty {
+    @apply text-muted-foreground text-sm;
+  }
+  @media (max-width: 480px) {
+    .ingredients label {
+      grid-template-columns: 1.25rem minmax(0, 1fr) auto;
+    }
+    .ingredients label > span:last-child {
+      grid-column: 2;
+      grid-row: 1;
+    }
+    .ingredients .qty {
+      grid-column: 3;
+      grid-row: 1;
+      text-align: right;
+    }
+  }
+  .steps-list {
+    @apply grid gap-3;
+    counter-reset: rs;
+  }
+  .steps-list li {
+    counter-increment: rs;
+    @apply grid grid-cols-[2rem_minmax(0,1fr)] gap-3;
+  }
+  .steps-list li::before {
+    content: counter(rs, decimal-leading-zero);
+    @apply text-accent pt-0.5 text-sm font-semibold;
+  }
+  .tip-box {
+    @apply border-accent/80 border-s-4 ps-4;
+  }
+  .dialog-h3 {
+    @apply text-muted-foreground text-sm font-semibold;
+  }
+
+  /* ---------- Randevu ---------- */
+  .clock-card {
+    @apply text-muted-foreground my-4 grid justify-items-start gap-0.5;
+  }
+  .clock-card .label {
+    @apply inline-flex items-center gap-2;
+  }
+  .clock {
+    @apply text-foreground text-3xl font-bold;
+    font-variant-numeric: tabular-nums;
+  }
+  .clock-date {
+    @apply text-sm;
+  }
+  .live-dot {
+    @apply bg-accent inline-block size-2 rounded-full;
+  }
+  .stepper {
+    @apply mt-6 mb-6 flex flex-wrap gap-x-5 gap-y-2;
+  }
+  .stepper button {
+    @apply text-muted-foreground inline-flex items-center gap-2 py-1 font-medium whitespace-nowrap disabled:cursor-default;
+  }
+  .stepper button > span {
+    @apply border-border grid size-7 place-items-center rounded-full border text-sm;
+  }
+  .stepper .is-done button {
+    @apply text-foreground hover:text-accent;
+  }
+  .stepper .is-done button > span {
+    @apply bg-muted border-muted;
+  }
+  .stepper .is-current button {
+    @apply text-foreground;
+  }
+  .stepper .is-current .step-text {
+    @apply active-nav;
+  }
+  .stepper .is-current button > span {
+    @apply bg-accent text-accent-foreground border-accent;
+  }
+  @media (max-width: 639px) {
+    .stepper li:not(.is-current) .step-text {
+      display: none;
+    }
+  }
+  .booking-grid {
+    @apply grid items-start gap-8;
+  }
+  .booking-main {
+    @apply relative min-w-0;
+  }
+  .bstep {
+    @apply m-0 min-w-0 border-0 p-0;
+  }
+  .bstep-title {
+    @apply mb-4 block p-0 text-xl font-semibold;
+  }
+  .bstep-sub {
+    @apply text-muted-foreground mt-8 mb-3 flex items-baseline justify-between gap-3 text-sm font-semibold;
+  }
+  .bstep-sub .hint {
+    @apply text-xs font-normal;
+  }
+  .bstep-nav {
+    @apply border-border mt-8 flex flex-wrap items-center justify-between gap-3 border-t border-dashed pt-5;
+  }
+  .bstep-nav .btn--primary {
+    @apply ms-auto;
+  }
+  .bstep-msg {
+    @apply w-full text-sm;
+    color: var(--err);
+  }
+  .bstep-msg:empty {
+    display: none;
+  }
+  .choice-grid {
+    @apply grid gap-3;
+  }
+  @media (min-width: 640px) {
+    .choice-grid--3 {
+      @apply grid-cols-3;
+    }
+    .choice-grid--2,
+    .choice-grid--4 {
+      @apply grid-cols-2;
+    }
+  }
+  .choice {
+    @apply relative block cursor-pointer;
+  }
+  .choice input {
+    @apply pointer-events-none absolute opacity-0;
+  }
+  .choice-box {
+    @apply border-border bg-background grid h-full gap-2 rounded-md border p-4;
+  }
+  .choice:hover .choice-box {
+    @apply border-accent/60;
+  }
+  .choice input:checked + .choice-box {
+    @apply border-accent;
+    box-shadow: inset 0 0 0 1px var(--accent);
+  }
+  .choice input:checked + .choice-box .choice-title {
+    @apply text-accent;
+  }
+  .choice input:focus-visible + .choice-box {
+    @apply outline-accent outline-2 outline-offset-2 outline-dashed;
+  }
+  .choice input:disabled + .choice-box {
+    @apply cursor-not-allowed opacity-50;
+  }
+  .choice-top {
+    @apply flex items-center justify-between gap-2;
+  }
+  .choice-title {
+    @apply font-medium;
+  }
+  .choice-desc {
+    @apply text-sm;
+  }
+  .choice-meta {
+    @apply text-muted-foreground flex flex-wrap gap-x-3 text-xs;
+  }
+  .choice-radio {
+    @apply border-border grid size-4 shrink-0 place-items-center rounded-full border;
+  }
+  .choice input:checked + .choice-box .choice-radio {
+    @apply border-accent;
+  }
+  .choice input:checked + .choice-box .choice-radio::after {
+    content: "";
+    @apply bg-accent size-2 rounded-full;
+  }
+  .staff-choice .choice-box {
+    @apply grid-cols-[3rem_minmax(0,1fr)] items-center gap-3 p-3;
+  }
+  .staff-choice img,
+  .staff-any {
+    @apply size-12 rounded-full object-cover;
+  }
+  .staff-any {
+    @apply bg-muted grid place-items-center;
+  }
+  .staff-any svg {
+    @apply size-5;
+  }
+  .staff-note {
+    @apply text-muted-foreground text-xs;
+  }
+  .choice input:disabled + .choice-box .staff-note {
+    color: var(--err);
+  }
+  .datetime {
+    @apply grid gap-6;
+  }
+  @media (min-width: 640px) {
+    .datetime {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    }
+  }
+  .cal-head {
+    @apply mb-3 flex items-center justify-between gap-2;
+  }
+  .cal-title {
+    @apply text-lg font-semibold capitalize;
+  }
+  .cal-dow,
+  .cal-grid {
+    @apply grid grid-cols-7 gap-1;
+  }
+  .cal-dow {
+    @apply mb-1;
+  }
+  .cal-dow span {
+    @apply text-muted-foreground py-1 text-center text-xs;
+  }
+  .cal-day {
+    @apply relative grid aspect-square min-h-10 content-center justify-items-center gap-0.5 rounded-md border border-transparent text-sm;
+    font-variant-numeric: tabular-nums;
+  }
+  .cal-num {
+    @apply leading-none font-semibold;
+  }
+  .cal-meta {
+    @apply text-muted-foreground text-[0.6rem] leading-none whitespace-nowrap;
+  }
+  .cal-day.is-available {
+    @apply border-border bg-background hover:border-accent hover:text-accent;
+  }
+  .cal-day.is-available .cal-meta {
+    @apply text-accent;
+  }
+  .cal-day.is-disabled {
+    @apply text-muted-foreground cursor-not-allowed;
+  }
+  .cal-day.is-past .cal-num,
+  .cal-day.is-closed .cal-num {
+    @apply opacity-50;
+  }
+  .cal-day.is-full {
+    @apply bg-muted/60;
+  }
+  .cal-day.is-today::before {
+    content: "";
+    @apply border-muted-foreground pointer-events-none absolute inset-0.5 rounded border border-dashed;
+  }
+  .cal-day[aria-pressed="true"] {
+    @apply bg-accent text-accent-foreground border-accent hover:text-accent-foreground;
+  }
+  .cal-day[aria-pressed="true"] .cal-meta {
+    @apply text-accent-foreground;
+  }
+  @media (max-width: 479px) {
+    .cal-meta {
+      font-size: 0;
+      @apply size-1.5 rounded-full;
+    }
+    .cal-day.is-available .cal-meta {
+      @apply bg-accent;
+    }
+    .cal-day.is-full .cal-meta {
+      @apply bg-muted-foreground;
+    }
+    .cal-day[aria-pressed="true"] .cal-meta {
+      @apply bg-accent-foreground;
+    }
+  }
+  .cal-legend {
+    @apply text-muted-foreground mt-3 flex flex-wrap gap-x-4 gap-y-1 text-xs;
+  }
+  .cal-legend span {
+    @apply inline-flex items-center gap-1.5;
+  }
+  .cal-legend i {
+    @apply size-3 rounded-sm;
+  }
+  .lg-free {
+    @apply border-border bg-background border;
+  }
+  .lg-full {
+    @apply bg-muted;
+  }
+  .lg-closed {
+    @apply border-border border border-dashed;
+  }
+  .lg-today {
+    @apply border-muted-foreground border border-dashed;
+  }
+  .slots {
+    @apply grid content-start gap-4;
+  }
+  .slots-head {
+    @apply border-border grid gap-1 border-b border-dashed pb-3;
+  }
+  .slots-title {
+    @apply text-lg font-semibold;
+  }
+  .slots-note {
+    @apply text-muted-foreground text-sm;
+  }
+  .slot-group {
+    @apply grid gap-2;
+  }
+  .slot-list {
+    @apply grid gap-2;
+    grid-template-columns: repeat(auto-fill, minmax(4.5rem, 1fr));
+  }
+  .slot {
+    @apply border-border bg-background hover:border-accent hover:text-accent min-h-10 rounded-md border text-sm;
+    font-variant-numeric: tabular-nums;
+  }
+  .slot:disabled {
+    @apply text-muted-foreground hover:border-border hover:text-muted-foreground cursor-not-allowed border-dashed line-through opacity-60;
+  }
+  .slot[aria-pressed="true"] {
+    @apply bg-accent text-accent-foreground border-accent hover:text-accent-foreground;
+  }
+  .slots-empty {
+    @apply bg-muted/75 rounded p-4 text-center;
+  }
+  .slots-empty .btn {
+    @apply mt-2;
+  }
+  .skeleton {
+    @apply bg-muted rounded-md;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .skeleton {
+      animation: pulse 1.4s ease-in-out infinite;
+    }
+  }
+  .tz-note {
+    @apply bg-muted/75 mb-4 flex items-start gap-2 rounded p-3 text-sm;
+  }
+  .review {
+    @apply border-border grid border-t border-dashed;
+  }
+  .review-row {
+    @apply border-border grid grid-cols-[minmax(0,1fr)_auto] gap-x-3 gap-y-0.5 border-b border-dashed py-3;
+  }
+  .review-row dt {
+    @apply text-muted-foreground col-start-1 text-xs;
+  }
+  .review-row dd {
+    @apply col-start-1;
+  }
+  .review-row button {
+    @apply hover:text-accent col-start-2 row-span-2 row-start-1 self-center text-sm font-medium underline decoration-dashed underline-offset-4;
+  }
+  .prep {
+    @apply bg-muted/75 mt-6 rounded p-4;
+  }
+  .prep ul {
+    @apply mt-2 grid gap-1 text-sm;
+  }
+  .prep li {
+    @apply grid grid-cols-[1rem_minmax(0,1fr)] gap-2;
+  }
+  .prep li::before {
+    content: "—";
+    @apply text-muted-foreground;
+  }
+  .booking-summary {
+    @apply border-border rounded-md border;
+  }
+  .summary-toggle {
+    @apply flex cursor-pointer list-none items-center justify-between gap-3 p-4;
+  }
+  .summary-toggle::-webkit-details-marker {
+    display: none;
+  }
+  .summary-toggle .h3 {
+    @apply text-lg font-semibold;
+  }
+  .summary-toggle svg {
+    @apply size-4 transition-transform;
+  }
+  details[open] > .summary-toggle svg {
+    @apply rotate-180;
+  }
+  .summary-body {
+    @apply px-4 pb-4;
+  }
+  .sum-list {
+    @apply border-border grid border-t border-dashed;
+  }
+  .sum-row {
+    @apply border-border grid grid-cols-[6rem_minmax(0,1fr)] gap-3 border-b border-dashed py-2 text-sm;
+  }
+  .sum-row dt {
+    @apply text-muted-foreground text-xs;
+  }
+  .sum-row dd.is-empty {
+    @apply text-muted-foreground;
+  }
+  .sum-total {
+    @apply flex items-baseline justify-between gap-3 pt-4 pb-1;
+  }
+  .sum-total b {
+    @apply text-accent text-2xl font-bold;
+  }
+  .sum-policy {
+    @apply text-muted-foreground mt-3 text-sm;
+  }
+  .sum-policy button {
+    @apply hover:text-accent text-foreground underline decoration-dashed underline-offset-4;
+  }
+  .done {
+    @apply grid gap-5;
+  }
+  .done .bstep-title {
+    @apply mb-0;
+  }
+  .done-ref {
+    @apply grid justify-items-start gap-2;
+  }
+  .done-icon {
+    @apply bg-accent text-accent-foreground grid size-14 place-items-center rounded-full;
+  }
+  .done-icon svg {
+    @apply size-7;
+  }
+  .ref {
+    @apply bg-muted/75 inline-flex items-center gap-3 rounded py-1 ps-3 pe-1 tracking-widest;
+  }
+  .ref .icon-btn {
+    @apply bg-background size-9;
+  }
+  .done-actions {
+    @apply flex flex-wrap gap-x-5 gap-y-2;
+  }
+  .done .demo-tag {
+    @apply text-accent;
+  }
+  .form-status {
+    @apply mt-3 text-sm font-medium;
+  }
+  .form-status.is-ok {
+    @apply text-accent;
+  }
+  .form-status.is-err {
+    color: var(--err);
+  }
+  .form-status a {
+    @apply underline decoration-dashed underline-offset-4;
+  }
+
+  /* ---------- Fiyat şeridi ---------- */
+  .price small {
+    @apply ms-1;
+  }
+
+  /* ---------- SSS: AstroPaper katlanır içerik ---------- */
+  .faq {
+    @apply border-border border-b border-dashed py-3;
+  }
+  .faq summary {
+    @apply hover:text-accent cursor-pointer;
+  }
+  .faq summary::marker {
+    color: var(--accent);
+  }
+  .faq summary h3 {
+    @apply inline text-lg font-medium;
+  }
+  .faq-icon {
+    display: none;
+  }
+  .faq-a {
+    @apply mt-2 grid max-w-prose gap-2 ps-5;
+  }
+
+  /* Ana sayfa içindekiler (remark-collapse'ın <details> çıktısıyla aynı görünüm) */
+  .home-toc {
+    @apply mt-2;
+  }
+
+  /* ---------- İletişim ---------- */
+  .contact-grid {
+    @apply my-6 grid gap-8;
+  }
+  .contact-info {
+    @apply grid content-start gap-6 sm:grid-cols-2;
+  }
+  .info-card .label {
+    @apply mb-2 block;
+  }
+  .info-lines {
+    @apply grid gap-1;
+  }
+  .info-lines a,
+  .footer-links a {
+    @apply hover:text-accent underline decoration-dashed underline-offset-4;
+  }
+  .social-row {
+    @apply mt-2 flex gap-2;
+  }
+  .social-row .icon-btn {
+    @apply -ms-2;
+  }
+  .open-status {
+    @apply mb-2 inline-flex items-center gap-2 text-sm font-medium;
+  }
+  .open-status i {
+    @apply bg-muted-foreground size-2 rounded-full;
+  }
+  .open-status.is-open i {
+    @apply bg-accent;
+  }
+  .hours {
+    @apply w-full border-collapse text-sm;
+  }
+  .hours th,
+  .hours td {
+    @apply border-border border-b border-dashed py-1.5 text-start font-normal;
+  }
+  .hours td {
+    @apply text-end;
+    font-variant-numeric: tabular-nums;
+  }
+  .hours tr.is-today th,
+  .hours tr.is-today td {
+    @apply font-bold;
+  }
+  .hours tr.is-today th::after {
+    content: " •";
+    @apply text-accent;
+  }
+  .form-card .h3 {
+    @apply text-xl font-semibold;
+  }
+  .form-card > p {
+    @apply mt-1 mb-5 italic;
+  }
+  .form-card .btn--block {
+    @apply mt-4;
+  }
+
+  /* ---------- Footer ---------- */
+  .footer-links {
+    @apply leading-7;
+  }
+  .footer-links a {
+    @apply whitespace-nowrap;
+  }
+  .footer-links > span[aria-hidden] {
+    @apply text-muted-foreground;
+  }
+  .asteria-logo {
+    @apply block h-[22px] w-[141px] shrink-0;
+  }
+  .asteria-logo-mark {
+    stroke: currentColor;
+  }
+  .asteria-logo-word {
+    fill: currentColor;
+  }
+  .asteria-logo-dot {
+    fill: var(--accent);
+  }
+
+  /* ---------- Yüzen düğmeler: BackToTopButton'ın mobil görünümü ---------- */
+  .fab {
+    @apply bg-background text-foreground hover:text-accent fixed end-4 z-[95] grid size-14 place-items-center rounded-full shadow-xl transition duration-300 md:end-8;
+  }
+  .fab svg {
+    @apply col-start-1 row-start-1 size-6 transition duration-300;
+  }
+  .fab-wa {
+    @apply bottom-22 md:bottom-26;
+  }
+  .fab-chat {
+    @apply bottom-4 md:bottom-8;
+  }
+  .fab-chat .i-x {
+    @apply scale-50 -rotate-90 opacity-0;
+  }
+  .chat-open .fab-chat .i-chat {
+    @apply scale-50 rotate-90 opacity-0;
+  }
+  .chat-open .fab-chat .i-x {
+    @apply scale-100 rotate-0 opacity-100;
+  }
+  .chat-open .fab-wa,
+  .menu-open .fab,
+  body.fabs-off .fab-wa,
+  body.fabs-off:not(.chat-open) .fab-chat,
+  body.demo-open .fab {
+    @apply pointer-events-none invisible translate-y-2 opacity-0;
+  }
+  .fab-badge {
+    @apply bg-accent ring-background absolute end-1 top-1 size-3 rounded-full ring-2;
+  }
+  .chat-open .fab-badge,
+  .fab-badge.is-hidden {
+    display: none;
+  }
+  /* Makale sayfasında AstroPaper'ın mobil "başa dön" düğmesi yüzen düğmelerin üstünde durur */
+  @media (max-width: 767px) {
+    #btt-btn-container {
+      bottom: 10rem;
+    }
+  }
+
+  /* ---------- Sohbet ---------- */
+  .chat {
+    @apply bg-background text-foreground border-border invisible fixed end-4 bottom-22 z-[96] flex translate-y-3 flex-col overflow-hidden rounded-md border opacity-0 shadow-xl transition duration-300 md:end-8 md:bottom-26;
+    width: min(400px, calc(100vw - 2rem));
+    height: min(620px, calc(100dvh - 7rem));
+  }
+  .chat-open .chat {
+    @apply visible translate-y-0 opacity-100;
+  }
+  @media (max-width: 480px) {
+    .chat {
+      @apply inset-x-2 bottom-20 w-auto;
+      height: calc(100dvh - 6rem);
+    }
+  }
+  .chat-head {
+    @apply border-border flex items-center gap-3 border-b p-3;
+  }
+  .chat-avatar {
+    @apply bg-accent text-accent-foreground grid size-10 shrink-0 place-items-center rounded-full text-lg font-bold;
+  }
+  .chat-head-text {
+    @apply min-w-0 flex-1;
+  }
+  .chat-head-text b {
+    @apply block font-semibold;
+  }
+  .chat-head-text > span {
+    @apply text-muted-foreground inline-flex items-center gap-1.5 text-xs;
+  }
+  .chat-log {
+    @apply flex-1 overflow-y-auto overscroll-contain p-3;
+    scrollbar-width: thin;
+  }
+  .chat-day {
+    @apply text-muted-foreground mb-3 text-center text-xs;
+  }
+  .msg {
+    @apply mt-2 flex first:mt-0;
+  }
+  .msg--user {
+    @apply justify-end;
+  }
+  .bubble {
+    @apply max-w-[88%] rounded-md px-3 py-2 text-sm;
+    overflow-wrap: anywhere;
+  }
+  .msg--bot .bubble {
+    @apply bg-muted/75;
+  }
+  .msg--user .bubble {
+    @apply bg-accent text-accent-foreground max-w-[80%];
+  }
+  .bubble p + p {
+    @apply mt-1.5;
+  }
+  .bubble-title {
+    @apply mb-0.5 font-semibold;
+  }
+  .bubble-rows {
+    @apply mt-2 grid;
+  }
+  .bubble-row {
+    @apply border-border flex justify-between gap-3 border-t border-dashed py-1.5 text-xs;
+  }
+  .bubble-row span:last-child {
+    @apply text-end whitespace-nowrap;
+  }
+  .bubble-note {
+    @apply text-muted-foreground mt-2 text-xs;
+  }
+  .bubble-actions {
+    @apply mt-2 flex flex-wrap gap-x-4 gap-y-1;
+  }
+  .bubble-action {
+    @apply hover:text-accent text-sm font-medium underline decoration-dashed underline-offset-4;
+  }
+  .bubble-action--primary {
+    @apply text-accent;
+  }
+  /* Hızlı yanıtlar: AstroPaper Tag görünümü */
+  .quick {
+    @apply mt-3 flex flex-wrap gap-x-4 gap-y-2;
+  }
+  .quick button {
+    @apply border-foreground hover:border-accent hover:text-accent border-b-2 border-dashed text-sm;
+  }
+  .typing .bubble {
+    @apply inline-flex items-center gap-1 py-3;
+  }
+  .typing i {
+    @apply bg-muted-foreground size-1.5 rounded-full;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .typing i {
+      animation: wave 1.2s ease-in-out infinite;
+    }
+    .typing i:nth-child(2) {
+      animation-delay: 0.15s;
+    }
+    .typing i:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+  }
+  @keyframes wave {
+    0%,
+    60%,
+    100% {
+      transform: translateY(0);
+      opacity: 0.4;
+    }
+    30% {
+      transform: translateY(-4px);
+      opacity: 1;
+    }
+  }
+  .chat-form {
+    @apply border-border flex gap-2 border-t p-3;
+  }
+  .chat-input {
+    @apply border-border bg-background min-w-0 flex-1 rounded-md border px-3;
+    height: 2.75rem;
+  }
+  .chat-input:focus-visible {
+    outline: 1px solid var(--accent);
+    outline-offset: 0;
+  }
+  .chat-send {
+    @apply bg-accent text-accent-foreground grid size-11 shrink-0 place-items-center rounded-full disabled:cursor-default disabled:opacity-40;
+  }
+  .chat-send svg {
+    @apply size-5;
+  }
+  .chat-foot {
+    @apply text-muted-foreground px-3 pb-2 text-center text-xs;
+  }
+
+  /* ---------- Demo şeridi: arama sayfasındaki uyarı kutusu tokenları ---------- */
+  .demo-bar {
+    @apply bg-muted text-foreground border-border fixed inset-x-0 bottom-0 z-[150] border-t;
+  }
+  .demo-bar-inner {
+    @apply app-layout flex flex-wrap items-center gap-x-4 gap-y-2 py-3;
+  }
+  .demo-bar-label {
+    @apply border-foreground shrink-0 rounded border px-2 text-xs font-semibold uppercase;
+  }
+  .demo-bar p {
+    @apply flex-[1_1_16rem] text-sm;
+  }
+  .demo-bar-btn {
+    @apply shrink-0;
+  }
+  body.demo-open {
+    padding-bottom: var(--demo-h, 0px);
+  }
+
+  /* ---------- Bildirim ---------- */
+  .toast {
+    @apply bg-foreground text-background invisible fixed bottom-6 left-1/2 z-[200] -translate-x-1/2 translate-y-4 rounded-md px-4 py-3 text-sm font-medium opacity-0 shadow-xl transition duration-300;
+  }
+  .toast.is-on {
+    @apply visible translate-y-0 opacity-100;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes pulse {
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* ---------- Yazdırma (örnek program / tarif) ---------- */
+@media print {
+  @page {
+    margin: 16mm;
+  }
+  html,
+  body {
+    background: #fff !important;
+    color: #000 !important;
+    padding: 0;
+  }
+  body * {
+    visibility: hidden;
+  }
+  .print-target,
+  .print-target * {
+    visibility: visible;
+  }
+  .print-target {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+  .print-target .btn,
+  .print-target .program-actions,
+  .print-target .icon-btn {
+    display: none !important;
+  }
+}

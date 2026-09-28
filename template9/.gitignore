@@ -1,0 +1,4 @@
+# template9: derleme ara çıktıları depoya girmez (yayın klasörü zaten dist'in kopyası)
+_kaynak/astro/dist/
+_kaynak/astro/.astro/
+_kaynak/*.log

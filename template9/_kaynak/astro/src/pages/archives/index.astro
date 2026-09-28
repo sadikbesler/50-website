@@ -1,0 +1,85 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
+import Footer from "@/components/Footer.astro";
+import Card from "@/components/Card.astro";
+import { postFilter } from "@/utils/postFilter";
+import { getPostsByGroupCondition } from "./_utils/getPostsByGroupCondition";
+import { useTranslations } from "@/i18n";
+import config from "@/config";
+
+// AstroPaper src/pages/archives/index.astro (ay adları ve metinler TR/EN).
+const t = useTranslations(config.site.lang);
+
+const posts = await getCollection("posts");
+const filteredPosts = posts.filter(postFilter);
+const monthTr = new Intl.DateTimeFormat("tr", { month: "long" });
+const monthEn = new Intl.DateTimeFormat("en", { month: "long" });
+---
+
+<Layout
+  title={`${t.pages.archivesTitle} | ${config.site.title}`}
+  description="Mizan Beslenme blogundaki bütün yazılar, yayın tarihine göre."
+  titleEn="Archives | Mizan Nutrition"
+  descEn="Every article on the Mizan Nutrition blog, by publication date."
+>
+  <Header />
+
+  <Breadcrumb />
+
+  <Main pageTitle={t.pages.archivesTitle} titleKey="ap.pages.archivesTitle" pageDesc={t.pages.archivesDesc} descKey="ap.pages.archivesDesc">
+    {
+      Object.entries(
+        getPostsByGroupCondition(filteredPosts, post =>
+          post.data.pubDatetime.getFullYear()
+        )
+      )
+        .sort(([yearA], [yearB]) => Number(yearB) - Number(yearA))
+        .map(([year, yearGroup]) => (
+          <div>
+            <span class="text-2xl font-bold">{year}</span>
+            <sup class="text-muted-foreground text-sm">{yearGroup.length}</sup>
+            {Object.entries(
+              getPostsByGroupCondition(
+                yearGroup,
+                post => post.data.pubDatetime.getMonth() + 1
+              )
+            )
+              .sort(([monthA], [monthB]) => Number(monthB) - Number(monthA))
+              .map(([month, monthGroup]) => (
+                <div class="flex flex-col sm:flex-row">
+                  <div class="mt-6 min-w-36 text-lg sm:my-6">
+                    <span class="font-bold">
+                      <span data-lang-block="tr">{monthTr.format(new Date(2000, Number(month) - 1, 1)).replace(/^./, c => c.toLocaleUpperCase("tr"))}</span><span data-lang-block="en">{monthEn.format(new Date(2000, Number(month) - 1, 1))}</span>
+                    </span>
+                    <sup class="text-muted-foreground text-xs">
+                      {monthGroup.length}
+                    </sup>
+                  </div>
+                  <ul>
+                    {monthGroup
+                      .sort(
+                        (a, b) =>
+                          Math.floor(
+                            new Date(b.data.pubDatetime).getTime() / 1000
+                          ) -
+                          Math.floor(
+                            new Date(a.data.pubDatetime).getTime() / 1000
+                          )
+                      )
+                      .map(data => (
+                        <Card {...data} />
+                      ))}
+                  </ul>
+                </div>
+              ))}
+          </div>
+        ))
+    }
+  </Main>
+
+  <Footer />
+</Layout>

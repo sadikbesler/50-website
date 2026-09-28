@@ -1,0 +1,52 @@
+---
+import type { Page } from "astro";
+import type { CollectionEntry } from "astro:content";
+import IconArrowLeft from "@/assets/icons/IconArrowLeft.svg";
+import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
+import LinkButton from "./LinkButton.astro";
+import { useTranslations } from "@/i18n";
+import config from "@/config";
+
+// AstroPaper Pagination.astro. Sayfa adresleri klasör (…/2/) olarak biter; yerel sunucu ve Pages
+// yönlendirmesiz açsın diye paginate'in ürettiği adrese "/" eklenir.
+type Props = {
+  page: Page<CollectionEntry<"posts">>;
+};
+
+const { page } = Astro.props;
+
+const t = useTranslations(config.site.lang);
+const slash = (u?: string) => (u ? u.replace(/\/?$/, "/") : u);
+---
+
+{
+  page.lastPage > 1 && (
+    <nav
+      class="mt-auto mb-8 flex justify-center gap-4"
+      aria-label="Sayfalama"
+      data-i18n-attr="aria-label:ap.pagination.aria"
+    >
+      <LinkButton
+        disabled={!page.url.prev}
+        href={slash(page.url.prev)}
+        class:list={["select-none", { "opacity-50": !page.url.prev }]}
+        aria-label={page.url.prev ? t.a11y.goToPreviousPage : undefined}
+        data-i18n-attr={page.url.prev ? "aria-label:ap.a11y.goToPreviousPage" : undefined}
+      >
+        <IconArrowLeft class="inline-block rtl:rotate-180" />
+        <span data-i18n="ap.pagination.prev">{t.pagination.prev}</span>
+      </LinkButton>
+      {page.currentPage} / {page.lastPage}
+      <LinkButton
+        disabled={!page.url.next}
+        href={slash(page.url.next)}
+        class:list={["select-none", { "opacity-50": !page.url.next }]}
+        aria-label={page.url.next ? t.a11y.goToNextPage : undefined}
+        data-i18n-attr={page.url.next ? "aria-label:ap.a11y.goToNextPage" : undefined}
+      >
+        <span data-i18n="ap.pagination.next">{t.pagination.next}</span>
+        <IconArrowRight class="inline-block rtl:rotate-180" />
+      </LinkButton>
+    </nav>
+  )
+}

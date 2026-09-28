@@ -1,0 +1,10 @@
+{
+  "name": "template9-kaynak",
+  "private": true,
+  "type": "commonjs",
+  "devDependencies": {
+    "github-slugger": "^2.0.0",
+    "node-html-parser": "^7.1.0",
+    "playwright": "1.63"
+  }
+}

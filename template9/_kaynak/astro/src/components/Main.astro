@@ -1,0 +1,31 @@
+---
+// AstroPaper Main.astro. Başlık/açıklama i18n anahtarı alabilir ya da "title"/"desc" yuvasıyla
+// parça parça çevrilebilir (ör. "Etiket: beslenme").
+type Props = {
+  pageTitle?: string;
+  pageDesc?: string;
+  titleKey?: string;
+  descKey?: string;
+  class?: string;
+};
+
+const { pageTitle, pageDesc, titleKey, descKey, class: className } = Astro.props;
+---
+
+<main
+  id="main-content"
+  class:list={["app-layout pb-4", className]}
+>
+  <h1 class="text-2xl font-semibold sm:text-3xl" data-i18n={titleKey}>
+    {Astro.slots.has("title") ? <slot name="title" /> : pageTitle}
+  </h1>
+  <p class="mt-2 mb-6 italic" data-i18n={descKey}>
+    {Astro.slots.has("desc") ? <slot name="desc" /> : pageDesc}
+  </p>
+  <slot />
+</main>
+
+<script>
+  // AstroPaper: liste sayfası "Geri dön" düğmesi için hatırlanır (ClientRouter olmadığı için yükte çalışır).
+  sessionStorage.setItem("backUrl", location.pathname + location.search);
+</script>

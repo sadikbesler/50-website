@@ -1,0 +1,209 @@
+---
+import "@pagefind/default-ui/css/ui.css";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
+import Footer from "@/components/Footer.astro";
+import { getAssetPath } from "@/utils/withBase";
+import { useTranslations } from "@/i18n";
+import config from "@/config";
+
+// AstroPaper src/pages/search.astro → search/index.html. Farklar: Pagefind sonuç adresleri site alt
+// klasörüyle başlar (baseUrl); dil değişince arayüz o dilin metinleriyle yeniden kurulur;
+// CSP'ye yalnızca bu sayfada Pagefind'ın WebAssembly'si için 'wasm-unsafe-eval' eklenir (Layout "search").
+const t = useTranslations(config.site.lang);
+---
+
+<Layout
+  title={`${t.pages.searchTitle} | ${config.site.title}`}
+  description="Mizan Beslenme blog yazılarında arayın: insülin direnci, aralıklı oruç, su, protein, Akdeniz tipi beslenme, etiket okuma."
+  titleEn="Search | Mizan Nutrition"
+  descEn="Search the Mizan Nutrition blog: insulin resistance, intermittent fasting, water, protein, the Mediterranean diet, label reading."
+  search
+>
+  <Header />
+
+  <Breadcrumb />
+
+  <Main pageTitle={t.pages.searchTitle} titleKey="ap.pages.searchTitle" pageDesc={t.pages.searchDesc} descKey="ap.pages.searchDesc">
+    <div
+      id="pagefind-search"
+      data-bundle-path={getAssetPath("pagefind/")}
+      data-base-url={getAssetPath("")}
+    >
+    </div>
+  </Main>
+
+  <Footer />
+</Layout>
+
+<script>
+  type UI = { triggerSearch(term: string): void; destroy(): void };
+  let search: UI | null = null;
+
+  // Pagefind'ın kendi Türkçe çevirisi (pagefind/translations/tr.json, Taylan Özgür Bildik).
+  // Paketlenen arayüz <html lang>'ı okumadığı için dil açıkça verilir; EN'de Pagefind'ın varsayılanı kalır.
+  const PAGEFIND_TR = {
+    placeholder: "Araştır",
+    clear_search: "Temizle",
+    load_more: "Daha fazla sonuç",
+    search_label: "Site genelinde arama",
+    filters_label: "Filtreler",
+    zero_results: "[SEARCH_TERM] için sonuç yok",
+    many_results: "[SEARCH_TERM] için [COUNT] sonuç bulundu",
+    one_result: "[SEARCH_TERM] için [COUNT] sonuç bulundu",
+    total_zero_results: "Sonuç yok",
+    total_one_result: "[COUNT] sonuç",
+    total_many_results: "[COUNT] sonuç",
+    alt_search: "[SEARCH_TERM] için sonuç yok. Bunun yerine [DIFFERENT_TERM] için sonuçlar gösteriliyor",
+    search_suggestion: "[SEARCH_TERM] için sonuç yok. Alternatif olarak aşağıdaki kelimelerden birini deneyebilirsiniz:",
+    searching: "[SEARCH_TERM] araştırılıyor...",
+    results_label: "Arama sonuçları",
+    keyboard_navigate: "gezin",
+    keyboard_select: "seç",
+    keyboard_clear: "temizle",
+    keyboard_close: "kapat",
+    keyboard_search: "ara",
+    error_search: "Arama başarısız",
+    filter_selected_one: "[COUNT] seçili",
+    filter_selected_many: "[COUNT] seçili",
+    input_hint: "Sonuçlar siz yazarken görünecektir",
+    loading: "Yükleniyor",
+  };
+
+  function initSearch() {
+    const pageFindSearch: HTMLElement | null =
+      document.querySelector("#pagefind-search");
+
+    if (!pageFindSearch) return;
+
+    const bundlePath = pageFindSearch?.dataset?.bundlePath;
+    if (!bundlePath) return;
+
+    const params = new URLSearchParams(window.location.search);
+
+    const onIdle = window.requestIdleCallback || (cb => setTimeout(cb, 1));
+
+    onIdle(async () => {
+      // @ts-expect-error — Missing types for @pagefind/default-ui package.
+      const { PagefindUI } = await import("@pagefind/default-ui");
+
+      // Init pagefind ui (dil, <html lang>'dan okunur)
+      search = new PagefindUI({
+        element: "#pagefind-search",
+        bundlePath,
+        baseUrl: pageFindSearch.dataset.baseUrl,
+        showImages: false,
+        showSubResults: true,
+        translations: document.documentElement.lang === "en" ? {} : PAGEFIND_TR,
+        // Mizan EN: sonuç başlığı makalenin İngilizce başlığı (data-pagefind-meta="titleEn")
+        processResult: (r: { meta: Record<string, string>; sub_results?: { url: string }[] }) => {
+          const en = document.documentElement.lang === "en";
+          if (en && r.meta?.titleEn) r.meta.title = r.meta.titleEn;
+          if (r.meta) delete r.meta.titleEn; // Pagefind UI her meta alanını sonuçta gösterir
+          // Alt sonuçlar (başlıklar) etkin dilin bloğundan: kimlikler #tr-… / #en-…
+          if (r.sub_results) {
+            const pre = en ? "#en-" : "#tr-";
+            r.sub_results = r.sub_results.filter((s) => !/#(tr|en)-/.test(s.url) || s.url.includes(pre));
+          }
+          return r;
+        },
+        processTerm: function (term: string) {
+          params.set("q", term); // Update the `q` parameter in the URL
+          history.replaceState(history.state, "", "?" + params.toString()); // Push the new URL without reloading
+
+          sessionStorage.setItem("backUrl", `${window.location.pathname}?${params.toString()}`);
+
+          return term;
+        },
+      }) as UI;
+
+      // Erişilebilirlik: Pagefind girişi yalnızca title ile adlandırılıyor (axe label-title-only)
+      const inp = document.querySelector(".pagefind-ui__search-input");
+      inp?.setAttribute("aria-label", document.documentElement.lang === "en" ? "Search this site" : PAGEFIND_TR.search_label);
+
+      // If search param exists (eg: search?q=astro), trigger search
+      const query = params.get("q");
+      if (query) {
+        search.triggerSearch(query);
+      }
+
+      // Reset search param if search input is cleared
+      const searchInput = document.querySelector(".pagefind-ui__search-input");
+      const clearButton = document.querySelector(".pagefind-ui__search-clear");
+      searchInput?.addEventListener("input", resetSearchParam);
+      clearButton?.addEventListener("click", resetSearchParam);
+
+      function resetSearchParam(e: Event) {
+        if ((e.target as HTMLInputElement)?.value.trim() === "") {
+          params.delete("q");
+          const qs = params.toString();
+          history.replaceState(history.state, "", window.location.pathname + (qs ? "?" + qs : ""));
+        }
+      }
+    });
+  }
+
+  initSearch();
+
+  // Mizan TR/EN: arayüz metinleri Pagefind'ın o dildeki çevirisiyle yeniden kurulur
+  const M = (window as unknown as { Mizan?: { onLang(fn: () => void): void } }).Mizan;
+  M?.onLang(() => {
+    if (!search) return;
+    search.destroy();
+    search = null;
+    initSearch();
+  });
+</script>
+
+<style is:global>
+  #pagefind-search {
+    --pagefind-ui-font: var(--font-app);
+    --pagefind-ui-text: var(--foreground);
+    --pagefind-ui-background: var(--background);
+    --pagefind-ui-border: var(--border);
+    --pagefind-ui-primary: var(--accent);
+    --pagefind-ui-tag: var(--background);
+    --pagefind-ui-border-radius: 0.375rem;
+    --pagefind-ui-border-width: 1px;
+    --pagefind-ui-image-border-radius: 8px;
+    --pagefind-ui-image-box-ratio: 3 / 2;
+
+    form::before {
+      background-color: var(--foreground);
+    }
+
+    input {
+      font-weight: 400;
+      border: 1px solid var(--border);
+    }
+
+    input:focus-visible {
+      outline: 1px solid var(--accent);
+    }
+
+    .pagefind-ui__result-title a {
+      color: var(--accent);
+      outline-offset: 1px;
+      outline-color: var(--accent);
+      text-decoration-style: dashed;
+      text-underline-offset: 4px;
+    }
+
+    .pagefind-ui__result-title a:focus-visible,
+    .pagefind-ui__search-clear:focus-visible {
+      text-decoration-line: none;
+      outline-width: 2px;
+      outline-style: dashed;
+    }
+
+    .pagefind-ui__result:last-of-type {
+      border-bottom: 0;
+    }
+
+    .pagefind-ui__result-nested .pagefind-ui__result-link:before {
+      font-family: system-ui;
+    }
+  }
+</style>

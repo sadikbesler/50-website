@@ -1,0 +1,88 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
+import Footer from "@/components/Footer.astro";
+import { getAssetPath } from "@/utils/withBase";
+import { useTranslations } from "@/i18n";
+import config from "@/config";
+import TR from "@/data/tr.json";
+
+// AstroPaper src/pages/about.astro düzeni (Breadcrumb + Main + app-prose) → Mizan "Hakkımızda + uzmanlar".
+// Bütün metinler diyetisyen-v2'nin mevcut anahtarlarından (TR: src/data/tr.json, EN: i18n.js); yeni metin yok.
+const t = useTranslations(config.site.lang);
+const T = (k: string): string => {
+  const v = (TR as Record<string, string>)[k];
+  if (v == null) throw new Error("tr.json'da yok: " + k);
+  return v;
+};
+const people = ["selin", "emre", "zeynep"];
+---
+
+<Layout
+  title="Hakkımızda | Mizan Beslenme"
+  description="Mizan Beslenme ve Diyet Kliniği: 2014'ten beri Kadıköy'de yüz yüze, 2020'den beri online beslenme danışmanlığı. Diyetisyenlerimiz ve çalışma yöntemimiz."
+  titleEn="About us | Mizan Nutrition"
+  descEn="Mizan Nutrition & Dietetics Clinic: in-person consultations in Kadıköy since 2014 and online since 2020. Our dietitians and how we work."
+>
+  <Header />
+
+  <Breadcrumb />
+
+  <Main class="app-prose" pageTitle={t.nav.about} titleKey="ap.nav.about" pageDesc={T("footer.aboutText")} descKey="footer.aboutText">
+    <p data-i18n="services.lede">{T("services.lede")}</p>
+
+    <h2 data-i18n="process.title">{T("process.title")}</h2>
+    <p data-i18n="process.lede">{T("process.lede")}</p>
+    <blockquote class="quote">
+      <p data-i18n="process.quote">{T("process.quote")}</p>
+      <p>— <span data-i18n="team.selin.name">{T("team.selin.name")}</span>, <span data-i18n="process.quoteRole">{T("process.quoteRole")}</span></p>
+    </blockquote>
+    <ol>
+      {[1, 2, 3, 4].map((n) => (
+        <li><strong data-i18n={`step${n}.title`}>{T(`step${n}.title`)}</strong> (<span data-i18n={`step${n}.meta`}>{T(`step${n}.meta`)}</span>): <span data-i18n={`step${n}.text`}>{T(`step${n}.text`)}</span></li>
+      ))}
+    </ol>
+
+    <h2 data-i18n="team.title">{T("team.title")}</h2>
+    <p data-i18n="team.lede">{T("team.lede")}</p>
+    {people.map((p) => (
+      <>
+        <h3 data-i18n={`team.${p}.name`}>{T(`team.${p}.name`)}</h3>
+        <img
+          src={getAssetPath(`assets/img/uzman-${p}-560.webp`)}
+          width="560"
+          height="700"
+          loading="lazy"
+          decoding="async"
+          class="about-portrait"
+          alt={T(`team.${p}.alt`)}
+          data-i18n-attr={`alt:team.${p}.alt`}
+        />
+        <p><em data-i18n={`team.${p}.area`}>{T(`team.${p}.area`)}</em></p>
+        <p data-i18n={`team.${p}.bio`}>{T(`team.${p}.bio`)}</p>
+        <ul>
+          <li><strong data-i18n="team.edu">{T("team.edu")}</strong>: <span data-i18n={`team.${p}.edu`}>{T(`team.${p}.edu`)}</span></li>
+          <li><strong data-i18n="team.days">{T("team.days")}</strong>: <span data-i18n={`team.${p}.days`}>{T(`team.${p}.days`)}</span></li>
+          <li><strong data-i18n="team.langs">{T("team.langs")}</strong>: <span data-i18n={`team.${p}.langs`}>{T(`team.${p}.langs`)}</span></li>
+        </ul>
+        <p><a href={getAssetPath("#randevu")} data-i18n={`team.${p}.btn`}>{T(`team.${p}.btn`)}</a></p>
+      </>
+    ))}
+
+    <h2 data-i18n="services.title">{T("services.title")}</h2>
+    <ul>
+      {[1, 2, 3, 4, 5, 6].map((n) => (
+        <li><strong data-i18n={`s${n}.title`}>{T(`s${n}.title`)}</strong>: <span data-i18n={`s${n}.text`}>{T(`s${n}.text`)}</span></li>
+      ))}
+    </ul>
+
+    <h2 data-i18n="contact.title">{T("contact.title")}</h2>
+    <p data-i18n="contact.lede">{T("contact.lede")}</p>
+    <p><span data-address>Moda Cad. No: 48, Kat 3, Kadıköy / İstanbul</span> · <a href="tel:+905555555555" data-tel data-phone-text>0555 555 55 55</a> · <a href="mailto:randevu@mizanbeslenme.com" data-mail>randevu@mizanbeslenme.com</a></p>
+    <p><a href={getAssetPath("#randevu")} data-i18n="hero.cta1">{T("hero.cta1")}</a></p>
+  </Main>
+
+  <Footer />
+</Layout>

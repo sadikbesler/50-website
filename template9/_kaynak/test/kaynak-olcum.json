@@ -1,0 +1,1474 @@
+{
+ "anasayfa-light": {
+  "body": {
+   "bg": "rgb(253, 253, 253)",
+   "color": "rgb(40, 39, 40)",
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "lh": "24px"
+  },
+  "main": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(40, 39, 40)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 768
+  },
+  "h1": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "48px",
+   "weight": "700",
+   "color": "rgb(40, 39, 40)",
+   "lh": "48px",
+   "ls": "normal",
+   "w": 259
+  },
+  "h2": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "24px",
+   "weight": "600",
+   "color": "rgb(40, 39, 40)",
+   "lh": "32px",
+   "ls": "0.6px",
+   "w": 736
+  },
+  "cardLink": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "18px",
+   "weight": "500",
+   "color": "rgb(0, 108, 172)",
+   "lh": "28px",
+   "ls": "normal",
+   "w": 389
+  },
+  "p": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(40, 39, 40)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 736
+  },
+  "header": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "24px",
+   "weight": "600",
+   "color": "rgb(40, 39, 40)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 144
+  },
+  "nav": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "500",
+   "color": "rgb(40, 39, 40)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 64
+  },
+  "footer": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(40, 39, 40)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 768
+  },
+  "tag": null,
+  "searchInput": null,
+  "vars": [
+   "--background:#fdfdfd",
+   "--foreground:#282728",
+   "--accent:#006cac",
+   "--muted:#e6e6e6",
+   "--muted-foreground:#6b7280",
+   "--border:#ece9e9"
+  ]
+ },
+ "posts-light": {
+  "body": {
+   "bg": "rgb(253, 253, 253)",
+   "color": "rgb(40, 39, 40)",
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "lh": "24px"
+  },
+  "main": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(40, 39, 40)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 768
+  },
+  "h1": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "30px",
+   "weight": "600",
+   "color": "rgb(40, 39, 40)",
+   "lh": "36px",
+   "ls": "normal",
+   "w": 736
+  },
+  "h2": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "18px",
+   "weight": "500",
+   "color": "rgb(0, 108, 172)",
+   "lh": "28px",
+   "ls": "normal",
+   "w": 389
+  },
+  "cardLink": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "18px",
+   "weight": "500",
+   "color": "rgb(0, 108, 172)",
+   "lh": "28px",
+   "ls": "normal",
+   "w": 389
+  },
+  "p": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(40, 39, 40)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 736
+  },
+  "header": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "24px",
+   "weight": "600",
+   "color": "rgb(40, 39, 40)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 144
+  },
+  "nav": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "500",
+   "color": "rgb(40, 39, 40)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 64
+  },
+  "footer": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(40, 39, 40)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 768
+  },
+  "tag": null,
+  "searchInput": null,
+  "vars": [
+   "--background:#fdfdfd",
+   "--foreground:#282728",
+   "--accent:#006cac",
+   "--muted:#e6e6e6",
+   "--muted-foreground:#6b7280",
+   "--border:#ece9e9"
+  ]
+ },
+ "makale-light": {
+  "body": {
+   "bg": "rgb(253, 253, 253)",
+   "color": "rgb(40, 39, 40)",
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "lh": "24px"
+  },
+  "main": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(40, 39, 40)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 768
+  },
+  "h1": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "30px",
+   "weight": "700",
+   "color": "rgb(0, 108, 172)",
+   "lh": "36px",
+   "ls": "normal",
+   "w": 594
+  },
+  "h2": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "24px",
+   "weight": "700",
+   "color": "rgb(40, 39, 40)",
+   "lh": "31.9999px",
+   "ls": "normal",
+   "w": 736
+  },
+  "cardLink": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "500",
+   "color": "rgb(40, 39, 40)",
+   "lh": "28px",
+   "ls": "normal",
+   "w": 173
+  },
+  "p": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(40, 39, 40)",
+   "lh": "28px",
+   "ls": "normal",
+   "w": 736
+  },
+  "header": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "24px",
+   "weight": "600",
+   "color": "rgb(40, 39, 40)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 144
+  },
+  "nav": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "500",
+   "color": "rgb(40, 39, 40)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 64
+  },
+  "footer": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(40, 39, 40)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 768
+  },
+  "tag": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "14px",
+   "weight": "400",
+   "color": "rgb(40, 39, 40)",
+   "lh": "20px",
+   "ls": "normal",
+   "w": 127
+  },
+  "searchInput": null,
+  "vars": [
+   "--background:#fdfdfd",
+   "--foreground:#282728",
+   "--accent:#006cac",
+   "--muted:#e6e6e6",
+   "--muted-foreground:#6b7280",
+   "--border:#ece9e9"
+  ]
+ },
+ "tags-light": {
+  "body": {
+   "bg": "rgb(253, 253, 253)",
+   "color": "rgb(40, 39, 40)",
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "lh": "24px"
+  },
+  "main": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(40, 39, 40)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 768
+  },
+  "h1": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "30px",
+   "weight": "600",
+   "color": "rgb(40, 39, 40)",
+   "lh": "36px",
+   "ls": "normal",
+   "w": 736
+  },
+  "h2": null,
+  "cardLink": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "18px",
+   "weight": "400",
+   "color": "rgb(40, 39, 40)",
+   "lh": "28px",
+   "ls": "normal",
+   "w": 76
+  },
+  "p": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(40, 39, 40)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 736
+  },
+  "header": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "24px",
+   "weight": "600",
+   "color": "rgb(40, 39, 40)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 144
+  },
+  "nav": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "500",
+   "color": "rgb(40, 39, 40)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 64
+  },
+  "footer": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(40, 39, 40)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 768
+  },
+  "tag": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "18px",
+   "weight": "400",
+   "color": "rgb(40, 39, 40)",
+   "lh": "28px",
+   "ls": "normal",
+   "w": 76
+  },
+  "searchInput": null,
+  "vars": [
+   "--background:#fdfdfd",
+   "--foreground:#282728",
+   "--accent:#006cac",
+   "--muted:#e6e6e6",
+   "--muted-foreground:#6b7280",
+   "--border:#ece9e9"
+  ]
+ },
+ "etiket-light": {
+  "body": {
+   "bg": "rgb(253, 253, 253)",
+   "color": "rgb(40, 39, 40)",
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "lh": "24px"
+  },
+  "main": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(40, 39, 40)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 768
+  },
+  "h1": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "30px",
+   "weight": "600",
+   "color": "rgb(40, 39, 40)",
+   "lh": "36px",
+   "ls": "normal",
+   "w": 736
+  },
+  "h2": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "18px",
+   "weight": "500",
+   "color": "rgb(0, 108, 172)",
+   "lh": "28px",
+   "ls": "normal",
+   "w": 389
+  },
+  "cardLink": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "18px",
+   "weight": "500",
+   "color": "rgb(0, 108, 172)",
+   "lh": "28px",
+   "ls": "normal",
+   "w": 389
+  },
+  "p": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(40, 39, 40)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 736
+  },
+  "header": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "24px",
+   "weight": "600",
+   "color": "rgb(40, 39, 40)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 144
+  },
+  "nav": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "500",
+   "color": "rgb(40, 39, 40)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 64
+  },
+  "footer": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(40, 39, 40)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 768
+  },
+  "tag": null,
+  "searchInput": null,
+  "vars": [
+   "--background:#fdfdfd",
+   "--foreground:#282728",
+   "--accent:#006cac",
+   "--muted:#e6e6e6",
+   "--muted-foreground:#6b7280",
+   "--border:#ece9e9"
+  ]
+ },
+ "archives-light": {
+  "body": {
+   "bg": "rgb(253, 253, 253)",
+   "color": "rgb(40, 39, 40)",
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "lh": "24px"
+  },
+  "main": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(40, 39, 40)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 768
+  },
+  "h1": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "30px",
+   "weight": "600",
+   "color": "rgb(40, 39, 40)",
+   "lh": "36px",
+   "ls": "normal",
+   "w": 736
+  },
+  "h2": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "18px",
+   "weight": "500",
+   "color": "rgb(0, 108, 172)",
+   "lh": "28px",
+   "ls": "normal",
+   "w": 151
+  },
+  "cardLink": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "18px",
+   "weight": "500",
+   "color": "rgb(0, 108, 172)",
+   "lh": "28px",
+   "ls": "normal",
+   "w": 151
+  },
+  "p": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(40, 39, 40)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 736
+  },
+  "header": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "24px",
+   "weight": "600",
+   "color": "rgb(40, 39, 40)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 144
+  },
+  "nav": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "500",
+   "color": "rgb(40, 39, 40)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 64
+  },
+  "footer": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(40, 39, 40)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 768
+  },
+  "tag": null,
+  "searchInput": null,
+  "vars": [
+   "--background:#fdfdfd",
+   "--foreground:#282728",
+   "--accent:#006cac",
+   "--muted:#e6e6e6",
+   "--muted-foreground:#6b7280",
+   "--border:#ece9e9"
+  ]
+ },
+ "search-light": {
+  "body": {
+   "bg": "rgb(253, 253, 253)",
+   "color": "rgb(40, 39, 40)",
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "lh": "24px"
+  },
+  "main": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(40, 39, 40)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 768
+  },
+  "h1": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "30px",
+   "weight": "600",
+   "color": "rgb(40, 39, 40)",
+   "lh": "36px",
+   "ls": "normal",
+   "w": 736
+  },
+  "h2": null,
+  "cardLink": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16.8px",
+   "weight": "700",
+   "color": "rgb(0, 108, 172)",
+   "lh": "25.2px",
+   "ls": "normal",
+   "w": 141
+  },
+  "p": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(40, 39, 40)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 736
+  },
+  "header": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "24px",
+   "weight": "600",
+   "color": "rgb(40, 39, 40)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 144
+  },
+  "nav": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "500",
+   "color": "rgb(40, 39, 40)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 64
+  },
+  "footer": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(40, 39, 40)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 768
+  },
+  "tag": null,
+  "searchInput": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16.8px",
+   "weight": "400",
+   "color": "rgb(40, 39, 40)",
+   "lh": "25.2px",
+   "ls": "normal",
+   "w": 736
+  },
+  "vars": [
+   "--background:#fdfdfd",
+   "--foreground:#282728",
+   "--accent:#006cac",
+   "--muted:#e6e6e6",
+   "--muted-foreground:#6b7280",
+   "--border:#ece9e9"
+  ]
+ },
+ "about-light": {
+  "body": {
+   "bg": "rgb(253, 253, 253)",
+   "color": "rgb(40, 39, 40)",
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "lh": "24px"
+  },
+  "main": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "400",
+   "color": "oklch(0.373 0.034 259.733)",
+   "lh": "28px",
+   "ls": "normal",
+   "w": 768
+  },
+  "h1": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "30px",
+   "weight": "600",
+   "color": "rgb(40, 39, 40)",
+   "lh": "36px",
+   "ls": "normal",
+   "w": 736
+  },
+  "h2": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "24px",
+   "weight": "700",
+   "color": "rgb(40, 39, 40)",
+   "lh": "31.9999px",
+   "ls": "normal",
+   "w": 736
+  },
+  "cardLink": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "500",
+   "color": "rgb(40, 39, 40)",
+   "lh": "28px",
+   "ls": "normal",
+   "w": 77
+  },
+  "p": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(40, 39, 40)",
+   "lh": "28px",
+   "ls": "normal",
+   "w": 736
+  },
+  "header": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "24px",
+   "weight": "600",
+   "color": "rgb(40, 39, 40)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 144
+  },
+  "nav": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "500",
+   "color": "rgb(40, 39, 40)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 64
+  },
+  "footer": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(40, 39, 40)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 768
+  },
+  "tag": null,
+  "searchInput": null,
+  "vars": [
+   "--background:#fdfdfd",
+   "--foreground:#282728",
+   "--accent:#006cac",
+   "--muted:#e6e6e6",
+   "--muted-foreground:#6b7280",
+   "--border:#ece9e9"
+  ]
+ },
+ "anasayfa-dark": {
+  "body": {
+   "bg": "rgb(33, 39, 55)",
+   "color": "rgb(234, 237, 243)",
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "lh": "24px"
+  },
+  "main": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(234, 237, 243)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 768
+  },
+  "h1": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "48px",
+   "weight": "700",
+   "color": "rgb(234, 237, 243)",
+   "lh": "48px",
+   "ls": "normal",
+   "w": 259
+  },
+  "h2": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "24px",
+   "weight": "600",
+   "color": "rgb(234, 237, 243)",
+   "lh": "32px",
+   "ls": "0.6px",
+   "w": 736
+  },
+  "cardLink": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "18px",
+   "weight": "500",
+   "color": "rgb(255, 107, 1)",
+   "lh": "28px",
+   "ls": "normal",
+   "w": 389
+  },
+  "p": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(234, 237, 243)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 736
+  },
+  "header": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "24px",
+   "weight": "600",
+   "color": "rgb(234, 237, 243)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 144
+  },
+  "nav": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "500",
+   "color": "rgb(234, 237, 243)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 64
+  },
+  "footer": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(234, 237, 243)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 768
+  },
+  "tag": null,
+  "searchInput": null,
+  "vars": [
+   "--background:#212737",
+   "--foreground:#eaedf3",
+   "--accent:#ff6b01",
+   "--muted:#343f60",
+   "--muted-foreground:#afb9ca",
+   "--border:#ab4b08"
+  ]
+ },
+ "posts-dark": {
+  "body": {
+   "bg": "rgb(33, 39, 55)",
+   "color": "rgb(234, 237, 243)",
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "lh": "24px"
+  },
+  "main": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(234, 237, 243)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 768
+  },
+  "h1": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "30px",
+   "weight": "600",
+   "color": "rgb(234, 237, 243)",
+   "lh": "36px",
+   "ls": "normal",
+   "w": 736
+  },
+  "h2": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "18px",
+   "weight": "500",
+   "color": "rgb(255, 107, 1)",
+   "lh": "28px",
+   "ls": "normal",
+   "w": 389
+  },
+  "cardLink": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "18px",
+   "weight": "500",
+   "color": "rgb(255, 107, 1)",
+   "lh": "28px",
+   "ls": "normal",
+   "w": 389
+  },
+  "p": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(234, 237, 243)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 736
+  },
+  "header": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "24px",
+   "weight": "600",
+   "color": "rgb(234, 237, 243)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 144
+  },
+  "nav": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "500",
+   "color": "rgb(234, 237, 243)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 64
+  },
+  "footer": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(234, 237, 243)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 768
+  },
+  "tag": null,
+  "searchInput": null,
+  "vars": [
+   "--background:#212737",
+   "--foreground:#eaedf3",
+   "--accent:#ff6b01",
+   "--muted:#343f60",
+   "--muted-foreground:#afb9ca",
+   "--border:#ab4b08"
+  ]
+ },
+ "makale-dark": {
+  "body": {
+   "bg": "rgb(33, 39, 55)",
+   "color": "rgb(234, 237, 243)",
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "lh": "24px"
+  },
+  "main": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(234, 237, 243)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 768
+  },
+  "h1": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "30px",
+   "weight": "700",
+   "color": "rgb(255, 107, 1)",
+   "lh": "36px",
+   "ls": "normal",
+   "w": 594
+  },
+  "h2": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "24px",
+   "weight": "700",
+   "color": "rgb(234, 237, 243)",
+   "lh": "31.9999px",
+   "ls": "normal",
+   "w": 736
+  },
+  "cardLink": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "500",
+   "color": "rgb(234, 237, 243)",
+   "lh": "28px",
+   "ls": "normal",
+   "w": 173
+  },
+  "p": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(234, 237, 243)",
+   "lh": "28px",
+   "ls": "normal",
+   "w": 736
+  },
+  "header": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "24px",
+   "weight": "600",
+   "color": "rgb(234, 237, 243)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 144
+  },
+  "nav": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "500",
+   "color": "rgb(234, 237, 243)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 64
+  },
+  "footer": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(234, 237, 243)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 768
+  },
+  "tag": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "14px",
+   "weight": "400",
+   "color": "rgb(234, 237, 243)",
+   "lh": "20px",
+   "ls": "normal",
+   "w": 127
+  },
+  "searchInput": null,
+  "vars": [
+   "--background:#212737",
+   "--foreground:#eaedf3",
+   "--accent:#ff6b01",
+   "--muted:#343f60",
+   "--muted-foreground:#afb9ca",
+   "--border:#ab4b08"
+  ]
+ },
+ "tags-dark": {
+  "body": {
+   "bg": "rgb(33, 39, 55)",
+   "color": "rgb(234, 237, 243)",
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "lh": "24px"
+  },
+  "main": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(234, 237, 243)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 768
+  },
+  "h1": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "30px",
+   "weight": "600",
+   "color": "rgb(234, 237, 243)",
+   "lh": "36px",
+   "ls": "normal",
+   "w": 736
+  },
+  "h2": null,
+  "cardLink": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "18px",
+   "weight": "400",
+   "color": "rgb(234, 237, 243)",
+   "lh": "28px",
+   "ls": "normal",
+   "w": 76
+  },
+  "p": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(234, 237, 243)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 736
+  },
+  "header": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "24px",
+   "weight": "600",
+   "color": "rgb(234, 237, 243)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 144
+  },
+  "nav": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "500",
+   "color": "rgb(234, 237, 243)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 64
+  },
+  "footer": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(234, 237, 243)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 768
+  },
+  "tag": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "18px",
+   "weight": "400",
+   "color": "rgb(234, 237, 243)",
+   "lh": "28px",
+   "ls": "normal",
+   "w": 76
+  },
+  "searchInput": null,
+  "vars": [
+   "--background:#212737",
+   "--foreground:#eaedf3",
+   "--accent:#ff6b01",
+   "--muted:#343f60",
+   "--muted-foreground:#afb9ca",
+   "--border:#ab4b08"
+  ]
+ },
+ "etiket-dark": {
+  "body": {
+   "bg": "rgb(33, 39, 55)",
+   "color": "rgb(234, 237, 243)",
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "lh": "24px"
+  },
+  "main": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(234, 237, 243)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 768
+  },
+  "h1": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "30px",
+   "weight": "600",
+   "color": "rgb(234, 237, 243)",
+   "lh": "36px",
+   "ls": "normal",
+   "w": 736
+  },
+  "h2": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "18px",
+   "weight": "500",
+   "color": "rgb(255, 107, 1)",
+   "lh": "28px",
+   "ls": "normal",
+   "w": 389
+  },
+  "cardLink": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "18px",
+   "weight": "500",
+   "color": "rgb(255, 107, 1)",
+   "lh": "28px",
+   "ls": "normal",
+   "w": 389
+  },
+  "p": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(234, 237, 243)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 736
+  },
+  "header": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "24px",
+   "weight": "600",
+   "color": "rgb(234, 237, 243)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 144
+  },
+  "nav": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "500",
+   "color": "rgb(234, 237, 243)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 64
+  },
+  "footer": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(234, 237, 243)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 768
+  },
+  "tag": null,
+  "searchInput": null,
+  "vars": [
+   "--background:#212737",
+   "--foreground:#eaedf3",
+   "--accent:#ff6b01",
+   "--muted:#343f60",
+   "--muted-foreground:#afb9ca",
+   "--border:#ab4b08"
+  ]
+ },
+ "archives-dark": {
+  "body": {
+   "bg": "rgb(33, 39, 55)",
+   "color": "rgb(234, 237, 243)",
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "lh": "24px"
+  },
+  "main": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(234, 237, 243)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 768
+  },
+  "h1": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "30px",
+   "weight": "600",
+   "color": "rgb(234, 237, 243)",
+   "lh": "36px",
+   "ls": "normal",
+   "w": 736
+  },
+  "h2": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "18px",
+   "weight": "500",
+   "color": "rgb(255, 107, 1)",
+   "lh": "28px",
+   "ls": "normal",
+   "w": 151
+  },
+  "cardLink": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "18px",
+   "weight": "500",
+   "color": "rgb(255, 107, 1)",
+   "lh": "28px",
+   "ls": "normal",
+   "w": 151
+  },
+  "p": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(234, 237, 243)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 736
+  },
+  "header": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "24px",
+   "weight": "600",
+   "color": "rgb(234, 237, 243)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 144
+  },
+  "nav": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "500",
+   "color": "rgb(234, 237, 243)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 64
+  },
+  "footer": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(234, 237, 243)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 768
+  },
+  "tag": null,
+  "searchInput": null,
+  "vars": [
+   "--background:#212737",
+   "--foreground:#eaedf3",
+   "--accent:#ff6b01",
+   "--muted:#343f60",
+   "--muted-foreground:#afb9ca",
+   "--border:#ab4b08"
+  ]
+ },
+ "search-dark": {
+  "body": {
+   "bg": "rgb(33, 39, 55)",
+   "color": "rgb(234, 237, 243)",
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "lh": "24px"
+  },
+  "main": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(234, 237, 243)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 768
+  },
+  "h1": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "30px",
+   "weight": "600",
+   "color": "rgb(234, 237, 243)",
+   "lh": "36px",
+   "ls": "normal",
+   "w": 736
+  },
+  "h2": null,
+  "cardLink": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16.8px",
+   "weight": "700",
+   "color": "rgb(255, 107, 1)",
+   "lh": "25.2px",
+   "ls": "normal",
+   "w": 141
+  },
+  "p": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(234, 237, 243)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 736
+  },
+  "header": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "24px",
+   "weight": "600",
+   "color": "rgb(234, 237, 243)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 144
+  },
+  "nav": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "500",
+   "color": "rgb(234, 237, 243)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 64
+  },
+  "footer": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(234, 237, 243)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 768
+  },
+  "tag": null,
+  "searchInput": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16.8px",
+   "weight": "400",
+   "color": "rgb(234, 237, 243)",
+   "lh": "25.2px",
+   "ls": "normal",
+   "w": 736
+  },
+  "vars": [
+   "--background:#212737",
+   "--foreground:#eaedf3",
+   "--accent:#ff6b01",
+   "--muted:#343f60",
+   "--muted-foreground:#afb9ca",
+   "--border:#ab4b08"
+  ]
+ },
+ "about-dark": {
+  "body": {
+   "bg": "rgb(33, 39, 55)",
+   "color": "rgb(234, 237, 243)",
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "lh": "24px"
+  },
+  "main": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "400",
+   "color": "oklch(0.373 0.034 259.733)",
+   "lh": "28px",
+   "ls": "normal",
+   "w": 768
+  },
+  "h1": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "30px",
+   "weight": "600",
+   "color": "rgb(234, 237, 243)",
+   "lh": "36px",
+   "ls": "normal",
+   "w": 736
+  },
+  "h2": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "24px",
+   "weight": "700",
+   "color": "rgb(234, 237, 243)",
+   "lh": "31.9999px",
+   "ls": "normal",
+   "w": 736
+  },
+  "cardLink": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "500",
+   "color": "rgb(234, 237, 243)",
+   "lh": "28px",
+   "ls": "normal",
+   "w": 77
+  },
+  "p": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(234, 237, 243)",
+   "lh": "28px",
+   "ls": "normal",
+   "w": 736
+  },
+  "header": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "24px",
+   "weight": "600",
+   "color": "rgb(234, 237, 243)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 144
+  },
+  "nav": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "500",
+   "color": "rgb(234, 237, 243)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 64
+  },
+  "footer": {
+   "font": "\"Google Sans Code-1a30c214885cb404\", \"Google Sans Code-1a30c214885cb404 fallback: Courier New\", monospace",
+   "size": "16px",
+   "weight": "400",
+   "color": "rgb(234, 237, 243)",
+   "lh": "24px",
+   "ls": "normal",
+   "w": 768
+  },
+  "tag": null,
+  "searchInput": null,
+  "vars": [
+   "--background:#212737",
+   "--foreground:#eaedf3",
+   "--accent:#ff6b01",
+   "--muted:#343f60",
+   "--muted-foreground:#afb9ca",
+   "--border:#ab4b08"
+  ]
+ }
+}

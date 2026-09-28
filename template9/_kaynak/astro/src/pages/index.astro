@@ -1,0 +1,956 @@
+---
+// Ana sayfa. Kaynak şablon: _kaynak/sayfa/index.sablon.astro → `python3 _kaynak/anasayfa-kur.py` ile
+// astro/src/pages/index.astro üretilir (parca yer tutucularının yerine diyetisyen-v2'nin işaretlemesi girer).
+//
+// AstroPaper ana sayfa kalıbı korunur: giriş (#hero → #top) + "Featured" başlık stiliyle bölümler +
+// "Recent posts" (6 Mizan makalesi, Card) + "All posts" bağlantısı.
+import { getCollection } from "astro:content";
+import IconRss from "@/assets/icons/IconRss.svg";
+import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
+import IconCalendar from "@/assets/icons/IconCalendar.svg";
+import IconHash from "@/assets/icons/IconHash.svg";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import Socials from "@/components/Socials.astro";
+import Card from "@/components/Card.astro";
+import LinkButton from "@/components/LinkButton.astro";
+import { getSortedPosts } from "@/utils/getSortedPosts";
+import { getAssetPath } from "@/utils/withBase";
+import { useTranslations } from "@/i18n";
+import config from "@/config";
+import TR from "@/data/tr.json";
+
+const { posts: postsConfig } = config;
+const t = useTranslations(config.site.lang);
+// Türkçe metin diyetisyen-v2'den (anasayfa-kur.py → src/data/tr.json); eksik anahtar derlemeyi durdurur.
+const T = (k: string): string => {
+  const v = (TR as Record<string, string>)[k];
+  if (v == null) throw new Error("tr.json'da yok: " + k);
+  return v;
+};
+
+const posts = await getCollection("posts");
+const recentPosts = getSortedPosts(posts);
+
+const SITE = "https://sadikbesler.github.io/50-website/template9/";
+const ld = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${SITE}#website`,
+      url: SITE,
+      name: "Mizan Beslenme",
+      inLanguage: ["tr-TR", "en-US"],
+    },
+    {
+      "@type": "MedicalClinic",
+      "@id": `${SITE}#clinic`,
+      name: "Mizan Beslenme ve Diyet Kliniği",
+      url: SITE,
+      image: `${SITE}assets/img/og-image.jpg`,
+      logo: `${SITE}assets/icons/apple-touch-icon.png`,
+      description:
+        "Kadıköy’de uzman diyetisyenlerle kilo yönetimi, klinik beslenme, sporcu beslenmesi, gebelik ve çocuk beslenmesi danışmanlığı. Yüz yüze ve online görüşme.",
+      medicalSpecialty: "https://schema.org/DietNutrition",
+      telephone: "+905555555555",
+      email: "randevu@mizanbeslenme.com",
+      priceRange: "₺₺",
+      currenciesAccepted: "TRY",
+      paymentAccepted: "Nakit, Kredi kartı, Havale",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "Moda Cad. No: 48, Kat 3",
+        addressLocality: "Kadıköy",
+        addressRegion: "İstanbul",
+        postalCode: "34710",
+        addressCountry: "TR",
+      },
+      openingHoursSpecification: [
+        { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "09:00", closes: "20:00" },
+        { "@type": "OpeningHoursSpecification", dayOfWeek: "Saturday", opens: "10:00", closes: "15:00" },
+      ],
+      availableService: [
+        { "@type": "MedicalTherapy", name: "Kilo yönetimi danışmanlığı" },
+        { "@type": "MedicalTherapy", name: "Klinik beslenme (insülin direnci, diyabet, PCOS, tiroit)" },
+        { "@type": "MedicalTherapy", name: "Sporcu beslenmesi" },
+        { "@type": "MedicalTherapy", name: "Gebelik ve emzirme döneminde beslenme" },
+        { "@type": "MedicalTherapy", name: "Çocuk ve ergen beslenmesi" },
+        { "@type": "MedicalTherapy", name: "Online diyet danışmanlığı" },
+      ],
+      employee: [
+        { "@type": "Person", name: "Selin Karaca", jobTitle: "Uzman Diyetisyen" },
+        { "@type": "Person", name: "Emre Aksoy", jobTitle: "Diyetisyen" },
+        { "@type": "Person", name: "Zeynep Tunalı", jobTitle: "Diyetisyen" },
+      ],
+      sameAs: ["https://instagram.com/mizanbeslenme"],
+    },
+  ],
+};
+const faqLd = { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: [] };
+
+// Bölüm başlığı: AstroPaper ana sayfasındaki "Featured"/"Recent Posts" başlığı
+const H2 = "text-2xl font-semibold tracking-wide";
+const SECTION = "border-border border-b pt-12 pb-6";
+const LEDE = "mt-2 mb-2 italic";
+// AstroPaper giriş bölümündeki "README" bağlantısı (LinkButton + kesikli alt çizgi)
+const LINK = "hover:text-accent underline decoration-dashed underline-offset-4";
+// AstroPaper Card başlığı
+const CARD_TITLE = "text-accent inline-block text-lg font-medium decoration-dashed underline-offset-4 hover:underline focus-visible:no-underline focus-visible:underline-offset-0";
+const META = "text-muted-foreground flex flex-wrap items-center gap-x-2 text-sm";
+
+const services = [
+  { n: 1, img: "hizmet-kilo", area: "weight", tags: ["s1.tag1", "s1.tag2", "s1.tag3"] },
+  { n: 2, img: "hizmet-klinik", area: "clinical", tags: ["s2.tag1", null, "s2.tag3", "s2.tag4"] },
+  { n: 3, img: "hizmet-sporcu", area: "sports", tags: ["s3.tag1", "s3.tag2"] },
+  { n: 4, img: "hizmet-gebelik", area: "pregnancy", tags: ["s4.tag1", "s4.tag2"] },
+  { n: 5, img: "hizmet-cocuk", area: "kids", tags: ["s5.tag1", "s5.tag2"] },
+  { n: 6, img: "hizmet-online", type: "online", tags: ["s6.tag1", "s6.tag2"] },
+];
+---
+
+<Layout
+  title="Diyetisyen Kadıköy | Mizan Beslenme ve Diyet Kliniği · Online Randevu"
+  description="Kadıköy Moda’da uzman diyetisyenlerle kilo yönetimi, insülin direnci, sporcu, gebelik ve çocuk beslenmesi. Yüz yüze veya online görüşme için hemen randevu alın."
+  ogTitle="Diyetisyen web sitesi · Template 9 (AstroPaper)"
+  ogDesc="AstroPaper'ın sade, monospace blog tasarımıyla diyetisyen sitesi: online randevu, hesaplama araçları, tarifler, aranabilir blog."
+  page="home"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(ld)} />
+    <script type="application/ld+json" id="faq-schema" is:inline set:html={JSON.stringify(faqLd)} />
+  </Fragment>
+
+  <Header />
+  <main id="main-content" data-layout="index" class="app-layout my-1">
+    <!-- S2 · Giriş (AstroPaper #hero) -->
+    <section id="top" class="border-border border-b pt-8 pb-6" aria-labelledby="hero-title">
+      <h1 id="hero-title" class="my-4 inline-block text-4xl font-bold sm:my-8 sm:text-5xl" data-i18n="hero.title">
+        Sofranıza uyan bir beslenme planı.
+      </h1>
+      <a
+        target="_blank"
+        href={getAssetPath("rss.xml")}
+        class="inline-block"
+        aria-label="RSS Feed"
+        title="RSS Feed"
+      >
+        <IconRss
+          width={20}
+          height={20}
+          class="stroke-accent scale-125 stroke-3 rtl:-rotate-90"
+        />
+        <span class="sr-only">RSS Feed</span>
+      </a>
+      <p class="mb-2 italic" data-i18n="hero.kicker">Moda, Kadıköy · Yüz yüze ve online</p>
+      <p data-i18n="hero.lede">İlk görüşmede tahlillerinize bakıyor ve vücut analizi yapıyoruz. Planınız iş saatlerinize ve sevdiğiniz yemeklere göre hazırlanıyor, kontrol görüşmelerinde birlikte güncelleniyor.</p>
+      <p class="hero-cta mt-2">
+        <LinkButton class={LINK} href="#randevu"><span data-i18n="hero.cta1">Randevu al</span></LinkButton>
+        <span aria-hidden="true">&nbsp;·&nbsp;</span>
+        <LinkButton class={LINK} href="#araclar"><span data-i18n="hero.cta2">VKİ’nizi hesaplayın</span></LinkButton>
+      </p>
+      <div class="mt-4 flex max-sm:flex-col sm:items-center">
+        <div class="me-2 mb-1 whitespace-nowrap sm:mb-0"><span data-i18n="ap.home.socialLinks">{t.home.socialLinks}</span>:</div>
+        <Socials />
+      </div>
+
+      <!-- #next-slot: AstroPaper Card düzeni (başlık = saat, tarih satırı = etiket, açıklama = uzman) -->
+      <aside class="next-slot my-6" id="next-slot" aria-live="polite" data-i18n-attr="aria-label:next.aria" aria-label="En yakın uygun randevu">
+        <p class="text-accent inline-block text-lg font-medium" data-next-time><span data-i18n="next.loading">Takvim kontrol ediliyor…</span></p>
+        <div class={META}>
+          <IconCalendar class="inline-block size-6 min-w-5.5 scale-90" />
+          <span data-i18n="next.label">En yakın uygun randevu</span>
+        </div>
+        <p data-next-meta>&nbsp;</p>
+        <LinkButton class={LINK} href="#randevu" data-next-book>
+          <span data-i18n="next.book">Bu saati ayır</span>
+          <IconArrowRight class="inline-block size-5 rtl:-rotate-180" />
+        </LinkButton>
+      </aside>
+
+      <!-- AstroPaper'ın katlanır içindekiler kalıbı (remark-collapse çıktısı) -->
+      <div class="home-toc app-prose max-w-app">
+      <details>
+        <summary data-i18n="ap.home.toc">Bu sayfada</summary>
+        <ul>
+          <li><a href="#hizmetler" data-i18n="nav.services">Hizmetler</a></li>
+          <li><a href="#yaklasim" data-i18n="tag.process">Yöntem</a></li>
+          <li><a href="#uzmanlar" data-i18n="nav.team">Uzmanlar</a></li>
+          <li><a href="#araclar" data-i18n="nav.tools">Araçlar</a></li>
+          <li><a href="#program" data-i18n="nav.program">Örnek program</a></li>
+          <li><a href="#tarifler" data-i18n="nav.recipes">Tarifler</a></li>
+          <li><a href="#ucretler" data-i18n="nav.pricing">Ücretler</a></li>
+          <li><a href="#randevu" data-i18n="nav.book">Randevu al</a></li>
+          <li><a href="#blog" data-i18n="nav.blog">Blog</a></li>
+          <li><a href="#sss" data-i18n="nav.faq">SSS</a></li>
+          <li><a href="#iletisim" data-i18n="nav.contact">İletişim</a></li>
+        </ul>
+      </details>
+      </div>
+    </section>
+
+    <!-- S3 · Kısa bilgiler -->
+    <section class:list={["facts", SECTION]} aria-labelledby="facts-title">
+      <h2 id="facts-title" class={H2} data-i18n="facts.aria">Klinik hakkında kısa bilgiler</h2>
+      <ul class="facts-list grid sm:grid-cols-2 sm:gap-x-8">
+        <li class="my-6"><p class="text-accent text-lg font-medium">12 <span data-i18n="facts.1u">yıl</span></p><p data-i18n="facts.1">klinik beslenme deneyimi</p></li>
+        <li class="my-6"><p class="text-accent text-lg font-medium">3 <span data-i18n="facts.2u">uzman</span></p><p data-i18n="facts.2">diyetisyen, tek çatı altında</p></li>
+        <li class="my-6"><p class="text-accent text-lg font-medium">60 <span data-i18n="facts.3u">dk</span></p><p data-i18n="facts.3">ilk görüşme ve vücut analizi</p></li>
+        <li class="my-6"><p class="text-accent text-lg font-medium">7 <span data-i18n="facts.4u">gün</span></p><p data-i18n="facts.4">içinde ilk kontrol, sonra haftalık takip</p></li>
+      </ul>
+    </section>
+
+    <!-- S4 · Hizmetler (Card + küçük görsel) -->
+    <section id="hizmetler" class={SECTION} aria-labelledby="services-title">
+      <h2 id="services-title" class={H2} data-i18n="services.title">Çalıştığımız alanlar</h2>
+      <p class={LEDE} data-i18n="services.lede">Hazır listeler dağıtmıyoruz. Yaşınızı, hareket düzeninizi, tahlil sonuçlarınızı ve mutfağınızda gerçekten ne olduğunu konuşarak başlıyoruz.</p>
+      <ul>
+        {services.map((s) => (
+          <li class="my-6 flex gap-4">
+            <img
+              src={getAssetPath(`assets/img/${s.img}-700.webp`)}
+              width="700"
+              height="525"
+              loading="lazy"
+              decoding="async"
+              class="thumb border-border mt-1 border object-cover"
+              alt={T(`s${s.n}.alt`)}
+              data-i18n-attr={`alt:s${s.n}.alt`}
+            />
+            <div class="min-w-0">
+              <a href="#randevu" class={CARD_TITLE} data-book-area={s.area} data-book-type={s.type}>
+                <h3 data-i18n={`s${s.n}.title`}>{T(`s${s.n}.title`)}</h3>
+              </a>
+              <div class={META}>
+                <span data-i18n={`s${s.n}.foot`}>{T(`s${s.n}.foot`)}</span>
+                <span aria-hidden="true">|</span>
+                <ul class="tags flex flex-wrap gap-x-2">
+                  {s.tags.map((k) => (
+                    <li class="flex items-center gap-0.5"><IconHash class="size-4 opacity-80" />{k ? <span data-i18n={k}>{T(k)}</span> : <span>PCOS</span>}</li>
+                  ))}
+                </ul>
+              </div>
+              <p data-i18n={`s${s.n}.text`}>{T(`s${s.n}.text`)}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- S5 · Mevsim notları (AstroPaper sadeliği: görselsiz, etiket listesi düzeni) -->
+    <section class:list={["notes-panel", SECTION]} aria-labelledby="notes-title">
+      <h2 id="notes-title" class={H2} data-i18n="notes.title">Tezgâhlarda incir, nar ve ceviz zamanı.</h2>
+      <p class={LEDE} data-i18n="notes.eyebrow">Eylül ve ekim</p>
+      <ul class="my-6 flex flex-wrap gap-x-6 gap-y-3 text-lg">
+        {[1, 2, 3, 4, 5, 6, 7].map((n) => (
+          <li class="flex items-center gap-0.5"><IconHash class="size-5 opacity-80" /><span data-i18n={`notes.c${n}`}>{T(`notes.c${n}`)}</span></li>
+        ))}
+      </ul>
+      <p class="mt-2">
+        <LinkButton class={LINK} href="#tarifler"><span data-i18n="notes.p1">Tarifler</span></LinkButton>
+        <span aria-hidden="true">&nbsp;·&nbsp;</span>
+        <LinkButton class={LINK} href="#program"><span data-i18n="notes.p2">Örnek program</span></LinkButton>
+        <span aria-hidden="true">&nbsp;·&nbsp;</span>
+        <LinkButton class={LINK} href="#blog"><span data-i18n="notes.p3">Yazılar</span></LinkButton>
+      </p>
+    </section>
+
+    <!-- S6 · Yaklaşım -->
+    <section id="yaklasim" class={SECTION} aria-labelledby="process-title">
+      <h2 id="process-title" class={H2} data-i18n="process.title">Görüşmeler nasıl ilerliyor?</h2>
+      <p class={LEDE} data-i18n="process.lede">Plan ilk görüşmede bitmiyor. Bayram sofrası, tatil ya da yoğun bir iş haftası geldiğinde kontrol görüşmesinde birlikte güncelliyoruz.</p>
+      <div class="app-prose max-w-app">
+        <blockquote class="quote">
+          <p data-i18n="process.quote">“Danışanlarımın çoğu ne yemesi gerektiğini aşağı yukarı biliyor. Zorlandıkları an, akşam işten aç çıktıkları saat. Planı önce o saate göre kuruyoruz.”</p>
+          <footer class="text-foreground">— <span data-i18n="team.selin.name">Uzm. Dyt. Selin Karaca</span> · <span data-i18n="process.quoteRole">kurucu</span></footer>
+        </blockquote>
+      </div>
+      <ol class="road my-6 list-decimal ps-8 marker:text-accent">
+        {[1, 2, 3, 4].map((n) => (
+          <li class="step my-6">
+            <h3 class="text-lg font-medium" data-i18n={`step${n}.title`}>{T(`step${n}.title`)}</h3>
+            <div class={META}><span data-i18n={`step${n}.meta`}>{T(`step${n}.meta`)}</span></div>
+            <p data-i18n={`step${n}.text`}>{T(`step${n}.text`)}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <!-- S7 · Yöntem sahnesi (manifesto): yalnızca metin -->
+    <section id="manifesto" class={SECTION} aria-labelledby="manifesto-title">
+      <h2 id="manifesto-title" class={H2} data-i18n="scene.label">Yöntem</h2>
+      <div class="app-prose max-w-app">
+        <blockquote>
+          <p>
+            <span data-scene-line data-i18n="scene.l1">Tek bir hafta için değil.</span>
+            <span data-scene-line data-i18n="scene.l2">Bayram sofrası için de,</span>
+            <span data-scene-line data-i18n="scene.l3">yorgun bir salı akşamı için de</span>
+            <span data-scene-line><em data-i18n="scene.l4">çalışan bir plan.</em></span>
+          </p>
+        </blockquote>
+      </div>
+      <ul class="scene-foot my-6">
+        <li class="my-2"><b class="text-accent font-medium" data-i18n="scene.f1n">60 dk</b> <span data-i18n="scene.f1">ilk görüşme</span></li>
+        <li class="my-2"><b class="text-accent font-medium" data-i18n="scene.f2n">48 saat</b> <span data-i18n="scene.f2">içinde kişisel plan</span></li>
+        <li class="my-2"><b class="text-accent font-medium" data-i18n="scene.f3n">Haftalık</b> <span data-i18n="scene.f3">kontrol ve mesaj desteği</span></li>
+      </ul>
+    </section>
+
+    <!-- S8 · Uzmanlar (Card + küçük portre) -->
+    <section id="uzmanlar" class={SECTION} aria-labelledby="team-title">
+      <h2 id="team-title" class={H2} data-i18n="team.title">Diyetisyenlerimiz</h2>
+      <p class={LEDE} data-i18n="team.lede">Her uzmanın ağırlıklı çalıştığı alan farklı. Randevu alırken konunuzu seçtiğinizde size uygun uzmanlar öne çıkar.</p>
+      <ul>
+        {["selin", "emre", "zeynep"].map((p) => (
+          <li class="person my-6 flex gap-4">
+            <img
+              src={getAssetPath(`assets/img/uzman-${p}-560.webp`)}
+              width="560"
+              height="700"
+              loading="lazy"
+              decoding="async"
+              class="portrait border-border mt-1 border object-cover"
+              alt={T(`team.${p}.alt`)}
+              data-i18n-attr={`alt:team.${p}.alt`}
+            />
+            <div class="min-w-0">
+              <h3 class="text-lg font-medium" data-i18n={`team.${p}.name`}>{T(`team.${p}.name`)}</h3>
+              <div class={META}>
+                <span data-i18n={`team.${p}.area`}>{T(`team.${p}.area`)}</span>
+                {p === "selin" && (<><span aria-hidden="true">|</span><span data-i18n="team.founder">Kurucu</span></>)}
+              </div>
+              <p data-i18n={`team.${p}.bio`}>{T(`team.${p}.bio`)}</p>
+              <dl class="person-facts my-2 text-sm">
+                <div><dt data-i18n="team.edu">Eğitim</dt><dd data-i18n={`team.${p}.edu`}>{T(`team.${p}.edu`)}</dd></div>
+                <div><dt data-i18n="team.days">Günler</dt><dd data-i18n={`team.${p}.days`}>{T(`team.${p}.days`)}</dd></div>
+                <div><dt data-i18n="team.langs">Dil</dt><dd data-i18n={`team.${p}.langs`}>{T(`team.${p}.langs`)}</dd></div>
+              </dl>
+              <LinkButton class={LINK} href="#randevu" data-book-staff={p}>
+                <span data-i18n={`team.${p}.btn`}>{T(`team.${p}.btn`)}</span>
+                <IconArrowRight class="inline-block size-5 rtl:-rotate-180" />
+              </LinkButton>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- S9 · Araçlar (diyetisyen-v2 işaretlemesi, AstroPaper tokenlarıyla giydirildi) -->
+    <section id="araclar" class={SECTION} aria-labelledby="tools-title">
+      <h2 id="tools-title" class={H2} data-i18n="tools.title">Hesaplama araçları</h2>
+      <p class={LEDE} data-i18n="tools.lede">Bu hesaplamalar genel bir fikir verir. Görüşmede aynı değerleri vücut analizi ve tahlillerinizle birlikte yorumluyoruz.</p>
+      <div class="tools-head">
+          <div class="tabs" role="tablist" data-i18n-attr="aria-label:tools.aria" aria-label="Sağlık hesaplama araçları">
+            <button class="tab" role="tab" type="button" id="tab-bmi" aria-controls="tool-bmi" aria-selected="true"><span data-i18n="tools.tab1">Vücut kitle indeksi</span><span class="mono" data-i18n="tools.tab1abbr">VKİ</span></button>
+            <button class="tab" role="tab" type="button" id="tab-kcal" aria-controls="tool-kcal" aria-selected="false" tabindex="-1"><span data-i18n="tools.tab2">Günlük kalori</span><span class="mono">KCAL</span></button>
+            <button class="tab" role="tab" type="button" id="tab-water" aria-controls="tool-water" aria-selected="false" tabindex="-1"><span data-i18n="tools.tab3">Su ihtiyacı</span><span class="mono">ML</span></button>
+          </div>
+        </div>
+
+        <!-- BMI -->
+        <div class="tool" role="tabpanel" id="tool-bmi" aria-labelledby="tab-bmi">
+          <form class="tool-card tool-form" data-tool="bmi" novalidate>
+            <div class="range-field">
+              <div class="range-top">
+                <label class="field-label" for="bmi-height" data-i18n="tools.height">Boy</label>
+                <div class="field-unit"><input class="field" id="bmi-height" name="height" type="number" inputmode="decimal" min="120" max="220" step="1" value="168"><span>cm</span></div>
+              </div>
+              <input type="range" min="120" max="220" step="1" value="168" data-sync="height" data-i18n-attr="aria-label:tools.height" aria-label="Boy">
+            </div>
+            <div class="range-field">
+              <div class="range-top">
+                <label class="field-label" for="bmi-weight" data-i18n="tools.weight">Kilo</label>
+                <div class="field-unit"><input class="field" id="bmi-weight" name="weight" type="number" inputmode="decimal" min="35" max="220" step="0.1" value="68"><span>kg</span></div>
+              </div>
+              <input type="range" min="35" max="200" step="0.5" value="68" data-sync="weight" data-i18n-attr="aria-label:tools.weight" aria-label="Kilo">
+            </div>
+            <p class="tool-note" data-i18n="tools.bmiNote">VKİ; 18 yaş altı, gebelik dönemi ve kas kütlesi yüksek sporcular için yanıltıcı olabilir.</p>
+          </form>
+          <div class="tool-card tool-result" data-result="bmi" aria-live="polite"></div>
+        </div>
+
+        <!-- Calories -->
+        <div class="tool" role="tabpanel" id="tool-kcal" aria-labelledby="tab-kcal" hidden>
+          <form class="tool-card tool-form" data-tool="kcal" novalidate>
+            <div class="field-group">
+              <span class="field-label" id="kcal-sex-l" data-i18n="tools.sex">Cinsiyet</span>
+              <div class="radio-row" role="radiogroup" aria-labelledby="kcal-sex-l">
+                <label class="radio-pill"><input type="radio" name="sex" value="f" checked><span data-i18n="tools.female">Kadın</span></label>
+                <label class="radio-pill"><input type="radio" name="sex" value="m"><span data-i18n="tools.male">Erkek</span></label>
+              </div>
+            </div>
+            <div class="form-grid form-grid--2">
+              <div class="field-group">
+                <label class="field-label" for="kcal-age" data-i18n="tools.age">Yaş</label>
+                <div class="field-unit"><input class="field" id="kcal-age" name="age" type="number" inputmode="numeric" min="18" max="90" value="32"><span data-i18n="tools.years">yaş</span></div>
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="kcal-height" data-i18n="tools.height">Boy</label>
+                <div class="field-unit"><input class="field" id="kcal-height" name="height" type="number" inputmode="decimal" min="120" max="220" value="168"><span>cm</span></div>
+              </div>
+              <div class="field-group span-2">
+                <label class="field-label" for="kcal-weight" data-i18n="tools.weight">Kilo</label>
+                <div class="field-unit"><input class="field" id="kcal-weight" name="weight" type="number" inputmode="decimal" min="35" max="220" step="0.1" value="68"><span>kg</span></div>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="kcal-activity" data-i18n="tools.activity">Hareket düzeni</label>
+              <div class="select-wrap">
+                <select class="field" id="kcal-activity" name="activity">
+                  <option value="1.2" data-i18n="tools.act1">Hareketsiz (masa başı, egzersiz yok)</option>
+                  <option value="1.375" data-i18n="tools.act2">Hafif aktif (haftada 1–3 gün)</option>
+                  <option value="1.55" selected data-i18n="tools.act3">Orta aktif (haftada 3–5 gün)</option>
+                  <option value="1.725" data-i18n="tools.act4">Çok aktif (haftada 6–7 gün)</option>
+                  <option value="1.9" data-i18n="tools.act5">Ekstra aktif (ağır iş veya günde iki antrenman)</option>
+                </select>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+              </div>
+            </div>
+            <div class="field-group">
+              <span class="field-label" id="kcal-goal-l" data-i18n="tools.goal">Hedef</span>
+              <div class="radio-row" role="radiogroup" aria-labelledby="kcal-goal-l">
+                <label class="radio-pill"><input type="radio" name="goal" value="lose" checked><span data-i18n="tools.lose">Kilo vermek</span></label>
+                <label class="radio-pill"><input type="radio" name="goal" value="keep"><span data-i18n="tools.keep">Korumak</span></label>
+                <label class="radio-pill"><input type="radio" name="goal" value="gain"><span data-i18n="tools.gain">Kilo almak</span></label>
+              </div>
+            </div>
+          </form>
+          <div class="tool-card tool-result" data-result="kcal" aria-live="polite"></div>
+        </div>
+
+        <!-- Water -->
+        <div class="tool" role="tabpanel" id="tool-water" aria-labelledby="tab-water" hidden>
+          <form class="tool-card tool-form" data-tool="water" novalidate>
+            <div class="range-field">
+              <div class="range-top">
+                <label class="field-label" for="water-weight" data-i18n="tools.weight">Kilo</label>
+                <div class="field-unit"><input class="field" id="water-weight" name="weight" type="number" inputmode="decimal" min="35" max="220" step="0.1" value="68"><span>kg</span></div>
+              </div>
+              <input type="range" min="35" max="200" step="0.5" value="68" data-sync="weight" data-i18n-attr="aria-label:tools.weight" aria-label="Kilo">
+            </div>
+            <div class="range-field">
+              <div class="range-top">
+                <label class="field-label" for="water-exercise" data-i18n="tools.exercise">Günlük egzersiz</label>
+                <div class="field-unit"><input class="field" id="water-exercise" name="exercise" type="number" inputmode="numeric" min="0" max="240" step="5" value="30"><span data-i18n="tools.min">dk</span></div>
+              </div>
+              <input type="range" min="0" max="180" step="15" value="30" data-sync="exercise" data-i18n-attr="aria-label:tools.exercise" aria-label="Günlük egzersiz">
+            </div>
+            <div class="field-group">
+              <span class="field-label" id="water-climate-l" data-i18n="tools.climate">Hava</span>
+              <div class="radio-row" role="radiogroup" aria-labelledby="water-climate-l">
+                <label class="radio-pill"><input type="radio" name="climate" value="normal" checked><span data-i18n="tools.normal">Normal</span></label>
+                <label class="radio-pill"><input type="radio" name="climate" value="hot"><span data-i18n="tools.hot">Sıcak / nemli</span></label>
+              </div>
+            </div>
+            <div class="field-group">
+              <span class="field-label" id="water-status-l" data-i18n="tools.status">Özel durum</span>
+              <div class="radio-row" role="radiogroup" aria-labelledby="water-status-l">
+                <label class="radio-pill"><input type="radio" name="status" value="none" checked><span data-i18n="tools.none">Yok</span></label>
+                <label class="radio-pill"><input type="radio" name="status" value="pregnant"><span data-i18n="tools.pregnant">Gebelik</span></label>
+                <label class="radio-pill"><input type="radio" name="status" value="nursing"><span data-i18n="tools.nursing">Emzirme</span></label>
+              </div>
+            </div>
+          </form>
+          <div class="tool-card tool-result" data-result="water" aria-live="polite"></div>
+        </div>
+    </section>
+
+    <!-- S10 · Örnek program -->
+    <section id="program" class={SECTION} aria-labelledby="program-title">
+      <div class="print-scope">
+        <h2 id="program-title" class={H2} data-i18n="program.title">Bir haftalık örnek menü</h2>
+        <p class={LEDE} data-i18n="program.lede">Üç farklı hedef için hazırladığımız örnek haftalar. Porsiyonlar ortalama bir yetişkine göredir; size özel plan görüşmede hazırlanır.</p>
+        <div class="program-top">
+          <div class="segmented" role="radiogroup" data-i18n-attr="aria-label:program.aria" aria-label="Program hedefi" data-plans>
+            <button type="button" role="radio" aria-checked="true" data-plan="lose"><span data-i18n="program.lose">Kilo verme</span><small data-i18n="program.k1">~1.500 kcal</small></button>
+            <button type="button" role="radio" aria-checked="false" data-plan="balance" tabindex="-1"><span data-i18n="program.balance">Dengeli</span><small data-i18n="program.k2">~1.900 kcal</small></button>
+            <button type="button" role="radio" aria-checked="false" data-plan="sport" tabindex="-1"><span data-i18n="program.sport">Sporcu</span><small data-i18n="program.k3">~2.500 kcal</small></button>
+          </div>
+          <div class="day-tabs" role="tablist" data-i18n-attr="aria-label:program.days" aria-label="Haftanın günleri" data-days></div>
+        </div>
+
+        <div class="program" id="program-print">
+          <ol class="meals" data-meals aria-live="polite"></ol>
+          <aside class="program-side">
+            <div class="tool-card">
+              <p class="label" data-i18n="program.total">Günlük toplam</p>
+              <p class="program-total"><b data-total>0</b><span class="mono">kcal</span></p>
+              <div class="macro-bars" data-macros></div>
+            </div>
+            <div class="program-tip">
+              <p class="label" data-i18n="program.tip">Günün notu</p>
+              <p data-tip></p>
+            </div>
+            <div class="program-actions">
+              <button type="button" class="btn btn--ghost btn--sm" data-print-program>
+                <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9V3h12v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 14h10v7H7z"/></svg>
+                <span data-i18n="program.print">Yazdır</span>
+              </button>
+              <a class="btn btn--primary btn--sm" href="#randevu" data-book-area="weight" data-program-book data-i18n="program.book">Bu hedefle randevu al</a>
+            </div>
+          </aside>
+        </div>
+        <p class="disclaimer" data-i18n="program.disclaimer">Bu menüler genel bir örnektir; gebelik, kronik hastalık, ilaç kullanımı veya 18 yaş altı gibi durumlarda doğrudan uygulanmamalıdır. Değerler yaklaşıktır.</p>
+      </div>
+    </section>
+
+    <!-- S11 · Tarifler -->
+    <section id="tarifler" class={SECTION} aria-labelledby="recipes-title">
+      <h2 id="recipes-title" class={H2} data-i18n="recipes.title">Hafta içi akşamlarına sığan tarifler</h2>
+      <p class={LEDE} data-i18n="recipes.lede">Çoğu 30 dakikadan kısa sürüyor ve malzemeleri mahalle marketinde bulunuyor. Her tarifte porsiyon başına besin değerleri var.</p>
+      <div class="filter-row" role="group" data-i18n-attr="aria-label:recipes.filter" aria-label="Tarif kategorisi" data-recipe-filters>
+          <button type="button" class="chip" aria-pressed="true" data-cat="all" data-i18n="recipes.all">Tümü</button>
+          <button type="button" class="chip" aria-pressed="false" data-cat="breakfast" data-i18n="recipes.breakfast">Kahvaltı</button>
+          <button type="button" class="chip" aria-pressed="false" data-cat="main" data-i18n="recipes.main">Ana yemek</button>
+          <button type="button" class="chip" aria-pressed="false" data-cat="soup" data-i18n="recipes.soup">Çorba ve salata</button>
+          <button type="button" class="chip" aria-pressed="false" data-cat="snack" data-i18n="recipes.snack">Ara öğün</button>
+          <button type="button" class="chip" aria-pressed="false" data-cat="dessert" data-i18n="recipes.dessert">Tatlı</button>
+        </div>
+        <div class="recipes" data-recipes></div>
+    </section>
+
+    <!-- S12 · Ücretler (Card + düz liste) -->
+    <section id="ucretler" class={SECTION} aria-labelledby="pricing-title">
+      <h2 id="pricing-title" class={H2} data-i18n="pricing.title">Görüşme ücretleri</h2>
+      <p class={LEDE} data-i18n="pricing.lede">Görüşme ücretlerini baştan paylaşıyoruz. Online görüşmeler, yüz yüze görüşmelerle aynı içeriktedir.</p>
+      <ul class="plans">
+        {[
+          { n: 1, price: "1.800", per: null, feats: 4, btn: "plan1.btn" },
+          { n: 2, price: "5.400", per: "plan2.per", feats: 5, btn: "plan2.btn" },
+          { n: 3, price: "14.900", per: null, feats: 5, btn: "plan3.btn" },
+        ].map((p) => (
+          <li class="plan my-6">
+            <h3 class="text-lg font-medium" data-i18n={`plan${p.n}.label`}>{T(`plan${p.n}.label`)}</h3>
+            <p class="price text-accent text-xl font-semibold">
+              <span data-i18n={`price.p${p.n}`}>{p.price}</span>
+              {p.per ? <small class="text-sm font-medium" data-i18n={p.per}>TL / ay</small> : <small class="text-sm font-medium">TL</small>}
+            </p>
+            <div class={META}><span data-i18n={`plan${p.n}.sub`}>{T(`plan${p.n}.sub`)}</span></div>
+            <ul class="feats my-2 list-disc ps-6 marker:text-accent">
+              {Array.from({ length: p.feats }, (_, i) => <li data-i18n={`plan${p.n}.f${i + 1}`}>{T(`plan${p.n}.f${i + 1}`)}</li>)}
+            </ul>
+            <LinkButton class={LINK} href="#randevu" data-book-type="first">
+              <span data-i18n={p.btn}>{T(p.btn)}</span>
+              <IconArrowRight class="inline-block size-5 rtl:-rotate-180" />
+            </LinkButton>
+          </li>
+        ))}
+      </ul>
+      <div class="strip my-6">
+        <h3 class="text-lg font-medium" data-i18n="pricing.corpTitle">Kurumsal beslenme programları</h3>
+        <p data-i18n="pricing.corpText">Şirket çalışanlarına yönelik seminer ve bireysel görüşme paketleri için ayrıca teklif hazırlıyoruz.</p>
+        <LinkButton class={LINK} href="#iletisim" data-contact-topic="corporate">
+          <span data-i18n="pricing.corpBtn">Teklif isteyin</span>
+          <IconArrowRight class="inline-block size-5 rtl:-rotate-180" />
+        </LinkButton>
+      </div>
+      <div class="incl my-6">
+        <h3 class="text-lg font-medium" data-i18n="incl.title">Neler dahil, neler değil?</h3>
+        <p class="italic" data-i18n="incl.text">Sonradan ek ücret çıkmaması için baştan netleştiriyoruz.</p>
+        <div class="mt-4 grid gap-4 sm:grid-cols-2">
+          <div>
+            <p class="font-medium" data-i18n="incl.yes">Dahil</p>
+            <ul class="incl-list my-2 list-disc ps-6 marker:text-accent">
+              {[1, 2, 3, 4, 5].map((i) => <li data-i18n={`incl.y${i}`}>{T(`incl.y${i}`)}</li>)}
+            </ul>
+          </div>
+          <div>
+            <p class="font-medium" data-i18n="incl.no">Dahil değil</p>
+            <ul class="incl-list incl-list--no my-2 list-[circle] ps-6 marker:text-muted-foreground">
+              {[1, 2, 3, 4].map((i) => <li data-i18n={`incl.n${i}`}>{T(`incl.n${i}`)}</li>)}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- S13 · Randevu -->
+    <section id="randevu" class:list={["booking-panel", SECTION]} aria-labelledby="booking-title">
+      <h2 id="booking-title" class={H2} data-i18n="booking.title">Online randevu</h2>
+      <p class={LEDE} data-i18n="booking.lede">Uzmanların boş saatlerini görüp randevunuzu buradan ayırabilirsiniz. Aynı gün için en erken bir saat sonrasına randevu verilebiliyor.</p>
+      <div class="clock-card">
+            <span class="label"><span class="live-dot" aria-hidden="true"></span><span data-i18n="booking.now">Şu an · Türkiye saati</span></span>
+            <span class="clock" data-clock aria-live="off">--:--</span>
+            <span class="clock-date" data-clock-date>&nbsp;</span>
+          </div>
+      <div class="booking" data-booking>
+          <ol class="stepper" data-stepper>
+            <li class="is-current"><button type="button" data-goto="1" aria-current="step"><span>1</span><b class="step-text" data-i18n="booking.s1">Görüşme</b></button></li>
+            <li><button type="button" data-goto="2" disabled><span>2</span><b class="step-text" data-i18n="booking.s2">Tarih ve saat</b></button></li>
+            <li><button type="button" data-goto="3" disabled><span>3</span><b class="step-text" data-i18n="booking.s3">Bilgiler</b></button></li>
+            <li><button type="button" data-goto="4" disabled><span>4</span><b class="step-text" data-i18n="booking.s4">Onay</b></button></li>
+          </ol>
+
+          <div class="booking-grid">
+            <form class="booking-main" id="booking-form" novalidate data-i18n-attr="aria-label:booking.formAria" aria-label="Randevu formu">
+              <!-- Step 1 -->
+              <fieldset class="bstep" data-step="1">
+                <legend class="bstep-title" tabindex="-1" data-i18n="booking.q1">Nasıl bir görüşme istiyorsunuz?</legend>
+                <div class="choice-grid choice-grid--3">
+                  <label class="choice">
+                    <input type="radio" name="type" value="first" checked>
+                    <span class="choice-box">
+                      <span class="choice-top"><span class="choice-title" data-i18n="type.first">İlk görüşme</span><span class="choice-radio" aria-hidden="true"></span></span>
+                      <span class="choice-desc" data-i18n="type.firstDesc">Sağlık geçmişi, vücut analizi ve kişisel planın hazırlanması.</span>
+                      <span class="choice-meta"><span data-i18n="type.firstMeta">60 dk · Klinikte</span><span data-i18n="price.first">1.800 TL</span></span>
+                    </span>
+                  </label>
+                  <label class="choice">
+                    <input type="radio" name="type" value="control">
+                    <span class="choice-box">
+                      <span class="choice-top"><span class="choice-title" data-i18n="type.control">Kontrol görüşmesi</span><span class="choice-radio" aria-hidden="true"></span></span>
+                      <span class="choice-desc" data-i18n="type.controlDesc">Daha önce görüştüğümüz danışanlar için ölçüm ve plan güncellemesi.</span>
+                      <span class="choice-meta"><span data-i18n="type.controlMeta">30 dk · Klinikte</span><span data-i18n="price.control">900 TL</span></span>
+                    </span>
+                  </label>
+                  <label class="choice">
+                    <input type="radio" name="type" value="online">
+                    <span class="choice-box">
+                      <span class="choice-top"><span class="choice-title" data-i18n="type.online">Online görüşme</span><span class="choice-radio" aria-hidden="true"></span></span>
+                      <span class="choice-desc" data-i18n="type.onlineDesc">Görüntülü görüşme; bağlantı randevudan önce e-postanıza gelir.</span>
+                      <span class="choice-meta"><span data-i18n="type.onlineMeta">45 dk · Online</span><span data-i18n="price.online">1.500 TL</span></span>
+                    </span>
+                  </label>
+                </div>
+
+                <h3 class="bstep-sub"><span data-i18n="booking.area">Konu</span></h3>
+                <div class="radio-row" role="radiogroup" data-i18n-attr="aria-label:booking.area" aria-label="Konu">
+                  <label class="radio-pill"><input type="radio" name="area" value="weight" checked><span data-i18n="area.weight">Kilo yönetimi</span></label>
+                  <label class="radio-pill"><input type="radio" name="area" value="clinical"><span data-i18n="area.clinical">Klinik beslenme</span></label>
+                  <label class="radio-pill"><input type="radio" name="area" value="sports"><span data-i18n="area.sports">Sporcu beslenmesi</span></label>
+                  <label class="radio-pill"><input type="radio" name="area" value="pregnancy"><span data-i18n="area.pregnancy">Gebelik ve emzirme</span></label>
+                  <label class="radio-pill"><input type="radio" name="area" value="kids"><span data-i18n="area.kids">Çocuk ve ergen</span></label>
+                  <label class="radio-pill"><input type="radio" name="area" value="other"><span data-i18n="area.other">Diğer</span></label>
+                </div>
+
+                <h3 class="bstep-sub"><span data-i18n="booking.staff">Uzman</span><span class="hint" data-i18n="booking.staffHint">Konunuza göre uygun uzmanlar seçilebilir</span></h3>
+                <div class="choice-grid choice-grid--4" data-staff-choices>
+                  <label class="choice staff-choice">
+                    <input type="radio" name="staff" value="any" checked>
+                    <span class="choice-box">
+                      <span class="staff-any" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19a5.5 5.5 0 0 1 11 0"/><circle cx="17" cy="9" r="2.6"/><path d="M15.8 14.2A4.6 4.6 0 0 1 21 19"/></svg></span>
+                      <span><span class="choice-title" data-i18n="staff.any">Fark etmez</span><br><span class="staff-note" data-i18n="staff.anyNote">İlk uygun uzman</span></span>
+                    </span>
+                  </label>
+                  <label class="choice staff-choice">
+                    <input type="radio" name="staff" value="selin">
+                    <span class="choice-box">
+                      <img src="assets/img/uzman-selin-560.webp" width="52" height="52" loading="lazy" alt="">
+                      <span><span class="choice-title">Selin Karaca</span><br><span class="staff-note" data-staff-note="selin" data-i18n="staff.selinDays">Pzt – Cum</span></span>
+                    </span>
+                  </label>
+                  <label class="choice staff-choice">
+                    <input type="radio" name="staff" value="emre">
+                    <span class="choice-box">
+                      <img src="assets/img/uzman-emre-560.webp" width="52" height="52" loading="lazy" alt="">
+                      <span><span class="choice-title">Emre Aksoy</span><br><span class="staff-note" data-staff-note="emre" data-i18n="staff.emreDays">Sal, Per, Cmt</span></span>
+                    </span>
+                  </label>
+                  <label class="choice staff-choice">
+                    <input type="radio" name="staff" value="zeynep">
+                    <span class="choice-box">
+                      <img src="assets/img/uzman-zeynep-560.webp" width="52" height="52" loading="lazy" alt="">
+                      <span><span class="choice-title">Zeynep Tunalı</span><br><span class="staff-note" data-staff-note="zeynep" data-i18n="staff.zeynepDays">Pzt, Çar, Cum, Cmt</span></span>
+                    </span>
+                  </label>
+                </div>
+
+                <div class="bstep-nav">
+                  <button type="button" class="btn btn--primary" data-next="2"><span data-i18n="booking.next1">Devam: tarih seçin</span><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+                </div>
+              </fieldset>
+
+              <!-- Step 2 -->
+              <fieldset class="bstep" data-step="2" hidden>
+                <legend class="bstep-title" tabindex="-1" data-i18n="booking.q2">Gün ve saat seçin</legend>
+                <p class="tz-note" data-tz-note hidden></p>
+                <div class="datetime">
+                  <div class="cal" data-calendar></div>
+                  <div class="slots" data-slots aria-live="polite"></div>
+                </div>
+                <div class="bstep-nav">
+                  <button type="button" class="btn btn--ghost" data-prev="1" data-i18n="booking.back">Geri</button>
+                  <p class="bstep-msg" data-msg="2" role="alert"></p>
+                  <button type="button" class="btn btn--primary" data-next="3"><span data-i18n="booking.next2">Devam: bilgileriniz</span><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+                </div>
+              </fieldset>
+
+              <!-- Step 3 -->
+              <fieldset class="bstep" data-step="3" hidden>
+                <legend class="bstep-title" tabindex="-1" data-i18n="booking.q3">Bilgileriniz</legend>
+                <div class="form-grid form-grid--2">
+                  <div class="field-group span-2">
+                    <label class="field-label" for="b-name" data-i18n="form.name">Ad soyad</label>
+                    <input class="field" id="b-name" name="name" type="text" autocomplete="name" maxlength="80" required aria-describedby="b-name-err">
+                    <p class="field-err" id="b-name-err" aria-live="polite"></p>
+                  </div>
+                  <div class="field-group">
+                    <label class="field-label" for="b-phone" data-i18n="form.phone">Telefon</label>
+                    <input class="field" id="b-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="20" placeholder="0532 123 45 67" required aria-describedby="b-phone-err">
+                    <p class="field-err" id="b-phone-err" aria-live="polite"></p>
+                  </div>
+                  <div class="field-group">
+                    <label class="field-label" for="b-email" data-i18n="form.email">E-posta</label>
+                    <input class="field" id="b-email" name="email" type="email" autocomplete="email" inputmode="email" maxlength="120" placeholder="ornek@eposta.com" data-i18n-attr="placeholder:form.emailPh" required aria-describedby="b-email-err">
+                    <p class="field-err" id="b-email-err" aria-live="polite"></p>
+                  </div>
+                  <div class="field-group span-2">
+                    <label class="field-label" for="b-note"><span data-i18n="form.note">Görüşmeden önce bilmemizi istediğiniz bir şey var mı?</span><span class="opt" data-i18n="form.optional">İsteğe bağlı</span></label>
+                    <textarea class="field" id="b-note" name="note" rows="3" maxlength="600" data-i18n-attr="placeholder:form.notePh" placeholder="Örneğin kullandığınız ilaçlar, alerjiler veya hedefiniz"></textarea>
+                  </div>
+                  <div class="span-2 field-group">
+                    <label class="check"><input type="checkbox" name="kvkk" required aria-describedby="b-kvkk-err"><span><span data-i18n="form.kvkk1">Aydınlatma metnini okudum; sağlık bilgilerimin randevu ve danışmanlık amacıyla işlenmesine açık rıza veriyorum.</span> <a href="kvkk.html" target="_blank" rel="noopener" data-i18n="form.kvkkLink">Aydınlatma metni</a></span></label>
+                    <p class="field-err" id="b-kvkk-err" aria-live="polite"></p>
+                    <label class="check"><input type="checkbox" name="reminder" checked><span data-i18n="form.reminder">Randevudan bir gün önce e-posta ile hatırlatma almak istiyorum.</span></label>
+                  </div>
+                </div>
+                <input class="honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+                <div class="bstep-nav">
+                  <button type="button" class="btn btn--ghost" data-prev="2" data-i18n="booking.back">Geri</button>
+                  <button type="button" class="btn btn--primary" data-next="4"><span data-i18n="booking.next3">Devam: özeti görün</span><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+                </div>
+              </fieldset>
+
+              <!-- Step 4 -->
+              <fieldset class="bstep" data-step="4" hidden>
+                <legend class="bstep-title" tabindex="-1" data-i18n="booking.q4">Bilgileri kontrol edin</legend>
+                <dl class="review" data-review></dl>
+                <div class="prep" data-prep></div>
+                <div class="bstep-nav">
+                  <button type="button" class="btn btn--ghost" data-prev="3" data-i18n="booking.back">Geri</button>
+                  <p class="bstep-msg" data-msg="4" role="alert"></p>
+                  <button type="submit" class="btn btn--primary" data-submit><span class="btn-spinner" aria-hidden="true"></span><span data-i18n="booking.confirm">Randevuyu onayla</span></button>
+                </div>
+              </fieldset>
+
+              <!-- Done -->
+              <div class="bstep done" data-step="done" hidden tabindex="-1"></div>
+            </form>
+
+            <details class="booking-summary" data-summary open>
+              <summary class="summary-toggle"><span class="h3" data-i18n="summary.title">Randevu özeti</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+              <div class="summary-body">
+                <dl class="sum-list" data-sum></dl>
+                <div class="sum-total"><span class="label" data-i18n="summary.fee">Ücret</span><b data-sum-fee>—</b></div>
+                <p class="sum-policy"><span data-i18n="summary.policy">Randevunuzu 24 saat öncesine kadar ücretsiz iptal edebilirsiniz.</span> <button type="button" data-open-cancel data-i18n="summary.cancel">Randevu iptali</button></p>
+              </div>
+            </details>
+          </div>
+        </div>
+    </section>
+
+    <!-- S14 · Blog = AstroPaper "Recent posts" (Card) -->
+    <section id="blog" class={SECTION} aria-labelledby="blog-title">
+      <h2 id="blog-title" class={H2} data-i18n="blog.title">Son yazılar</h2>
+      <p class={LEDE} data-i18n="blog.lede">Danışanlarımızın en sık sorduğu konuları, güncel bilimsel kaynaklara dayanarak yazıyoruz.</p>
+      <ul>
+        {recentPosts.slice(0, postsConfig.perIndex).map(data => (
+          <Card variant="h3" {...data} />
+        ))}
+      </ul>
+      <div class="my-8 text-center">
+        <LinkButton href={getAssetPath("blog/")}>
+          <span data-i18n="blog.all">Tüm yazılar</span>
+          <IconArrowRight class="inline-block rtl:-rotate-180" />
+        </LinkButton>
+      </div>
+    </section>
+
+    <!-- S15 · SSS -->
+    <section id="sss" class={SECTION} aria-labelledby="faq-title">
+      <h2 id="faq-title" class={H2} data-i18n="faq.title">Sık sorulan sorular</h2>
+      <div class="faq-list" data-faq-list>
+          <details class="faq" open>
+            <summary><h3 data-i18n="faq.q1">İlk görüşmede neler yapılıyor?</h3><span class="faq-icon" aria-hidden="true"></span></summary>
+            <div class="faq-a"><p data-i18n="faq.a1">Yaklaşık 60 dakika sürüyor. Sağlık geçmişinizi, kullandığınız ilaçları, uyku ve hareket düzeninizi konuşuyor; biyoempedans cihazıyla vücut analizi yapıyoruz. Tahlilleriniz varsa birlikte değerlendiriyoruz. Kişisel planınız 48 saat içinde e-postanıza gönderiliyor.</p></div>
+          </details>
+          <details class="faq">
+            <summary><h3 data-i18n="faq.q2">Görüşmeye gelirken yanımda ne getirmeliyim?</h3><span class="faq-icon" aria-hidden="true"></span></summary>
+            <div class="faq-a"><p data-i18n="faq.a2">Son 3 ay içindeki kan tahlilleriniz, kullandığınız ilaç ve takviyelerin listesi ve mümkünse üç günlük besin kaydınız yeterli. Vücut analizinin doğru sonuç vermesi için görüşmeden önceki 2 saatte ağır yemek yememenizi, 12 saat içinde yoğun egzersiz yapmamanızı öneriyoruz.</p></div>
+          </details>
+          <details class="faq">
+            <summary><h3 data-i18n="faq.q3">Online görüşme yüz yüze görüşme kadar etkili mi?</h3><span class="faq-icon" aria-hidden="true"></span></summary>
+            <div class="faq-a"><p data-i18n="faq.a3">Plan ve takip açısından aynı içeriği sunuyor. Tek fark vücut analizinin yapılamaması; bunun yerine evde bel çevresi, kilo ve fotoğrafla takip yöntemini birlikte kuruyoruz. İstanbul’daysanız üç ayda bir klinikte ölçüm almanızı öneriyoruz.</p></div>
+          </details>
+          <details class="faq">
+            <summary><h3 data-i18n="faq.q4">Randevumu nasıl iptal eder ya da değiştiririm?</h3><span class="faq-icon" aria-hidden="true"></span></summary>
+            <div class="faq-a"><p data-i18n="faq.a4">Randevu saatinden 24 saat öncesine kadar, onay e-postanızdaki referans koduyla bu sayfadaki “Randevu iptali” bölümünden ücretsiz iptal edebilirsiniz. Daha yakın saatlerdeki değişiklikler için lütfen bizi arayın veya WhatsApp’tan yazın.</p></div>
+          </details>
+          <details class="faq">
+            <summary><h3 data-i18n="faq.q5">Kaç kilo vereceğimi garanti ediyor musunuz?</h3><span class="faq-icon" aria-hidden="true"></span></summary>
+            <div class="faq-a"><p data-i18n="faq.a5">Hayır. Kilo değişimi hormonlar, uyku, stres, ilaçlar ve başlangıç ağırlığı gibi pek çok şeye bağlı. Sağlıklı bir hız genellikle haftada 0,5–1 kg arasındadır. Bize kesin rakam vaat eden bir programa karşı dikkatli olmanızı öneririz.</p></div>
+          </details>
+          <details class="faq">
+            <summary><h3 data-i18n="faq.q6">İnsülin direnci veya diyabetim var; ilaçlarımı bırakmam gerekir mi?</h3><span class="faq-icon" aria-hidden="true"></span></summary>
+            <div class="faq-a"><p data-i18n="faq.a6">Hayır, ilaçlarınızla ilgili kararları yalnızca hekiminiz verir. Beslenme planını hekiminizin tedavisiyle uyumlu hazırlıyor, gerektiğinde sizin onayınızla hekiminizle iletişime geçiyoruz.</p></div>
+          </details>
+          <details class="faq">
+            <summary><h3 data-i18n="faq.q7">Çocuklar için kaç yaşından itibaren görüşme yapıyorsunuz?</h3><span class="faq-icon" aria-hidden="true"></span></summary>
+            <div class="faq-a"><p data-i18n="faq.a7">2 yaşından itibaren. 12 yaş altındaki çocuklarla görüşmeleri ebeveynle birlikte yapıyoruz; çocuklara kilo odaklı “diyet” vermiyor, ailenin sofra düzeni üzerinden çalışıyoruz.</p></div>
+          </details>
+          <details class="faq">
+            <summary><h3 data-i18n="faq.q8">Takviye, çay veya ürün satıyor musunuz?</h3><span class="faq-icon" aria-hidden="true"></span></summary>
+            <div class="faq-a"><p data-i18n="faq.a8">Hayır. Herhangi bir ürün satışı yapmıyor, marka önermiyoruz. Tahlillerinizde bir eksiklik görülürse takviye kararı için sizi hekiminize yönlendiriyoruz.</p></div>
+          </details>
+          <details class="faq">
+            <summary><h3 data-i18n="faq.q9">Ödeme seçenekleri neler? Fatura alabilir miyim?</h3><span class="faq-icon" aria-hidden="true"></span></summary>
+            <div class="faq-a"><p data-i18n="faq.a9">Nakit, kredi kartı ve havale ile ödeme alıyoruz; 3 aylık programda kredi kartına 3 taksit yapılabiliyor. Her görüşme için fatura düzenleniyor. Bazı özel sağlık sigortaları diyetisyen görüşmelerini karşılıyor; poliçenizi kontrol etmenizi öneririz.</p></div>
+          </details>
+          <details class="faq">
+            <summary><h3 data-i18n="faq.q10">Kişisel ve sağlık verilerim nasıl korunuyor?</h3><span class="faq-icon" aria-hidden="true"></span></summary>
+            <div class="faq-a"><p data-i18n="faq.a10">Bilgileriniz 6698 sayılı KVKK kapsamında yalnızca randevu ve danışmanlık amacıyla işlenir, üçüncü kişilerle paylaşılmaz. Ayrıntılar aydınlatma metnimizde yer alıyor.</p></div>
+          </details>
+        </div>
+      <div class="faq-help my-6">
+        <p data-i18n="faq.help">Cevabını bulamadığınız bir soru mu var? Asistanımıza yazın ya da WhatsApp’tan ulaşın; mesai saatlerinde bir diyetisyen yanıtlıyor.</p>
+        <p class="mt-2">
+          <button type="button" class:list={["group inline-flex items-center gap-1", LINK]} data-open-chat data-i18n="faq.chat">Asistana sorun</button>
+          <span aria-hidden="true">&nbsp;·&nbsp;</span>
+          <LinkButton class={LINK} href="https://wa.me/905555555555" target="_blank" rel="noopener noreferrer" data-wa>WhatsApp</LinkButton>
+        </p>
+      </div>
+    </section>
+
+    <!-- S16 · "afiyet olsun" (görselsiz; AstroPaper giriş başlığı ölçeği) -->
+    <section class:list={["sky", SECTION]} aria-labelledby="sky-title">
+      <p class="my-4 text-4xl font-bold sm:text-5xl" aria-hidden="true"><span data-i18n="sky.word">afiyet olsun</span></p>
+      <h2 id="sky-title" class={H2} data-i18n="sky.title">Planınızla ilgili sorularınızı WhatsApp’tan yazabilirsiniz; mesai saatlerinde bir diyetisyen yanıtlıyor.</h2>
+      <p class="mt-4">
+        <LinkButton class={LINK} href="https://wa.me/905555555555" target="_blank" rel="noopener noreferrer" data-wa>WhatsApp</LinkButton>
+        <span aria-hidden="true">&nbsp;·&nbsp;</span>
+        <LinkButton class={LINK} href="tel:+905555555555" data-tel><span data-i18n="sky.call">Bizi arayın</span></LinkButton>
+        <span aria-hidden="true">&nbsp;·&nbsp;</span>
+        <LinkButton class={LINK} href="https://www.google.com/maps/search/?api=1&query=Moda+Caddesi+Kad%C4%B1k%C3%B6y+%C4%B0stanbul" target="_blank" rel="noopener noreferrer" data-maps><span data-i18n="sky.map">Yol tarifi</span></LinkButton>
+      </p>
+    </section>
+
+    <!-- S17 · İletişim -->
+    <section id="iletisim" class="pt-12 pb-6" aria-labelledby="contact-title">
+      <h2 id="contact-title" class={H2} data-i18n="contact.title">İletişim ve ulaşım</h2>
+      <p class={LEDE} data-i18n="contact.lede">Moda Caddesi üzerindeyiz; Kadıköy iskelesinden yaklaşık 10 dakika yürüme mesafesi. Binada asansör var, en yakın otopark 150 metre ileride.</p>
+      <div class="contact-grid">
+          <div class="contact-info">
+            <div class="info-card">
+              <p class="label" data-i18n="contact.address">Adres</p>
+              <div class="info-lines">
+                <p data-address>Moda Cad. No: 48, Kat 3, Kadıköy / İstanbul</p>
+                <p class="muted" data-i18n="contact.transit">Kadıköy iskelesi 10 dk · Moda tramvay durağı 3 dk yürüme</p>
+                <p><a href="https://www.google.com/maps/search/?api=1&amp;query=Moda+Caddesi+Kad%C4%B1k%C3%B6y+%C4%B0stanbul" target="_blank" rel="noopener noreferrer" data-maps data-i18n="contact.directions">Google Haritalar’da yol tarifi al</a></p>
+              </div>
+            </div>
+            <div class="info-card">
+              <p class="label" data-i18n="contact.reach">Ulaşın</p>
+              <div class="info-lines">
+                <p><a href="tel:+905555555555" data-tel data-phone-text>0555 555 55 55</a></p>
+                <p><a href="https://wa.me/905555555555" target="_blank" rel="noopener noreferrer" data-wa>WhatsApp</a></p>
+                <p><a href="mailto:randevu@mizanbeslenme.com" data-mail>randevu@mizanbeslenme.com</a></p>
+              </div>
+              <div class="social-row">
+                <a class="icon-btn" href="https://instagram.com/mizanbeslenme" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></svg></a>
+              </div>
+            </div>
+            <div class="info-card">
+              <p class="label" data-i18n="contact.hours">Çalışma saatleri</p>
+              <p class="open-status" data-open-status><i aria-hidden="true"></i><span>&nbsp;</span></p>
+              <table class="hours" data-hours>
+                <tbody>
+                  <tr data-dow="1"><th scope="row" data-i18n="day.1">Pazartesi</th><td>09:00 – 20:00</td></tr>
+                  <tr data-dow="2"><th scope="row" data-i18n="day.2">Salı</th><td>09:00 – 20:00</td></tr>
+                  <tr data-dow="3"><th scope="row" data-i18n="day.3">Çarşamba</th><td>09:00 – 20:00</td></tr>
+                  <tr data-dow="4"><th scope="row" data-i18n="day.4">Perşembe</th><td>09:00 – 20:00</td></tr>
+                  <tr data-dow="5"><th scope="row" data-i18n="day.5">Cuma</th><td>09:00 – 20:00</td></tr>
+                  <tr data-dow="6"><th scope="row" data-i18n="day.6">Cumartesi</th><td>10:00 – 15:00</td></tr>
+                  <tr data-dow="0"><th scope="row" data-i18n="day.0">Pazar</th><td data-i18n="contact.closed">Kapalı</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <form class="form-card" id="contact-form" novalidate aria-labelledby="contact-form-title">
+            <h3 class="h3" id="contact-form-title" data-i18n="cform.title">Bize yazın</h3>
+            <p data-i18n="cform.text">Genellikle aynı gün, en geç ertesi iş günü yanıt veriyoruz. Randevu için yukarıdaki takvimi kullanmanız daha hızlı olur.</p>
+            <div class="form-grid form-grid--2">
+              <div class="field-group">
+                <label class="field-label" for="c-name" data-i18n="form.name">Ad soyad</label>
+                <input class="field" id="c-name" name="name" type="text" autocomplete="name" maxlength="80" required aria-describedby="c-name-err">
+                <p class="field-err" id="c-name-err" aria-live="polite"></p>
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="c-email" data-i18n="form.email">E-posta</label>
+                <input class="field" id="c-email" name="email" type="email" autocomplete="email" inputmode="email" maxlength="120" required aria-describedby="c-email-err">
+                <p class="field-err" id="c-email-err" aria-live="polite"></p>
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="c-phone"><span data-i18n="form.phone">Telefon</span><span class="opt" data-i18n="form.optional">İsteğe bağlı</span></label>
+                <input class="field" id="c-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="20" aria-describedby="c-phone-err">
+                <p class="field-err" id="c-phone-err" aria-live="polite"></p>
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="c-topic" data-i18n="cform.topic">Konu</label>
+                <div class="select-wrap">
+                  <select class="field" id="c-topic" name="topic">
+                    <option value="booking" data-i18n="cform.t1">Randevu hakkında</option>
+                    <option value="pricing" data-i18n="cform.t2">Ücretler ve paketler</option>
+                    <option value="corporate" data-i18n="cform.t3">Kurumsal program</option>
+                    <option value="other" data-i18n="cform.t4">Diğer</option>
+                  </select>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </div>
+              </div>
+              <div class="field-group span-2">
+                <label class="field-label" for="c-message" data-i18n="cform.message">Mesajınız</label>
+                <textarea class="field" id="c-message" name="message" rows="4" maxlength="2000" required aria-describedby="c-message-err"></textarea>
+                <p class="field-err" id="c-message-err" aria-live="polite"></p>
+              </div>
+              <div class="field-group span-2">
+                <label class="check"><input type="checkbox" name="kvkk" required aria-describedby="c-kvkk-err"><span><span data-i18n="cform.kvkk">Mesajımın yanıtlanması için bilgilerimin işlenmesini kabul ediyorum.</span> <a href="kvkk.html" target="_blank" rel="noopener" data-i18n="form.kvkkLink">Aydınlatma metni</a></span></label>
+                <p class="field-err" id="c-kvkk-err" aria-live="polite"></p>
+              </div>
+            </div>
+            <input class="honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <button type="submit" class="btn btn--primary btn--block"><span class="btn-spinner" aria-hidden="true"></span><span data-i18n="cform.send">Mesajı gönder</span></button>
+            <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+          </form>
+        </div>
+    </section>
+  </main>
+
+  <Footer />
+
+  <!-- ================= Recipe dialog ================= -->
+  <dialog id="recipe-dialog" aria-labelledby="recipe-title">
+    <div class="dialog-scroll">
+      <button type="button" class="icon-btn dialog-close" data-close data-i18n-attr="aria-label:a11y.close" aria-label="Kapat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+      <div class="recipe-dialog-grid">
+        <figure class="recipe-hero"><img data-recipe-img src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" width="1000" height="800" alt=""></figure>
+        <div class="recipe-content" data-recipe-content></div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- ================= Cancel dialog ================= -->
+  <dialog id="cancel-dialog" aria-labelledby="cancel-title">
+    <div class="dialog-scroll">
+      <button type="button" class="icon-btn dialog-close" data-close data-i18n-attr="aria-label:a11y.close" aria-label="Kapat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+      <form class="recipe-content" id="cancel-form" novalidate>
+        <h2 id="cancel-title" data-i18n="cancel.title">Randevu iptali</h2>
+        <p class="muted" data-i18n="cancel.text">Onay e-postanızdaki referans kodunu ve randevuda kullandığınız e-posta adresini yazın. 24 saatten az kalan randevular için lütfen bizi arayın.</p>
+        <div class="form-grid form-grid--2">
+          <div class="field-group">
+            <label class="field-label" for="x-ref" data-i18n="cancel.ref">Referans kodu</label>
+            <input class="field mono" id="x-ref" name="ref" type="text" autocomplete="off" autocapitalize="characters" maxlength="12" placeholder="MZ-XXXXX" required aria-describedby="x-ref-err">
+            <p class="field-err" id="x-ref-err" aria-live="polite"></p>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="x-email" data-i18n="form.email">E-posta</label>
+            <input class="field" id="x-email" name="email" type="email" autocomplete="email" maxlength="120" required aria-describedby="x-email-err">
+            <p class="field-err" id="x-email-err" aria-live="polite"></p>
+          </div>
+        </div>
+        <button type="submit" class="btn btn--primary"><span class="btn-spinner" aria-hidden="true"></span><span data-i18n="cancel.btn">Randevuyu iptal et</span></button>
+        <p class="form-status" data-cancel-status role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </dialog>
+</Layout>

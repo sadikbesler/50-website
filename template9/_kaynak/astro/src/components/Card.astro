@@ -1,0 +1,39 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { getPostUrl } from "@/utils/getPostPaths";
+import Datetime from "./Datetime.astro";
+
+// AstroPaper Card.astro. Başlık ve açıklama iki dilde (data-lang-block); tarih satırına
+// Mizan'ın kategori ve okuma süresi eklendi. transition:name kaldırıldı (ClientRouter yok).
+type Props = {
+  variant?: "h2" | "h3";
+} & CollectionEntry<"posts">;
+
+const { variant: Heading = "h2", id, data, filePath } = Astro.props;
+
+const { title, titleEn, description, descriptionEn, ...props } = data;
+---
+
+<li class="my-6">
+  <a
+    href={getPostUrl(id, filePath)}
+    class:list={[
+      "text-accent inline-block text-lg font-medium",
+      "decoration-dashed underline-offset-4 hover:underline",
+      "focus-visible:no-underline focus-visible:underline-offset-0",
+    ]}
+  >
+    <Heading>
+      <span data-lang-block="tr">{title}</span><span data-lang-block="en" lang="en">{titleEn}</span>
+    </Heading>
+  </a>
+  <Datetime {...props}>
+    <span aria-hidden="true">|</span>
+    <span class="text-sm">
+      <span data-lang-block="tr">{props.category} · {props.readingTime}</span><span data-lang-block="en">{props.categoryEn} · {props.readingTimeEn}</span>
+    </span>
+  </Datetime>
+  <p>
+    <span data-lang-block="tr">{description}</span><span data-lang-block="en" lang="en">{descriptionEn}</span>
+  </p>
+</li>
