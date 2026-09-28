@@ -1,0 +1,399 @@
+/* template7 — Tailblocks (https://github.com/mertJF/tailblocks, MIT), tema "green"
+   Derleme (Tailwind 3.4.17): npx tailwindcss -c tailwind.config.js -i tw.css -o ../assets/css/tw.css --minify
+
+   Sayfa işaretlemesi Tailblocks bloklarının sınıflarını birebir kullanır (sayfalari-kur.js → {{k:…}}).
+   Aşağıdaki bileşen kuralları YALNIZCA JS'in (booking/tools/content/chat/site) ürettiği ya da durumunu
+   değiştirdiği öğeler içindir ve yalnızca promtta adı geçen blokların tokenlarıyla yazıldı:
+     düğme   : hero/a düğme:0 (yeşil) ve düğme:1 (gri), content/e düğme (küçük), header/a düğme (çip / takvim / saat)
+     sekme   : pricing/a "Monthly/Annually" anahtarı (border-2 border-green-500 rounded; seçili bg-green-500 text-white)
+     alan    : contact/c input/label (araçlar, iletişim, iptal); contact/b input (randevu formu)
+     kart    : blog/a kartı (border-2 border-gray-200 border-opacity-60 rounded-lg) — tarif, araç, takvim, pencere, sohbet
+     seçim   : pricing/a plan kartı (p-6 rounded-lg border-2 border-gray-300; öne çıkan border-green-500)
+     sayı    : statistic/a (sm:text-4xl text-3xl font-medium text-gray-900)
+     liste   : feature/c öğesi (w-12 h-12 yuvarlak bg-green-100 simge + text-lg başlık + leading-relaxed metin)
+     adım    : step/a (w-10 h-10 rounded-full bg-green-500 daire + h-1/w-1 bg-gray-200 çizgi)
+     tablo   : pricing/b (th bg-gray-100 text-sm tracking-wider; td border-t-2 border-gray-200 px-4 py-3)
+     kutu    : cta/b gri kutu (bg-gray-100 rounded-lg p-8) ve contact/b bilgi kartı (bg-white rounded shadow-md)
+   Erişilebilirlik ton eşlemesi (DURUM.md): metin taşıyan yeşil zemin 500 → 700 (beyaz yazı 2,5:1 → 5,5:1),
+   yeşil metin 500 → 700, gri-400 metin → 500. Dekoratif yeşil (çizgi, simge dairesi, kenar) 500 kalır.
+   Koyu tema: blokların dark/<harf>.js renkleri (gray-900 zemin, gray-400 metin, gray-800 kart/kenar, green-400). */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  [hidden]:where(:not([hidden="until-found"])) { display: none !important; }
+  .dark { color-scheme: dark; }
+  :root { --ink: #111827; } /* tools.js: VKİ rozet metni (gray-900) */
+  .dark { --ink: #ffffff; }
+  /* Klavye odağı: kaynak düğmeleri "focus:outline-none" kullanır; görünür odak için tek genel kural (green-500) */
+  a:focus-visible, button:focus-visible, summary:focus-visible, [tabindex]:focus-visible, input[type="range"]:focus-visible,
+  input[type="checkbox"]:focus-visible, input[type="radio"]:focus-visible {
+    outline: 2px solid #10b981 !important; outline-offset: 2px;
+  }
+  .lang-pending body { visibility: hidden; animation: reveal-body 0s linear 1.2s forwards; }
+  @keyframes reveal-body { to { visibility: visible; } }
+  .theme-switching *, .theme-switching *::before, .theme-switching *::after { transition: none !important; }
+  html:not([lang="en"]) [data-lang-block="en"], html[lang="en"] [data-lang-block="tr"] { display: none !important; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
+  }
+  /* JS kapalıyken mobil menü açık kalsın */
+  .no-js #mobile-menu { display: block !important; }
+}
+
+@layer components {
+  .skip-link { @apply sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[70] focus:bg-white focus:text-gray-900 focus:rounded focus:py-2 focus:px-4 focus:shadow-md; }
+
+  /* ---- Düğmeler (JS de .btn / .btn--ghost / .btn--sm / .icon-btn üretir) ---- */
+  .btn { @apply inline-flex items-center justify-center gap-2 border-0 py-2 px-6 focus:outline-none rounded text-lg disabled:cursor-not-allowed disabled:opacity-50; }
+  .btn--primary { @apply text-white bg-green-700 hover:bg-green-800; }                 /* hero/a düğme:0 (+ton) */
+  .btn--ghost { @apply text-gray-700 bg-gray-100 hover:bg-gray-200 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white; } /* hero/a düğme:1 */
+  .btn--sm { @apply py-1 px-4 text-base; }                                              /* content/e düğmesi */
+  .btn--block { @apply w-full; }
+  .btn .i { @apply w-4 h-4; }
+  .btn-spinner { @apply hidden w-4 h-4 animate-spin rounded-full border-2 border-current border-r-transparent motion-reduce:animate-none; }
+  .is-loading .btn-spinner { @apply inline-block; }
+  /* header/a düğmesi (bg-gray-100 border-0 py-1 px-3 rounded) — kare simge biçimi */
+  .icon-btn { @apply inline-flex items-center justify-center w-10 h-10 shrink-0 bg-gray-100 border-0 focus:outline-none hover:bg-gray-200 rounded text-gray-700 disabled:opacity-40 disabled:cursor-not-allowed dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-gray-400; }
+  .icon-btn svg { @apply w-5 h-5; }
+
+  /* ---- Metin parçaları ---- */
+  /* blog/a kategori etiketi: "tracking-widest text-xs title-font font-medium text-gray-400 mb-1" (+ton) */
+  .label { @apply tracking-widest text-xs font-medium text-gray-500 uppercase dark:text-gray-400; }
+  .muted, .tool-note { @apply leading-relaxed text-gray-600 dark:text-gray-400; }
+  .tool-note { @apply text-sm; }
+  .link-arrow { @apply text-green-700 inline-flex items-center dark:text-green-400; }
+  .mono { @apply tabular-nums; }
+  .live-dot { @apply inline-block w-2 h-2 mr-2 rounded-full bg-green-500; }
+
+  /* ---- Form alanları: contact/c input + label ---- */
+  .field-group { @apply grid gap-1 content-start; }
+  .field-label { @apply flex flex-wrap items-baseline justify-between gap-2 leading-7 text-sm text-gray-600 dark:text-gray-400; }
+  .field-label .opt, label .opt { @apply text-xs text-gray-500 dark:text-gray-400; }
+  .field { @apply w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-green-500 focus:bg-white focus:ring-2 focus:ring-green-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out dark:bg-gray-800 dark:bg-opacity-40 dark:border-gray-700 dark:focus:bg-gray-900 dark:focus:ring-green-900 dark:text-gray-100; }
+  textarea.field { @apply h-32 resize-none leading-6; }
+  select.field { @apply h-10; }
+  /* contact/b input (randevu formu): beyaz zemin */
+  .booking .field { @apply bg-white bg-opacity-100 focus:bg-white dark:bg-gray-800 dark:bg-opacity-100 dark:focus:bg-gray-800; }
+  .field[aria-invalid="true"], [aria-invalid="true"] { @apply border-red-600 dark:border-red-400; }
+  .field-unit { @apply flex items-center gap-2; }
+  .field-unit .field { @apply w-28 text-right; }
+  .field-unit span { @apply text-sm; }
+  .select-wrap { @apply relative; }
+  .select-wrap .field { @apply appearance-none pr-10; }
+  .select-wrap svg { @apply pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4; }
+  .form-grid { @apply grid gap-4; }
+  .form-grid--2 { @apply sm:grid-cols-2; }
+  .span-2 { @apply sm:col-span-2; }
+  .check { @apply flex items-start gap-2; }
+  .check input { @apply mt-1.5 w-4 h-4 shrink-0 accent-[#10b981]; }
+  .check a { @apply text-green-700 underline dark:text-green-400; }
+  /* Hata metni: Tailblocks'ta hata durumu yok; işlev rengi kırmızı-700 (DURUM.md) */
+  .field-err { @apply text-sm text-red-700 empty:hidden dark:text-red-400; }
+  .form-status { @apply text-sm empty:hidden; }
+  .form-status.is-ok { @apply text-gray-900 font-medium dark:text-white; }
+  .form-status.is-err { @apply text-red-700 font-medium dark:text-red-400; }
+  .form-status a { @apply text-green-700 underline dark:text-green-400; }
+  .honeypot { position: absolute !important; left: -9999px !important; width: 1px; height: 1px; overflow: hidden; }
+  input[type="range"] { @apply w-full accent-[#10b981] cursor-pointer; }
+  .range-field { @apply grid gap-2; }
+  .range-top { @apply flex items-center justify-between gap-4; }
+
+  /* ---- Seçim çipleri: header/a düğmesi; seçili = bg-green-500 text-white (+ton) ---- */
+  .radio-row { @apply flex flex-wrap gap-2; }
+  .radio-pill { @apply relative inline-flex; }
+  .radio-pill input { @apply sr-only; }
+  .radio-pill span { @apply inline-flex items-center bg-gray-100 border-0 py-1 px-3 hover:bg-gray-200 rounded text-base cursor-pointer dark:bg-gray-800 dark:hover:bg-gray-700; }
+  .radio-pill input:checked + span { @apply bg-green-700 text-white hover:bg-green-800 dark:bg-green-700 dark:hover:bg-green-800; }
+  .radio-pill input:focus-visible + span { outline: 2px solid #10b981; outline-offset: 2px; }
+
+  /* ---- Araçlar (S9): kart = blog/a kartı + p-6; sonuç = statistic/a ---- */
+  .tool { @apply grid gap-8 md:grid-cols-2 items-start; }
+  .tool-card { @apply border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden p-6 dark:border-gray-800; }
+  .tool-form { @apply grid gap-5 content-start; }
+  .tool-result { @apply grid gap-4 content-start text-center; }
+  .result-big { @apply flex flex-wrap items-baseline justify-center gap-x-2; }
+  .result-num { @apply font-medium sm:text-4xl text-3xl text-gray-900 dark:text-white; }
+  .result-unit { @apply leading-relaxed; }
+  .result-tag { @apply inline-flex items-center justify-self-center gap-2 py-1 px-2 rounded bg-green-50 text-green-700 text-xs font-medium tracking-widest dark:bg-gray-800 dark:text-gray-400; } /* blog/c kategori çipi (+ton) */
+  .result-tag i { @apply w-2 h-2 rounded-full bg-current; }
+  .result-text { @apply leading-relaxed text-left; }
+  .tool-result .label { @apply text-left; }
+  .scale { @apply grid gap-2; }
+  .scale-wrap { @apply relative; }
+  /* VKİ ölçeği: yargı yüklemeyen tek renkli (green 100 → 500) ton dizisi */
+  .scale-bar { @apply grid h-1 grid-cols-[3.5fr_6.5fr_5fr_5fr_5fr] rounded overflow-hidden; }
+  .scale-bar span:nth-child(1) { @apply bg-green-100; }
+  .scale-bar span:nth-child(2) { @apply bg-green-200; }
+  .scale-bar span:nth-child(3) { @apply bg-green-300; }
+  .scale-bar span:nth-child(4) { @apply bg-green-400; }
+  .scale-bar span:nth-child(5) { @apply bg-green-500; }
+  .scale-marker { @apply absolute top-1/2 z-10 w-4 h-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white bg-green-700 shadow-md transition-[left] duration-300 motion-reduce:transition-none dark:border-gray-900; }
+  .scale-ticks { @apply relative h-4 text-xs; }
+  .scale-ticks span { @apply absolute -translate-x-1/2; }
+  .stat-rows { @apply w-full text-sm text-left; }
+  .stat-row { @apply flex justify-between gap-4 border-t-2 border-gray-200 px-4 py-3 first:border-t-0 dark:border-gray-800; } /* pricing/b td */
+  .stat-row dd { @apply text-right text-gray-900 font-medium dark:text-white; }
+  .macro-bars { @apply grid gap-3; }
+  .macro { @apply grid gap-1; }
+  .macro-head { @apply flex justify-between gap-3 text-sm; }
+  .macro-head b { @apply text-gray-900 font-medium dark:text-white; }
+  .macro-track { @apply h-1 w-full bg-gray-200 rounded overflow-hidden dark:bg-gray-800; } /* content/h çizgisi */
+  .macro-fill { @apply h-full w-0 bg-green-500 transition-[width] duration-500 motion-reduce:transition-none; }
+  .glasses { @apply flex flex-wrap justify-center gap-2; }
+  .glass { @apply w-10 h-10 rounded-full border-2 border-gray-300 bg-white focus:outline-none dark:bg-gray-900 dark:border-gray-700; }
+  .glass.is-full { @apply bg-green-500 border-green-500; }
+
+  /* ---- Örnek program (S10): gün sekmeleri = sekme anahtarı; öğün = feature/c öğesi ---- */
+  .day-tab { @apply flex flex-col items-center py-1 px-4 focus:outline-none leading-tight dark:text-gray-300; }
+  .day-tab small { @apply text-xs; }
+  .day-tab[aria-selected="true"] { @apply bg-green-700 text-white dark:text-white; }
+  .meals { @apply w-full; }
+  .meal { @apply flex flex-col mb-10 lg:items-start items-center; }
+  .meal-time { @apply w-12 h-12 inline-flex items-center justify-center rounded-full bg-green-100 text-green-700 mb-5 text-xs font-medium tabular-nums dark:bg-gray-800 dark:text-green-400; }
+  .meal-name { @apply text-gray-900 text-lg font-medium mb-3 dark:text-white; }
+  .meal-items { @apply leading-relaxed text-base; }
+  .meal-kcal { @apply mt-3 text-green-700 inline-flex items-center dark:text-green-400; }
+
+  /* ---- Tarifler (S11): blog/a kartı ---- */
+  .recipes { @apply grid gap-8 sm:grid-cols-2 md:grid-cols-3; }
+  .recipe-card { @apply h-full w-full text-left border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden focus:outline-none dark:border-gray-800; }
+  .recipe-card figure img { @apply lg:h-48 md:h-36 w-full object-cover object-center; }
+  .recipe-card-body { @apply p-6; }
+  .recipe-card .recipe-meta { @apply tracking-widest text-xs font-medium text-gray-500 mb-1 flex flex-wrap gap-x-3 uppercase dark:text-gray-400; }
+  .recipe-card .recipe-meta svg { @apply hidden; }
+  .recipe-card h3 { @apply text-lg font-medium text-gray-900 mb-3 dark:text-white; }
+  .recipe-card .tags { @apply flex flex-wrap items-center gap-y-2; }
+  .recipe-card .tags li { @apply text-gray-500 mr-3 inline-flex items-center leading-none text-sm pr-3 py-1 border-r-2 border-gray-200 last:border-r-0 last:pr-0 dark:text-gray-400 dark:border-gray-800; }
+  .recipes-empty { @apply col-span-full text-center leading-relaxed; }
+
+  /* ---- Randevu (S13): adım göstergesi = step/a; form = contact/b; özet = contact/b bilgi kartı ---- */
+  .booking { @apply w-full; }
+  .stepper { @apply flex flex-wrap justify-center items-center gap-y-4 mb-12; }
+  .stepper li { @apply flex items-center; }
+  .stepper li:not(:last-child)::after { content: ""; @apply block h-1 w-6 sm:w-12 bg-gray-200 mx-3 dark:bg-gray-800; } /* step/a çizgisi (yatay) */
+  .stepper button { @apply flex items-center gap-3 focus:outline-none disabled:cursor-not-allowed; }
+  .stepper button > span { @apply flex-shrink-0 w-10 h-10 rounded-full bg-gray-200 inline-flex items-center justify-center text-gray-700 dark:bg-gray-800 dark:text-gray-400; }
+  .stepper .is-current button > span, .stepper .is-done button > span { @apply bg-green-700 text-white; }
+  .step-text { @apply hidden sm:inline font-medium text-sm text-gray-900 tracking-wider uppercase dark:text-white; }
+  .stepper .is-current .step-text { @apply inline; }
+  .booking-grid { @apply flex flex-wrap lg:flex-nowrap items-start; }
+  .booking-main { @apply w-full lg:w-2/3 lg:mr-10 min-w-0; }
+  .bstep { @apply min-w-0; }
+  .bstep-title { @apply text-gray-900 text-2xl font-medium mb-6 focus:outline-none dark:text-white; }
+  .bstep-sub { @apply text-gray-900 text-lg font-medium mt-8 mb-3 flex flex-wrap items-baseline gap-x-3 dark:text-white; }
+  .bstep-sub .hint { @apply text-sm font-normal text-gray-600 dark:text-gray-400; }
+  .bstep-nav { @apply mt-8 flex flex-wrap items-center justify-between gap-4 border-t-2 border-gray-200 pt-6 dark:border-gray-800; }
+  .bstep-msg { @apply order-last w-full text-sm font-medium text-red-700 empty:hidden sm:order-none sm:w-auto sm:flex-1 dark:text-red-400; }
+  .tz-note { @apply mb-4 bg-gray-100 rounded-lg p-4 text-sm dark:bg-gray-800 dark:bg-opacity-50; }
+  .choice-grid { @apply grid gap-4; }
+  .choice-grid--3 { @apply md:grid-cols-3; }
+  .choice-grid--4 { @apply sm:grid-cols-2; }
+  .choice { @apply relative flex cursor-pointer; }
+  .choice input { @apply sr-only; }
+  /* pricing/a plan kartı; seçili = öne çıkan kartın border-green-500'ü */
+  .choice-box { @apply h-full w-full p-6 rounded-lg border-2 border-gray-300 flex flex-col gap-2 relative overflow-hidden dark:border-gray-700; }
+  .choice input:checked + .choice-box { @apply border-green-500; }
+  .choice input:focus-visible + .choice-box { outline: 2px solid #10b981; outline-offset: 2px; }
+  .choice input:disabled + .choice-box { @apply cursor-not-allowed opacity-50; }
+  .choice-top { @apply flex items-start justify-between gap-3; }
+  .choice-title { @apply text-gray-900 text-lg font-medium leading-snug dark:text-white; }
+  /* pricing/a onay dairesi: w-4 h-4 bg-gray-400 rounded-full */
+  .choice-radio { @apply mt-1 w-4 h-4 shrink-0 rounded-full border-2 border-gray-300 dark:border-gray-700; }
+  .choice input:checked + .choice-box .choice-radio { @apply bg-green-500 border-green-500; }
+  .choice-desc { @apply text-sm leading-relaxed; }
+  .choice-meta { @apply mt-auto flex justify-between gap-3 pt-4 border-t border-gray-200 text-sm dark:border-gray-800; }
+  .choice-meta span:last-child { @apply text-gray-900 font-medium dark:text-white; }
+  .staff-choice .choice-box { @apply flex-row items-center gap-4 p-4; }
+  .staff-choice img, .staff-any { @apply w-12 h-12 rounded-full flex-shrink-0 object-cover object-center; } /* blog/c yazar görseli */
+  .staff-any { @apply inline-flex items-center justify-center bg-green-100 text-green-700 dark:bg-gray-800 dark:text-green-400; }
+  .staff-any svg { @apply w-6 h-6; }
+  .staff-note { @apply text-xs tracking-widest text-gray-500 uppercase dark:text-gray-400; }
+  .datetime { @apply grid gap-8 lg:grid-cols-[auto_minmax(0,1fr)]; }
+  /* Takvim: blog/a kartı + header/a düğme tokenları; seçili = bg-green-500 text-white (+ton) */
+  .cal { @apply w-full max-w-sm sm:w-80 border-2 border-gray-200 border-opacity-60 rounded-lg p-4 dark:border-gray-800; }
+  .cal-head { @apply mb-3 flex items-center justify-between gap-2; }
+  .cal-title { @apply text-gray-900 text-lg font-medium capitalize dark:text-white; }
+  .cal-dow { @apply mb-1 grid grid-cols-7 text-center text-xs tracking-widest uppercase; }
+  .cal-grid { @apply grid grid-cols-7 gap-1; }
+  .cal-day { @apply flex min-h-11 flex-col items-center justify-center bg-gray-100 border-0 rounded hover:bg-gray-200 focus:outline-none text-sm text-gray-900 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white; }
+  .cal-day.is-today { @apply ring-2 ring-inset ring-green-500; }
+  .cal-day.is-disabled { @apply cursor-not-allowed bg-transparent text-gray-400 hover:bg-transparent dark:bg-transparent dark:text-gray-600 dark:hover:bg-transparent; }
+  .cal-day[aria-pressed="true"] { @apply bg-green-700 text-white hover:bg-green-800 dark:bg-green-700; }
+  .cal-num { @apply leading-5 font-medium; }
+  .cal-meta { @apply text-[0.625rem] leading-3; }
+  .cal-legend { @apply mt-3 flex flex-wrap gap-x-4 gap-y-2 text-xs; }
+  .cal-legend span { @apply inline-flex items-center gap-1.5; }
+  .cal-legend i { @apply inline-block w-3 h-3 rounded bg-gray-100 dark:bg-gray-800; }
+  .cal-legend .lg-full { @apply opacity-40; }
+  .cal-legend .lg-closed { @apply bg-transparent border border-gray-300 dark:border-gray-700; }
+  .cal-legend .lg-today { @apply ring-2 ring-inset ring-green-500; }
+  .slots-head { @apply mb-4; }
+  .slots-title { @apply text-gray-900 text-lg font-medium dark:text-white; }
+  .slots-note { @apply mt-1 text-sm; }
+  .slot-group + .slot-group { @apply mt-5; }
+  .slot-group .label { @apply mb-2; }
+  .slot-list { @apply grid grid-cols-3 gap-2 sm:grid-cols-4; }
+  .slot { @apply inline-flex items-center justify-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base text-gray-900 tabular-nums dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white disabled:cursor-not-allowed disabled:opacity-40 disabled:line-through; }
+  .slot[aria-pressed="true"] { @apply bg-green-700 text-white hover:bg-green-800 dark:bg-green-700; }
+  .skeleton { @apply block animate-pulse rounded bg-gray-100 motion-reduce:animate-none dark:bg-gray-800; }
+  .slots-empty { @apply grid justify-items-start gap-3 bg-gray-100 rounded-lg p-6 dark:bg-gray-800 dark:bg-opacity-50; }
+  /* Özet: contact/b bilgi kartı (bg-white relative py-6 rounded shadow-md) + ADDRESS/EMAIL başlık tokenı */
+  .booking-summary { @apply w-full lg:w-1/3 mt-8 lg:mt-0 bg-white relative py-6 rounded shadow-md lg:sticky lg:top-6 dark:bg-gray-800 dark:bg-opacity-50; }
+  .summary-toggle { @apply flex cursor-pointer list-none items-center justify-between gap-3 px-6 text-gray-900 text-lg font-medium dark:text-white [&::-webkit-details-marker]:hidden; }
+  .summary-toggle svg { @apply w-5 h-5 transition-transform; }
+  .booking-summary[open] .summary-toggle svg { @apply rotate-180; }
+  .summary-body { @apply grid gap-4 mt-4; }
+  .summary-body > *:not(:first-child) { @apply mx-6; }
+  .sum-list, .review { @apply w-full text-sm; }
+  .sum-row, .review-row { @apply flex items-baseline justify-between gap-4 border-t-2 border-gray-200 py-3 px-6 dark:border-gray-800; }
+  .review .review-row { @apply px-0; }
+  .sum-row dt, .review-row dt { @apply shrink-0 font-semibold text-gray-900 tracking-widest text-xs uppercase dark:text-white; }
+  .sum-row dd, .review-row dd { @apply text-right; }
+  .review-row dd { @apply flex-1; }
+  .sum-row dd.is-empty { @apply text-gray-500 dark:text-gray-400; }
+  .review-row button { @apply text-sm text-green-700 underline dark:text-green-400; }
+  .sum-total { @apply flex items-baseline justify-between gap-3; }
+  .sum-total b { @apply font-medium text-3xl text-gray-900 dark:text-white; }
+  .sum-policy { @apply text-xs leading-relaxed; }
+  .sum-policy button { @apply text-green-700 underline dark:text-green-400; }
+  .prep { @apply mt-6 bg-gray-100 rounded-lg p-6 text-sm empty:hidden dark:bg-gray-800 dark:bg-opacity-50; }
+  .prep ul { @apply mt-2 list-disc space-y-1 pl-5; }
+  .done { @apply grid justify-items-start gap-4 bg-gray-100 rounded-lg p-8 dark:bg-gray-800 dark:bg-opacity-50; }
+  .done-icon { @apply w-10 h-10 rounded-full bg-green-500 inline-flex items-center justify-center text-white; } /* step/a "FINISH" dairesi */
+  .done-icon svg { @apply w-5 h-5; }
+  .done .bstep-title { @apply mb-0; }
+  .demo-tag { @apply inline-block py-1 px-2 rounded bg-green-50 text-green-700 text-xs font-medium tracking-widest uppercase dark:bg-gray-800 dark:text-gray-400; }
+  .done-ref .ref { @apply mt-1 flex items-center gap-3 font-medium text-3xl text-gray-900 tracking-wider dark:text-white; }
+  .done .review { @apply w-full; }
+  .done-actions { @apply flex flex-wrap gap-3; }
+  .clock-card { @apply mt-8 flex flex-col items-center; }
+
+  /* ---- Pencereler (<dialog>): blog/a kartı ---- */
+  dialog { @apply m-auto w-[calc(100%-2rem)] max-w-4xl p-0 bg-white text-gray-600 border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden backdrop:bg-gray-900/75 dark:bg-gray-900 dark:text-gray-400 dark:border-gray-800; }
+  #cancel-dialog { @apply max-w-xl; }
+  .dialog-scroll { @apply relative max-h-[calc(100dvh-4rem)] overflow-y-auto; }
+  .dialog-close { @apply absolute right-3 top-3 z-10; }
+  .recipe-dialog-grid { @apply grid md:grid-cols-[2fr_3fr]; }
+  .recipe-hero img { @apply h-56 w-full object-cover object-center md:h-full; }
+  .recipe-content { @apply grid gap-5 p-6 md:p-8 content-start; }
+  .recipe-content > h2, #recipe-title, #cancel-title { @apply pr-12 sm:text-3xl text-2xl font-medium text-gray-900 dark:text-white; }
+  .recipe-meta { @apply flex flex-wrap items-center gap-x-4 gap-y-1 text-sm; }
+  .recipe-meta span { @apply inline-flex items-center gap-1; }
+  .recipe-meta svg { @apply w-4 h-4; }
+  .tags { @apply flex flex-wrap gap-2; }
+  .recipe-content .tags li { @apply inline-block py-1 px-2 rounded bg-green-50 text-green-700 text-xs font-medium tracking-widest uppercase dark:bg-gray-800 dark:text-gray-400; }
+  .dialog-h3 { @apply text-gray-900 text-lg font-medium dark:text-white; }
+  /* besin değerleri: statistic/a */
+  .nutri { @apply grid grid-cols-2 gap-4 text-center sm:grid-cols-4; }
+  .nutri b { @apply block font-medium text-2xl text-gray-900 dark:text-white; }
+  .nutri span { @apply text-sm leading-relaxed; }
+  .servings { @apply flex items-center justify-between gap-4; }
+  .servings-ctrl { @apply flex items-center gap-2; }
+  .servings-ctrl output { @apply w-10 text-center font-medium text-2xl text-gray-900 dark:text-white; }
+  .ingredients li { @apply border-t-2 border-gray-200 first:border-t-0 dark:border-gray-800; }
+  .ingredients label { @apply flex items-center gap-3 py-3; }
+  .ingredients input { @apply w-4 h-4 accent-[#10b981]; }
+  .ingredients .qty { @apply min-w-20 text-gray-900 font-medium dark:text-white; }
+  .ingredients input:checked ~ span { @apply line-through opacity-60; }
+  .steps-list { @apply list-decimal space-y-2 pl-5 leading-relaxed; }
+  .tip-box { @apply bg-gray-100 rounded-lg p-4 text-sm dark:bg-gray-800 dark:bg-opacity-50; }
+  .tip-box .label { @apply mb-1 block text-gray-600 dark:text-gray-400; }
+
+  /* ---- Sohbet (S19): contact input/button + blog/a kartı radius/kenarı ---- */
+  .floating-actions { @apply contents; }
+  .chat { @apply invisible fixed bottom-24 right-4 z-50 flex max-h-[min(40rem,calc(100dvh-8rem))] w-[calc(100%-2rem)] max-w-sm translate-y-4 flex-col overflow-hidden bg-white text-gray-600 border-2 border-gray-200 rounded-lg shadow-md opacity-0 transition duration-200 ease-in-out motion-reduce:transition-none sm:right-6 dark:bg-gray-900 dark:text-gray-400 dark:border-gray-800; }
+  .chat-open .chat { @apply visible translate-y-0 opacity-100; }
+  .chat-head { @apply flex items-center gap-3 p-4 border-b-2 border-gray-200 dark:border-gray-800; }
+  .chat-avatar { @apply w-10 h-10 shrink-0 p-2 bg-green-700 text-white rounded-full inline-flex items-center justify-center text-lg font-medium leading-none; } /* header/a logo dairesi (+ton, harf taşıdığı için) */
+  .chat-head-text { @apply grid flex-1 leading-tight; }
+  .chat-head-text b { @apply text-gray-900 text-lg font-medium dark:text-white; }
+  .chat-head-text > span { @apply text-xs inline-flex items-center; }
+  .chat-log { @apply flex-1 overflow-y-auto overscroll-contain p-4; }
+  .msg { @apply mt-3 flex first:mt-0; }
+  .msg--user { @apply justify-end; }
+  .bubble { @apply max-w-[85%] rounded bg-gray-100 p-3 text-sm leading-relaxed dark:bg-gray-800; overflow-wrap: anywhere; }
+  .msg--user .bubble { @apply bg-green-700 text-white; }
+  .bubble p + p { @apply mt-1.5; }
+  .bubble-title { @apply text-gray-900 font-medium dark:text-white; }
+  .bubble-rows { @apply mt-2 rounded bg-white px-3 dark:bg-gray-900; }
+  .bubble-row { @apply flex justify-between gap-3 border-t-2 border-gray-200 py-1.5 first:border-t-0 dark:border-gray-800; }
+  .bubble-row span:last-child { @apply text-right whitespace-nowrap text-gray-900 font-medium dark:text-white; }
+  .bubble-note { @apply mt-2 text-xs; }
+  .bubble-actions { @apply mt-3 flex flex-wrap gap-2; }
+  .bubble-action { @apply inline-flex items-center bg-white border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-sm dark:bg-gray-900 dark:hover:bg-gray-700; }
+  .bubble-action--primary { @apply bg-green-700 text-white hover:bg-green-800 dark:bg-green-700 dark:hover:bg-green-800; }
+  .quick { @apply mt-3 flex flex-wrap gap-2; }
+  .quick button { @apply inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-sm dark:bg-gray-800 dark:hover:bg-gray-700; }
+  .typing .bubble { @apply flex items-center gap-1 py-4; }
+  .typing i { @apply w-1.5 h-1.5 animate-pulse rounded-full bg-gray-500 motion-reduce:animate-none; }
+  .typing i:nth-child(2) { animation-delay: 0.15s; }
+  .typing i:nth-child(3) { animation-delay: 0.3s; }
+  .chat-day { @apply mb-3 text-center text-xs; }
+  .chat-form { @apply flex items-center gap-2 border-t-2 border-gray-200 p-3 dark:border-gray-800; }
+  .chat-input { @apply field; }
+  .chat-send { @apply inline-flex items-center justify-center w-10 h-10 shrink-0 text-white bg-green-700 border-0 focus:outline-none hover:bg-green-800 rounded disabled:opacity-50; }
+  .chat-send svg { @apply w-5 h-5; }
+  .chat-foot { @apply px-4 pb-3 text-center text-xs; }
+  /* Yüzen düğmeler: header/a logo dairesi (w-10 h-10 bg-green-500 rounded-full text-white) — büyük boy */
+  .fab { @apply fixed right-4 z-40 inline-flex items-center justify-center w-14 h-14 rounded-full shadow-md focus:outline-none sm:right-6; }
+  .fab svg { @apply w-6 h-6; }
+  .fab-wa { @apply bottom-24 bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700; }
+  .fab-chat { @apply bottom-6 bg-green-500 text-white hover:bg-green-600; }
+  .fab-chat .i-x, .chat-open .fab-chat .i-chat { @apply hidden; }
+  .chat-open .fab-chat .i-x { @apply block; }
+  .chat-open .fab-wa, .menu-open .fab, body.fabs-off .fab-wa, body.fabs-off:not(.chat-open) .fab-chat, body.demo-open .fab { @apply pointer-events-none invisible opacity-0; }
+  .fab-badge { @apply absolute right-0.5 top-0.5 w-3.5 h-3.5 rounded-full border-2 border-white bg-green-700; }
+  .chat-open .fab-badge, .fab-badge.is-hidden { @apply hidden; }
+
+  /* ---- Bildirim ---- */
+  .toast { @apply pointer-events-none fixed bottom-6 left-1/2 z-[60] -translate-x-1/2 translate-y-4 rounded bg-gray-900 py-2 px-4 text-white opacity-0 shadow-md transition duration-200 dark:bg-gray-800; }
+  .toast.is-on { @apply translate-y-0 opacity-100; }
+
+  /* ---- Demo şeridi: footer/a alt şeridi (bg-gray-100) + content/e küçük düğme ---- */
+  .demo-bar { @apply fixed inset-x-0 bottom-0 z-[55] bg-gray-100 text-gray-600 shadow-md dark:bg-gray-800 dark:text-gray-400; }
+  .demo-bar-inner { @apply container mx-auto py-4 px-5 flex flex-wrap items-center gap-x-5 gap-y-2; }
+  .demo-bar-label { @apply inline-block py-1 px-2 rounded bg-green-50 text-green-700 text-xs font-medium tracking-widest uppercase dark:bg-gray-900 dark:text-gray-400; }
+  .demo-bar p { @apply flex-[1_1_280px] text-sm; }
+  body.demo-open { padding-bottom: var(--demo-h, 0px); }
+
+  /* ---- Notlar (S5): gallery/a hücreleri; masaüstünde sürüklenir ---- */
+  .note { @apply select-none; }
+  .note img { @apply pointer-events-none; }
+  .note.is-dragging { @apply relative z-10 cursor-grabbing; }
+  @media (min-width: 1024px) and (hover: hover) and (pointer: fine) { .note { @apply cursor-grab; } }
+
+  /* ---- SSS (S15) ---- */
+  .faq[open] .faq-icon svg { @apply rotate-45; }
+
+  /* ---- İletişim (S17) ---- */
+  .open-status i { @apply inline-block w-2 h-2 mr-2 rounded-full bg-gray-400; }
+  .open-status.is-open i { @apply bg-green-500; }
+  .hours tr.is-today th, .hours tr.is-today td { @apply text-gray-900 font-medium dark:text-white; }
+  .asteria-logo { @apply h-4 w-auto; }
+  .asteria-logo-mark { stroke: currentColor; }
+  .asteria-logo-word, .asteria-logo-dot { fill: currentColor; }
+
+  /* ---- Sayfa yolu ---- */
+  .crumbs li + li::before { content: "/"; @apply mr-2 text-gray-400 dark:text-gray-600; }
+
+  /* ---- Makale / KVKK (S14): content/e metin tipografisi ---- */
+  .prose { @apply leading-relaxed text-base; }
+  .prose > * + * { @apply mt-4; }
+  .prose h2 { @apply mt-10 mb-2 sm:text-3xl text-2xl text-gray-900 font-medium dark:text-white; }
+  .prose h3 { @apply mt-8 text-gray-900 text-lg font-medium dark:text-white; }
+  .prose strong { @apply text-gray-900 font-medium dark:text-white; }
+  .prose a { @apply text-green-700 underline dark:text-green-400; }
+  .prose ul { @apply list-disc space-y-2 pl-6; }
+  .prose ol { @apply list-decimal space-y-2 pl-6; }
+  .prose blockquote { @apply border-l-4 border-gray-200 pl-4 italic dark:border-gray-800; }
+  .table-scroll { @apply overflow-x-auto; }
+  .prose table { @apply table-auto w-full text-left; }
+  .prose th { @apply px-4 py-3 tracking-wider font-medium text-gray-900 text-sm bg-gray-100 first:rounded-tl first:rounded-bl last:rounded-tr last:rounded-br dark:text-white dark:bg-gray-800; }
+  .prose td { @apply border-t-2 border-gray-200 px-4 py-3 dark:border-gray-800; }
+  .callout { @apply bg-gray-100 rounded-lg p-6 dark:bg-gray-800 dark:bg-opacity-50; }
+  .callout .label { @apply mb-1 block text-gray-600 dark:text-gray-400; } /* gri-100 kutuda gray-500 4,39:1 */
+  .callout--warn { @apply border-l-4 border-green-500; }
+  .prose.sources { @apply mt-10 border-t-2 border-gray-200 pt-6 text-sm dark:border-gray-800; }
+}

@@ -1,0 +1,19 @@
+header/a       açık  54 · koyu  55 · ortak  46 · +dark:   9 → html  63 · kayıp 0
+hero/a         açık  62 · koyu  64 · ortak  57 · +dark:   7 → html  69 · kayıp 0
+statistic/a    açık  46 · koyu  47 · ortak  41 · +dark:   6 → html  52 · kayıp 0
+content/h      açık 117 · koyu 118 · ortak 108 · +dark:  10 → html 127 · kayıp 0
+gallery/a      açık  83 · koyu  84 · ortak  81 · +dark:   3 → html  86 · kayıp 0
+step/a         açık 190 · koyu 191 · ortak 180 · +dark:  11 → html 201 · kayıp 0
+testimonial/b  açık  31 · koyu  32 · ortak  28 · +dark:   4 → html  35 · kayıp 0
+team/b         açık 184 · koyu 185 · ortak 178 · +dark:   7 → html 191 · kayıp 0
+pricing/a      açık 513 · koyu 518 · ortak 435 · +dark:  83 +nötr 1 → html 597 · kayıp 0 · pricing>div[0]>div[0]>p[1] text-gray-500 → dark:text-inherit
+contact/c      açık 144 · koyu 145 · ortak 119 · +dark:  26 → html 170 · kayıp 0
+feature/c      açık 120 · koyu 121 · ortak 107 · +dark:  14 → html 134 · kayıp 0
+blog/a         açık 195 · koyu 193 · ortak 170 · +dark:  23 → html 218 · kayıp 0
+pricing/b      açık 179 · koyu 180 · ortak 147 · +dark:  33 → html 212 · kayıp 0
+contact/b      açık 154 · koyu 154 · ortak 128 · +dark:  26 +nötr 2 → html 182 · kayıp 0 · contact>div[0]>div[1] bg-white → dark:bg-transparent, contact>div[0]>div[1]>p[1] text-gray-600 → dark:text-inherit
+blog/c         açık 168 · koyu 173 · ortak 147 · +dark:  26 → html 194 · kayıp 0
+content/e      açık  38 · koyu  39 · ortak  35 · +dark:   4 → html  42 · kayıp 0
+feature/d      açık  91 · koyu  90 · ortak  78 · +dark:  12 → html 103 · kayıp 0
+cta/b          açık  92 · koyu  97 · ortak  77 · +dark:  20 +nötr 1 → html 113 · kayıp 0 · cta>div[0]>div[1]>p[4] text-gray-500 → dark:text-inherit
+footer/a       açık 162 · koyu 164 · ortak 117 · +dark:  47 → html 209 · kayıp 0
