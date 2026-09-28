@@ -1,0 +1,17 @@
+GEÇTİ  1 konsol {}
+GEÇTİ  2 tasma {}
+GEÇTİ  3 sozlesme {"eksik":[],"ilkYuklemedeOlmayan":[".servings","[data-intent]"]}
+GEÇTİ  3 sozlesme (.cal-day/.slot) 
+GEÇTİ  4 randevu {"bosFormHata":4,"ozetSatir":8,"done":{"ref":"MZ-RYZVV","gcal":true},"ics":"mizan-randevu-MZ-RYZVV.ics","iptalAcik":true,"iptalHata":true}
+GEÇTİ  5 araclar {"vki":"24,2","kcal":"1.730","doluBardakYenilemeSonrasi":3}
+GEÇTİ  6 program-tarif {"gunDegisti":true,"toplam":["1.500","2.580"],"tarif":[9,2],"scaled":{"q0":"80 g","q1":"120 g","porsiyon":"3"}}
+GEÇTİ  7 sohbet {"acik":true,"fiyat":"Güncel ücretlerimiz:İlk görüşme · 60 dk1.800 TLKontrol görüşmesi · 30 dk900 TLOn","randevu":"En yakın uygun ilk görüşme (60 dk, vücut analizi dahil): Yarın, saat 09:00 · Uzm","cb":["Memnuniyetle. Diyetisyenimiz mesai saatleri içinde","Teşekkürler Test. Size hangi numaradan ulaşalım?","Geri arama talebiniz alındı (demo). Bu bir demo olduğu için sizi kimse aramayaca"],"blogCevap":"İnsülin direncinde amaç kan şekerindeki ani yükselişleri aza","blogLink":"http://localhost:8801/
+GEÇTİ  8 dil-tema {"trKalan":[],"enUrl":"http://localhost:8801/50-website/template8/?lang=en","koyu":true,"korundu":{"dark":true,"lang":"en"},"geri":{"dark":false,"lang":"tr"},"altSayfa":{"index":{"lang":"en","title":"Dietitian in Kadıköy, Istanbul | Mizan Nutrition & Dietetics Clinic · Book Online","trKalan":[]},"blog/":{"lang":"en","title":"Blog: Nutrition Articles | Mizan Nutrition","trKalan":[]},"blog/protein-ihtiyaci.html":{"lang":"en","title":"Protein needs, for active and less active people | Mizan Nutriti
+GEÇTİ  9 axe {"ciddi":{"index-acik":[],"index-koyu":[],"makale":[],"makale-koyu":[],"blog":[],"kvkk-koyu":[],"takvim-light":[],"tarif-penceresi-light":[],"sohbet-light":[],"takvim-dark":[],"tarif-penceresi-dark":[],"sohbet-dark":[]},"tum":{"index-acik":[],"index-koyu":[],"makale":[],"makale-koyu":[],"blog":[],"kvkk-koyu":[],"takvim-light":[],"tarif-penceresi-light":[],"sohbet-light":[],"takvim-dark":[],"tarif-penceresi-dark":[],"sohbet-dark":[]}}
+GEÇTİ  10 hareket-azaltma {"sonsuz":[],"gizli":[],"soluk":0}
+GEÇTİ  11 js-kapali {"gizliBolum":[],"soluk":[],"metin":10500,"notGorsel":7}
+GEÇTİ  kabul: AstroWind tokenlari {"sonuc":{"body":{"fontSize":"16px","color":"rgb(16, 16, 16)","backgroundColor":"rgb(255, 255, 255)","letterSpacing":"-0.4px","fontFamily":"Inter-62361d67a6f9900e, \"Inter-62361d67a6f9900e fallback: Arial\", sans-serif, ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\""},"h1":{"fontSize":"60px","fontWeight":"700","lineHeight":"60px","letterSpacing":"-3px"},"h2":{"fontSize":"36px","fontWeight":"700","lineHeight":"40px","lett
+GEÇTİ  kabul: ic baglantilar 200 {"taranan":67,"sayfa":10,"kirik":[]}
+GEÇTİ  kabul: makale kelime sayilari {"insulin-direnci-beslenme":{"tr":"435/435","en":"517/517","kaynakca":"88/88","baslik":"16/16","giris":"51/51","h2":"18/18","li":"5/5","strong":"0/0","table":"0/0","td":"0/0","callout":"4/4","em":"4/4","kimlikler":"aynı","toplamKelime":"1040/1040"},"aralikli-oruc-16-8":{"tr":"311/311","en":"389/389","kaynakca":"70/70","baslik":"13/13","giris":"59/59","h2":"14/14","li":"25/25","strong":"0/0","table":"0/0","td":"0/0","callout":"2/2","em":"3/3","kimlikler":"aynı","toplamKelime":"770/770"},"gunluk-s
+GEÇTİ  ek: mobil menu {"menu":{"acik":true,"aria":"true","dil":true},"baglantiylaKapandi":true}
+GEÇTİ  ek: bos gun durumu 

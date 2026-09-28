@@ -1,0 +1,1346 @@
+/*
+ * Mizan · AstroWind — diyetisyen-v2'nin JS'e bağlı parçaları.
+ * Özgün site.css'teki işlevsel kurallar (randevu takvimi, slotlar, araç formları, program, tarifler,
+ * pencereler, sohbet, demo şeridi, erişilebilirlik, baskı) burada YALNIZCA AstroWind tokenlarıyla
+ * yeniden yazıldı. Kaynaklar (widget → token):
+ *   kart ............ Pricing/Contact kartı: rounded-lg border-gray-200 bg-white dark:bg-slate-900 shadow
+ *   düğme ........... btn-primary / btn-secondary (tailwind.css @utility)
+ *   sekme/anahtar ... Pricing'in aylık/yıllık anahtarı: rounded-full border p-1, seçili bg-primary text-white
+ *   hap/etiket ...... aynı anahtarın düğmesi (tek başına) · Tags.astro (bg-gray-100 dark:bg-slate-700)
+ *   giriş ........... Form.astro: py-3 px-4 rounded-lg border-gray-200 bg-white dark:bg-slate-900
+ *   bilgi kutusu .... Note.astro: info bg-blue-50 / warning bg-amber-50 / success bg-emerald-50
+ *   büyük sayı ...... Stats.astro: font-heading text-primary font-bold tabular-nums
+ *   küçük başlık .... Stats başlığı (uppercase tracking-widest) · Headline tagline (text-secondary)
+ *   adım dairesi .... Timeline.astro: rounded-full border-2 border-primary/40 text-primary
+ *   onay simgesi .... Content.astro: bg-green-600 dark:bg-green-700
+ *   pencere ......... Gallery ışık kutusu: rounded-lg, backdrop:bg-black/80, kapat rounded-full bg-black/60
+ *   demo şeridi ..... Announcement.astro: text-sm bg-slate-900 text-slate-300, rozet bg-white/20
+ * Kaynakta karşılığı olmayan durumlar: form hata rengi red-700 (AstroWind'de hata durumu yok).
+ */
+
+/* ---------- JS'in kullandığı değişkenler (tools.js → style.color = var(--bmi-n) / var(--ink)) ---------- */
+:root {
+  --ink: var(--aw-color-text-default);
+  /* VKİ ölçeği: yargılayıcı olmayan sıralı ton; kırmızı yok */
+  --bmi-1: var(--color-blue-400);
+  --bmi-2: var(--color-green-600);
+  --bmi-3: var(--color-amber-500);
+  --bmi-4: var(--color-orange-600);
+  --bmi-5: var(--color-orange-800);
+}
+
+/* ---------- Dil blokları, dil yüklenirken titreme yok ---------- */
+html:not([lang='en']) [data-lang-block='en'],
+html[lang='en'] [data-lang-block='tr'] {
+  display: none !important;
+}
+.lang-pending body {
+  visibility: hidden;
+  animation: mizan-reveal-body 0s linear 1.2s forwards;
+}
+@keyframes mizan-reveal-body {
+  to {
+    visibility: visible;
+  }
+}
+.theme-switching *,
+.theme-switching *::before,
+.theme-switching *::after {
+  transition: none !important;
+}
+
+/* ---------- JS'in ürettiği düğmeler (booking.js / tools.js: "btn btn--primary btn--sm") ----------
+   Katmansız: AstroWind'in `btn` yardımcısının renk/boşluklarını geçer. */
+.btn--primary {
+  @apply btn-primary;
+}
+.btn--ghost {
+  @apply btn-secondary;
+}
+.btn--sm {
+  @apply py-2.5 px-5 md:px-5 text-sm;
+}
+.btn--block {
+  @apply w-full;
+}
+.skip-link {
+  @apply btn-primary py-2.5 px-5 fixed top-3 left-3 z-[70] -translate-y-[200%] focus:translate-y-0;
+}
+.demo-bar-btn {
+  @apply py-1 px-3 md:px-3 text-xs border-slate-500 text-slate-100 hover:bg-white/10 hover:border-slate-300 dark:text-slate-300 dark:border-slate-600 dark:hover:bg-slate-800;
+}
+
+@layer components {
+  /* ---------- Küçük tipografi ---------- */
+  .label {
+    @apply inline-flex items-center gap-2 text-xs font-medium uppercase tracking-widest text-gray-800 dark:text-slate-400;
+  }
+  .muted {
+    @apply text-muted;
+  }
+  .mono {
+    @apply tabular-nums;
+  }
+  .lede {
+    @apply text-lg text-muted;
+  }
+  .h3 {
+    @apply font-heading text-xl font-bold leading-tight tracking-tight text-heading;
+  }
+  .live-dot {
+    @apply inline-block h-2 w-2 shrink-0 rounded-full bg-green-600;
+  }
+  .i {
+    @apply h-5 w-5 shrink-0;
+  }
+  .link-arrow {
+    @apply inline-flex items-center font-semibold text-primary hover:underline dark:text-blue-300;
+  }
+  .link-arrow::after {
+    content: '\00a0»';
+  }
+  .btn-spinner {
+    @apply hidden h-4 w-4 rounded-full border-2 border-current border-r-transparent;
+  }
+  .is-loading .btn-spinner {
+    @apply inline-block;
+    animation: mizan-spin 0.8s linear infinite;
+  }
+
+  /* ---------- Hero · en yakın randevu kartı ---------- */
+  .next-slot-time {
+    @apply mt-2 font-heading text-2xl font-bold tracking-tight text-heading tabular-nums;
+  }
+  .next-slot-meta {
+    @apply text-sm text-muted;
+  }
+  .next-slot-link {
+    @apply mt-3 inline-block font-semibold text-primary hover:underline dark:text-blue-300;
+  }
+
+  /* ---------- Simge düğmeleri (ToggleTheme düğmesinin tokenları) ---------- */
+  .icon-btn {
+    @apply inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-muted transition hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-700;
+  }
+  .icon-btn svg {
+    @apply h-5 w-5;
+  }
+  .icon-btn[disabled] {
+    @apply cursor-not-allowed opacity-40 hover:bg-transparent;
+  }
+
+  /* ---------- Sekmeler: Pricing'in aylık/yıllık anahtarı ---------- */
+  .tabs,
+  .segmented {
+    @apply inline-flex max-w-full gap-1 overflow-x-auto rounded-full border border-gray-200 bg-white p-1 text-sm font-medium dark:border-gray-700 dark:bg-slate-900;
+    scrollbar-width: none;
+  }
+  .tab,
+  .segmented button {
+    @apply inline-flex shrink-0 items-center gap-2 whitespace-nowrap rounded-full px-4 py-1.5 text-default transition;
+  }
+  .segmented button {
+    @apply flex-col items-start gap-0 leading-tight;
+  }
+  .tab .mono,
+  .segmented button small {
+    @apply text-xs font-normal text-muted;
+  }
+  .tab[aria-selected='true'],
+  .segmented button[aria-checked='true'] {
+    @apply bg-primary text-white;
+  }
+  .tab[aria-selected='true'] .mono,
+  .segmented button[aria-checked='true'] small {
+    @apply text-white;
+  }
+
+  /* Tek başına hap düğmeler: gün sekmeleri, tarif filtresi, radyo hapları */
+  .day-tabs,
+  .filter-row {
+    @apply flex gap-2 overflow-x-auto pb-1;
+    scrollbar-width: none;
+  }
+  .filter-row {
+    @apply mb-6;
+  }
+  .day-tab,
+  .chip,
+  .radio-pill span {
+    @apply inline-flex shrink-0 cursor-pointer items-center whitespace-nowrap rounded-full border border-gray-200 bg-white px-4 py-1.5 text-sm font-medium text-default transition hover:border-primary/60 dark:border-gray-700 dark:bg-slate-900;
+  }
+  .day-tab {
+    @apply flex-col px-3 leading-tight;
+  }
+  .day-tab small {
+    @apply text-[0.68rem] font-normal text-muted;
+  }
+  .day-tab[aria-selected='true'],
+  .chip[aria-pressed='true'],
+  .radio-pill input:checked + span {
+    @apply border-primary bg-primary text-white;
+  }
+  .day-tab[aria-selected='true'] small {
+    @apply text-white;
+  }
+  .radio-row {
+    @apply flex flex-wrap gap-2;
+  }
+  .radio-pill {
+    @apply relative;
+  }
+  .radio-pill input {
+    @apply pointer-events-none absolute opacity-0;
+  }
+  .radio-pill input:focus-visible + span {
+    @apply ring-2 ring-blue-500 ring-offset-2 dark:ring-offset-slate-900;
+  }
+  .radio-pill input:disabled + span {
+    @apply cursor-not-allowed line-through opacity-40;
+  }
+
+  /* ---------- Form: Form.astro girişleri ---------- */
+  .form-grid {
+    @apply grid gap-4 sm:gap-x-4 sm:gap-y-5;
+  }
+  .form-grid--2 {
+    @apply sm:grid-cols-2;
+  }
+  .span-2 {
+    @apply sm:col-span-2;
+  }
+  .field-group {
+    @apply grid content-start gap-2;
+  }
+  .field-label {
+    @apply flex items-baseline justify-between gap-2 text-sm font-medium;
+  }
+  .field-label .opt {
+    @apply text-xs font-normal text-muted;
+  }
+  .field {
+    @apply block w-full rounded-lg border border-gray-200 bg-white px-4 py-3 text-base text-default dark:border-gray-700 dark:bg-slate-900;
+  }
+  .field::placeholder {
+    @apply text-muted;
+  }
+  .field:focus {
+    @apply border-primary outline-none ring-2 ring-blue-500/40;
+  }
+  .field[aria-invalid='true'] {
+    @apply border-red-700 dark:border-red-400;
+  }
+  textarea.field {
+    @apply min-h-[120px] resize-y;
+  }
+  select.field {
+    @apply cursor-pointer appearance-none pr-11;
+  }
+  .select-wrap {
+    @apply relative;
+  }
+  .select-wrap svg {
+    @apply pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted;
+  }
+  .field-err {
+    @apply min-h-[1.2em] text-sm text-red-700 dark:text-red-400;
+  }
+  .field-unit {
+    @apply relative;
+  }
+  .field-unit .field {
+    @apply pr-14;
+  }
+  .field-unit span {
+    @apply pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-xs text-muted;
+  }
+  .honeypot {
+    position: absolute !important;
+    left: -9999px !important;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+  .check {
+    @apply grid cursor-pointer grid-cols-[1.25rem_minmax(0,1fr)] items-start gap-3 text-sm text-gray-600 dark:text-gray-400;
+  }
+  .check input {
+    @apply mt-0.5 h-4 w-4 cursor-pointer;
+    accent-color: var(--aw-color-primary);
+  }
+  .check a {
+    @apply text-primary underline dark:text-blue-300;
+  }
+  input[type='range'] {
+    @apply w-full cursor-pointer;
+    accent-color: var(--aw-color-primary);
+  }
+  .form-status {
+    @apply mt-3 text-sm;
+  }
+  .form-status.is-ok {
+    @apply text-green-700 dark:text-green-400;
+  }
+  .form-status.is-err {
+    @apply text-red-700 dark:text-red-400;
+  }
+  .form-status a {
+    @apply text-primary underline;
+  }
+  .form-card {
+    @apply grid gap-5;
+  }
+  .form-card > p {
+    @apply text-sm text-gray-600 dark:text-gray-400;
+  }
+
+  /* ---------- Kart (Pricing / Contact kartı) ---------- */
+  .tool-card,
+  .meals,
+  .booking-main,
+  .booking-summary {
+    @apply rounded-lg border border-gray-200 bg-white shadow dark:border-gray-700 dark:bg-slate-900;
+  }
+
+  /* ---------- Araçlar ---------- */
+  .tools-head {
+    @apply mb-6 flex flex-wrap items-center justify-between gap-4;
+  }
+  .tool {
+    @apply grid gap-4 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-6;
+  }
+  .tool-card {
+    @apply p-6 md:p-8;
+  }
+  .tool-form,
+  .tool-result {
+    @apply grid content-start gap-6;
+  }
+  .range-field {
+    @apply grid gap-2;
+  }
+  .range-top {
+    @apply flex items-center justify-between gap-3;
+  }
+  .range-top .field {
+    @apply w-32 px-3 py-2 text-right tabular-nums;
+  }
+  .range-top .field-unit .field {
+    @apply pr-11;
+  }
+  .range-top .field-unit span {
+    @apply right-3;
+  }
+  .result-big {
+    @apply flex flex-wrap items-baseline gap-x-4 gap-y-2;
+  }
+  .result-num {
+    @apply font-heading text-[2.6rem] font-bold leading-none text-primary tabular-nums lg:text-6xl dark:text-white;
+  }
+  .result-unit {
+    @apply text-sm font-medium uppercase tracking-widest text-muted;
+  }
+  .result-tag {
+    @apply inline-flex items-center gap-2 rounded-full bg-gray-100 px-3 py-1 text-sm font-semibold dark:bg-slate-700;
+  }
+  .result-tag i {
+    @apply h-2.5 w-2.5 rounded-full bg-current;
+  }
+  .result-text {
+    @apply max-w-prose text-muted;
+  }
+  .scale {
+    @apply grid gap-2;
+  }
+  .scale-wrap {
+    @apply relative pt-4;
+  }
+  .scale-bar {
+    @apply relative grid h-3 grid-cols-[3.5fr_6.5fr_5fr_5fr_5fr] gap-0.5 overflow-hidden rounded-full;
+  }
+  .scale-bar span:nth-child(1) {
+    background: var(--bmi-1);
+  }
+  .scale-bar span:nth-child(2) {
+    background: var(--bmi-2);
+  }
+  .scale-bar span:nth-child(3) {
+    background: var(--bmi-3);
+  }
+  .scale-bar span:nth-child(4) {
+    background: var(--bmi-4);
+  }
+  .scale-bar span:nth-child(5) {
+    background: var(--bmi-5);
+  }
+  .scale-marker {
+    @apply absolute left-0 top-0 h-8 w-0.5 -translate-x-px bg-heading transition-[left] duration-500;
+  }
+  .scale-marker::before {
+    content: '';
+    @apply absolute -left-[5px] -top-0.5 h-3 w-3 rounded-full bg-heading;
+  }
+  .scale-ticks {
+    @apply relative h-4 text-xs text-muted;
+  }
+  .scale-ticks span {
+    @apply absolute -translate-x-1/2;
+  }
+  .stat-rows {
+    @apply grid divide-y divide-gray-200 border-y border-gray-200 dark:divide-slate-700 dark:border-slate-700;
+  }
+  .stat-row {
+    @apply flex items-baseline justify-between gap-4 py-3;
+  }
+  .stat-row dt {
+    @apply text-sm text-muted;
+  }
+  .stat-row dd {
+    @apply text-right font-semibold tabular-nums;
+  }
+  .macro-bars {
+    @apply grid gap-3.5;
+  }
+  .macro {
+    @apply grid gap-1.5;
+  }
+  .macro-head {
+    @apply flex justify-between gap-3 text-sm;
+  }
+  .macro-head b {
+    @apply font-semibold;
+  }
+  .macro-head span {
+    @apply text-muted tabular-nums;
+  }
+  .macro-track {
+    @apply h-2 overflow-hidden rounded-full bg-gray-100 dark:bg-slate-700;
+  }
+  .macro-fill {
+    @apply h-full w-0 rounded-full transition-[width] duration-500;
+  }
+  .macro--p .macro-fill {
+    @apply bg-primary;
+  }
+  .macro--c .macro-fill {
+    @apply bg-amber-500;
+  }
+  .macro--f .macro-fill {
+    @apply bg-accent;
+  }
+  .glasses {
+    @apply flex flex-wrap gap-2;
+  }
+  .glass {
+    @apply relative h-11 w-9 cursor-pointer overflow-hidden rounded-b-lg border-2 border-t-0 border-gray-300 transition hover:border-primary dark:border-slate-500;
+  }
+  .glass::after {
+    content: '';
+    @apply absolute inset-x-0 bottom-0 h-0 bg-primary/70 transition-[height] duration-300;
+  }
+  .glass.is-full::after {
+    height: 78%;
+  }
+  .tool-note {
+    @apply border-l-2 border-gray-200 pl-3 text-sm text-muted dark:border-slate-700;
+  }
+
+  /* ---------- Örnek program ---------- */
+  .program-top {
+    @apply mb-6 grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end;
+  }
+  .program {
+    @apply grid gap-4 lg:grid-cols-[minmax(0,8fr)_minmax(0,4fr)] lg:gap-6;
+  }
+  .meals {
+    @apply grid content-start self-start divide-y divide-gray-200 dark:divide-slate-700;
+  }
+  .meal {
+    @apply grid grid-cols-[4rem_minmax(0,1fr)] gap-4 px-5 py-5 md:grid-cols-[5.5rem_minmax(0,1fr)_6rem] md:items-start md:px-7;
+  }
+  .meal-time {
+    @apply pt-1 text-sm text-muted tabular-nums;
+  }
+  .meal-name {
+    @apply text-xl font-bold leading-snug md:text-[1.3rem];
+  }
+  .meal-items {
+    @apply mt-1 text-muted;
+  }
+  .meal-kcal {
+    @apply col-start-2 text-sm text-muted tabular-nums md:col-start-auto md:pt-1 md:text-right;
+  }
+  .program-side {
+    @apply grid content-start gap-4;
+  }
+  .program-total {
+    @apply mt-1 flex items-baseline gap-2;
+  }
+  .program-total b {
+    @apply font-heading text-[2.6rem] font-bold leading-none text-primary tabular-nums lg:text-5xl dark:text-white;
+  }
+  .program-total .mono {
+    @apply text-sm font-medium uppercase tracking-widest text-muted;
+  }
+  .program-tip,
+  .tip-box,
+  .prep,
+  .clock-card {
+    @apply rounded-lg bg-blue-50 px-5 py-4 dark:bg-slate-800;
+  }
+  .program-tip p:not(.label),
+  .tip-box {
+    @apply text-sm;
+  }
+  .program-tip .label,
+  .tip-box .label {
+    @apply mb-1.5 flex;
+  }
+  .program-actions {
+    @apply flex flex-wrap gap-2;
+  }
+  .program-media {
+    @apply hidden aspect-[4/3] overflow-hidden rounded-lg shadow-lg lg:block;
+  }
+  .program-media img {
+    @apply h-full w-full object-cover;
+  }
+  .disclaimer {
+    @apply mt-6 max-w-3xl text-sm text-muted;
+  }
+
+  /* ---------- Tarifler: blog GridItem düzeni ---------- */
+  .recipes {
+    @apply grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3;
+  }
+  .recipe-card {
+    @apply flex w-full flex-col text-left;
+  }
+  .recipe-card figure {
+    @apply mb-5 aspect-[5/4] overflow-hidden rounded bg-gray-400 shadow-lg dark:bg-slate-700;
+  }
+  .recipe-card img {
+    @apply h-full w-full object-cover transition group-hover:scale-[1.03];
+  }
+  .recipe-card-body {
+    @apply grid gap-2;
+  }
+  .recipe-card h3 {
+    @apply font-heading text-xl font-bold leading-tight transition group-hover:text-primary sm:text-2xl dark:text-slate-300;
+  }
+  .recipe-meta {
+    @apply flex flex-wrap gap-x-3.5 gap-y-1.5 text-sm text-muted;
+  }
+  .recipe-meta span {
+    @apply inline-flex items-center gap-1.5;
+  }
+  .recipe-meta svg {
+    @apply h-4 w-4;
+  }
+  .recipes-empty {
+    @apply col-span-full p-10 text-center text-muted;
+  }
+  .tags {
+    @apply flex flex-wrap gap-2;
+  }
+  .tags li {
+    @apply inline-block bg-gray-100 px-2 py-0.5 text-sm font-medium lowercase dark:bg-slate-700;
+  }
+
+  /* ---------- Pencereler: Gallery ışık kutusunun tokenları ---------- */
+  #recipe-dialog,
+  #cancel-dialog {
+    @apply m-auto max-h-[calc(100dvh-16px)] w-[min(820px,calc(100vw-16px))] max-w-[calc(100vw-16px)] overflow-hidden rounded-lg border border-gray-200 bg-page p-0 text-default shadow-xl backdrop:bg-black/80 backdrop:backdrop-blur-sm dark:border-slate-700;
+  }
+  #cancel-dialog {
+    @apply w-[min(640px,calc(100vw-16px))];
+  }
+  .dialog-scroll {
+    @apply max-h-[calc(100dvh-16px)] overflow-y-auto overscroll-contain;
+  }
+  .dialog-close {
+    @apply absolute right-3 top-3 z-10 rounded-full bg-black/60 text-white hover:bg-black/80 focus:ring-white/40 dark:text-white dark:hover:bg-black/80;
+  }
+  .recipe-hero {
+    @apply relative aspect-[16/10] bg-gray-400 dark:bg-slate-700;
+  }
+  .recipe-hero img {
+    @apply absolute inset-0 h-full w-full object-cover;
+  }
+  .recipe-content {
+    @apply grid gap-6 px-6 pb-8 pt-7 md:px-12 md:pb-12 md:pt-10;
+  }
+  .recipe-content h2 {
+    @apply pr-10 font-heading text-3xl font-bold leading-tight tracking-tighter md:text-4xl;
+  }
+  .nutri {
+    @apply grid grid-cols-4 divide-x divide-gray-200 rounded-lg border border-gray-200 dark:divide-slate-700 dark:border-slate-700;
+  }
+  .nutri div {
+    @apply grid gap-0.5 p-3;
+  }
+  .nutri b {
+    @apply font-heading text-2xl font-bold text-primary dark:text-white;
+  }
+  .nutri span {
+    @apply text-[0.65rem] font-medium uppercase tracking-widest text-muted;
+  }
+  .servings {
+    @apply flex items-center justify-between gap-3 rounded-lg bg-gray-100 py-2 pl-4 pr-2 dark:bg-slate-800;
+  }
+  .servings-ctrl {
+    @apply flex items-center gap-1;
+  }
+  .servings-ctrl output {
+    @apply min-w-8 text-center font-semibold tabular-nums;
+  }
+  .servings .icon-btn {
+    @apply h-9 w-9 bg-white dark:bg-slate-900;
+  }
+  .ingredients {
+    @apply grid divide-y divide-gray-200 dark:divide-slate-700;
+  }
+  .ingredients label {
+    @apply grid cursor-pointer grid-cols-[1.25rem_8rem_minmax(0,1fr)] items-baseline gap-3 py-2.5;
+  }
+  .ingredients input {
+    @apply relative top-0.5 m-0 h-4 w-4 cursor-pointer;
+    accent-color: var(--aw-color-primary);
+  }
+  .ingredients input:checked ~ span {
+    @apply text-muted line-through;
+  }
+  .ingredients .qty {
+    @apply text-sm text-muted tabular-nums;
+  }
+  .steps-list {
+    @apply grid gap-3.5;
+    counter-reset: mizan-adim;
+  }
+  .steps-list li {
+    @apply grid grid-cols-[2rem_minmax(0,1fr)] gap-3;
+    counter-increment: mizan-adim;
+  }
+  .steps-list li::before {
+    content: counter(mizan-adim, decimal-leading-zero);
+    @apply pt-1 text-xs font-bold text-primary dark:text-blue-300;
+  }
+  .dialog-h3 {
+    @apply text-sm font-bold uppercase tracking-wide text-secondary dark:text-blue-200;
+  }
+
+  /* ---------- Randevu ---------- */
+  .clock-card {
+    @apply mb-6 flex flex-wrap items-center justify-between gap-x-6 gap-y-1;
+  }
+  .clock {
+    @apply font-heading text-3xl font-bold text-heading tabular-nums;
+  }
+  .clock-date {
+    @apply text-sm text-muted;
+  }
+  .stepper {
+    @apply mb-5 flex gap-2 overflow-x-auto;
+    scrollbar-width: none;
+  }
+  .stepper li {
+    @apply flex-1 shrink-0;
+  }
+  .stepper button {
+    @apply flex w-full items-center gap-3 whitespace-nowrap rounded-full border border-gray-200 bg-white py-1.5 pl-1.5 pr-4 text-sm font-semibold text-muted transition dark:border-gray-700 dark:bg-slate-900;
+  }
+  .stepper button span {
+    @apply grid h-8 w-8 place-items-center rounded-full border-2 border-primary/40 text-xs text-primary dark:border-blue-700/60 dark:text-slate-200;
+  }
+  .stepper button:disabled {
+    @apply cursor-default;
+  }
+  .stepper .is-done button {
+    @apply text-default;
+  }
+  .stepper .is-done button span {
+    @apply bg-primary/10 dark:bg-primary/25;
+  }
+  .stepper .is-current button {
+    @apply border-primary text-default;
+  }
+  .stepper .is-current button span {
+    @apply border-primary bg-primary text-white;
+  }
+  .booking-grid {
+    @apply grid items-start gap-4 xl:grid-cols-[minmax(0,8fr)_minmax(300px,4fr)] xl:gap-6;
+  }
+  .booking-main {
+    @apply relative min-w-0 px-5 py-6 md:p-9;
+  }
+  .bstep {
+    @apply m-0 min-w-0 border-0 p-0;
+  }
+  .bstep-title {
+    @apply mb-5 block p-0 font-heading text-2xl font-bold leading-tight tracking-tighter md:text-3xl;
+  }
+  .bstep-sub {
+    @apply mb-3 mt-8 flex items-baseline justify-between gap-3 text-sm font-bold uppercase tracking-wide text-secondary dark:text-blue-200;
+  }
+  .bstep-sub .hint {
+    @apply text-sm font-normal normal-case tracking-normal text-muted;
+  }
+  .bstep-nav {
+    @apply mt-8 flex flex-wrap items-center justify-between gap-3 border-t border-gray-200 pt-6 dark:border-slate-700;
+  }
+  .bstep-nav .btn-primary,
+  .bstep-nav .btn--primary {
+    @apply ml-auto;
+  }
+  .bstep-msg {
+    @apply w-full text-sm text-red-700 empty:hidden dark:text-red-400;
+  }
+  .choice-grid {
+    @apply grid gap-3;
+  }
+  .choice-grid--3 {
+    @apply md:grid-cols-3;
+  }
+  .choice-grid--2,
+  .choice-grid--4 {
+    @apply md:grid-cols-2;
+  }
+  .choice {
+    @apply relative block cursor-pointer;
+  }
+  .choice input {
+    @apply pointer-events-none absolute opacity-0;
+  }
+  .choice-box {
+    @apply grid h-full gap-2 rounded-lg border border-gray-200 bg-white p-4 transition hover:border-primary/40 dark:border-gray-700 dark:bg-slate-900;
+  }
+  .choice input:checked + .choice-box {
+    @apply border-primary ring-1 ring-primary;
+  }
+  .choice input:focus-visible + .choice-box {
+    @apply ring-2 ring-blue-500 ring-offset-2 dark:ring-offset-slate-900;
+  }
+  .choice input:disabled + .choice-box {
+    @apply cursor-not-allowed opacity-50;
+  }
+  .choice-top {
+    @apply flex items-center justify-between gap-2.5;
+  }
+  .choice-title {
+    @apply font-semibold leading-snug;
+  }
+  .choice-desc {
+    @apply text-sm text-muted;
+  }
+  .choice-meta {
+    @apply flex flex-wrap gap-x-3 gap-y-1 text-xs text-muted;
+  }
+  .choice-radio {
+    @apply grid h-[18px] w-[18px] shrink-0 place-items-center rounded-full border-2 border-gray-300 dark:border-slate-500;
+  }
+  .choice input:checked + .choice-box .choice-radio {
+    @apply border-primary;
+  }
+  .choice input:checked + .choice-box .choice-radio::after {
+    content: '';
+    @apply h-2 w-2 rounded-full bg-primary;
+  }
+  .staff-choice .choice-box {
+    @apply grid-cols-[3.25rem_minmax(0,1fr)] items-center gap-3 p-3;
+  }
+  .staff-choice img,
+  .staff-any {
+    @apply h-13 w-13 rounded-full object-cover;
+  }
+  .staff-any {
+    @apply grid place-items-center bg-gray-100 text-muted dark:bg-slate-800;
+  }
+  .staff-any svg {
+    @apply h-6 w-6;
+  }
+  .staff-note {
+    @apply text-xs text-muted;
+  }
+  .choice input:disabled + .choice-box .staff-note {
+    @apply text-red-700 dark:text-red-400;
+  }
+  .datetime {
+    @apply grid gap-6 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-8;
+  }
+  .cal-head {
+    @apply mb-3 flex items-center justify-between gap-3;
+  }
+  .cal-title {
+    @apply font-heading text-xl font-bold capitalize;
+  }
+  .cal-dow,
+  .cal-grid {
+    @apply grid grid-cols-7 gap-1;
+  }
+  .cal-dow {
+    @apply mb-1.5;
+  }
+  .cal-dow span {
+    @apply py-1 text-center text-[0.65rem] font-medium uppercase tracking-widest text-muted;
+  }
+  .cal-day {
+    @apply relative grid aspect-square min-h-[42px] content-center justify-items-center gap-0.5 rounded-lg border border-transparent tabular-nums transition sm:aspect-[1/0.9];
+  }
+  .cal-num {
+    @apply text-[0.95rem] font-semibold leading-none;
+  }
+  .cal-meta {
+    @apply whitespace-nowrap text-[0.56rem] leading-none text-muted;
+  }
+  .cal-day.is-available {
+    @apply bg-primary/10 text-primary hover:border-primary dark:bg-primary/25 dark:text-blue-200;
+  }
+  .cal-day.is-available .cal-meta,
+  .cal-day.is-full .cal-meta {
+    @apply text-current;
+  }
+  .cal-day.is-disabled {
+    @apply cursor-not-allowed text-muted;
+  }
+  .cal-day.is-past .cal-num {
+    @apply opacity-45;
+  }
+  .cal-day.is-closed .cal-num {
+    @apply opacity-55;
+  }
+  .cal-day.is-full {
+    @apply bg-amber-50 text-amber-800 dark:bg-amber-950/40 dark:text-amber-200;
+  }
+  .cal-day.is-today::before {
+    content: '';
+    @apply pointer-events-none absolute inset-[3px] rounded-md border border-dashed border-gray-400 dark:border-slate-500;
+  }
+  .cal-day[aria-pressed='true'] {
+    @apply border-primary bg-primary text-white;
+  }
+  .cal-legend {
+    @apply mt-3 flex flex-wrap gap-x-4 gap-y-1.5 text-xs text-muted;
+  }
+  .cal-legend span {
+    @apply inline-flex items-center gap-1.5;
+  }
+  .cal-legend i {
+    @apply h-3 w-3 rounded-sm;
+  }
+  .lg-free {
+    @apply border border-primary/30 bg-primary/10;
+  }
+  .lg-full {
+    @apply border border-amber-200 bg-amber-50 dark:border-amber-900 dark:bg-amber-950/40;
+  }
+  .lg-closed {
+    @apply border border-gray-300 dark:border-slate-600;
+  }
+  .lg-today {
+    @apply border border-dashed border-gray-400;
+  }
+  .slots {
+    @apply grid content-start gap-4;
+  }
+  .slots-head {
+    @apply grid gap-1 border-b border-gray-200 pb-3 dark:border-slate-700;
+  }
+  .slots-title {
+    @apply font-heading text-xl font-bold;
+  }
+  .slots-note {
+    @apply text-sm text-muted;
+  }
+  .slot-group {
+    @apply grid gap-2;
+  }
+  .slot-list {
+    @apply grid grid-cols-[repeat(auto-fill,minmax(76px,1fr))] gap-1.5;
+  }
+  .slot {
+    @apply min-h-11 rounded-full border border-gray-200 bg-white text-sm tabular-nums transition hover:border-primary dark:border-gray-700 dark:bg-slate-900;
+  }
+  .slot:disabled {
+    @apply cursor-not-allowed border-dashed bg-transparent text-muted line-through opacity-70 hover:border-gray-200 dark:bg-transparent;
+  }
+  .slot[aria-pressed='true'] {
+    @apply border-primary bg-primary text-white;
+  }
+  .slots-empty {
+    @apply rounded-lg border border-dashed border-gray-300 px-4 py-7 text-center text-sm text-muted dark:border-slate-600;
+  }
+  .slots-empty .btn {
+    @apply mt-3;
+  }
+  .skeleton {
+    @apply rounded-full bg-gray-100 motion-safe:animate-pulse dark:bg-slate-800;
+  }
+  .tz-note {
+    @apply flex items-start gap-2 rounded-lg bg-amber-50 px-3 py-2.5 text-sm dark:bg-amber-950/40;
+  }
+  .review {
+    @apply grid border-t border-gray-200 dark:border-slate-700;
+  }
+  .review-row {
+    @apply grid grid-cols-[minmax(0,1fr)_auto] gap-x-3 gap-y-1 border-b border-gray-200 py-3.5 dark:border-slate-700;
+  }
+  .review-row dt {
+    @apply col-start-1 text-xs font-medium uppercase tracking-widest text-muted;
+  }
+  .review-row dd {
+    @apply col-start-1;
+  }
+  .review-row button {
+    @apply col-start-2 row-span-2 row-start-1 self-center text-sm font-semibold text-muted underline hover:text-primary;
+  }
+  .prep {
+    @apply mt-6;
+  }
+  .prep ul {
+    @apply mt-2 grid gap-1.5 text-sm text-muted;
+  }
+  .prep li {
+    @apply grid grid-cols-[1rem_minmax(0,1fr)] gap-2;
+  }
+  .prep li::before {
+    content: '—';
+  }
+  .booking-summary {
+    @apply xl:sticky xl:top-24;
+  }
+  .summary-toggle {
+    @apply flex cursor-pointer list-none items-center justify-between gap-3 px-5 py-4 xl:cursor-default;
+  }
+  .summary-toggle::-webkit-details-marker {
+    display: none;
+  }
+  .summary-toggle svg {
+    @apply h-[18px] w-[18px] transition-transform xl:hidden;
+  }
+  details[open] > .summary-toggle svg {
+    @apply rotate-180;
+  }
+  .summary-body {
+    @apply px-5 pb-5;
+  }
+  .sum-list {
+    @apply grid border-t border-gray-200 dark:border-slate-700;
+  }
+  .sum-row {
+    @apply grid grid-cols-[6rem_minmax(0,1fr)] gap-2.5 border-b border-gray-200 py-2.5 text-sm dark:border-slate-700;
+  }
+  .sum-row dt {
+    @apply pt-0.5 text-[0.65rem] font-medium uppercase tracking-widest text-muted;
+  }
+  .sum-row dd.is-empty {
+    @apply text-muted;
+  }
+  .sum-total {
+    @apply flex items-baseline justify-between gap-3 pb-1.5 pt-4;
+  }
+  .sum-total b {
+    @apply font-heading text-3xl font-bold text-primary tabular-nums dark:text-white;
+  }
+  .sum-policy {
+    @apply mt-3 text-sm text-muted;
+  }
+  .sum-policy button {
+    @apply text-sm underline hover:text-primary;
+  }
+  .done {
+    @apply grid gap-6;
+  }
+  .done .bstep-title {
+    @apply mb-0;
+  }
+  .done-ref {
+    @apply grid justify-items-start gap-2;
+  }
+  .done-icon {
+    @apply grid h-16 w-16 place-items-center rounded-full bg-green-600 text-white dark:bg-green-700;
+  }
+  .done-icon svg {
+    @apply h-8 w-8;
+  }
+  .ref {
+    @apply inline-flex items-center gap-3 rounded-full bg-gray-100 py-1.5 pl-4 pr-1.5 font-semibold tracking-widest dark:bg-slate-800;
+  }
+  .ref .icon-btn {
+    @apply h-9 w-9 bg-white dark:bg-slate-900;
+  }
+  .done-actions {
+    @apply flex flex-wrap gap-2;
+  }
+  .done .demo-tag {
+    @apply -mb-3 text-amber-700 dark:text-amber-300;
+  }
+
+  /* ---------- İletişim: açık/kapalı ve çalışma saatleri (Features2 kartı içinde) ---------- */
+  .open-status {
+    @apply mb-3 inline-flex items-center gap-2 font-semibold text-default;
+  }
+  .open-status i {
+    @apply h-2.5 w-2.5 rounded-full bg-gray-400;
+  }
+  .open-status.is-open i {
+    @apply bg-green-600;
+  }
+  .open-status.is-closed i {
+    @apply bg-amber-500;
+  }
+  .hours {
+    @apply w-full text-sm;
+  }
+  .hours th {
+    @apply py-1 pr-3 text-left font-normal;
+  }
+  .hours td {
+    @apply py-1 text-right tabular-nums;
+  }
+  .hours tr.is-today {
+    @apply font-semibold text-default;
+  }
+
+  /* ---------- Mevsim notları: masaüstünde sürüklenir (site.js) ---------- */
+  [data-note] {
+    @apply relative;
+  }
+  @media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+    [data-note] {
+      cursor: grab;
+      touch-action: none;
+    }
+    [data-note].is-dragging {
+      cursor: grabbing;
+    }
+  }
+
+  /* ---------- Yüzen düğmeler ve sohbet ---------- */
+  .fab {
+    @apply fixed right-4 z-40 grid h-14 w-14 place-items-center rounded-full shadow-lg transition motion-reduce:transition-none md:right-7;
+  }
+  .fab:hover {
+    @apply -translate-y-0.5;
+  }
+  .fab-wa {
+    @apply bottom-[84px] bg-green-600 text-white hover:bg-green-700 md:bottom-[100px] dark:bg-green-700;
+  }
+  .fab-wa svg {
+    @apply h-[26px] w-[26px];
+  }
+  .fab-chat {
+    @apply bottom-4 bg-primary text-white hover:bg-secondary md:bottom-7;
+  }
+  .fab-chat svg {
+    @apply col-start-1 row-start-1 h-6 w-6 transition motion-reduce:transition-none;
+  }
+  .fab-chat .i-x {
+    @apply -rotate-90 scale-50 opacity-0;
+  }
+  .chat-open .fab-chat .i-chat {
+    @apply rotate-90 scale-50 opacity-0;
+  }
+  .chat-open .fab-chat .i-x {
+    @apply rotate-0 scale-100 opacity-100;
+  }
+  .chat-open .fab-wa,
+  .menu-open .fab,
+  body:has(#site-header.expanded) .fab,
+  body.fabs-off .fab-wa,
+  body.fabs-off:not(.chat-open) .fab-chat {
+    @apply pointer-events-none invisible translate-y-2.5 scale-90 opacity-0;
+  }
+  .fab-badge {
+    @apply absolute right-0.5 top-0.5 h-3 w-3 rounded-full border-2 border-white bg-amber-500 dark:border-slate-900;
+  }
+  .chat-open .fab-badge,
+  .fab-badge.is-hidden {
+    @apply hidden;
+  }
+  .chat {
+    @apply invisible fixed bottom-[84px] right-4 z-50 flex h-[min(620px,calc(100dvh-108px))] w-[min(400px,calc(100vw-32px))] origin-bottom-right translate-y-3 scale-[0.98] flex-col overflow-hidden rounded-lg border border-gray-200 bg-white text-default opacity-0 shadow-xl transition motion-reduce:transition-none md:bottom-[100px] md:right-7 dark:border-gray-700 dark:bg-slate-900;
+  }
+  .chat-open .chat {
+    @apply visible translate-y-0 scale-100 opacity-100;
+  }
+  @media (max-width: 480px) {
+    .chat {
+      @apply bottom-20 left-2 right-2 h-[calc(100dvh-96px)] w-auto;
+    }
+  }
+  .chat-head {
+    @apply flex items-center gap-3 bg-primary py-3 pl-4 pr-3 text-white;
+  }
+  .chat-avatar {
+    @apply grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white font-heading text-xl font-bold text-primary;
+  }
+  .chat-head-text {
+    @apply min-w-0 flex-1;
+  }
+  .chat-head-text b {
+    @apply block font-semibold leading-tight;
+  }
+  .chat-head-text > span {
+    @apply inline-flex items-center gap-1.5 text-xs text-white;
+  }
+  .chat-head-text .live-dot {
+    @apply bg-green-300;
+  }
+  .chat-head .icon-btn {
+    @apply text-white hover:bg-white/15 focus:ring-white/30 dark:text-white dark:hover:bg-white/15;
+  }
+  .chat-log {
+    @apply flex-1 overflow-y-auto overscroll-contain px-3.5 pb-2 pt-4;
+    scrollbar-width: thin;
+  }
+  .chat-day {
+    @apply mb-3.5 text-center text-[0.65rem] font-medium uppercase tracking-widest text-muted;
+  }
+  .msg {
+    @apply mt-2.5 flex first:mt-0;
+  }
+  .msg--user {
+    @apply justify-end;
+  }
+  .bubble {
+    @apply max-w-[88%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed;
+    overflow-wrap: anywhere;
+  }
+  .msg--bot .bubble {
+    @apply rounded-tl-md bg-gray-100 dark:bg-slate-800;
+  }
+  .msg--user .bubble {
+    @apply max-w-[80%] rounded-tr-md bg-primary text-white;
+  }
+  .bubble p + p {
+    @apply mt-1.5;
+  }
+  .bubble-title {
+    @apply mb-0.5 font-bold;
+  }
+  .bubble-rows {
+    @apply mt-2 grid;
+  }
+  .bubble-row {
+    @apply flex justify-between gap-3 border-t border-gray-200 py-1.5 text-[0.85rem] dark:border-slate-700;
+  }
+  .bubble-row span:last-child {
+    @apply whitespace-nowrap text-right text-muted tabular-nums;
+  }
+  .bubble-note {
+    @apply mt-2 text-xs text-muted;
+  }
+  .bubble-actions {
+    @apply mt-2.5 flex flex-wrap gap-1.5;
+  }
+  .bubble-action {
+    @apply inline-flex min-h-8 items-center rounded-full border border-gray-300 px-3 text-xs font-semibold transition hover:border-primary hover:text-primary dark:border-slate-600;
+  }
+  .bubble-action--primary {
+    @apply border-primary bg-primary text-white hover:bg-secondary hover:text-white;
+  }
+  .quick {
+    @apply mt-3 flex flex-wrap gap-1.5;
+  }
+  .quick button {
+    @apply rounded-full border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium transition hover:border-primary hover:text-primary dark:border-gray-700 dark:bg-slate-900;
+  }
+  .typing .bubble {
+    @apply inline-flex items-center gap-1 px-4 py-3.5;
+  }
+  .typing i {
+    @apply h-1.5 w-1.5 rounded-full bg-gray-400;
+  }
+  .chat-form {
+    @apply flex gap-2 border-t border-gray-200 px-3 pb-3 pt-2.5 dark:border-slate-700;
+  }
+  .chat-input {
+    @apply h-11 min-w-0 flex-1 rounded-full border border-gray-200 bg-white px-4 text-base text-default focus:border-primary focus:outline-none focus:ring-2 focus:ring-blue-500/40 dark:border-gray-700 dark:bg-slate-900;
+  }
+  .chat-send {
+    @apply grid h-11 w-11 shrink-0 place-items-center rounded-full bg-primary text-white transition hover:bg-secondary disabled:cursor-default disabled:opacity-35 disabled:hover:bg-primary;
+  }
+  .chat-send svg {
+    @apply h-5 w-5;
+  }
+  .chat-foot {
+    @apply px-3.5 pb-2.5 text-center text-[0.7rem] text-muted;
+  }
+
+  /* ---------- Demo şeridi: Announcement.astro çubuğu (site.js üst kenara ekler) ---------- */
+  .demo-bar {
+    @apply relative z-50 bg-slate-900 text-sm text-slate-300 dark:border-b dark:border-slate-800 dark:bg-transparent dark:text-slate-400;
+  }
+  .demo-bar-inner {
+    @apply flex flex-wrap items-center gap-x-3 gap-y-1.5 px-3 py-2;
+  }
+  .demo-bar-label {
+    @apply inline-block bg-white/20 px-1 py-0.5 text-xs font-semibold uppercase text-slate-100 dark:bg-slate-700 dark:text-slate-300;
+  }
+  .demo-bar p {
+    @apply flex-1 basis-64 font-medium;
+  }
+
+  /* ---------- Bildirim ---------- */
+  .toast {
+    @apply invisible fixed bottom-6 left-1/2 z-[60] -translate-x-1/2 translate-y-5 rounded-lg bg-slate-900 px-4 py-3 text-sm font-semibold text-slate-100 opacity-0 shadow-lg transition motion-reduce:transition-none dark:bg-slate-700;
+  }
+  .toast.is-on {
+    @apply visible translate-y-0 opacity-100;
+  }
+
+  /* ---------- Makale ve KVKK gövdesi (Tailwind Typography "prose" içinde) ---------- */
+  .prose .callout {
+    @apply my-6 rounded-lg bg-blue-50 px-5 py-4 text-base dark:bg-slate-800;
+  }
+  .prose .callout p {
+    @apply my-0;
+  }
+  .prose .callout .label {
+    @apply mb-1.5 flex text-xs font-bold tracking-wide text-secondary dark:text-blue-200;
+  }
+  .prose .callout--warn {
+    @apply bg-amber-50 dark:bg-amber-950/40;
+  }
+  .prose .callout--warn .label {
+    @apply text-amber-800 dark:text-amber-200;
+  }
+  .prose .mizan-sources {
+    @apply mt-12 border-t border-gray-200 pt-6 text-sm dark:border-slate-700;
+  }
+  .prose .mizan-sources .label {
+    @apply mb-0;
+  }
+  .prose .mizan-sources ol {
+    @apply mt-2 text-sm;
+  }
+}
+
+/* ---------- Hareket: yalnızca hareket azaltma kapalıyken ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .msg {
+    animation: mizan-msg-in 0.3s ease-out both;
+  }
+  .quick {
+    animation: mizan-msg-in 0.3s 0.05s ease-out both;
+  }
+  .typing i {
+    animation: mizan-wave 1.2s ease-in-out infinite;
+  }
+  .typing i:nth-child(2) {
+    animation-delay: 0.15s;
+  }
+  .typing i:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+  #recipe-dialog[open],
+  #cancel-dialog[open] {
+    animation: fadeInUp 0.35s ease-out;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .is-loading .btn-spinner {
+    animation-iteration-count: 1;
+  }
+}
+@keyframes mizan-msg-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes mizan-wave {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  30% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
+@keyframes mizan-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---------- Mobil: adım göstergesinde yalnızca geçerli adımın adı ---------- */
+@media (max-width: 719px) {
+  .stepper li:not(.is-current) button {
+    @apply w-auto pr-1.5;
+  }
+  .stepper li:not(.is-current) .step-text {
+    display: none;
+  }
+}
+@media (max-width: 479px) {
+  .cal-meta {
+    @apply h-[5px] w-[5px] rounded-full text-[0px];
+  }
+  .cal-day.is-available .cal-meta {
+    @apply bg-primary;
+  }
+  .cal-day.is-full .cal-meta {
+    @apply bg-amber-600;
+  }
+  .cal-day[aria-pressed='true'] .cal-meta {
+    @apply bg-white;
+  }
+}
+@media (max-width: 480px) {
+  .ingredients label {
+    @apply grid-cols-[1.25rem_minmax(0,1fr)_auto];
+  }
+  .ingredients label > span:last-child {
+    @apply col-start-2 row-start-1;
+  }
+  .ingredients .qty {
+    @apply col-start-3 row-start-1 text-right text-xs;
+  }
+}
+
+/* ---------- Baskı (örnek program / tarif) ---------- */
+@media print {
+  @page {
+    margin: 16mm;
+  }
+  html,
+  body {
+    background: #fff !important;
+    color: #000 !important;
+    padding: 0;
+  }
+  body * {
+    visibility: hidden;
+  }
+  .print-target,
+  .print-target * {
+    visibility: visible;
+  }
+  .print-target {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+  .print-target .btn,
+  .print-target .btn-primary,
+  .print-target .btn-secondary,
+  .print-target .program-actions,
+  .print-target .icon-btn {
+    display: none !important;
+  }
+  .meals,
+  .meal,
+  .program-tip {
+    border-color: #ccc !important;
+    background: #fff !important;
+  }
+}

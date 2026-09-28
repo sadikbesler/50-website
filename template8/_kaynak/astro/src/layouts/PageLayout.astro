@@ -1,0 +1,36 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import Header from '~/components/widgets/Header.astro';
+import Footer from '~/components/widgets/Footer.astro';
+import Sohbet from '~/components/mizan/Sohbet.astro';
+
+import { headerData, footerData } from '~/navigation';
+
+import type { MetaData } from '~/types';
+
+export interface Props {
+  metadata?: MetaData;
+  page?: 'home' | 'blog' | 'legal';
+  titleEn?: string;
+  descEn?: string;
+}
+
+const { metadata, page = 'legal', titleEn, descEn } = Astro.props;
+const isHome = page === 'home';
+
+// Mizan: AstroWind'in <Announcement /> çubuğu (Astro v7 duyurusu) kaldırıldı; yerine site.js
+// demo şeridini aynı çubuk görünümüyle üst kenara ekler (mizan.css → .demo-bar).
+---
+
+<Layout metadata={metadata} page={page} titleEn={titleEn} descEn={descEn} scripts={isHome ? 'home' : 'page'}>
+  <slot name="head" slot="head" />
+  <Header {...headerData(isHome)} isSticky showRssFeed showToggleTheme />
+  <main id="main" class="flex-1">
+    <slot />
+  </main>
+  <Footer {...footerData(isHome)} />
+
+  <slot name="after" />
+  <Sohbet />
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</Layout>

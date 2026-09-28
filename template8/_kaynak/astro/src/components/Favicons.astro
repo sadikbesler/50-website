@@ -1,0 +1,8 @@
+---
+// Mizan: AstroWind'in roket ikonları yerine kliniğin ikonları (public/assets/icons) ve web manifesti.
+import { getAsset } from '~/utils/permalinks';
+---
+
+<link rel="icon" href={getAsset('/assets/icons/favicon.svg')} type="image/svg+xml" />
+<link rel="apple-touch-icon" sizes="180x180" href={getAsset('/assets/icons/apple-touch-icon.png')} />
+<link rel="manifest" href={getAsset('/site.webmanifest')} />

@@ -1,0 +1,12 @@
+---
+// Mizan: <Font cssVariable="--font-inter" preload /> ile aynı çıktı, ama @font-face kuralları
+// satır içi <style> yerine assets/css/fonts.css dosyasından gelir (CSP style-src 'self').
+// @ts-expect-error — Astro'nun iç sanal modülü (astro/components/Font.astro da bunu kullanır)
+import { componentDataByCssVariable } from 'virtual:astro:assets/fonts/internal';
+import { getAsset } from '~/utils/permalinks';
+
+const data = componentDataByCssVariable.get('--font-inter') as { preloads: Array<{ url: string; type: string }> };
+---
+
+{data.preloads.map(({ url, type }) => <link rel="preload" href={url} as="font" type={`font/${type}`} crossorigin />)}
+<link rel="stylesheet" href={getAsset('/assets/css/fonts.css')} />

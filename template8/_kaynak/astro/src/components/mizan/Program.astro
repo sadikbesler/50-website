@@ -1,0 +1,38 @@
+---
+// Mizan: diyetisyen-v2 işaretlemesi (scripts/mizan-parcalar.py ile üretildi; elle düzenlemeyin).
+---
+
+<div class="program-top">
+  <div class="segmented" role="radiogroup" data-i18n-attr="aria-label:program.aria" aria-label="Program hedefi" data-plans>
+    <button type="button" role="radio" aria-checked="true" data-plan="lose"><span data-i18n="program.lose">Kilo verme</span><small data-i18n="program.k1">~1.500 kcal</small></button>
+    <button type="button" role="radio" aria-checked="false" data-plan="balance" tabindex="-1"><span data-i18n="program.balance">Dengeli</span><small data-i18n="program.k2">~1.900 kcal</small></button>
+    <button type="button" role="radio" aria-checked="false" data-plan="sport" tabindex="-1"><span data-i18n="program.sport">Sporcu</span><small data-i18n="program.k3">~2.500 kcal</small></button>
+  </div>
+  <div class="day-tabs" role="tablist" data-i18n-attr="aria-label:program.days" aria-label="Haftanın günleri" data-days></div>
+</div>
+
+<div class="program" id="program-print">
+  <ol class="meals" data-meals aria-live="polite"></ol>
+  <aside class="program-side">
+    <figure class="program-media">
+      <img src="assets/img/program-tahta-700.webp" srcset="assets/img/program-tahta-700.webp 700w, assets/img/program-tahta-1200.webp 1200w" sizes="30vw" width="1200" height="900" loading="lazy" decoding="async" alt="Ahşap tahta üzerinde avokado, yumurta, mantar, domates ve taze soğan" data-i18n-attr="alt:program.alt">
+    </figure>
+    <div class="tool-card">
+      <p class="label" data-i18n="program.total">Günlük toplam</p>
+      <p class="program-total"><b data-total>0</b><span class="mono">kcal</span></p>
+      <div class="macro-bars" data-macros></div>
+    </div>
+    <div class="program-tip">
+      <p class="label" data-i18n="program.tip">Günün notu</p>
+      <p data-tip></p>
+    </div>
+    <div class="program-actions">
+      <button type="button" class="btn-secondary py-2.5 px-5 md:px-5 text-sm" data-print-program>
+        <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9V3h12v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 14h10v7H7z"/></svg>
+        <span data-i18n="program.print">Yazdır</span>
+      </button>
+      <a class="btn-primary py-2.5 px-5 md:px-5 text-sm" href="#randevu" data-book-area="weight" data-program-book data-i18n="program.book">Bu hedefle randevu al</a>
+    </div>
+  </aside>
+</div>
+<p class="disclaimer" data-i18n="program.disclaimer">Bu menüler genel bir örnektir; gebelik, kronik hastalık, ilaç kullanımı veya 18 yaş altı gibi durumlarda doğrudan uygulanmamalıdır. Değerler yaklaşıktır.</p>

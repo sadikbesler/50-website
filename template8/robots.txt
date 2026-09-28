@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://sadikbesler.github.io/50-website/template8/sitemap.xml

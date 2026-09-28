@@ -1,0 +1,24 @@
+---
+import Layout from '~/layouts/Layout.astro';
+import { getHomePermalink } from '~/utils/permalinks';
+import { t } from '~/utils/mizan';
+
+// Mizan: AstroWind'in 404 düzeni, metinler Türkçe/İngilizce.
+const title = `Hata 404 | Mizan Beslenme`;
+---
+
+<Layout metadata={{ title, robots: { index: false, follow: true } }} page="legal" titleEn="Error 404 | Mizan Nutrition">
+  <section class="flex items-center h-full p-16">
+    <div class="container flex flex-col items-center justify-center px-5 mx-auto my-8">
+      <div class="max-w-md text-center">
+        <h2 class="mb-8 font-bold text-9xl">
+          <span class="sr-only" data-i18n="404.error">Hata</span>
+          <span class="text-primary">404</span>
+        </h2>
+        <p class="text-3xl font-semibold md:text-3xl" set:html={t('404.title')} />
+        <p class="mt-4 mb-8 text-lg text-muted dark:text-slate-400" set:html={t('404.text')} />
+        <a href={getHomePermalink()} class="btn ml-4" data-i18n="404.back">Ana sayfaya dön</a>
+      </div>
+    </div>
+  </section>
+</Layout>

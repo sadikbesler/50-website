@@ -1,0 +1,36 @@
+---
+// Mizan: diyetisyen-v2 işaretlemesi (scripts/mizan-parcalar.py ile üretildi; elle düzenlemeyin).
+---
+
+<dialog id="recipe-dialog" aria-labelledby="recipe-title">
+  <div class="dialog-scroll">
+    <button type="button" class="icon-btn dialog-close" data-close data-i18n-attr="aria-label:a11y.close" aria-label="Kapat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    <div class="recipe-dialog-grid">
+      <figure class="recipe-hero"><img data-recipe-img src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" width="1000" height="800" alt=""></figure>
+      <div class="recipe-content" data-recipe-content></div>
+    </div>
+  </div>
+</dialog>
+<dialog id="cancel-dialog" aria-labelledby="cancel-title">
+  <div class="dialog-scroll">
+    <button type="button" class="icon-btn dialog-close" data-close data-i18n-attr="aria-label:a11y.close" aria-label="Kapat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    <form class="recipe-content" id="cancel-form" novalidate>
+      <h2 id="cancel-title" data-i18n="cancel.title">Randevu iptali</h2>
+      <p class="muted" data-i18n="cancel.text">Onay e-postanızdaki referans kodunu ve randevuda kullandığınız e-posta adresini yazın. 24 saatten az kalan randevular için lütfen bizi arayın.</p>
+      <div class="form-grid form-grid--2">
+        <div class="field-group">
+          <label class="field-label" for="x-ref" data-i18n="cancel.ref">Referans kodu</label>
+          <input class="field mono" id="x-ref" name="ref" type="text" autocomplete="off" autocapitalize="characters" maxlength="12" placeholder="MZ-XXXXX" required aria-describedby="x-ref-err">
+          <p class="field-err" id="x-ref-err" aria-live="polite"></p>
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="x-email" data-i18n="form.email">E-posta</label>
+          <input class="field" id="x-email" name="email" type="email" autocomplete="email" maxlength="120" required aria-describedby="x-email-err">
+          <p class="field-err" id="x-email-err" aria-live="polite"></p>
+        </div>
+      </div>
+      <button type="submit" class="btn-primary"><span class="btn-spinner" aria-hidden="true"></span><span data-i18n="cancel.btn">Randevuyu iptal et</span></button>
+      <p class="form-status" data-cancel-status role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</dialog>

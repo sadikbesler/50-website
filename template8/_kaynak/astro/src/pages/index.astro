@@ -1,0 +1,471 @@
+---
+// Mizan ana sayfası — AstroWind widget'larıyla (eşleme: _kaynak/PARCALAR.md).
+import Layout from '~/layouts/PageLayout.astro';
+
+import Hero from '~/components/widgets/Hero.astro';
+import Stats from '~/components/widgets/Stats.astro';
+import Features from '~/components/widgets/Features.astro';
+import Gallery from '~/components/widgets/Gallery.astro';
+import Steps from '~/components/widgets/Steps.astro';
+import Note from '~/components/widgets/Note.astro';
+import Team from '~/components/widgets/Team.astro';
+import Content from '~/components/widgets/Content.astro';
+import Pricing from '~/components/widgets/Pricing.astro';
+import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
+import FAQs from '~/components/widgets/FAQs.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+import Contact from '~/components/widgets/Contact.astro';
+import Features2 from '~/components/widgets/Features2.astro';
+
+import Araclar from '~/components/mizan/Araclar.astro';
+import Program from '~/components/mizan/Program.astro';
+import Tarifler from '~/components/mizan/Tarifler.astro';
+import Saat from '~/components/mizan/Saat.astro';
+import Randevu from '~/components/mizan/Randevu.astro';
+import IletisimFormu from '~/components/mizan/IletisimFormu.astro';
+import Pencereler from '~/components/mizan/Pencereler.astro';
+
+import { SITE } from 'astrowind:config';
+import { t, tr } from '~/utils/mizan';
+import { imgHtml } from '~/utils/images';
+import { getCanonical, getHomePermalink } from '~/utils/permalinks';
+
+const canonical = String(getCanonical(getHomePermalink()));
+// Başlık ve açıklama: config.yaml → metadata (diyetisyen-v2'nin Türkçe <title> ve description'ı)
+const metadata = {
+  canonical,
+  ogTitle: 'Diyetisyen web sitesi · Template 8 (AstroWind)',
+  ogDescription:
+    'AstroWind temasının widget’larıyla (Astro 7 + Tailwind 4) kurulmuş, blogu Markdown’dan üretilen bir diyetisyen sitesi. Online randevu, hesaplama araçları, tarifler ve blog aynen çalışıyor.',
+  openGraph: {
+    images: [{ url: '/assets/img/og-image.jpg', width: 1200, height: 630 }],
+  },
+};
+
+const WA = 'https://wa.me/905555555555';
+const TEL = 'tel:+905555555555';
+const MAPS = 'https://www.google.com/maps/search/?api=1&query=Moda+Caddesi+Kad%C4%B1k%C3%B6y+%C4%B0stanbul';
+const blueBg = '<div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>';
+
+// diyetisyen-v2'nin yapılandırılmış verisi (MedicalClinic + WebSite), adresleri template8'e göre
+const siteUrl = canonical;
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    { '@type': 'WebSite', '@id': `${siteUrl}#website`, url: siteUrl, name: SITE.name, inLanguage: ['tr-TR', 'en-US'] },
+    {
+      '@type': 'MedicalClinic',
+      '@id': `${siteUrl}#clinic`,
+      name: 'Mizan Beslenme ve Diyet Kliniği',
+      url: siteUrl,
+      image: `${siteUrl}assets/img/og-image.jpg`,
+      logo: `${siteUrl}assets/icons/apple-touch-icon.png`,
+      description:
+        'Kadıköy’de uzman diyetisyenlerle kilo yönetimi, klinik beslenme, sporcu beslenmesi, gebelik ve çocuk beslenmesi danışmanlığı. Yüz yüze ve online görüşme.',
+      medicalSpecialty: 'https://schema.org/DietNutrition',
+      telephone: '+905555555555',
+      email: 'randevu@mizanbeslenme.com',
+      priceRange: '₺₺',
+      currenciesAccepted: 'TRY',
+      paymentAccepted: 'Nakit, Kredi kartı, Havale',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: 'Moda Cad. No: 48, Kat 3',
+        addressLocality: 'Kadıköy',
+        addressRegion: 'İstanbul',
+        postalCode: '34710',
+        addressCountry: 'TR',
+      },
+      openingHoursSpecification: [
+        { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '09:00', closes: '20:00' },
+        { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Saturday', opens: '10:00', closes: '15:00' },
+      ],
+      availableService: [
+        { '@type': 'MedicalTherapy', name: 'Kilo yönetimi danışmanlığı' },
+        { '@type': 'MedicalTherapy', name: 'Klinik beslenme (insülin direnci, diyabet, PCOS, tiroit)' },
+        { '@type': 'MedicalTherapy', name: 'Sporcu beslenmesi' },
+        { '@type': 'MedicalTherapy', name: 'Gebelik ve emzirme döneminde beslenme' },
+        { '@type': 'MedicalTherapy', name: 'Çocuk ve ergen beslenmesi' },
+        { '@type': 'MedicalTherapy', name: 'Online diyet danışmanlığı' },
+      ],
+      employee: [
+        { '@type': 'Person', name: 'Selin Karaca', jobTitle: 'Uzman Diyetisyen' },
+        { '@type': 'Person', name: 'Emre Aksoy', jobTitle: 'Diyetisyen' },
+        { '@type': 'Person', name: 'Zeynep Tunalı', jobTitle: 'Diyetisyen' },
+      ],
+      sameAs: ['https://instagram.com/mizanbeslenme'],
+    },
+  ],
+};
+
+// SSS: 10 soru; FAQPage JSON-LD (#faq-schema) derlemede Türkçe doldurulur, site.js dile göre yeniler.
+const faqKeys = Array.from({ length: 10 }, (_, i) => i + 1);
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  inLanguage: 'tr',
+  mainEntity: faqKeys.map((i) => ({
+    '@type': 'Question',
+    name: tr(`faq.q${i}`),
+    acceptedAnswer: { '@type': 'Answer', text: tr(`faq.a${i}`) },
+  })),
+};
+
+const services = [
+  { n: 1, icon: 'tabler:scale', attr: { 'data-book-area': 'weight' }, btn: 'services.book' },
+  { n: 2, icon: 'tabler:stethoscope', attr: { 'data-book-area': 'clinical' }, btn: 'services.book' },
+  { n: 3, icon: 'tabler:run', attr: { 'data-book-area': 'sports' }, btn: 'services.bookShort' },
+  { n: 4, icon: 'tabler:heart', attr: { 'data-book-area': 'pregnancy' }, btn: 'services.bookShort' },
+  { n: 5, icon: 'tabler:baby-carriage', attr: { 'data-book-area': 'kids' }, btn: 'services.bookShort' },
+  { n: 6, icon: 'tabler:device-laptop', attr: { 'data-book-type': 'online' }, btn: 'services.bookShort' },
+];
+
+const notes = [
+  { file: 'not-incir-720.webp', w: 720, h: 720 },
+  { file: 'not-zeytin-720.webp', w: 720, h: 1080 },
+  { file: 'not-ekmek-720.webp', w: 720, h: 960 },
+  { file: 'not-limon-720.webp', w: 720, h: 480 },
+  { file: 'not-ceviz-720.webp', w: 720, h: 480 },
+  { file: 'not-nar-720.webp', w: 720, h: 1008 },
+  { file: 'not-nane-720.webp', w: 720, h: 1080 },
+];
+
+const staff = [
+  { id: 'selin', photo: 'uzman-selin-560.webp' },
+  { id: 'emre', photo: 'uzman-emre-560.webp' },
+  { id: 'zeynep', photo: 'uzman-zeynep-560.webp' },
+];
+
+const check = (key: string) => ({ description: t(key) });
+---
+
+<Layout metadata={metadata} page="home">
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+    <script is:inline type="application/ld+json" id="faq-schema" set:html={JSON.stringify(faqSchema)} />
+  </Fragment>
+
+  {/* S2 · Hero */}
+  <Hero
+    id="top"
+    tagline={t('hero.kicker')}
+    title={t('hero.title', 'id="hero-title"')}
+    subtitle={t('hero.lede')}
+    actions={[
+      { variant: 'primary', text: t('hero.cta1'), href: '#randevu', icon: 'tabler:calendar-event' },
+      { text: t('hero.cta2'), href: '#araclar' },
+    ]}
+    image={imgHtml({
+      src: '/assets/img/hero-gezegen-son.jpg',
+      alt: tr('hero.canvas'),
+      altKey: 'hero.canvas',
+      cls: 'mx-auto rounded-md w-full',
+      width: 1280,
+      height: 720,
+      eager: true,
+    })}
+  >
+    <Fragment slot="content">
+      <aside
+        class="next-slot hero-bottom mt-10 mx-auto max-w-md rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-900 shadow px-6 py-5 text-left"
+        id="next-slot"
+        aria-live="polite"
+        data-i18n-attr="aria-label:next.aria"
+        aria-label="En yakın uygun randevu"
+      >
+        <p class="label"><span class="live-dot" aria-hidden="true"></span><span data-i18n="next.label">En yakın uygun randevu</span></p>
+        <p class="next-slot-time" data-next-time><span data-i18n="next.loading">Takvim kontrol ediliyor…</span></p>
+        <p class="next-slot-meta" data-next-meta>&nbsp;</p>
+        <a class="next-slot-link" href="#randevu" data-next-book data-i18n="next.book">Bu saati ayır</a>
+      </aside>
+    </Fragment>
+  </Hero>
+
+  {/* S3 · Kısa bilgiler */}
+  <Stats
+    classes={{ container: 'facts' }}
+    stats={[
+      { amount: `12 ${t('facts.1u')}`, title: t('facts.1') },
+      { amount: `3 ${t('facts.2u')}`, title: t('facts.2') },
+      { amount: `60 ${t('facts.3u')}`, title: t('facts.3') },
+      { amount: `7 ${t('facts.4u')}`, title: t('facts.4') },
+    ]}
+  />
+
+  {/* S4 · Hizmetler */}
+  <Features
+    id="hizmetler"
+    tagline={t('tag.services')}
+    title={t('services.title')}
+    subtitle={t('services.lede')}
+    items={services.map(({ n, icon, attr, btn }) => ({
+      title: t(`s${n}.title`),
+      description: t(`s${n}.text`),
+      icon,
+      callToAction: { text: `${t(btn)} »`, href: '#randevu', ...attr },
+    }))}
+  />
+
+  {/* S5 · Mevsim notları (Gallery düzeni; kartlar masaüstünde site.js ile sürüklenir) */}
+  <Gallery
+    columns={4}
+    lightbox={false}
+    classes={{ container: 'notes-panel' }}
+    tagline={t('notes.eyebrow')}
+    title={t('notes.title', 'id="notes-title"')}
+    subtitle={`<a class="text-primary hover:underline dark:text-blue-400" href="#tarifler" data-i18n="notes.p1">${tr('notes.p1')}</a> · <a class="text-primary hover:underline dark:text-blue-400" href="#program" data-i18n="notes.p2">${tr('notes.p2')}</a> · <a class="text-primary hover:underline dark:text-blue-400" href="#blog" data-i18n="notes.p3">${tr('notes.p3')}</a>`}
+    images={notes.map((n, i) => ({
+      src: `/assets/img/${n.file}`,
+      alt: tr(`notes.a${i + 1}`),
+      caption: t(`notes.c${i + 1}`),
+      attrs: { 'data-note': true },
+      html: imgHtml({
+        src: `/assets/img/${n.file}`,
+        alt: tr(`notes.a${i + 1}`),
+        altKey: `notes.a${i + 1}`,
+        cls: 'aspect-[4/3] w-full object-cover transition group-hover:scale-[1.03]',
+        width: n.w,
+        height: n.h,
+        extra: 'draggable="false"',
+      }),
+    }))}
+  >
+    <Fragment slot="bg"><Fragment set:html={blueBg} /></Fragment>
+  </Gallery>
+
+  {/* S6 · Yaklaşım / süreç */}
+  <Steps
+    id="yaklasim"
+    tagline={t('tag.process')}
+    title={t('process.title')}
+    subtitle={t('process.lede')}
+    items={[
+      { n: 1, icon: 'tabler:clipboard-text' },
+      { n: 2, icon: 'tabler:activity' },
+      { n: 3, icon: 'tabler:file-description' },
+      { n: 4, icon: 'tabler:calendar-repeat' },
+    ].map(({ n, icon }) => ({
+      title: `${t(`step${n}.title`)}: <span class="font-medium">${t(`step${n}.meta`)}</span>`,
+      description: t(`step${n}.text`),
+      icon,
+    }))}
+    image={imgHtml({
+      src: '/assets/img/surec-mutfak-1200.webp',
+      alt: tr('process.alt'),
+      altKey: 'process.alt',
+      cls: 'inset-0 object-cover object-top w-full rounded-md shadow-lg md:absolute md:h-full bg-gray-400 dark:bg-slate-700',
+      sizes: '(max-width: 768px) 100vw, 432px',
+      width: 1200,
+      height: 900,
+    })}
+  />
+
+  {/* S7 · Yöntem (manifesto) — Note bandı, yalnızca metin */}
+  <Note
+    id="manifesto"
+    icon="tabler:quote"
+    title={t('scene.l1')}
+    description={`${t('scene.l2')} ${t('scene.l3')} ${t('scene.l4')}`}
+  />
+
+  {/* S8 · Uzmanlar */}
+  <Team
+    id="uzmanlar"
+    columns={3}
+    tagline={t('tag.team')}
+    title={t('team.title')}
+    subtitle={t('team.lede')}
+    members={staff.map(({ id, photo }) => ({
+      name: t(`team.${id}.name`),
+      role: t(`team.${id}.area`),
+      bio: t(`team.${id}.bio`),
+      image: imgHtml({
+        src: `/assets/img/${photo}`,
+        alt: tr(`team.${id}.alt`),
+        altKey: `team.${id}.alt`,
+        cls: 'mx-auto h-32 w-32 rounded-full object-cover shadow-md md:h-36 md:w-36',
+        sizes: '144px',
+        width: 144,
+        height: 144,
+      }),
+      callToAction: { text: `${t(`team.${id}.btn`)} »`, href: '#randevu', 'data-book-staff': id },
+    }))}
+  />
+
+  {/* S9 · Araçlar */}
+  <Content
+    id="araclar"
+    tagline={t('tag.tools')}
+    title={t('tools.title')}
+    subtitle={t('tools.lede')}
+    classes={{ content: 'mb-0 text-base dark:text-default' }}
+  >
+    <Fragment slot="content"><Araclar /></Fragment>
+  </Content>
+
+  {/* S10 · Örnek program */}
+  <Content
+    id="program"
+    tagline={t('tag.program')}
+    title={t('program.title')}
+    subtitle={t('program.lede')}
+    classes={{ content: 'mb-0 text-base dark:text-default print-scope' }}
+  >
+    <Fragment slot="content"><Program /></Fragment>
+    <Fragment slot="bg"><Fragment set:html={blueBg} /></Fragment>
+  </Content>
+
+  {/* S11 · Tarifler */}
+  <Content
+    id="tarifler"
+    tagline={t('tag.recipes')}
+    title={t('recipes.title')}
+    subtitle={t('recipes.lede')}
+    classes={{ content: 'mb-0 text-base dark:text-default' }}
+  >
+    <Fragment slot="content"><Tarifler /></Fragment>
+  </Content>
+
+  {/* S12 · Ücretler */}
+  <Pricing
+    id="ucretler"
+    tagline={t('tag.pricing')}
+    title={t('pricing.title')}
+    subtitle={t('pricing.lede')}
+    currency=""
+    prices={[
+      {
+        title: t('plan1.label'),
+        subtitle: t('plan1.sub'),
+        price: t('price.p1'),
+        period: '<span class="normal-case">TL</span>',
+        items: ['plan1.f1', 'plan1.f2', 'plan1.f3', 'plan1.f4'].map(check),
+        callToAction: { text: t('plan1.btn'), href: '#randevu', 'data-book-type': 'first' },
+      },
+      {
+        title: t('plan2.label'),
+        subtitle: t('plan2.sub'),
+        price: t('price.p2'),
+        period: t('plan2.per', 'class="normal-case"'),
+        items: ['plan2.f1', 'plan2.f2', 'plan2.f3', 'plan2.f4', 'plan2.f5'].map(check),
+        callToAction: { text: t('plan2.btn'), href: '#randevu', 'data-book-type': 'first' },
+        highlight: true,
+      },
+      {
+        title: t('plan3.label'),
+        subtitle: t('plan3.sub'),
+        price: t('price.p3'),
+        period: '<span class="normal-case">TL</span>',
+        items: ['plan3.f1', 'plan3.f2', 'plan3.f3', 'plan3.f4', 'plan3.f5'].map(check),
+        callToAction: { text: t('plan3.btn'), href: '#randevu', 'data-book-type': 'first' },
+      },
+    ]}
+  >
+    <Fragment slot="bg"><Fragment set:html={blueBg} /></Fragment>
+  </Pricing>
+
+  {/* S12 · Neler dahil + kurumsal (AstroWind /pricing sayfasındaki "fiyatla ilgili özellikler" kalıbı) */}
+  <Features
+    columns={3}
+    title={t('incl.title')}
+    subtitle={t('incl.text')}
+    classes={{ container: 'pt-0 md:pt-0 lg:pt-0' }}
+    items={[
+      {
+        title: t('incl.yesTitle'),
+        icon: 'tabler:circle-check',
+        description: ['incl.y1', 'incl.y2', 'incl.y3', 'incl.y4', 'incl.y5'].map((k) => t(k)).join('<br>'),
+      },
+      {
+        title: t('incl.noTitle'),
+        icon: 'tabler:circle-minus',
+        description: ['incl.n1', 'incl.n2', 'incl.n3', 'incl.n4'].map((k) => t(k)).join('<br>'),
+      },
+      {
+        title: t('pricing.corpTitle'),
+        icon: 'tabler:building',
+        description: t('pricing.corpText'),
+        callToAction: { text: `${t('pricing.corpBtn')} »`, href: '#iletisim', 'data-contact-topic': 'corporate' },
+      },
+    ]}
+  >
+    <Fragment slot="bg"><Fragment set:html={blueBg} /></Fragment>
+  </Features>
+
+  {/* S13 · Randevu */}
+  <Content
+    id="randevu"
+    tagline={t('tag.booking')}
+    title={t('booking.title')}
+    subtitle={t('booking.lede')}
+    classes={{ content: 'mb-0 text-base dark:text-default' }}
+  >
+    <Fragment slot="content"><Saat /><Randevu /></Fragment>
+  </Content>
+
+  {/* S14 · Blog */}
+  <BlogLatestPosts
+    id="blog"
+    title={t('blog.title')}
+    linkText={t('blog.all')}
+    information={t('blog.lede')}
+    count={6}
+  >
+    <Fragment slot="bg"><Fragment set:html={blueBg} /></Fragment>
+  </BlogLatestPosts>
+
+  {/* S15 · SSS */}
+  <FAQs
+    id="sss"
+    tagline={t('tag.faq')}
+    title={t('faq.title')}
+    subtitle={`${t('faq.help')}<span class="mt-5 flex flex-wrap justify-center gap-3"><button type="button" class="btn-primary py-2.5 px-5 md:px-5 text-sm" data-open-chat data-i18n="faq.chat">${tr('faq.chat')}</button><a class="btn-secondary py-2.5 px-5 md:px-5 text-sm" href="${WA}" target="_blank" rel="noopener noreferrer" data-wa>WhatsApp</a></span>`}
+    items={faqKeys.map((i) => ({ title: t(`faq.q${i}`), description: t(`faq.a${i}`) }))}
+  />
+
+  {/* S16 · "afiyet olsun" bandı (CallToAction, banner düzeni) */}
+  <CallToAction
+    layout="banner"
+    classes={{ container: 'sky' }}
+    title={t('sky.word')}
+    subtitle={t('sky.title')}
+    actions={[
+      { variant: 'primary', text: 'WhatsApp', href: WA, target: '_blank', icon: 'tabler:brand-whatsapp', 'data-wa': true },
+      { text: t('sky.call'), href: TEL, icon: 'tabler:phone', 'data-tel': true },
+      { text: t('sky.map'), href: MAPS, target: '_blank', icon: 'tabler:map-pin', 'data-maps': true },
+    ]}
+  />
+
+  {/* S17 · İletişim: Contact widget'ının form kartı + /contact sayfasındaki Features2 kartları */}
+  <Contact id="iletisim" tagline={t('tag.contact')} title={t('contact.title')} subtitle={t('contact.lede')}>
+    <IletisimFormu />
+  </Contact>
+  <Features2
+    columns={3}
+    classes={{ container: 'pt-0 md:pt-0 lg:pt-0' }}
+    items={[
+      {
+        title: t('contact.address'),
+        icon: 'tabler:map-pin',
+        description: `<p data-address>Moda Cad. No: 48, Kat 3, Kadıköy / İstanbul</p><p class="mt-1">${t('contact.transit')}</p><p class="mt-3"><a class="text-primary hover:underline dark:text-blue-400" href="${MAPS}" target="_blank" rel="noopener noreferrer" data-maps data-i18n="contact.directions">${tr('contact.directions')}</a></p>`,
+      },
+      {
+        title: t('contact.reach'),
+        icon: 'tabler:headset',
+        description: `<p><a class="hover:text-primary hover:underline" href="${TEL}" data-tel data-phone-text>0555 555 55 55</a></p><p><a class="hover:text-primary hover:underline" href="${WA}" target="_blank" rel="noopener noreferrer" data-wa>WhatsApp</a></p><p><a class="hover:text-primary hover:underline" href="mailto:randevu@mizanbeslenme.com" data-mail>randevu@mizanbeslenme.com</a></p><p><a class="hover:text-primary hover:underline" href="https://instagram.com/mizanbeslenme" target="_blank" rel="noopener noreferrer">Instagram</a></p>`,
+      },
+      {
+        title: t('contact.hours'),
+        icon: 'tabler:clock',
+        description: `<p class="open-status" data-open-status><i aria-hidden="true"></i><span>&nbsp;</span></p><table class="hours" data-hours><tbody>${[1, 2, 3, 4, 5, 6, 0]
+          .map(
+            (d) =>
+              `<tr data-dow="${d}"><th scope="row" data-i18n="day.${d}">${tr(`day.${d}`)}</th><td${d === 0 ? ' data-i18n="contact.closed"' : ''}>${d === 0 ? tr('contact.closed') : d === 6 ? '10:00 – 15:00' : '09:00 – 20:00'}</td></tr>`
+          )
+          .join('')}</tbody></table>`,
+      },
+    ]}
+  />
+
+  <Fragment slot="after"><Pencereler /></Fragment>
+</Layout>

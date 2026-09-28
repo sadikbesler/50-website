@@ -1,0 +1,72 @@
+---
+import type { InferGetStaticPropsType, GetStaticPaths } from 'astro';
+
+import Layout from '~/layouts/PageLayout.astro';
+import BlogList from '~/components/blog/List.astro';
+import Headline from '~/components/blog/Headline.astro';
+import Pagination from '~/components/blog/Pagination.astro';
+import Breadcrumbs from '~/components/common/Breadcrumbs.astro';
+import { getPermalink, getBlogPermalink, getCanonical } from '~/utils/permalinks';
+import { t, tr } from '~/utils/mizan';
+// import PostTags from "~/components/blog/Tags.astro";
+
+import { blogListRobots, getStaticPathsBlogList } from '~/utils/blog';
+
+export const prerender = true;
+
+export const getStaticPaths = (async ({ paginate }) => {
+  return await getStaticPathsBlogList({ paginate });
+}) satisfies GetStaticPaths;
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { page } = Astro.props as Props;
+const currentPage = page.currentPage ?? 1;
+
+const breadcrumbs = [
+  { text: tr('crumbs.home'), html: t('crumbs.home'), href: getPermalink('/') },
+  ...(currentPage > 1
+    ? [{ text: 'Blog', html: t('nav.blog'), href: getBlogPermalink() }, { text: `${currentPage}` }]
+    : [{ text: 'Blog', html: t('nav.blog') }]),
+];
+
+// const allCategories = await findCategories();
+// const allTags = await findTags();
+
+// Mizan: diyetisyen-v2 blog/index.html'in başlık ve açıklaması
+const metadata = {
+  title: `Blog: Beslenme ve Diyet Yazıları | Mizan Beslenme${currentPage > 1 ? ` — ${currentPage}` : ''}`,
+  description:
+    'İnsülin direnci, aralıklı oruç, su ve protein ihtiyacı, Akdeniz tipi beslenme ve etiket okuma üzerine uzman diyetisyenlerin kanıta dayalı yazıları.',
+  canonical: String(getCanonical(getBlogPermalink())),
+  robots: {
+    index: blogListRobots?.index && currentPage === 1,
+    follow: blogListRobots?.follow,
+  },
+  openGraph: {
+    type: 'blog',
+  },
+};
+---
+
+<Layout
+  metadata={metadata}
+  page="blog"
+  titleEn="Blog: Nutrition Articles | Mizan Nutrition"
+  descEn="Evidence-based articles by our dietitians on insulin resistance, intermittent fasting, water and protein needs, the Mediterranean diet and reading food labels."
+>
+  <Fragment slot="head">
+    {page.url.prev && <link rel="prev" href={page.url.prev} />}
+    {page.url.next && <link rel="next" href={page.url.next} />}
+  </Fragment>
+  <Breadcrumbs bar items={breadcrumbs} />
+  <section class="px-6 sm:px-6 py-12 sm:py-16 lg:py-20 mx-auto max-w-4xl">
+    <Headline title={t('blogpage.title', 'id="blog-title"')} subtitle={t('blogpage.lede')} />
+    <BlogList posts={page.data} />
+    <Pagination prevUrl={page.url.prev} nextUrl={page.url.next} />
+    <!--
+      <PostTags tags={allCategories} class="mb-2" title="Search by Categories:" isCategory />
+      <PostTags tags={allTags}  title="Search by Tags:" />
+    -->
+  </section>
+</Layout>

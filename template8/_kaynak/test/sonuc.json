@@ -1,0 +1,366 @@
+{
+  "1 konsol": {
+    "gecti": true,
+    "not": {}
+  },
+  "2 tasma": {
+    "gecti": true,
+    "not": {}
+  },
+  "3 sozlesme": {
+    "gecti": true,
+    "not": {
+      "eksik": [],
+      "ilkYuklemedeOlmayan": [
+        ".servings",
+        "[data-intent]"
+      ]
+    }
+  },
+  "3 sozlesme (.cal-day/.slot)": {
+    "gecti": true
+  },
+  "4 randevu": {
+    "gecti": true,
+    "not": {
+      "bosFormHata": 4,
+      "ozetSatir": 8,
+      "done": {
+        "ref": "MZ-RYZVV",
+        "gcal": true
+      },
+      "ics": "mizan-randevu-MZ-RYZVV.ics",
+      "iptalAcik": true,
+      "iptalHata": true
+    }
+  },
+  "5 araclar": {
+    "gecti": true,
+    "not": {
+      "vki": "24,2",
+      "kcal": "1.730",
+      "doluBardakYenilemeSonrasi": 3
+    }
+  },
+  "6 program-tarif": {
+    "gecti": true,
+    "not": {
+      "gunDegisti": true,
+      "toplam": [
+        "1.500",
+        "2.580"
+      ],
+      "tarif": [
+        9,
+        2
+      ],
+      "scaled": {
+        "q0": "80 g",
+        "q1": "120 g",
+        "porsiyon": "3"
+      }
+    }
+  },
+  "7 sohbet": {
+    "gecti": true,
+    "not": {
+      "acik": true,
+      "fiyat": "Güncel ücretlerimiz:İlk görüşme · 60 dk1.800 TLKontrol görüşmesi · 30 dk900 TLOn",
+      "randevu": "En yakın uygun ilk görüşme (60 dk, vücut analizi dahil): Yarın, saat 09:00 · Uzm",
+      "cb": [
+        "Memnuniyetle. Diyetisyenimiz mesai saatleri içinde",
+        "Teşekkürler Test. Size hangi numaradan ulaşalım?",
+        "Geri arama talebiniz alındı (demo). Bu bir demo olduğu için sizi kimse aramayaca"
+      ],
+      "blogCevap": "İnsülin direncinde amaç kan şekerindeki ani yükselişleri aza",
+      "blogLink": "http://localhost:8801/50-website/template8/blog/insulin-direnci-beslenme.html",
+      "blogDurum": 200
+    }
+  },
+  "8 dil-tema": {
+    "gecti": true,
+    "not": {
+      "trKalan": [],
+      "enUrl": "http://localhost:8801/50-website/template8/?lang=en",
+      "koyu": true,
+      "korundu": {
+        "dark": true,
+        "lang": "en"
+      },
+      "geri": {
+        "dark": false,
+        "lang": "tr"
+      },
+      "altSayfa": {
+        "index": {
+          "lang": "en",
+          "title": "Dietitian in Kadıköy, Istanbul | Mizan Nutrition & Dietetics Clinic · Book Online",
+          "trKalan": []
+        },
+        "blog/": {
+          "lang": "en",
+          "title": "Blog: Nutrition Articles | Mizan Nutrition",
+          "trKalan": []
+        },
+        "blog/protein-ihtiyaci.html": {
+          "lang": "en",
+          "title": "Protein needs, for active and less active people | Mizan Nutrition",
+          "trKalan": []
+        },
+        "kvkk.html": {
+          "lang": "en",
+          "title": "Privacy Notice (KVKK) | Mizan Nutrition",
+          "trKalan": []
+        }
+      }
+    }
+  },
+  "9 axe": {
+    "gecti": true,
+    "not": {
+      "ciddi": {
+        "index-acik": [],
+        "index-koyu": [],
+        "makale": [],
+        "makale-koyu": [],
+        "blog": [],
+        "kvkk-koyu": [],
+        "takvim-light": [],
+        "tarif-penceresi-light": [],
+        "sohbet-light": [],
+        "takvim-dark": [],
+        "tarif-penceresi-dark": [],
+        "sohbet-dark": []
+      },
+      "tum": {
+        "index-acik": [],
+        "index-koyu": [],
+        "makale": [],
+        "makale-koyu": [],
+        "blog": [],
+        "kvkk-koyu": [],
+        "takvim-light": [],
+        "tarif-penceresi-light": [],
+        "sohbet-light": [],
+        "takvim-dark": [],
+        "tarif-penceresi-dark": [],
+        "sohbet-dark": []
+      }
+    }
+  },
+  "10 hareket-azaltma": {
+    "gecti": true,
+    "not": {
+      "sonsuz": [],
+      "gizli": [],
+      "soluk": 0
+    }
+  },
+  "11 js-kapali": {
+    "gecti": true,
+    "not": {
+      "gizliBolum": [],
+      "soluk": [],
+      "metin": 10500,
+      "notGorsel": 7
+    }
+  },
+  "kabul: AstroWind tokenlari": {
+    "gecti": true,
+    "not": {
+      "sonuc": {
+        "body": {
+          "fontSize": "16px",
+          "color": "rgb(16, 16, 16)",
+          "backgroundColor": "rgb(255, 255, 255)",
+          "letterSpacing": "-0.4px",
+          "fontFamily": "Inter-62361d67a6f9900e, \"Inter-62361d67a6f9900e fallback: Arial\", sans-serif, ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\""
+        },
+        "h1": {
+          "fontSize": "60px",
+          "fontWeight": "700",
+          "lineHeight": "60px",
+          "letterSpacing": "-3px"
+        },
+        "h2": {
+          "fontSize": "36px",
+          "fontWeight": "700",
+          "lineHeight": "40px",
+          "letterSpacing": "-1.8px"
+        },
+        "btnPrimary": {
+          "backgroundColor": "rgb(1, 97, 239)",
+          "color": "rgb(255, 255, 255)",
+          "borderRadius": "3.35544e+07px",
+          "paddingTop": "14px",
+          "paddingLeft": "32px",
+          "fontSize": "16px",
+          "fontWeight": "600"
+        },
+        "sekmeSecili": {
+          "backgroundColor": "rgb(1, 97, 239)",
+          "color": "rgb(255, 255, 255)"
+        },
+        "kart": {
+          "borderRadius": "8px",
+          "backgroundColor": "rgb(255, 255, 255)"
+        }
+      },
+      "kaynak": {
+        "body": {
+          "fontFamily": "Inter-7a7f36cf398a589c, \"Inter-7a7f36cf398a589c fallback: Arial\", sans-serif, ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+          "fontSize": "16px",
+          "color": "rgb(16, 16, 16)",
+          "backgroundColor": "rgb(255, 255, 255)",
+          "letterSpacing": "-0.4px"
+        },
+        "h1": {
+          "fontSize": "60px",
+          "fontWeight": "700",
+          "lineHeight": "60px",
+          "letterSpacing": "-3px",
+          "color": "rgb(0, 0, 0)"
+        },
+        "h2": {
+          "fontSize": "36px",
+          "fontWeight": "700",
+          "lineHeight": "40px",
+          "letterSpacing": "-1.8px",
+          "color": "rgb(0, 0, 0)"
+        },
+        "btnPrimary": {
+          "backgroundColor": "rgb(1, 97, 239)",
+          "color": "rgb(255, 255, 255)",
+          "borderRadius": "3.35544e+07px",
+          "paddingTop": "14px",
+          "paddingLeft": "32px",
+          "fontSize": "16px",
+          "fontWeight": "600"
+        }
+      }
+    }
+  },
+  "kabul: ic baglantilar 200": {
+    "gecti": true,
+    "not": {
+      "taranan": 67,
+      "sayfa": 10,
+      "kirik": []
+    }
+  },
+  "kabul: makale kelime sayilari": {
+    "gecti": true,
+    "not": {
+      "insulin-direnci-beslenme": {
+        "tr": "435/435",
+        "en": "517/517",
+        "kaynakca": "88/88",
+        "baslik": "16/16",
+        "giris": "51/51",
+        "h2": "18/18",
+        "li": "5/5",
+        "strong": "0/0",
+        "table": "0/0",
+        "td": "0/0",
+        "callout": "4/4",
+        "em": "4/4",
+        "kimlikler": "aynı",
+        "toplamKelime": "1040/1040"
+      },
+      "aralikli-oruc-16-8": {
+        "tr": "311/311",
+        "en": "389/389",
+        "kaynakca": "70/70",
+        "baslik": "13/13",
+        "giris": "59/59",
+        "h2": "14/14",
+        "li": "25/25",
+        "strong": "0/0",
+        "table": "0/0",
+        "td": "0/0",
+        "callout": "2/2",
+        "em": "3/3",
+        "kimlikler": "aynı",
+        "toplamKelime": "770/770"
+      },
+      "gunluk-su-ihtiyaci": {
+        "tr": "288/288",
+        "en": "334/334",
+        "kaynakca": "54/54",
+        "baslik": "15/15",
+        "giris": "48/48",
+        "h2": "12/12",
+        "li": "17/17",
+        "strong": "0/0",
+        "table": "2/2",
+        "td": "16/16",
+        "callout": "0/0",
+        "em": "3/3",
+        "kimlikler": "aynı",
+        "toplamKelime": "676/676"
+      },
+      "akdeniz-tipi-beslenme": {
+        "tr": "300/300",
+        "en": "347/347",
+        "kaynakca": "60/60",
+        "baslik": "14/14",
+        "giris": "47/47",
+        "h2": "12/12",
+        "li": "37/37",
+        "strong": "8/8",
+        "table": "2/2",
+        "td": "20/20",
+        "callout": "2/2",
+        "em": "2/2",
+        "kimlikler": "aynı",
+        "toplamKelime": "707/707"
+      },
+      "protein-ihtiyaci": {
+        "tr": "330/330",
+        "en": "362/362",
+        "kaynakca": "97/97",
+        "baslik": "15/15",
+        "giris": "37/37",
+        "h2": "12/12",
+        "li": "12/12",
+        "strong": "8/8",
+        "table": "4/4",
+        "td": "68/68",
+        "callout": "0/0",
+        "em": "4/4",
+        "kimlikler": "aynı",
+        "toplamKelime": "789/789"
+      },
+      "etiket-okuma-rehberi": {
+        "tr": "364/364",
+        "en": "423/423",
+        "kaynakca": "73/73",
+        "baslik": "14/14",
+        "giris": "45/45",
+        "h2": "12/12",
+        "li": "34/34",
+        "strong": "12/12",
+        "table": "2/2",
+        "td": "24/24",
+        "callout": "2/2",
+        "em": "2/2",
+        "kimlikler": "aynı",
+        "toplamKelime": "860/860"
+      }
+    }
+  },
+  "ek: mobil menu": {
+    "gecti": true,
+    "not": {
+      "menu": {
+        "acik": true,
+        "aria": "true",
+        "dil": true
+      },
+      "baglantiylaKapandi": true
+    }
+  },
+  "ek: bos gun durumu": {
+    "gecti": true
+  }
+}

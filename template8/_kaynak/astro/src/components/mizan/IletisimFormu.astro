@@ -1,0 +1,51 @@
+---
+// Mizan: diyetisyen-v2 işaretlemesi (scripts/mizan-parcalar.py ile üretildi; elle düzenlemeyin).
+import { getPermalink } from '~/utils/permalinks';
+const kvkk = getPermalink('/kvkk');
+---
+
+<form class="form-card" id="contact-form" novalidate aria-labelledby="contact-form-title">
+  <h3 class="h3" id="contact-form-title" data-i18n="cform.title">Bize yazın</h3>
+  <p data-i18n="cform.text">Genellikle aynı gün, en geç ertesi iş günü yanıt veriyoruz. Randevu için yukarıdaki takvimi kullanmanız daha hızlı olur.</p>
+  <div class="form-grid form-grid--2">
+    <div class="field-group">
+      <label class="field-label" for="c-name" data-i18n="form.name">Ad soyad</label>
+      <input class="field" id="c-name" name="name" type="text" autocomplete="name" maxlength="80" required aria-describedby="c-name-err">
+      <p class="field-err" id="c-name-err" aria-live="polite"></p>
+    </div>
+    <div class="field-group">
+      <label class="field-label" for="c-email" data-i18n="form.email">E-posta</label>
+      <input class="field" id="c-email" name="email" type="email" autocomplete="email" inputmode="email" maxlength="120" required aria-describedby="c-email-err">
+      <p class="field-err" id="c-email-err" aria-live="polite"></p>
+    </div>
+    <div class="field-group">
+      <label class="field-label" for="c-phone"><span data-i18n="form.phone">Telefon</span><span class="opt" data-i18n="form.optional">İsteğe bağlı</span></label>
+      <input class="field" id="c-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="20" aria-describedby="c-phone-err">
+      <p class="field-err" id="c-phone-err" aria-live="polite"></p>
+    </div>
+    <div class="field-group">
+      <label class="field-label" for="c-topic" data-i18n="cform.topic">Konu</label>
+      <div class="select-wrap">
+        <select class="field" id="c-topic" name="topic">
+          <option value="booking" data-i18n="cform.t1">Randevu hakkında</option>
+          <option value="pricing" data-i18n="cform.t2">Ücretler ve paketler</option>
+          <option value="corporate" data-i18n="cform.t3">Kurumsal program</option>
+          <option value="other" data-i18n="cform.t4">Diğer</option>
+        </select>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+    </div>
+    <div class="field-group span-2">
+      <label class="field-label" for="c-message" data-i18n="cform.message">Mesajınız</label>
+      <textarea class="field" id="c-message" name="message" rows="4" maxlength="2000" required aria-describedby="c-message-err"></textarea>
+      <p class="field-err" id="c-message-err" aria-live="polite"></p>
+    </div>
+    <div class="field-group span-2">
+      <label class="check"><input type="checkbox" name="kvkk" required aria-describedby="c-kvkk-err"><span><span data-i18n="cform.kvkk">Mesajımın yanıtlanması için bilgilerimin işlenmesini kabul ediyorum.</span> <a href={kvkk} target="_blank" rel="noopener" data-i18n="form.kvkkLink">Aydınlatma metni</a></span></label>
+      <p class="field-err" id="c-kvkk-err" aria-live="polite"></p>
+    </div>
+  </div>
+  <input class="honeypot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+  <button type="submit" class="btn-primary w-full"><span class="btn-spinner" aria-hidden="true"></span><span data-i18n="cform.send">Mesajı gönder</span></button>
+  <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+</form>

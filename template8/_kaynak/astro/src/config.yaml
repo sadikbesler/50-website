@@ -1,0 +1,73 @@
+site:
+  name: Mizan Beslenme
+  site: 'https://sadikbesler.github.io'
+  base: '/50-website/template8'
+  trailingSlash: false
+
+  googleSiteVerificationId: null
+
+# Default SEO metadata
+metadata:
+  title:
+    default: 'Diyetisyen Kadıköy | Mizan Beslenme ve Diyet Kliniği · Online Randevu'
+    template: '%s'
+  description: 'Kadıköy Moda’da uzman diyetisyenlerle kilo yönetimi, insülin direnci, sporcu, gebelik ve çocuk beslenmesi. Yüz yüze veya online görüşme için hemen randevu alın.'
+  robots:
+    index: true
+    follow: true
+  openGraph:
+    site_name: Mizan Beslenme
+    images:
+      - url: '/assets/img/og-image.jpg'
+        width: 1200
+        height: 630
+    type: website
+  twitter:
+    cardType: summary_large_image
+
+i18n:
+  language: tr
+  textDirection: ltr
+
+apps:
+  blog:
+    isEnabled: true
+    postsPerPage: 8
+
+    post:
+      isEnabled: true
+      # Mizan: build.format 'file' ile blog/<slug>.html
+      permalink: '/blog/%slug%'
+      robots:
+        index: true
+
+    list:
+      isEnabled: true
+      # Mizan: 'file' biçimi blog.html üretir; astro.config'teki küçük entegrasyon onu
+      # blog/index.html'e taşır, bağlantılar /blog/ olarak yazılır (permalinks.ts).
+      pathname: 'blog'
+      robots:
+        index: true
+
+    category:
+      isEnabled: false
+      pathname: 'category'
+      robots:
+        index: true
+
+    tag:
+      isEnabled: false
+      pathname: 'tag'
+      robots:
+        index: false
+
+    isRelatedPostsEnabled: true
+    relatedPostsCount: 4
+
+analytics:
+  vendors:
+    googleAnalytics:
+      id: null # or "G-XXXXXXXXXX"
+
+ui:
+  theme: 'system' # Values: "system" | "light" | "dark" | "light:only" | "dark:only"

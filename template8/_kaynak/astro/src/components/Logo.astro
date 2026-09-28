@@ -1,0 +1,13 @@
+---
+import { SITE } from 'astrowind:config';
+import { getAsset } from '~/utils/permalinks';
+
+// Mizan: AstroWind'in "🚀 + site adı" kalıbı; roket yerine kliniğin kendi işareti (favicon).
+---
+
+<span
+  class="self-center ml-2 rtl:ml-0 rtl:mr-2 text-2xl md:text-xl font-bold text-gray-900 whitespace-nowrap dark:text-white inline-flex items-center gap-2"
+>
+  <img src={getAsset('/assets/icons/favicon.svg')} width="28" height="28" alt="" class="h-7 w-7 rounded-md" />
+  <span translate="no">{SITE?.name}</span>
+</span>
