@@ -117,6 +117,10 @@ Başlıklar ve girişler de iki dilde aynı; `strong` / `em` sayıları aynı.
 
 | Sayfa | Performans | Erişilebilirlik | En iyi uygulamalar | SEO |
 |---|---|---|---|---|
+| **Ana sayfa (canlı)** | **93** | 100 | 100 | **100** |
+| **Blog listesi (canlı)** | **92** | 100 | 100 | **100** |
+| **Makale (canlı)** | **81** | 100 | 100 | **100** |
+| **KVKK (canlı)** | **87** | 100 | 100 | **100** |
 | Ana sayfa (yerel) | 71 | 100 | 100 | 100 |
 | Blog listesi (yerel) | 78 | 100 | 100 | 100 |
 | Makale (yerel) | 78 | 100 | 100 | 100 |
@@ -127,6 +131,13 @@ Yerel sunucu (`python3 -m http.server`) sıkıştırma yapmıyor; performansı e
 - **1. tur (1440 açık/koyu):** hero, özellikler, fiyat, SSS, CTA, footer ölçü ve tipografisi demo ile aynı. Düzeltilenler: Note bandı ile Uzmanlar'ın mavi zemini birleşiyordu (mavi zemin Mevsim notları'na alındı), başlık satır aralığı (`leading-tighter` geri getirildi), makale OG görsel ölçüsü.
 - **2. tur (390 açık/koyu, alt sayfalar):** mobil menü açıkken yüzen düğmeler "Randevu al"ı örtüyordu (gizlendi), hero kartı görünürken yüzen düğmeler özgündeki gibi gizleniyor; koyu temada 11 kontrast ihlali giderildi.
 - **3. tur (canlı Lighthouse):** ana sayfada CLS 0,121 — ilk ziyarette üst kenara eklenen demo şeridi içeriği itiyordu; şerit alta sabitlendi.
+
+Canlı ölçümler (mobil, yavaş 4G benzetimi): ana sayfa FCP 1,2 s · LCP 3,0 s · TBT 40 ms · CLS 0; makale LCP 3,6 s (kapak görseli). Performans puanı ağ nedeniyle ölçümden ölçüme birkaç puan oynuyor. Ana sayfanın ilk canlı ölçümünde SEO 92 çıktı: `robots-txt` denetimi alan adı kökündeki `sadikbesler.github.io/robots.txt`'yi (bu depoda değil, 404) okurken zaman aşımına uğradı; tekrar ölçümde 100.
+
+## Yayın
+
+- Commit `56499d9` (site) ve `52226a2` (demo şeridi alta sabit, canlı Lighthouse) → `origin/main` (28.09.2026). Canlı adres push'tan yaklaşık 30 sn sonra 200 döndü.
+- Canlı kontrol (Playwright): ana sayfa, `blog/`, bir makale, `kvkk.html` ve `?lang=en` → HTTP 200, konsol/CSP hatası 0, başarısız istek 0; Inter yükleniyor, `_astro/` dosyaları sunuluyor (`.nojekyll`), "En yakın uygun randevu" kartı dolu ("Yarın · 09:00" / "Tomorrow · 09:00").
 
 ## Bilinen sorunlar / notlar
 
