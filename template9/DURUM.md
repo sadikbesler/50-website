@@ -97,6 +97,12 @@
 
 Görsel karşılaştırma 2 tur yapıldı (1440 ve 390, açık ve koyu). 1. turda düzeltilenler: alıntıda çift tırnak, adım numaralarının taşması, program seçicilerinde dalgalı çizgi çakışması, footer'da boşluk kaybı ve 390'da taşma, Pagefind'ın İngilizce kalması, arama sonuçlarında "TitleEn" satırı, breadcrumb'da "Blog(sayfa 1)". 2. turda liste/etiket/arşiv/makale/arama/hakkımızda sayfaları kaynakla aynı düzende.
 
+## Canlı yayın kontrolü (28.09.2026)
+
+Push'tan sonra https://sadikbesler.github.io/50-website/template9/ ilk denemede **200**. Playwright ile canlı adreste:
+ana sayfa, `blog/`, `blog/insulin-direnci-beslenme.html`, `kvkk.html`, `tags/insulin-direnci/` → 200, konsol hatası 0;
+`search/?q=insülin` → "insülin için 2 sonuç bulundu", ilk sonuç insülin makalesi; `og.png` 200.
+
 ## Bilinen sorunlar
 
 - Arama sonuç özetleri eşleşen metnin dilinde gösterilir (makaleler iki dili de içerir; EN arayüzde "insulin" araması TR paragraflardan da özet getirebilir).
