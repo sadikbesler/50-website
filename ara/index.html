@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Ara</title>
+<style>
+  :root { color-scheme: light dark; }
+  body { margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+         font-family: -apple-system, "Helvetica Neue", Arial, sans-serif; background: #f0fdfa; color: #134e4a; }
+  main { text-align: center; padding: 24px; }
+  a.ara { display: inline-block; margin-top: 18px; padding: 22px 44px; border-radius: 22px;
+          background: #0f766e; color: #fff; font-size: 30px; font-weight: 700; text-decoration: none; }
+  p { font-size: 20px; margin: 8px 0 0; }
+  small { display: block; margin-top: 22px; color: #6b7280; font-size: 15px; }
+  @media (prefers-color-scheme: dark) { body { background: #0b1f1d; color: #ccfbf1; } }
+</style>
+</head>
+<body>
+<main>
+  <p id="durum">Aranıyor…</p>
+  <a class="ara" id="dugme" href="#">📞 Ara</a>
+  <small>Arama açılmadıysa yukarıdaki düğmeye dokun.</small>
+</main>
+<script>
+  // Numara adresin # kısmında gelir (…/ara/#905321234567): sunucuya gitmez, sayfada kayıtlı numara yoktur.
+  var ham = (location.hash || "").replace(/[^0-9+]/g, "");
+  var no = ham.charAt(0) === "+" ? ham : "+" + ham;
+  var dugme = document.getElementById("dugme"), durum = document.getElementById("durum");
+  if (/^\+\d{10,15}$/.test(no)) {
+    var g = no.replace(/^\+90/, "0");
+    dugme.href = "tel:" + no;
+    dugme.textContent = "📞 Ara  " + (g.length === 11 ? g.slice(0, 4) + " " + g.slice(4, 7) + " " + g.slice(7, 9) + " " + g.slice(9) : no);
+    setTimeout(function () { location.href = "tel:" + no; }, 200);
+  } else {
+    durum.textContent = "Numara bulunamadı.";
+    dugme.style.display = "none";
+  }
+</script>
+</body>
+</html>
